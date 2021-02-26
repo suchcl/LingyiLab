@@ -4,4 +4,4 @@
 
 
 ### 常见问题
-[ReferenceError: primordials is not defined](qa/primordials.md)
+1. [ReferenceError: primordials is not defined](qa/primordials.md)
