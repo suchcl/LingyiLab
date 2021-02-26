@@ -46,7 +46,7 @@ Local version: 3.9.1
 
 1. 降级node
 
->> 比较推荐使用nvm来管理node，简单、省心，降到12版本以下
+> 比较推荐使用nvm来管理node，简单、省心，降到12版本以下
 
 ```bash
 PS D:\juliveproject\static_www\m> nvm ls
