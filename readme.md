@@ -6,5 +6,6 @@
 
 
 ### 常见问题
-1. [ReferenceError: primordials is not defined](qa/primordials.md)
+1. [Javascript基础](Javascript/index.md)
 2. [Egg.js](frame/eggjs/index.md)
+3. [常见问题](qa/index.md)
