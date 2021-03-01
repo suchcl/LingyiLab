@@ -7,3 +7,4 @@
 
 ### 常见问题
 1. [ReferenceError: primordials is not defined](qa/primordials.md)
+2. [Egg.js](frame/eggjs/index.md)

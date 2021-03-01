@@ -1,0 +1,3 @@
+1. 初步认识Egg.js
+   1. [Egg.js理念](./eggjs.md)
+   2. [Egg.js的nodejs技术模型](./EggNodejs.md)
