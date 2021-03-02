@@ -47,6 +47,35 @@ SyntaxError: Illegal break statement
 
 原来在forEach()中是不可以使用break的。
 
+> 到这里为止，我们应该已经可以感知到了，就是不能通过正常的流程来终止foreach循环的。
+
 **那我们还是想再某种场景下终止循环，怎么处理呢？**
 
-办法还是有的，只不过是一种曲折、迂回的办法
+办法还是有的，只不过是一种曲折、迂回的办法，就是通过抛出异常的办法，可以看下面的示例：
+
+```javascript
+try {
+    let fruits = ["apple", "peach", "pear"];
+    fruits.forEach((item) => {
+        if (item == "peach") {
+            throw new Error("End");
+        }
+        console.log(item);
+    });
+}catch(e){
+    console.log(e.message);
+}
+
+console.log("遍历之后的代码");
+```
+
+看执行结果：
+
+```bash
+PS D:\Iterator> node .\index.js
+apple
+End
+遍历之后的代码
+```
+
+到了指定的场景，确实是退出了循环，不光是本次循环，而是真个循环直接退出来后继续执行该代码块后续的代码了，没有影响代码的整体执行。话说回来，这也是一种曲线救国策略。
