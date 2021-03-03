@@ -71,3 +71,78 @@ for (let i = 0; i < 10; i++) {
 * NodeList等Dom集合类型
 
 * arguments对象
+
+检查一些数据类型是否存在默认的迭代器，可暴露这个工厂函数：
+
+```javascript
+let num = 0;
+let obj = {};
+
+let arr = ['a','b','c'];
+let str = "Hello";
+let map = new Map().set("a",1).set("b",2);
+let set = new Set().add("a").add("b");
+let div = document.querySelectorAll("div");
+
+// 下面几个数据类型和结构没有实现迭代器工厂函数
+console.log(num[Symbol.iterator]); // undefined
+console.log(obj[Symbol.iterator]); // undefined
+
+// 下面几个数据类型和结构实现了迭代器工厂函数
+console.log(arr[Symbol.iterator]);  // ƒ values() { [native code] }
+console.log(str[Symbol.iterator]);  // ƒ [Symbol.iterator]() { [native code] }
+console.log(map[Symbol.iterator]);  // ƒ entries() { [native code] }
+console.log(set[Symbol.iterator]);  // ƒ values() { [native code] }
+console.log(elements[Symbol.iterator]);  // ƒ values() { [native code] }
+
+
+// 调用这个工厂函数会生成一个迭代器
+console.log(str[Symbol.iterator]()); //  StringIterator {}
+console.log(num[Symbol.iterator]()); //   Uncaught TypeError: num[Symbol.iterator] is not a function 报错了
+```
+
+实际代码过程中个，我们不需要显示的调用工厂函数来生成迭代器。实现迭代协议的所有类型都会自动兼容接收可迭代对象的任何语言特性。接收可迭代对象的原生语言特性包括：
+
+* for-of循环
+* 数组解构
+* 扩展运算符
+* Array.from()
+* 创建集合
+* 创建映射
+* Promise.all()接收由契约组成的可迭代对象
+* Promise.race()接收由契约组成的可迭代对象
+* yield*操作符，在生成器中使用
+
+如果对象原型链上的父类实现了Iterable接口，那么这个对象也就实现了这个接口。
+
+```javascript
+class FooArray extends Array { }
+let fooArray = new FooArray("apple", "peach", "pear");
+for (let item of fooArray) {
+    console.log(item);
+}
+```
+
+### 迭代器协议
+
+迭代器是一种一次性使用的对象，用于迭代与之关联的可迭代对象。迭代器API使用next()方法在可迭代对象中遍历数据。每次成功调用next(),都会返回一个IteratorResult对象，其中包含迭代器返回的下一个值。如果不调用next(),则没有办法知道当前在什么位置，也就没有办法对可迭代对象进行遍历、迭代。
+
+next()方法返回的IteratorResult对象包含2个属性：value和done。done是一个布尔值，表示是否还可以继续调用next()取得下一个值；value包含可迭代对象的下一个值（done值为false时），或者是undefined（done值为true时）。
+
+```javascript
+let arr = ["apple", "peach", "pear"];
+// //迭代器
+let iter = arr[Symbol.iterator]();
+console.log(iter.next()); // { value: 'apple', done: false }
+console.log(iter.next()); // { value: 'peach', done: false }
+console.log(iter.next()); // { value: 'pear', done: false }
+console.log(iter.next()); // { value: undefined, done: true }
+console.log(iter.next()); // { value: undefined, done: true }
+console.log(iter.next()); // { value: undefined, done: true }
+```
+
+> 这里我们看到迭代器iter通过调用next()命名取得的是当前值，而文档中一直说的是下一个值呀，这是为什么呢？
+
+> 这里需要明确几个知识点，就是迭代器的位置是动态的，它随着next()方法的调用而发生位置移动的。刚开始的时候，迭代器是在所有元素的最左侧的，调用next()时获取的是迭代器的下一个值，而不是显示表现出来的当前元素的下一个值。当完成了一次next()调用之后，迭代器就会向后移动一位，next()返回当前刚刚经过的元素，也就是迭代器上一个位置的下一个元素。
+
+每个迭代器都表示对可迭代对象的一次性有序有序遍历。
