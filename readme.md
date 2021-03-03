@@ -17,4 +17,8 @@
 
 ### 杂项
 
-1. [markdown相关](markdown/index.md)
+1. [目录](Hodgepodge/index.md)
+
+2. [markdown相关](Hodgepodge/grammar.md)
+
+3. [常用dos命令](Hodgepodge/dos.md)
