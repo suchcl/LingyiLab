@@ -145,4 +145,45 @@ console.log(iter.next()); // { value: undefined, done: true }
 
 > 这里需要明确几个知识点，就是迭代器的位置是动态的，它随着next()方法的调用而发生位置移动的。刚开始的时候，迭代器是在所有元素的最左侧的，调用next()时获取的是迭代器的下一个值，而不是显示表现出来的当前元素的下一个值。当完成了一次next()调用之后，迭代器就会向后移动一位，next()返回当前刚刚经过的元素，也就是迭代器上一个位置的下一个元素。
 
-每个迭代器都表示对可迭代对象的一次性有序有序遍历。
+每个迭代器都表示对可迭代对象的一次性有序有序遍历。不同迭代器实例之间没有关系，都各自独立的遍历可迭代对象。
+
+```javascript
+let arr = ["apple", "peach", "pear"];
+// //迭代器
+let iter = arr[Symbol.iterator]();
+let iter2 = arr[Symbol.iterator]();
+console.log(iter.next()); // { value: 'apple', done: false }
+console.log(iter.next()); // { value: 'peach', done: false }
+console.log(iter2.next()); // { value: 'apple', done: false }
+```
+
+迭代器并不与可迭代对象某个时刻的快照相互绑定，而仅仅是使用游标来来记录遍历可迭代对象的历程。如果可迭代对象在迭代对象被修改了，那么迭代器也会发生相应的改变。
+
+```javascript
+let arr = ["apple", "peach", "pear"];
+// //迭代器
+let iter = arr[Symbol.iterator]();
+console.log(iter.next()); // { value: 'apple', done: false }
+arr.splice(1, 0, "banana"); 
+console.log(iter.next()); // { value: 'banana', done: false }
+console.log(iter.next()); // { value: 'peach', done: false }
+console.log(arr); // [ 'apple', 'banana', 'peach', 'pear' ]
+```
+
+这里在第一次迭代后，数组中新插入了一个元素，那么在第二次迭代的时候，直接迭代出了新插入的元素，还是在可迭代对象的第二个位置，没有停留在原来的第二个元素前面位置。
+
+```javascript
+let arr = ["apple", "peach", "pear"];
+// //迭代器
+let iter = arr[Symbol.iterator]();
+console.log(iter.next()); // { value: 'apple', done: false }
+console.log(iter.next()); // { value: 'peach', done: false }
+arr.splice(1, 0, "banana"); 
+console.log(iter.next()); // { value: 'peach', done: false }
+console.log(arr); // [ 'apple', 'banana', 'peach', 'pear' ]
+```
+
+这个案例中，在执行了2次迭代后，迭代器的位置在可迭代对象第2个元素的后面，这个时候在可迭代对象中第一个索引位置插入了一个新的元素。虽然插入了一个新的元素，但是迭代器需要迭代可迭代对象的第3个元素了，这个时候可迭代对象的第3个对象还是peach，那么就再一次把peach打印了出来。
+
+这2个案例，都印证了上面的结论，就是迭代器并不与可迭代对象的快照相互绑定，而仅仅是用游标记录了遍历可迭代对象迭代历程，且迭代器游标和可迭代对象的索引信息绑定，而不是和可迭代对象的元素绑定。
+
