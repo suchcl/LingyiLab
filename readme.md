@@ -5,8 +5,9 @@
 ### 前端开发技术
 1. [Javascript基础](Javascript/index.md)
 2. [Typescript基础](Typescript/index.md)
-3. [node](node/index.md)
-4. [Egg.js](frame/eggjs/index.md)
+3. [node.js](node/index.md)
+4. [deno.js](deno/index.md)
+5. [Egg.js](frame/eggjs/index.md)
 
 ### 常见问题
 
