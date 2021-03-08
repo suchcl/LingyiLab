@@ -187,3 +187,49 @@ console.log(arr); // [ 'apple', 'banana', 'peach', 'pear' ]
 
 这2个案例，都印证了上面的结论，就是迭代器并不与可迭代对象的快照相互绑定，而仅仅是用游标记录了遍历可迭代对象迭代历程，且迭代器游标和可迭代对象的索引信息绑定，而不是和可迭代对象的元素绑定。
 
+“迭代器”的概念有点模糊，有的时候指普通的迭代，也有的时候指接口，也可以指正式的迭代器类型。
+
+### 自定义迭代器
+
+与Iterable接口类似，任何实现Iterator接口的对象都可以作为迭代器使用。
+
+```javascript
+class Counter {
+    constructor(limit) {
+        this.limit = limit;
+    }
+
+    next() {
+        if (this.count <= this.limit) {
+            return {
+                done: false,
+                value: this.count++
+            }
+        } else {
+            return {
+                done: true,
+                value: undefined
+            }
+        }
+    }
+    [Symbol.iterator]() {
+        return this;
+    }
+}
+
+let counter = new Counter(3);
+for (let i of counter) {
+    console.log(i);
+}
+
+for (let i of counter) {
+    console.log(i);  // 没有任何输出
+}
+```
+这段代码试下了Iterator接口，但是它的每个实例对象只能被迭代一次，不够理想。
+
+我们可以把计数器变量放到闭包里面，然后通过闭包来返回迭代器，这样可以实现可迭代对象创建多个选择器。
+
+```javascript
+
+```
