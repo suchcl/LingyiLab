@@ -1,0 +1,50 @@
+## 认识npm
+
+[中文参考文档](https://www.npmjs.cn/)或者[英文参考文档](https://docs.npmjs.com/)
+
+npm可以理解为现在前端技术栈最必要、最不可或缺的一项工具，它是世界上最大的软件注册表，每周大概有30亿次的下载量，包含超过600000个包,也就是package或代码块。来自世界的各地的开源软件开发者使用npm互相分享和借鉴。
+
+### npm的组成
+
+npm主要有3部分组成：
+1. [网站](https://www.npmjs.com/)：网站时开发者查考包(package)、设置参数以及管理npm使用体验的主要途径
+
+2. 注册表(registry)：注册表是一个巨大的数据库，保存了每个包(package)的信息
+
+3. 命令行工具(cli)：命令行工具，是开发者与npm打交道的主要工具
+
+## 常用命令
+
+```bash
+npm install package 安装本地包(执行该命令后，会将包安装当前目录下的node_modules目录下，如果没有node_modules目录，则会新建)
+
+```
+
+## 怎么使用npm查看包(package)版本
+
+可以通过npm来查询通过npm来安装的包的版本信息，包括本地的全局安装的版本信息以及当前目录项目的版本目录
+
+1. 查看本地安装包(package)的版本
+
+```bash
+npm ls package  查看当前目录（项目）下安装的包的版本
+
+npm ls package -g 查看本地机器全局安装的包的版本
+```
+
+2. 查看远程服务器上包的版本
+
+```bash
+npm view package version 查看包的最新的版本
+
+npm view package versions 查看包的所有的版本列表
+```
+
+
+## npm install和npm ci的区别
+
+1. npm install依赖package.json，npm ci依赖package-lock.json
+2. 当package-lock.json中的依赖与package.json不一致时，npm ci会退出但不会修改package-lock.json
+3. npm ci只可以一次性的安装整个项目依赖，但无法单独添加某个依赖项
+4. npm ci安装之前，会删除掉node_modules目录，不需要检查、校验已下载文件版本和控制版本的关系，也不用校验是否存在最新的版本库，下载速度更快
+5. npm安装时，不会修改package.json和package-lock.json

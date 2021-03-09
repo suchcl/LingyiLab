@@ -13,4 +13,4 @@
 npm install typescript -g
 ```
 
-> 注意是全局安装typescript
+> 注意是全局安装typescript，这里安装的是Typescript的编译器
