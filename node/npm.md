@@ -17,8 +17,21 @@ npm主要有3部分组成：
 
 ```bash
 npm install package 安装本地包(执行该命令后，会将包安装当前目录下的node_modules目录下，如果没有node_modules目录，则会新建)
-
+npm install package -g 全局安装，对本地所有项目都可用的包
 ```
+
+## 安装后的包的使用
+
+当我们安装后需要的包以后，就需要使用它了。包在被正常的安装后，会被安装到当前项目中的node_modules目录下，当安装后，可以通过require来引入使用了。
+
+比如我们安装了一个lodash包，新建换一个index.js文件，其代码如下：
+
+```javascript
+var lodash = require("lodash");
+var output = lodash.without([1,2,3],1);
+```
+
+当我们运行node index.js指令输出[2,3]时说明lodash安装正常并被正确的引入和使用了，但是如果抛出了异常“Cannot find module ‘lodash’”则说明lodash没有被正常的引用，或者包的安装出了问题。
 
 ## 怎么使用npm查看包(package)版本
 
