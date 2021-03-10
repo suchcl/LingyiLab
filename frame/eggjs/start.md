@@ -251,3 +251,81 @@ npm run dev  // 默认启动7001端口
 浏览器预览效果：
 
 ![快速创建egg项目实例](../../public/images/i4.png "快速创建一个egg项目实例")
+
+5. 编写service
+
+作为一个demo来说，到这里已经可以把这个项目运行起来就可以了。但是作为一个初次接触egg的人来说，开始的入门很重要，可以帮我们快速入门，所以就写的详细点。
+
+在上面的demo中，我们在controller中直接生产了数据，然后渲染到了view中，而在实际的项目中，controller是不会生产数据也不会有复杂的业务逻辑的，一般复杂的业务逻辑会在分出一个独立的service层中的。
+
+> 代码编写好了，但是项目跑不起来，主要原因是示例代码使用的serve是国外的服务器，不能正常访问，但是有一些issues可供参考：[ConnectionTimeoutError: Connect timeout for 5000ms #633](https://github.com/eggjs/egg/issues/633)
+
+> 由于使用的官方的例子，代码应该是没问题了，就是api访问不了，报的是网络问题。先不管他了。把代码贴上，之后有时间了替换个demo：
+
+新建service
+
+service在app下的service目录
+
+```javascript
+app/service/news.js
+const Service = require("egg").Service;
+
+class NewsService extends Service {
+    async list(page = 1) {
+        const { serverURL, pageSize } = this.config.newsConfig;
+        const { data: idList } = await this.ctx.curl(`${serverURL}/topstories.json`, {
+            data: {
+                orderBy: '"$key"',
+                startAt: `"${pageSize * (page - 1)}"`,
+                endAt: `"${pageSize * page - 1}"`
+            },
+            dataType: 'json'
+        });
+
+        const newsList = await Promise.all(
+            Object.keys(idList).map(key => {
+                const url = `${serverURL}/item/${idList[key]}.json`;
+                return this.ctx.curl(url, { dataType: 'json' });
+            })
+        );
+        return newsList.map(res => res.data);
+    }
+}
+
+module.exports = NewsService;
+```
+
+controller需要跟着做部分的修改，主要是把controller中生产数据的部分，修改了，因为现在的数据是通过service拉取的：
+
+```javascript
+const Controller = require("egg").Controller;
+
+class NewsController extends Controller {
+    async list() {
+        const ctx = this.ctx;
+        const page = ctx.query.page || 1;
+        const newsList = await ctx.service.news.list(page);
+        await ctx.render("news/list.tpl", { list: newsList });
+    }
+}
+
+module.exports = NewsController;
+```
+
+再添加一个拉取远程数据的配置,修改config/config.default.js
+
+```javascript
+  // ……
+  // 抓取news的配置
+  const newsConfig = {
+    pageSize: 5,
+    serverURL: 'https://hacker-news.firebaseio.com/v0'
+  };
+  return {
+    ...config,
+    ...userConfig,
+    view,
+    newsConfig
+  };
+};
+```
