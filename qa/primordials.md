@@ -5,9 +5,9 @@
 PS D:\projefct\xx项目> gulp html
 ReferenceError: primordials is not defined
     at fs.js:45:5
-    at req_ (D:\juliveproject\static_www\m\node_modules\natives\index.js:143:24)
-    at Object.req [as require] (D:\juliveproject\static_www\m\node_modules\natives\index.js:55:10)
-    at Object.<anonymous> (D:\juliveproject\static_www\m\node_modules\graceful-fs\fs.js:1:37)
+    at req_ (D:\project\static_www\m\node_modules\natives\index.js:143:24)
+    at Object.req [as require] (D:\project\static_www\m\node_modules\natives\index.js:55:10)
+    at Object.<anonymous> (D:\project\static_www\m\node_modules\graceful-fs\fs.js:1:37)
     at Module._compile (internal/modules/cjs/loader.js:1063:30)
     at Object.Module._extensions..js (internal/modules/cjs/loader.js:1092:10)
     at Module.load (internal/modules/cjs/loader.js:928:32)
@@ -21,18 +21,18 @@ ReferenceError: primordials is not defined
 突然想起来，之前使用的是Mac，一直在Mac平台下工作，最近更换了设备，从Mac更换成了windows，所有的环境都重新配置，我想了下可能问题出现在了这里。最终经过试验，原来是node和gulp版本冲突的问题，我出问题时的node和gulp的版本分别是：
 
 ```bash
-PS D:\juliveproject\static_www\m> node -v
+PS D:\project\static_www\m> node -v
 v14.15.4
 
-PS D:\juliveproject\static_www\m> npm ls gulp
-m.comjia.com@1.0.0 D:\juliveproject\static_www\m
+PS D:\project\static_www\m> npm ls gulp
+m.comjia.com@1.0.0 D:\project\static_www\m
 `-- gulp@3.9.1
 ```
 
 经过多次测试，发现只要是nodejs的版本低于12就可以了，至于gulp需要什么版本，暂时不确定，我机器上的gulp版本如下：
 
 ```bash
-PS D:\juliveproject\static_www\m> gulp -v
+PS D:\project\static_www\m> gulp -v
 CLI version: 2.3.0
 Local version: 3.9.1
 ```
@@ -49,7 +49,7 @@ Local version: 3.9.1
 > 比较推荐使用nvm来管理node，简单、省心，降到12版本以下
 
 ```bash
-PS D:\juliveproject\static_www\m> nvm ls
+PS D:\project\static_www\m> nvm ls
 
     14.15.4
     12.19.0
