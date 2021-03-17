@@ -22,6 +22,8 @@
 
 1. [人工智能之父-图灵](deeplearning/tuling.md)
 
+2. [人工智能起源](deeplearning/origin.md)
+
 ### 杂项
 
 1. [目录](Hodgepodge/index.md)
