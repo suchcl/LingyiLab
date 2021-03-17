@@ -18,6 +18,10 @@
 1. [版本管理](VersionControl/index.md)
 
 
+### 人工智能/机器学习
+
+1. [人工智能之父-图灵](deeplearning/tuling.md)
+
 ### 杂项
 
 1. [目录](Hodgepodge/index.md)
