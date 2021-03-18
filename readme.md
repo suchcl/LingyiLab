@@ -3,12 +3,17 @@
 技术是谋生的，我们学习了很多的技术、知识，但是我们还有缺失的一些东西，就是文化。文化和知识、技术，是两种完全不同的东西，我们在技能提升的同时，也要关注自身的修养。
 
 ### 前端开发技术
-1. [Javascript基础](Javascript/index.md)
-2. [Typescript基础](Typescript/index.md)
+1. [Javascript基础](frame/Javascript/index.md)
+2. [Typescript基础](frame/Typescript/index.md)
 3. [node.js](node/index.md)
 4. [deno.js](deno/index.md)
 5. [Egg.js](frame/eggjs/index.md)
 6. [react](frame/react/index.md)
+7. [WebGL](frame/WebGL/index.md)
+8. [数据结构与算法](frame/数据结构与算法/index.md)
+9. [微信小程序](frame/wxmini/index.md)
+10. [taro](frame/taro/index.md)
+11. [CreateReactApp](frame/CreateReactApp/介绍.md)
 
 ### 常见问题
 
@@ -22,9 +27,9 @@
 
 ### 人工智能/机器学习
 
-1. [人工智能之父-图灵](deeplearning/tuling.md)
+1. [人工智能之父-图灵](deeplearning/人工智能/tuling.md)
 
-2. [人工智能起源](deeplearning/origin.md)
+2. [人工智能起源](deeplearning/人工智能/origin.md)
 
 ### 杂项
 
