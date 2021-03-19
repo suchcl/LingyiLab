@@ -5,8 +5,8 @@
 ### 前端开发技术
 1. [Javascript基础](frame/Javascript/index.md)
 2. [Typescript基础](frame/Typescript/index.md)
-3. [node.js](node/index.md)
-4. [deno.js](deno/index.md)
+3. [node.js](frontend/node/index.md)
+4. [deno.js](frontend/deno/index.md)
 5. [Egg.js](frame/eggjs/index.md)
 6. [react](frame/react/index.md)
 7. [WebGL](frame/WebGL/index.md)
