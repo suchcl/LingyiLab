@@ -40,5 +40,6 @@
 3. [常用dos命令](Hodgepodge/dos.md)
 
 ### 生活琐碎
+[生活琐碎](life/index.md)
 
 ### 职场百态
