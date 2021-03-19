@@ -2,7 +2,62 @@
 
 eggjs给我们提供了工具，可以快速初始化一个项目，行程了eggjs项目规范的目录结构，大概如下：
 
-![目录结构](../../public/images/i5.png "目录结构")
+```
+D:\WebStudy\egg
+├─.autod.conf.js
+├─.eslintignore
+├─.eslintrc
+├─.travis.yml
+├─app.js
+├─appveyor.yml
+├─index.md
+├─jsconfig.json
+├─package-lock.json
+├─package.json
+├─README.md
+├─typings
+|    ├─config
+|    |   ├─index.d.ts
+|    |   └plugin.d.ts
+|    ├─app
+|    |  ├─index.d.ts
+|    |  ├─service
+|    |  |    └index.d.ts
+|    |  ├─controller
+|    |  |     └index.d.ts
+├─test
+|  ├─app
+|  |  ├─controller
+|  |  |     └home.test.js
+├─logs
+|  ├─egg22
+|  |   ├─common-error.log
+|  |   ├─egg-agent.log
+|  |   ├─egg-schedule.log
+|  |   ├─egg-web.log
+|  |   └egg22-web.log
+|  ├─egg
+|  |  ├─common-error.log
+|  |  ├─egg-agent.log
+|  |  ├─egg-schedule.log
+|  |  └egg-web.log
+├─config
+|   ├─config.default.js
+|   └plugin.js
+├─app
+|  ├─router.js
+|  ├─view
+|  |  ├─news
+|  |  |  └list.tpl
+|  ├─service
+|  |    └news.js
+|  ├─public
+|  |   ├─css
+|  |   |  └news.css
+|  ├─controller
+|  |     ├─home.js
+|  |     └news.js
+```
 
 关于目录结构的一些约定：
 
