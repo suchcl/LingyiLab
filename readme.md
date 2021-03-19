@@ -45,3 +45,5 @@
 [生活琐碎](life/index.md)
 
 ### 职场百态
+
+[点赞文化](workplace/点赞文化.md)
