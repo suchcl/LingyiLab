@@ -42,12 +42,18 @@
 4. [markdown生成树状目录结构](Hodgepodge/markdown生成树状目录结构.md)
 
 ### 面试
-[前端相关]()
+1. [前端相关](interview/frontend/index.md)
+
+2. [服务端相关](interview/server/index.md)
+
+3. [网络相关](interview/net/index.md)
+
+4. [数据库相关](interview/db/index.md)
 
 
 ### 生活琐碎
-[生活琐碎](life/index.md)
+1. [生活琐碎](life/index.md)
 
 ### 职场百态
 
-[点赞文化](workplace/点赞文化.md)
+1. [点赞文化](workplace/点赞文化.md)
