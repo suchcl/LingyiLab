@@ -14,6 +14,7 @@
 9. [微信小程序](frame/wxmini/index.md)
 10. [taro](frame/taro/index.md)
 11. [CreateReactApp](frame/CreateReactApp/介绍.md)
+12. [next.js](frontend/next.js/index.md)
 
 ### 常见问题
 
