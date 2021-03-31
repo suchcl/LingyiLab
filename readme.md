@@ -8,7 +8,7 @@
 3. [node.js](frontend/node/index.md)
 4. [deno.js](frontend/deno/index.md)
 5. [Egg.js](frame/eggjs/index.md)
-6. [react](frame/react/index.md)
+6. [react](frontend/react/index.md)
 7. [WebGL](frame/WebGL/index.md)
 8. [数据结构与算法](frame/数据结构与算法/index.md)
 9. [微信小程序](frame/wxmini/index.md)
@@ -25,6 +25,9 @@
 
 1. [版本管理](VersionControl/index.md)
 
+### 网络基础
+
+1. [网络基础](net/index.md)
 
 ### 人工智能/机器学习
 
