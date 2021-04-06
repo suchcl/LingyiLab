@@ -56,6 +56,8 @@
 
 4. [数据库相关](interview/db/index.md)
 
+5. [我的面试方法](./interview/我的面试方法.md)
+
 
 ### 生活琐碎
 1. [生活琐碎](life/index.md)
