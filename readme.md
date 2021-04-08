@@ -15,6 +15,7 @@
 10. [taro](frame/taro/index.md)
 11. [CreateReactApp](frame/CreateReactApp/介绍.md)
 12. [next.js](frontend/next.js/index.md)
+13. [软件工程](./frontend/软件工程/软件工程.md)
 
 ### 常见问题
 
