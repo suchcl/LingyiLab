@@ -48,6 +48,8 @@
 
 5. [excel怎么设置下拉选项](Hodgepodge/excel设置下拉选项.md)
 
+6. [亿图软件——一款易用的办公绘图软件](./Hodgepodge/亿图软件.md)
+
 ### 面试
 1. [前端相关](interview/frontend/index.md)
 
