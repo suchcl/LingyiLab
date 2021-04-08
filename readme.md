@@ -50,6 +50,8 @@
 
 6. [亿图软件——一款易用的办公绘图软件](./Hodgepodge/亿图软件.md)
 
+7. [什么是科学的教育观](./Hodgepodge/科学教育观.md)
+
 ### 面试
 1. [前端相关](interview/frontend/index.md)
 
