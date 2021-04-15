@@ -20,9 +20,12 @@
 ### 常见问题
 
 1. [常见问题](qa/index.md)
+
 2. [库和框架的区别](qa/)
 
 3. [Vetur can't find `tsconfig.json` or `jsconfig.json` in d:\www.xxx.com](./qa/jsconfig.json.md)
+
+4. [JSON schema for the JavaScript configuration file](./qa/jsonSchema.md)
 
 ### 版本管理
 
