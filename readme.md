@@ -2,6 +2,12 @@
 
 技术是谋生的，我们学习了很多的技术、知识，但是我们还有缺失的一些东西，就是文化。文化和知识、技术，是两种完全不同的东西，我们在技能提升的同时，也要关注自身的修养。
 
+### 计算机科学
+
+1. [网络基础](./net/index.md)
+
+2. [操作系统](./os/index.md)
+
 ### 前端开发技术
 1. [Javascript基础](frame/Javascript/index.md)
 2. [Typescript基础](frame/Typescript/index.md)
@@ -30,10 +36,6 @@
 ### 版本管理
 
 1. [版本管理](VersionControl/index.md)
-
-### 网络基础
-
-1. [网络基础](net/index.md)
 
 ### 人工智能/机器学习
 
