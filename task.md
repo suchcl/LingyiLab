@@ -64,6 +64,7 @@
     2.  windows
 22. 计算机网络
     1.  Http
+    2.  TCP/IP
 23. 算法
 24. App开发
     1.  Android   重点看下Android吧
@@ -83,3 +84,7 @@
     2.  统计学
     3.  概率论
 27. 深度学习
+28. 虚拟机
+    1.  windows
+    2.  linux
+    3.  配置
