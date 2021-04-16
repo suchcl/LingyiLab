@@ -14,8 +14,10 @@ SSR：Server-side Render，意为服务端渲染，指在服务端完成HTML的�
 
 * 传统的SSR：传统开发语言实现的服务端渲染技术，如Asp、Jsp、PHP等
 
-* 
+* 静态页面渲染：Static Rendering,传统的客户端渲染方式
 
 * CSR: Client-side Render,客户端渲染
 
 * 新型的服务端渲染SSR：即通过前端js框架实现的服务端渲染技术
+
+传统的服务端渲染，就是服务端渲染出HTML页面，如上面提到的Asp、Jsp、PHP
