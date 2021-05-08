@@ -37,6 +37,7 @@
 ### 版本管理
 
 1. [版本管理](VersionControl/index.md)
+2. [github修改默认分支](./VersionControl/github修改默认分支为master.md)
 
 ### 人工智能/机器学习
 
