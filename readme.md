@@ -62,6 +62,8 @@
 
 7. [什么是科学的教育观](./Hodgepodge/科学教育观.md)
 
+8. [永远不要使用默认的浏览器弹窗](./Hodgepodge/alert.md)
+
 ### 面试
 1. [前端相关](interview/frontend/index.md)
 
