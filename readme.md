@@ -64,6 +64,8 @@
 
 8. [永远不要使用默认的浏览器弹窗](./Hodgepodge/alert.md)
 
+9. [json注释 or json中注释报错](./Hodgepodge/json.md)
+
 ### 面试
 1. [前端相关](interview/frontend/index.md)
 
