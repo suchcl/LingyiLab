@@ -26,6 +26,11 @@
 15. [webpack](./fontend/../frontend/webpack/index.md)
 16. [性能优化](./frontend/performance/index.md)
 
+
+### 服务器知识
+
+1. [nginx知识相关](./server/nginx/index.md)
+
 ### 常见问题
 
 1. [常见问题](qa/index.md)
