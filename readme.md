@@ -5,9 +5,9 @@
 ### 计算机科学
 
 1. [网络基础](./net/index.md)
-
 2. [操作系统](./os/index.md)
-
+3. [软件工程](./frontend/软件工程/index.md)
+   
 ### 前端开发技术
 1. [Javascript基础](frame/Javascript/index.md)
 2. [Typescript基础](frame/Typescript/index.md)
