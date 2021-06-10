@@ -93,6 +93,8 @@
 
 1. [点赞文化](workplace/点赞文化.md)
 2. [怎么研究华为](./workplace/huawei.md)
+3. [企业文化](./workplace/企业文化.md)
+4. [为什么你的工作没人响应你](./workplace/为什么你做工作没人响应你.md)
 
 ### 管理人生
 
