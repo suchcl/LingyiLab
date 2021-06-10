@@ -92,6 +92,7 @@
 ### 职场百态
 
 1. [点赞文化](workplace/点赞文化.md)
+2. [怎么研究华为](./workplace/huawei.md)
 
 ### 管理人生
 
