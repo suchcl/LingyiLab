@@ -95,6 +95,7 @@
 2. [怎么研究华为](./workplace/huawei.md)
 3. [企业文化](./workplace/企业文化.md)
 4. [为什么你的工作没人响应你](./workplace/为什么你做工作没人响应你.md)
+5. [怎么设计自己的发展规划](./workplace/发展规划.md)
 
 ### 管理人生
 
