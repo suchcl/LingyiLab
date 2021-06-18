@@ -136,3 +136,11 @@ JSON对象，不需要声明变量；代码不是语句，就是一种数据格�
 3. 数组值的区别
 
 JSON中的数组型数据，不需要声明变量，结束不需要分号。
+
+
+### JSON解析器
+
+JSON有2个方法：stringify()和parse()。
+
+stringify()将js序列化为json对象，parse()将json解析为js值。
+
