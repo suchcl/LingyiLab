@@ -15,4 +15,4 @@
 
 这个暂时没有找到指定webpack版本的方法，但是我们可以升级webpack的版本。
 
-我们知道，通过@vue/cli脚手架工具搭建的vue项目，cli工具本身集成了webpack，现在@vue/cli的最高版本是
+我们知道，通过@vue/cli脚手架工具搭建的vue项目，cli工具本身集成了webpack，现在我本地安装的@vue/cli的最高版本是4.0.5，这个版本的cli内置的webpack版本是4.0.0。
