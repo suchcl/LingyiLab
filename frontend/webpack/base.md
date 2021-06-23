@@ -8,3 +8,5 @@
 建议是本地安装，而且从webpack 4+版本时，需要独立安装webpack-cli
 
 > 是从webpack 4开始呢，还是从webpack 5开始需要单独安装webpack-cli呢？我在webpack 4的项目中，卸载了webpack-cli，对项目的运行没有什么障碍，那么webpack-cli起什么作用呢？尤其是使用vue、react脚手架搭建的项目。
+
+> vue-cli可以选择webpack的版本吗？
