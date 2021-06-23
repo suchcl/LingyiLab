@@ -9,4 +9,10 @@
 
 > 是从webpack 4开始呢，还是从webpack 5开始需要单独安装webpack-cli呢？我在webpack 4的项目中，卸载了webpack-cli，对项目的运行没有什么障碍，那么webpack-cli起什么作用呢？尤其是使用vue、react脚手架搭建的项目。
 
-> vue-cli可以选择webpack的版本吗？
+这里的webpack 4+开始，需要单独安装webpack-cli,指的是从webpack5开始，需要单独安装webpack-cli，而webpack 4.*版本的，是不需要单独安装webpack-cli的。
+
+> vue-cli可以指定webpack的版本吗？
+
+这个暂时没有找到指定webpack版本的方法，但是我们可以升级webpack的版本。
+
+我们知道，通过@vue/cli脚手架工具搭建的vue项目，cli工具本身集成了webpack，现在@vue/cli的最高版本是
