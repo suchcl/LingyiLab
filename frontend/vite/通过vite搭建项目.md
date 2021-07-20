@@ -30,3 +30,8 @@ npm init vite@latest
 ![通过vite创建完项目后的后续动作](../../public/images/i48.png)
 
 项目创建完成之后，就按照提示操作即可，进入到项目根目录，安装依赖包，然后就可以正常运行项目了，否则会有安装vite或者找不到vite之类的提示。
+
+
+### 浏览器兼容
+
+IE上兼容性比较差，传统浏览器可以通过插件@vitejs/plugin-legacy支持。
