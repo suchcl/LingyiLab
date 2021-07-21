@@ -5,5 +5,22 @@
 直观的从现象来看，就是通过a实现页面跳转的时候，通过url的更改，整个页面都会刷新，而通过router方式的跳转，页面不会整体刷新，只是页面的局部刷新，但是也同样实现URL的变更，以及处理URL中携带的参数，或者URL变更过程中携带的各种参数的处理。
 
 
-### Vue3和Router4.x项目中，怎么设置路由模式？
+### Router4.x项目中，怎么设置路由模式？
 
+vue-router4.x中设置路由模式和3.x有变化。在vue-router3.x中设置路由模式，是在创建路由时，为mode参数设置值，值为hash或者history，如
+
+```javascript
+const router = new VueRouter({
+  mode: 'history',
+  routes: [...]
+})
+```
+
+而到了vue-router4.x时，路由的创建不再是通过new来实例化rouer对象了，而是通过createRouter方法来创建router的实例，再就是在创建router实例时，和vue-router3.x一样也还是有2种路由模式hash和history。只不过在4.x中，hash模式的路由模式，是通过createWebHashHistory()来创建的，H5的history模式是通过createWebHistory()来创建的。在创建路由的实例时，我们只需要对history来赋值就可以了，注意这个值是必选项，必须要赋值，否则会报错。
+
+```javascript
+const router = createRouter({
+    history: createWebHistory(),
+    routes
+});
+```
