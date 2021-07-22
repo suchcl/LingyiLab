@@ -19,6 +19,25 @@ npm install/npm i  安装项目依赖
 
 到此为止，一个egg项目就创建好了，且已经安装好了依赖，接下来启动运行命令就可以运行了。
 
+上面创建项目的时候，直接选用了simple的模板类型，其实还有其他的几种模板类型，我们可以通过egg-init命令来创建项目，以此方式创建项目的时候，我们可以根据需要选择需要的模板类型：
+
+```bash
+PS D:\> egg-init dest # dest为项目名称
+[egg-init] use registry: https://registry.npmjs.org
+[egg-init] target dir is D:\personProject\dest
+[egg-init] fetching npm info of egg-init-config
+? Please select a boilerplate type
+  ──────────────
+  simple - Simple egg app boilerplate
+  microservice - Microservice app boilerplate based on egg
+  sequelize - egg app with sequelize
+  ts - Simple egg && typescript app boilerplate
+  empty - Empty egg app boilerplate
+  plugin - egg plugin boilerplate
+```
+
+在基于egg框架创建项目的时候，有一篇文章分析的很好，[npm init egg --type=simple到底做了什么](https://zhuanlan.zhihu.com/p/160134555)，可以去看看。
+
 ### 启动项目
 
 ```bash
