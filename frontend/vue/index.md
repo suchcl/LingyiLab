@@ -3,3 +3,4 @@
 3. [a和router实现页面跳转的区别](./a和router实现页面跳转的区别.md)
 4. [vue热更新](./vue-cli4.x创建项目后的热更新配置.md)
 5. [vscode格式化vue文件4个缩进](./vscode中vetur格式化.md)
+6. [vue-router4.x中404配置](./vue-router4.x的404配置.md)
