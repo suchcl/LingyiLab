@@ -30,7 +30,6 @@ ES6标准的模块化，其设计思想是尽量的静态化，期望在代码�
 14. 不能使用fn.caller和fn.arguments获取函数调用的堆栈；
 15. 增加了保留字，如static、interface、protected等；
 
-
 <b>简单总结下模块化</b>
 
 1. CommonJS模块化思想，主要用在服务端，也可以用在浏览器端，同步执行；
