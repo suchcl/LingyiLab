@@ -36,4 +36,63 @@ ES6标准的模块化，其设计思想是尽量的静态化，期望在代码�
 2. AMD模块化思想，主要用在浏览器端，模块异步加载；
 3. ES6标准的模块化思想，涵盖了CommonJs和AMD的所有优势，可以同时用在服务器端和浏览器端；其模块化思想是尽可能静态化；自动采用严格模式；
 
-### import {} 和 import variable
+### export命令和import
+
+ES6的模块标准主要由2个命令组成：export和import。export用于规定模块的对外接口，import用于引入其他模块提供的功能。
+
+ES6的模块标准下，一个模块就是一个文件，该文件内的所有变量、函数，外部无法获取，如果希望外部文件能够获取该模块的某个变量或函数，那么就必须通过export指令输出这个变量。
+
+export用于对外输出本模块内变量的接口。
+
+export有两种导出方式：命名导出和默认导出。
+
+```javascript
+export function(){}  // 命名导出函数
+export const variable = 12; // 命名导出原始值
+export {obj1,obj2,obj3}; // 命名导出对象，可以是多个
+```
+
+命名导出可以导出多个值，但是导入时命名需要与导出名相同。
+
+```javascript
+// 导出时变量名
+export {a,b,c};
+
+// 导入时变量名也要相同
+import {a,b,c} from "./a.js";
+```
+
+export的时候，也可以为变量设置别名，那么在引入的时候，可以通过引用别名的方式引入模块，从而起到保护原模块变量的目的。
+
+```javascript
+// 为导出变量设置别名
+export {a as uname,b as ujob};
+
+// 引入时引入别名
+import {uname,ujob} from "./a.js";
+```
+
+export出的变量，在接收的时候，都必须放在{}中去接收；
+
+export default出的变量，一定不能使用{}去接收，可以使用任意一个变量去接收有export default导出的变量。
+
+export default的时候，也可以同时放到{}中导出多个对象，但是引入的时候也不用且一定不能用{}去接收，只需要一个变量去接收即可。然后导出的对象作为引入对象的一个属性去使用。如：
+
+```javascript
+// a.js
+const firstName = 'Michael';
+const lastName = 'Jackson';
+const year = 1968;
+
+export default {
+    firstName,
+    lastName,
+    year
+};
+
+// b.js
+import user from "./a.js";
+console.log(user.firstName);
+console.log(user.lastName);
+console.log(user.year);
+```
