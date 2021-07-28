@@ -21,3 +21,11 @@ EGG_SERVER_ENV=prod npm start
 ```javascript
 const env = app.config.env;
 ```
+
+### egg的运行环境
+
+egg的运行环境有3个：
+
+1. local  本地及开发环境
+2. unitest 单元测试环境
+3. prod 生产环境
