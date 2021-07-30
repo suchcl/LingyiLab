@@ -80,12 +80,8 @@ module.exports = {
 在只读取一条数据的时候，可以使用get方法，在获取多条数据的时候，需要使用select方法，不能使用get方法。
 
 ```javascript
-// 读取单条数据
-const user = await this.app.mysql.get("user", {  // 读取user表中username、password两个字段，条件为username=传递进来的参数uname
-    where: { username: uname },
-    columns: ["username", "password"]
-});
-
+// 读取单条数据,只有这种方式可以使用get，这种方式只读取一条数据
+const user = await this.app.mysql.get("user", { id: 1 });
 
 // 读取多条数据，需要使用select方法，不能使用get方法
 const results = await this.app.mysql.select('user', { // 搜索 post 表
@@ -93,3 +89,5 @@ const results = await this.app.mysql.select('user', { // 搜索 post 表
     columns: ['username', 'password'], // 要查询的表字段
 });
 ```
+
+> 我们可以这么记忆：一般情况下，不使用get方法，直接使用select方法就可以了。哪怕是我通过where条件只限定了只有一条数据结果的时候。
