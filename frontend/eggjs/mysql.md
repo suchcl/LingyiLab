@@ -79,3 +79,17 @@ module.exports = {
 
 在只读取一条数据的时候，可以使用get方法，在获取多条数据的时候，需要使用select方法，不能使用get方法。
 
+```javascript
+// 读取单条数据
+const user = await this.app.mysql.get("user", {  // 读取user表中username、password两个字段，条件为username=传递进来的参数uname
+    where: { username: uname },
+    columns: ["username", "password"]
+});
+
+
+// 读取多条数据，需要使用select方法，不能使用get方法
+const results = await this.app.mysql.select('user', { // 搜索 post 表
+    where: { username: uname }, // WHERE 条件
+    columns: ['username', 'password'], // 要查询的表字段
+});
+```
