@@ -7,3 +7,13 @@ canvas最早是由apple引入到webkit中的，在Mac OS X中使用，后来被�
 在使用canvas绘制图形的时候，我们看可以通过css、canvas标记的属性来为canvas设置尺寸。在使用canvas绘制图形的时候，该元素有一个默认的尺寸，为300x150(宽x高，单位为像素px)。
 
 在使用canvas绘制图形的时候，我们需要一些HTMl和Javascript的基础知识，如果这些方面不太熟悉的同学，可以先补充一下HTMl和Javascript基础知识，分别可以参考[HTML超文本标记语言](https://developer.mozilla.org/zh-CN/docs/Web/HTML)和[Javascript教程](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript)。
+
+canvas标签使用的时候，和其他的HTML标记基本一样，没有什么区别，除了具体功能的API的差异化之外，有一点需要注意的是，有一些HTML标签可以是自闭合，但是canvas必须要关闭标签，不能让元素自己自闭合。
+
+```html
+<!--错误的，不能自闭合-->
+<canvas />
+
+<!--canvas闭合标签-->
+<canvas></canvas>
+```
