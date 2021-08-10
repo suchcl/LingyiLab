@@ -1,0 +1,5 @@
+### 认识canvas
+
+canvas是一个HTMl第5个版本标准中新增的一个元素，可以使用js脚本来绘制图形。例如现在使用率非常高的echars就是使用canvas绘制的（最新版本的可以选择使用svg或者canvas绘制，上一个版本就直接使用的canvas绘制的）。canvas可以绘制一些2d图形，也可以绘制3d图形。
+
+canvas最早是由apple引入到webkit中的，在Mac OS X中使用，后来被个浏览器实现，现在除了非常早、很老版本的浏览器可能不支持外，正常标准的浏览器都是支持canvas的。
