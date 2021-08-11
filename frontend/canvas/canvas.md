@@ -17,3 +17,22 @@ canvas标签使用的时候，和其他的HTML标记基本一样，没有什么�
 <!--canvas闭合标签-->
 <canvas></canvas>
 ```
+
+> canvas默认要设置尺寸属性，如果不设置就启用默认尺寸值（300x150，单位px）
+
+```html
+<!--使用默认尺寸：width和height都使用默认值，分别为300x150 px,实际在浏览器显示的时候，可能是375x187.5，也可能是其他设置的缩放比例和默认设置的值的等比例缩放的值-->
+<canvas class="app"></canvas>
+
+<!--显示指定canvas的width和height,虽然是通过html属性来指定的，单位也是px-->
+<canvas class="app" width="300" height="200"></canvas>
+
+<!--通过css来设置canvas的初始尺寸,这种方式和通过html属性设置方式效果相同，只是表现和结构分离了，代码更容易维护，可读性更高了-->
+<canvas class="app"></canvas>
+<style>
+    .app{
+        width: 320px;
+        height: 160px;
+    }
+</style>
+```
