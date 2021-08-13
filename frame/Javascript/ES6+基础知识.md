@@ -69,3 +69,21 @@ function setDefaultParam() {
 
 因为在ES6以后的标准中，已经不再推荐使用var了，所以我们也就不要再使用了。但是在使用let声明变量的时候，要注意看函数的形参列表中是否已经有了同名的变量，如果有同名的变量，会报异常：Uncaught SyntaxError: Identifier 'uname' has already been declared，所以又一个不成文的良好的编程实践是在一个作用域内，不要声明同名变量，无论是使用var、let、const的任何一个关键词，也无论是在函数的参数列表或者函数体中。
 
+```javascript
+// 这种方式在Es6标准中国是会报异常的，因为函数参数列表中的参数名和函数体中的变量名同名了
+function setDefault(uname, age) {
+    let uname = uname;
+    let age = age;
+    return [uname, age];
+}
+```
+
+但是如果把代码中声明变量的方式有let改为var就可以了，但是在实践中不建议这么改。let不能声明同名变量，var可以，只是后面的覆盖前面的。
+
+```javascript
+function setDefault(uname, age) {
+    var uname = uname;
+    var age = age;
+    return [uname, age];
+}
+```
