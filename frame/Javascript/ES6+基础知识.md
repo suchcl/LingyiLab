@@ -87,3 +87,13 @@ function setDefault(uname, age) {
     return [uname, age];
 }
 ```
+
+一定注意下面的代码是一定不行的，前辈们不小心的时候可能会有这样的习惯，入行新人应该不会有这样的习惯了。在ES6之前的版本中，在没有let的时候，这是一种很常见的设置默认值的方法。现在尤其是要注意的是声明变量的关键词let。
+
+```javascript
+function fn(name, age) {
+    let name = name || "Nicholas";
+    let age = age || 12;
+    return [name, age];
+}
+```
