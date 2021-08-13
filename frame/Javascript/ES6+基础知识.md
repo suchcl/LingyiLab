@@ -27,3 +27,45 @@ fn();
 
 在ES6之前，Javascript只有全局作用域和函数作用域，从ES6标准开始，引入了一个新的作用域概念：块级作用域，以大括号{}标识。
 
+#### 默认参数作用域与暂时性死区
+
+ES5.1及以前的版本中，给函数定义默认参数的方式就是检测某个参数是否为undefined，如果是undefined，则意味着没有这个参数，那么给它传递一个默认值。
+
+```javascript
+function defaultParam(uname) {
+    var uname = (typeof uname != "undefined") ? uname : "Nicholas";
+    console.log(uname);
+}
+
+defaultParam(); // 输出Nicholas，因为没有给defaultParam()函数传递有效的参数
+defaultParam("Lalala"); // 输出Lalala，因为给函数defaultParam()传递了一个有效的参数值“Lalala”
+```
+
+在ES5.1及之前版本中，我们可以按照上面的方式，但是到了ES6标准后，就不需要上面的方式了，有更简单的方式。
+
+```javascript
+function setDefaultParam(uname="Nicholas"){
+    console.log(uname);
+}
+
+setDefaultParam(); // 输出Nicholas，没有给函数传递参数值，形参uname就取用了默认值Nicholas
+setDefaultParam("Nigula"); // 输出Nigula，给函数传递了一个参数值Nigula
+```
+
+ES6标准中，在函数参数列表中设置默认参数和在函数体中使用let声明变量的效果是一样的，只不过默认值除了声明了变量外，还初始化了值。默认参数会按照它们的顺序依次被初始化。
+
+```javascript
+// 下面两个函数是等价的，形参在函数的参数列表中
+function setDefaultParam(uname = "Nicholas") {
+    return uname;
+}
+
+// 函数的带有参数默认值的形参，和在函数体中声明变量的效果等价
+function setDefaultParam() {
+    let uname = "Nicholas";
+    return uname;
+}
+```
+
+因为在ES6以后的标准中，已经不再推荐使用var了，所以我们也就不要再使用了。但是在使用let声明变量的时候，要注意看函数的形参列表中是否已经有了同名的变量，如果有同名的变量，会报异常：Uncaught SyntaxError: Identifier 'uname' has already been declared，所以又一个不成文的良好的编程实践是在一个作用域内，不要声明同名变量，无论是使用var、let、const的任何一个关键词，也无论是在函数的参数列表或者函数体中。
+
