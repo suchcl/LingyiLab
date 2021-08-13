@@ -135,3 +135,34 @@ function extendMerge(){
 console.log(extendMerge()); // ["a", "b", "c", "d"]
 ```
 
+#### 对象合并
+
+对象合并和数组合并有着同样的方式，直接看案例吧：
+
+```javascript
+// 原来通过assign的方式合并对象
+function asObj() {
+    let obj1 = { a: 1 };
+    let obj2 = { b: 2 };
+    let obj3 = { c: 3 };
+    let newObj = { es: "demo" };
+    let targetObj = Object.assign({}, obj1, obj2, obj3);
+    return targetObj;
+}
+
+console.log(asObj()); // {a: 1, b: 2, c: 3}
+
+
+// 通过扩展运算符来合并对象，和合并数组的方式相同
+function restObj() {
+    let obj = { a: 1 };
+    let obj2 = { b: 2 };
+    let newObj = {...obj,...obj2};
+    return newObj
+}
+console.log(restObj()); // {a: 1, b: 2}
+```
+
+### 剩余参数
+
+剩余参数符号和扩展运算符相同，都是...。在编码中可能会遇到向一个函数传入的参数个数不固定，这个时候我们可以使用剩余参数统一表示。
