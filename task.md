@@ -40,6 +40,7 @@
     5. ReactNative
 14. Javascript
     1.  import、require的异同：不同的文件引入方式有什么区别，推荐使用哪种方式
+    2.  函数的apply方法：js中apply的了解
 15. Typescript
 16. Python
 17. 设计模式

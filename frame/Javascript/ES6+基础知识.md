@@ -97,3 +97,41 @@ function fn(name, age) {
     return [name, age];
 }
 ```
+
+### 扩展运算符
+
+ES5.1及以前，我们在合并数组的时候，常用的方法可能是使用concat、或者遍历数组，将要合并的数组项依次添加到目标数组中：
+
+```javascript
+// 使用concat合并数组
+function mergeArray() {
+    let arr = [1, 2];
+    let arr2 = [3, 4];
+    let arr3 = [5, 6];
+    let newArr = arr.concat(arr2).concat(arr3);
+    return newArr;
+}
+
+// 通过遍历数组的方式，将一个数组的数组项依次添加到另一个数组中
+function eachMergeArr() {
+    let arr = [1, 2];
+    let arr2 = [3, 4];
+    for (let i in arr2) {
+        arr.push(arr2[i]);
+    }
+    return arr;
+}
+```
+
+ES6标准引入了扩展运算符(...)的概念，我们可以通过扩展运算符来快速合并数组。
+
+```javascript
+function extendMerge(){
+    let arr = ["a","b"];
+    let arr2 = ["c","d"];
+    let newArr = [...arr,...arr2];
+    return newArr;
+}
+console.log(extendMerge()); // ["a", "b", "c", "d"]
+```
+
