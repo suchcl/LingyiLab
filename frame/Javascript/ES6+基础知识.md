@@ -225,3 +225,36 @@ console.log(variInTempString()); // 我的名字是Nicholas,我今年26岁。
 
 在模板字符串中嵌入变量，使用$表示，然后将变量用{}包裹即可。
 
+从demo可以看出来，使用模板字符串功能更加强大，代码更加优雅，在我们的代码中可以更多的实践。
+
+### 获取对象属性 Object.keys()
+
+以前在js中，也可以获取到对象的属性，使用方法Object.getOwnPropertyNames(obj),在ES6的标准里，新增了Object.keys(obj)方法来获取对象的属性，也叫key。
+
+```javascript
+function getKeys(){
+    let obj = {
+        name: "Nicholas",
+        age: 16,
+        gender: "Male"
+    };
+    let keys = Object.getOwnPropertyNames(obj);
+    return keys;
+}
+console.log(getKeys()); // ["name", "age", "gender"]
+
+function getKeys2(){
+    let obj = {
+        name:"Nicholas",
+        age: 18,
+        gender: "Male"
+    };
+    let keys = Object.keys(obj);
+    return keys;
+}
+console.log(getKeys2()); // ["name", "age", "gender"]
+```
+
+两种方法都取到了对象的属性，也可以说是key。
+
+> 明天去确认下Object.getOwnPropertyNames(obj)和Object.keys(obj)的区别，以及对象中属性和key的区别。
