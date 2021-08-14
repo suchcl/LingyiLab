@@ -180,3 +180,33 @@ params(1, "苹果", ["大众", "别克", "理想汽车"]); //1,["苹果",["大�
 params("苹果", 1, 2, 3, 4); // "苹果",[1,2,3,4]
 params(1, "苹果", ["大众", "别克", "理想汽车"], { uname: "Nicholas" }); // 1,["苹果",["大众", "别克", "理想汽车"],{uname: "Nicholas"}]
 ```
+### 模板字符串
+
+以前（ES6标准及以前）我们在拼接字符串的方式是使用+拼接，参考下面demo：
+
+```javascript
+function spliceString(){
+    var name = "Nicholas";
+    var age = 18;
+    var job = "programmer";
+    var userInfo = "我的名字叫" + name + ",今年" +　age + "岁，我的职业是" + job + "。";
+    return userInfo;
+}
+console.log(spliceString()); // 打印出：我的名字叫Nicholas,今年18岁，我的职业是programmer。
+```
+
+从ES6标准开始，引入了模板字符串(template string)的概念，模板字符串是增强版的字符串，用反引号(数字键1前面的那个引号)标识。模板字符串可以当做普通字符串去使用，也可以定义多行字符串（可以定义多行字符串的意思就是定义的多行字符串在输出的时候原样输出），也可以在模板字符串中嵌入变量。
+
+定义多行字符串demo：
+
+```javascript
+function tempString(){
+    let desc = `这里开始
+换行了, 
+    又换了一下`;  // 这一行在输出的时候，前面会空出2个空格， 因为这前面的空格也会被当作是字符串的一部分；上面一行输出时顶头输出
+    return　desc;
+}
+console.log(tempString());
+```
+
+> 上面的demo注释都放到字符串结束后的，因为在字符串没有结束的第二行是不可以注释的，这一细节，以前没有注意过
