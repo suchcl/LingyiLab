@@ -210,3 +210,18 @@ console.log(tempString());
 ```
 
 > 上面的demo注释都放到字符串结束后的，因为在字符串没有结束的第二行是不可以注释的，这一细节，以前没有注意过
+
+模板字符串嵌套变量demo：
+
+```javascript
+function variInTempString(){
+    let uname = "Nicholas";
+    let age = 26;
+    let userInfo = `我的名字是${uname},我今年${age}岁。`;
+    return userInfo;
+}
+console.log(variInTempString()); // 我的名字是Nicholas,我今年26岁。
+```
+
+在模板字符串中嵌入变量，使用$表示，然后将变量用{}包裹即可。
+
