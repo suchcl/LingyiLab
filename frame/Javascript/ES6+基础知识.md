@@ -258,3 +258,68 @@ console.log(getKeys2()); // ["name", "age", "gender"]
 两种方法都取到了对象的属性，也可以说是key。
 
 > 明天去确认下Object.getOwnPropertyNames(obj)和Object.keys(obj)的区别，以及对象中属性和key的区别。
+
+### 箭头函数
+
+箭头函数是ES6标准中新增的一种函数类型，允许使用箭头(=>)来定义函数。如：
+
+```javascript
+var f = v => v;
+// 上面的箭头函数等同于下面的方式
+var f = function(v){
+    return v;
+}
+```
+
+箭头函数如果没有参数或者有多个参数，那么使用小括号来代表参数部分：
+
+```javascript
+// 没有参数demo
+let fn = () => "Nicholas"; // 没有参数，等同于下面方式
+
+let fn = function () {
+    return "Nicholas"
+}
+
+// 有多个参数
+let multipleParams = (num1, num2) => num1 + num2;
+console.log(multipleParams(1, 2)); // 3
+```
+
+在箭头函数中，如果函数体有多条语句，那么函数体就要使用大括号包裹起来。
+
+```javascript
+let multipleParams = (num1, num2) => { return num1 + num2; }
+```
+
+由于大括号在ES6标准中被解释为代码块，如果箭头函数直接返回的是一个对象，那么就需要在对象的外面包裹一层小括号：
+
+```javascript
+let fn3 = (obj) => ({
+    uname: "Nicholas",
+    age: 20,
+    gender: "Male"
+});
+console.log(fn3()); // {uname: "Nicholas", age: 20, gender: "Male"}
+```
+
+如果我们把直接返回的对象赋值给一个变量返回，则就不需要最外层的小括号包裹了：
+
+```javascript
+let fun2 = (obj) => {
+    obj = {
+        uname: "Nicholas",
+        age: 18,
+        gender: "Male"
+    };
+    return obj;
+}
+console.log(fun2()); // {uname: "Nicholas", age: 18, gender: "Male"}
+```
+
+箭头函数和普通函数的区别：
+
+1. 箭头函数不可以作为构造函数，不能使用关键词new来实例化对象；
+2. 箭头函数没有自己的this；
+3. 箭头函数没有arguments对象；
+4. 箭头函数没有原型对象；
