@@ -324,3 +324,28 @@ console.log(fun2()); // {uname: "Nicholas", age: 18, gender: "Male"}
 3. 箭头函数没有arguments对象；
 4. 箭头函数没有原型对象；
 5. 箭头函数不可以使用yield命令，因此箭头函数不能用作Generator函数；
+
+### Array.forEach
+
+ES6标准新增的数组遍历方法
+
+```javascript
+function arrayForEach() {
+    const eachArr = ["Apple", "Banana", "Pair", "Peach", "Orange"];
+    eachArr.forEach((item,index,arr) => {
+        console.log(item,index,arr);
+    });
+}
+
+arrayForEach(); 
+// Apple 0 (5) ["Apple", "Banana", "Pair", "Peach", "Orange"]
+// base.js:239 Banana 1 (5) ["Apple", "Banana", "Pair", "Peach", "Orange"]
+// base.js:239 Pair 2 (5) ["Apple", "Banana", "Pair", "Peach", "Orange"]
+// base.js:239 Peach 3 (5) ["Apple", "Banana", "Pair", "Peach", "Orange"]
+// base.js:239 Orange 4 (5) ["Apple", "Banana", "Pair", "Peach", "Orange"]
+```
+
+可见，forEach接收1个回调函数，回调函数有3个参数， 分别为当前项、当前项索引以及当前数组。
+
+经过forEach遍历的数组，不改变原数组的值。
+
