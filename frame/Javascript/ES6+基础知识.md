@@ -372,3 +372,16 @@ let arr = [1, 2, 3];
 let newArr = arr.map(item => item * item).filter(item => item > 8);
 console.log(newArr); // [9]
 ```
+
+### Array.some()
+
+Array.some()返回一个boolean值，该方法会监测数组中的每一项，只要有一项通过了Array.some()中回调的函数的监测，该方法就会返回true，否则就会返回false。
+
+```javascript
+let arr = [0, 12, 4];
+let flag = arr.some(item => item > 16);
+console.log(flag); // false
+```
+### Array.every()
+
+### Array.reduce()
