@@ -354,3 +354,21 @@ Array.map()方法和Array.forEach()方法功能比较接近，都是对数组项
 3. 习惯函数式编程的，可以选择map()方法；
 4. forEach()适合不计划修改数组项值，而仅仅是期望借助数组项做一些事情的时候；
 5. map()适合用在我们希望修改数组项值的时候，因为map()会创建一个新的数组，新数组的值是原数组经过处理后的值，原数组不变；
+
+### Array.filter() 过滤筛选
+
+Array.filter()创建一个新的数组，基本用法和Array.map()类似，不会改变原数组的值，然后返回一个新的数组，新的数组由filter中的callback过滤后的返回值组成。
+
+```javascript
+let arr = [1, 2, 3];
+let arr2 = arr.map(item => item * item);
+console.log(arr2); // [1, 4, 9]
+let arr3 = arr2.filter(item => item > 7);
+console.log(arr3); // [9]，返回了过滤后的新的数组
+console.log(arr2); // [1, 4, 9]，原数组的值没有改变
+
+// 上面是分开调用，也可以用链式调用的方式，如下demo
+let arr = [1, 2, 3];
+let newArr = arr.map(item => item * item).filter(item => item > 8);
+console.log(newArr); // [9]
+```
