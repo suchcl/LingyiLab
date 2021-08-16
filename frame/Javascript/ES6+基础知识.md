@@ -384,4 +384,8 @@ console.log(flag); // false
 ```
 ### Array.every()
 
+Array.every()和Array.some()正好相反，Array.some()是数组中只要有一项为true则结果为true，而Array.every()必须是所有的数组项都为true才能为true
+
 ### Array.reduce()
+
+和Array.reduce()功能相似的，还有另外一个归并方法Array.reduceRight()，reduce()从左侧开始计算，reduceRight()从右侧开始计算。可参考[Array中reduce](./arr.md)
