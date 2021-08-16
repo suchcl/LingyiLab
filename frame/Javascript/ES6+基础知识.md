@@ -327,25 +327,30 @@ console.log(fun2()); // {uname: "Nicholas", age: 18, gender: "Male"}
 
 ### Array.forEach
 
-ES6标准新增的数组遍历方法
+ES6标准新增的数组遍历方法,改变原数组的值：
 
 ```javascript
-function arrayForEach() {
-    const eachArr = ["Apple", "Banana", "Pair", "Peach", "Orange"];
-    eachArr.forEach((item,index,arr) => {
-        console.log(item,index,arr);
-    });
-}
-
-arrayForEach(); 
-// Apple 0 (5) ["Apple", "Banana", "Pair", "Peach", "Orange"]
-// base.js:239 Banana 1 (5) ["Apple", "Banana", "Pair", "Peach", "Orange"]
-// base.js:239 Pair 2 (5) ["Apple", "Banana", "Pair", "Peach", "Orange"]
-// base.js:239 Peach 3 (5) ["Apple", "Banana", "Pair", "Peach", "Orange"]
-// base.js:239 Orange 4 (5) ["Apple", "Banana", "Pair", "Peach", "Orange"]
+let arr = [1, 2, 3];
+arr.forEach((item, index, arr) => {
+    arr[index] = item * item;
+});
+console.log(arr); // [1, 4, 9]
 ```
 
 可见，forEach接收1个回调函数，回调函数有3个参数， 分别为当前项、当前项索引以及当前数组。
 
-经过forEach遍历的数组，不改变原数组的值。
+经过forEach遍历的数组，会改变原数组的值。
 
+和Array.forEach()功能接近的一个方法是Array.map()方法。
+
+Array.map()方法和Array.forEach()方法功能比较接近，都是对数组项进行遍历，也有一些区别，比较明显的是：
+
+1. Array.forEach()没有返回值，Array.map()返回一个新的数组，新的数组值由当前数组的每一项在执行callback后的值；
+
+这2个方法怎么选择呢？
+
+1. forEach()能实现的功能，map()也能实现;反之也成立；
+2. map()的性能更好，map()的性能比forEach()快了70%左右；
+3. 习惯函数式编程的，可以选择map()方法；
+4. forEach()适合不计划修改数组项值，而仅仅是期望借助数组项做一些事情的时候；
+5. map()适合用在我们希望修改数组项值的时候，因为map()会创建一个新的数组，新数组的值是原数组经过处理后的值，原数组不变；
