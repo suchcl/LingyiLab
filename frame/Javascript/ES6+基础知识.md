@@ -389,3 +389,34 @@ Array.every()和Array.some()正好相反，Array.some()是数组中只要有一�
 ### Array.reduce()
 
 和Array.reduce()功能相似的，还有另外一个归并方法Array.reduceRight()，reduce()从左侧开始计算，reduceRight()从右侧开始计算。可参考[Array中reduce](./arr.md)
+
+### 对象属性同名简写
+
+```javascript
+// 以前的写法
+function getObj() {
+    const username = "Nicholas";
+    const age = 18;
+
+    const obj = {
+        username: username,
+        age: age
+    };
+    return obj;
+}
+
+console.log(getObj()); //{username: "Nicholas", age: 18}
+
+
+// ES6标准新增的新的写法
+function getObjByES6() {
+    const username = "Nicholas";
+    const age = 26;
+    const obj = {
+        username,
+        age
+    };
+    return obj;
+}
+console.log(getObjByES6());//{username: "Nicholas", age: 26}
+```
