@@ -420,3 +420,53 @@ function getObjByES6() {
 }
 console.log(getObjByES6());//{username: "Nicholas", age: 26}
 ```
+
+### Promise
+
+### class
+
+ES6中，新增了class类的概念，在以前的ES版本中，我们虽然也可以实现类的概念，但是是以函数式的方式实现的。
+
+```javascript
+function Person(uname,age) {
+    this.uname = uname;
+    this.age = age;
+}
+Person.prototype.getUname = function () {
+    return this.uname;
+}
+Person.prototype.setUname = function (uname) {
+    this.uname = uname;
+}
+
+var p = new Person();
+p.setUname("Nicholas");
+console.log(p.getUname()); // Nicholas
+```
+
+在ES6标准中，实现了类的标准实现
+
+```javascript
+class PPerson {
+    constructor(uname, age) {
+        this.uname = uname;
+        this.age = age;
+    }
+    setUInfo(uname, age) {
+        this.uname = uname;
+        this.age = 22;
+    }
+
+    getUInfo() {
+        return {
+            uname: this.uname,
+            age: this.age
+        };
+    }
+}
+
+let pp = new PPerson("Nicholas", 20);
+console.log(pp.getUInfo()); // {uname: "Nicholas", age: 20}
+pp.setUInfo("yugo", 18);
+console.log(pp.getUInfo()); // {uname: "yugo", age: 22}
+```
