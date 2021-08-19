@@ -505,3 +505,25 @@ console.log(p.getUName()); // Yogu
 console.log(Person.getAge()); // 22
 console.log(p.getAge()); // 报异常了Uncaught TypeError: p.getAge is not a function，getAge()是static的，class的实例不能访问，只有class本身才可以访问
 ```
+
+继承，面向对象的语言中，都有继承的概念，js中同样也有。在继承了父类后，如果派生类需要借用父类的构造函数，那么需要使用super关键字来调用父类的构造方法
+
+```javascript
+class Cat extends Animal {
+    constructor(mingzi, nianling, color) {
+        super(mingzi, nianling); // 通过super调用父类的构造函数，并将当前派生类的mingzi、nianling属性赋值给父类构造函数的参数
+        this.color = color;
+    }
+    play() {
+        return {
+            uname: this.uname, // 引用父类构造函数的属性
+            age: this.age, // 应用的父类的属性
+            color: this.color // 当前派生类的属性
+        }
+    }
+}
+
+let c = new Cat("Lihua", 10, "red");
+console.log(c.getAnimalInfo()); // 调用了父类的方法，而自己本身并没有这个方法
+console.log(c.play()); // 子类也可以有自己的方法，子类就是一个正常的类，可以有自己的构造方法、属性和方法
+```
