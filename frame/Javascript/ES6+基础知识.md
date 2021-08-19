@@ -470,3 +470,38 @@ console.log(pp.getUInfo()); // {uname: "Nicholas", age: 20}
 pp.setUInfo("yugo", 18);
 console.log(pp.getUInfo()); // {uname: "yugo", age: 22}
 ```
+
+ES6标准中，class的本质上还是function，class只不过是function的语法糖。
+
+```javascript
+class P{}
+console.log(typeof P); // function
+```
+
+静态属性和静态方法：如果我们有了解过java，就会知道在面向对象的语言中，会有静态属性和静态方法的概念，同样，js的class中也有静态属性和静态方法的概念。
+
+js中，class中静态属性和静态方法，<font class="#f20">只有class自己才可以访问，class的实例都不可以访问</font>。
+
+```javascript
+class Person {
+    constructor(uname, age) {
+        this.uname = uname;
+        this.age = age;
+    }
+
+    static age = 22;
+
+    getUName() {
+        return this.uname;
+    }
+
+    static getAge(){
+        return this.age;
+    }
+}
+
+let p = new Person("Yogu",18);
+console.log(p.getUName()); // Yogu
+console.log(Person.getAge()); // 22
+console.log(p.getAge()); // 报异常了Uncaught TypeError: p.getAge is not a function，getAge()是static的，class的实例不能访问，只有class本身才可以访问
+```
