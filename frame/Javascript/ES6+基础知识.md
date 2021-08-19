@@ -527,3 +527,37 @@ let c = new Cat("Lihua", 10, "red");
 console.log(c.getAnimalInfo()); // 调用了父类的方法，而自己本身并没有这个方法
 console.log(c.play()); // 子类也可以有自己的方法，子类就是一个正常的类，可以有自己的构造方法、属性和方法
 ```
+
+### 结构赋值
+
+以前我们在获取一个对象里面的属性值的时候，需要这样做：
+
+```javascript
+function dec() {
+    const obj = {
+        uname: "Nicholas",
+        age: 18,
+        gender: "Male"
+    };
+
+    const uname = obj.uname;
+    const age = obj.age;
+    const gender = obj.gender;
+    return { uname, age, gender };
+}
+console.log(dec()); //{uname: "Nicholas", age: 18, gender: "Male"}
+
+
+// 如果是相同的字段，
+function decAssign() {
+    const obj = {
+        uname: "Nicholas",
+        age: 16,
+        gender: "Male"
+    };
+    const { uname, age, gender } = obj;
+    return { uname, age, gender };
+}
+
+console.log(decAssign()); // {uname: "Nicholas", age: 16, gender: "Male"}
+```
