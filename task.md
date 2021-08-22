@@ -96,3 +96,18 @@
     3.  配置
 29. 设计师的系统思维
 			1. 这是一本书，有人推荐说很不错，接下来熟读
+
+30. SEO
+    1.  SEO简介
+    2.  常用的搜索引擎
+        1.  国内的搜索引擎
+            1. 百度、360、搜狗
+            2. 百度资源参考文档：[https://ziyuan.baidu.com/safe/index](https://ziyuan.baidu.com/safe/index)
+        2.  国外的搜索引擎
+            1.  google、必应、雅虎
+            2.  google搜索引擎参考文档：[https://developers.google.com/search/docs?hl=zh-cn](https://developers.google.com/search/docs?hl=zh-cn)
+    3. 关心技术的备忘
+       1. 不同的搜索引擎对SPA的友好程度
+       2. 不同的搜索引擎对iframe的友好程度
+       3. 搜索引擎是否就不抓取spa的内容？
+       4. 搜索引擎是否抓取iframe中的内容？各搜索引擎的支持情况如何？
