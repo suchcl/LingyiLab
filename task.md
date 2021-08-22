@@ -102,7 +102,9 @@
     2.  常用的搜索引擎
         1.  国内的搜索引擎
             1. 百度、360、搜狗
-            2. 百度资源参考文档：[https://ziyuan.baidu.com/safe/index](https://ziyuan.baidu.com/safe/index)
+            2. 百度资源参考文档：
+               1. [https://ziyuan.baidu.com/safe/index](https://ziyuan.baidu.com/safe/index)
+               2. [百度搜索引擎优化指南:https://www.dragonmetrics.cn/baidu-seo-guide/](https://www.dragonmetrics.cn/baidu-seo-guide/) 不好的是这是一个第三方公司的指南，不是百度自己的文档
         2.  国外的搜索引擎
             1.  google、必应、雅虎
             2.  google搜索引擎参考文档：[https://developers.google.com/search/docs?hl=zh-cn](https://developers.google.com/search/docs?hl=zh-cn)
