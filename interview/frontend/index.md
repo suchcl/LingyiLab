@@ -6,6 +6,7 @@
 6. [BFC](./bfc.md)
 7. [盒模型](./盒模型.md)
 8. [前端需要注意哪些，使应用利于SEO](./seo.md)
+9. [cookie、sessionStorage、localStorage的区别](./storage.md)
 
 
 ## Vue

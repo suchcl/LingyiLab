@@ -21,8 +21,9 @@
 5. PM2
 6. Deno
 7. Vue3
+   1. [vue-router怎么新页面打开](./frontend/vue/vue-router新页面打开.md)
 8. Vite
-9. git
+9.  git
    1.  git初始化项目
    2.  git配置：设置ssh key、用户名
    3.  git CICD
@@ -95,7 +96,7 @@
     2.  linux
     3.  配置
 29. 设计师的系统思维
-			1. 这是一本书，有人推荐说很不错，接下来熟读
+			7. 这是一本书，有人推荐说很不错，接下来熟读
 
 30. SEO
     1.  SEO简介
