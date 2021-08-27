@@ -50,4 +50,10 @@ vue项目中常用axios，注意axios不是一个单词，它是由多个单词�
 
 5. 虚拟DOM
 
+**怎么去学习Vue？**
 
+可以没有React、jQuery、Angular的丰富知识；
+
+但是需要CSS、HTML、Javascript的基础知识；
+
+> jQuery正在逐渐退出历史舞台，github已经放弃了jquery了。
