@@ -1,5 +1,7 @@
 ### Vue技术体系
 
+> 本文所有内容都是以Vue2为基础的，如果有内容和现在的Vue3有区别的，请大家注意。
+
 1. 认识Vue.js
 
 2. Vue基础语法
@@ -186,6 +188,61 @@ methods: {
 
 > 这里需要注意，尽量不要在methods中使用箭头函数，因为箭头函数中的this指向的不是Vue实例，而是父级作用域的上下文。
 
+data可以是对象，也可以是函数，当data在Vue实例中的时候，data就是一个对象；当data在一个组件中的时候，data就是一个函数。看demo：
+
+```html
+<!--如这样的场景，data在一个Vue实例中-->
+    <div id="app">
+        <h3>当前计数：{{counter}}</h3>
+        <!-- <button v-on:click="counter++">+</button>
+        <button v-on:click="counter--">-</button> -->
+        <button v-on:click="add">+</button>
+        <button v-on:click="sub">-</button>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+        // 实例化Vue实例
+        let app = new Vue({
+            el: "#app",
+            data: { // data在Vue实例中，data值是一个对象
+                counter: 0
+            },
+            methods: {
+                add: function () {
+                    this.counter++;
+                },
+                sub: function () {
+                    this.counter--;
+                }
+            }
+        });
+    </script>
+```
+
+再来看一个组件demo：
+
+```html
+<!--这是一个Vue组件的例子-->
+<template>
+    <div class="hello">
+        <h2>{{ uname }}</h2>
+    </div>
+</template>
+
+<script>
+export default {
+    name: "HelloWorld",
+    // data在一个vue组件中个，这里的data是一个函数，而不是一个对象
+    data() {
+        return {
+            uname: "Nicholas",
+        };
+    },
+};
+</script>
+```
+
+
 #### 方法和函数有什么区别？什么时候叫方法，什么时候叫函数？
 
 * 方法：method
@@ -194,3 +251,27 @@ methods: {
 方法和函数，在js中的功能基本上一致的，没有什么实质性的区别。但是方法一般和类的实例有关联的，在类中定义的称为方法；不是在类中定义的，通过function关键词定义的具有一定目的功能的代码的组合，称为函数。
 
 在一些语言中，是没有函数的概念的，如强类型语言java中，它是纯面向对象语言，在java中只有方法的概念，没有函数的概念。只有在js这门特殊的语言中，既有函数的概念，又有方法的概念，它们的区别就是定义的环境的不同。
+
+### Vue的生命周期
+
+Vue的生命周期，一个应用从诞生到销毁的整个周期。
+
+> Vue的声明周期原理，和现在前端应用的生命周期概念很相同，如React、小程序。
+
+生命周期的意义，就是说一个应用从诞生到结束，分为了多个阶段，每个阶段都有自己需要完成的事情，也有一些事情是只能在某个阶段去完成，其他的阶段完成不了该阶段才能做的事情。如在Vue应用中，DOM被挂载到Vue之前，Vue是不能操作DOM的，因为Vue还没有和DOM产生关联关系，Vue不具备操作DOM的能力。
+
+**Vue有这样的生命周期**
+
+我从vue文档中截取了一个生命周期的图例：
+
+![Vue生命周期](../public/images/../../../public/images/i58.png)
+
+从这张图中，我们可以看到Vue的生命周期分为了8个阶段，分别为：
+
+beforeCreate、created、beforeMount、mounted、beforeUpdate、updated、beforeDestroy、destroyed，其中mounted和update、beforeUpdate这2个周期循环往复。这些周期，我们不需要一次性全部记住，但是需要有个生命周期的概念、印象，知道、了解Vue应用是有生命周期的，且在不同的阶段做不同的事情。
+
+一般情况下，会在created阶段做网络请求。
+
+Vue应用中，组件也是有生命周期的，其周期基本和Vue的生命周期相同，只是在实际应用中有一点稍微不同的是，Vue一般是不会有destroyed这个阶段的，但是组件基本都会有这个阶段。
+
+> 这里不是说Vue不具有destroyed阶段，而是说应用场景比较少，组件应用场景比较多。
