@@ -153,3 +153,35 @@ MVVM之间的关系可以简单的理解为下图：
 从这张图上，我们可以看到，VM是View和Model之间的一个桥梁，它主要做了两件事情，一件事情是Data Listening（数据监听），另一件事情是Data Binding（数据绑定）。从前面我们可以了解到，VM其实主要就是指Vue，Vue在这里的两件事情，其实就是在监听View的数据变化，然后将变化的结果回传给Model；另外就是将Model的数据绑定到View上。Vue通过这种机制实现了数据的双向绑定。
 
 > 一般情况下，Model都不会在VM中的data属性中，而是从api请求来的数据，或者是一个外部的变量，或者是一个json文件，但是在VM中可以通过this来调用这些数据，这是什么原因呢？这是因为在Model和VM之间有一层代理，做了这种关联关系，我们会在后面的知识中介绍这种关联关系。
+
+### Vue对象实例化时的参数：options
+
+通过上面的学习，我们已经熟悉了options中的3个参数：el、data、methods
+
+el：String | Element，绑定要被Vue管理的元素
+
+data：Object | function，在Vue实例中，需要是个Object，但是在组建中个，data就必须是个函数；
+
+methods：{[key:string]: Function}，是一个对象，放置方法（函数）。
+
+```javascript
+methods: {
+    // 可以是对象字面量的属性赋值的形式
+    add: function () {
+        this.counter++;
+    },
+    sub: function () {
+        this.counter--;
+    },
+
+    // 也可以是ES6中新增的方式
+    increament(){
+        this.counter++;
+    },
+    subscribe(){
+        this.counter--;
+    }
+}
+```
+
+> 这里需要注意，尽量不要在methods中使用箭头函数，因为箭头函数中的this指向的不是Vue实例，而是父级作用域的上下文。
