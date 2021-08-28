@@ -275,3 +275,49 @@ beforeCreate、created、beforeMount、mounted、beforeUpdate、updated、before
 Vue应用中，组件也是有生命周期的，其周期基本和Vue的生命周期相同，只是在实际应用中有一点稍微不同的是，Vue一般是不会有destroyed这个阶段的，但是组件基本都会有这个阶段。
 
 > 这里不是说Vue不具有destroyed阶段，而是说应用场景比较少，组件应用场景比较多。
+
+### vscode创建模板文件
+
+这是一个快捷方式，和Vue没有什么关系，只是最近几天在学习vue，在学习的过程中总是多次创建带有vue一些公共代码的html文件。那么我有没有办法也像创建一个空的HTML文件那样，在新建的文件中输入一个!就可以快速生成一个带有一些公共代码的HTML文档呢？我使用vscode编辑器。
+
+结果当然是有的。
+
+打开vscode左下角设置，然后选择用户代码片段，会出现一个代码片段文件的选择列表，这里我们选择html，然后就会出现一个html.json文件，这个json文件有一大堆的英文,就是介绍怎么创建模板文件的方法，这部分代码可以留着，也可以删了，然后将我们的代码文件放进去就可以了。
+
+> 贴我们自己代码片段的时候，主要要转下码。我们的代码只是一个属性值，否则就会被解析成html文档被渲染了。
+
+这里我从网上找了一个demo，大家参考下吧：
+
+```json
+{
+	"vue_learn_template":{
+        "prefix": "vue",
+        "body": [
+            "<!DOCTYPE html>",
+            "<html lang=\"en\">",
+            "<head>",
+            "\t<meta charset=\"UTF-8\">",
+            "\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+            "\t<meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">",
+            "\t<title>Document</title>",
+            "\t<script src=\"../js/vue.js\"></script>",     
+            "</head>\n",
+            "<body>",
+            "\t<div id =\"app\"> </div>\n",
+            "\t<script>",
+            "\t //创建Vue实例",
+            "\t var vm = new Vue({",
+            "\t\tel: '#app',",
+            "\t\tdata: {},",
+            "\t\tmethods: {}",
+            "\t });",
+            "\t</script>",
+            "</body>\n",
+            "</html>"
+        ],
+        "description": "vue创建文件的模板" // 模板代码片段
+    }
+}
+```
+
+这样当我们在创建一个新的空html文件是输入vue就会出现我们刚才创建的模板，回车后就有了预设的文档了。提效了很多。
