@@ -406,3 +406,26 @@ v-html指定的元素，vue会将其作为当前元素的innerHTML。插入的�
 
 如demo所示，两个链接都可以正常的显示出来。
 
+**v-text**
+
+v-text,和v-html类似，只是功能是替换当前元素的innerText，其功能在一些场景上，和mustache语法(双大括号语法)功能相同，都可以将文本渲染到DOM上，但是实际编码中很少使用v-text,因为v-text不够灵活，它会覆盖当前元素的文本，有些场景是需要拼接，而不能直接覆盖。
+
+```html
+    <div id ="app"> 
+        <h3>{{msg}},Vue！</h3>
+        <h3 v-text="msg">,Vue!</h3>
+    </div>
+
+    <script>
+     //创建Vue实例,得到 ViewModel
+     let app = new Vue({
+        el: '#app',
+        data: {
+            msg: "Hello"
+        },
+        methods: {}
+     });
+    </script>
+```
+
+demo中就展示出了实际的问题，第一个h3通过mustache语法实现了data数据和静态数据的拼接，完美的实现了Hello Vue！的数据展示，但是第一个h3就直接将已经存在的Vue！覆盖了，只显示了Hello。很明显，这不是我们想要的。所以v-text知道这个属性就可以了，很少使用。
