@@ -102,7 +102,7 @@ v-on: 监听事件，可简写为@,如v-on:click监听click事件，v-on:del 监
 
 实现如下图所示的计数器效果：
 
-![计数器](../public/images/../../../public/images/i56.png)
+![计数器](../../public/images/i56.png)
 
 **实现计数器的另一种方式**
 
@@ -148,7 +148,7 @@ VM：ViewModel，视图模型层，是View和Model之间的桥梁，指的就是
 
 MVVM之间的关系可以简单的理解为下图：
 
-![MVVM](../public/images/../../../public/images/i57.png)
+![MVVM](../../public/images/i57.png)
 
 这张图不好看，大概意思到了。
 
@@ -264,7 +264,7 @@ Vue的生命周期，一个应用从诞生到销毁的整个周期。
 
 我从vue文档中截取了一个生命周期的图例：
 
-![Vue生命周期](../public/images/../../../public/images/i58.png)
+![Vue生命周期](../../public/images/i58.png)
 
 从这张图中，我们可以看到Vue的生命周期分为了8个阶段，分别为：
 
@@ -366,11 +366,11 @@ v-once:该指令指定当前数据只能被渲染一次，标签上的数据不�
 
 渲染效果如下图：
 
-![v-once渲染效果图](../public/images/../../../public/images/i59.png)
+![v-once渲染效果图](../../public/images/i59.png)
 
 从渲染结果可以看到2条数据都被正常的渲染出来了，然后我们在开发者工具调试下：
 
-![调试效果](../public/images/../../../public/images/i60.png)
+![调试效果](../../public/images/i60.png)
 
 虽然我们在开发者工具修改了msg的属性值，但是只有第一个h3随着数据的改变而改变了值，第二个h3并没有出现我们想像中的结果，没有随着数据的改变而自动重新渲染。这正是因为v-once指令起到了作用。
 
@@ -429,3 +429,88 @@ v-text,和v-html类似，只是功能是替换当前元素的innerText，其功�
 ```
 
 demo中就展示出了实际的问题，第一个h3通过mustache语法实现了data数据和静态数据的拼接，完美的实现了Hello Vue！的数据展示，但是第一个h3就直接将已经存在的Vue！覆盖了，只显示了Hello。很明显，这不是我们想要的。所以v-text知道这个属性就可以了，很少使用。
+
+**v-pre**
+
+原样输出，vue会跳过被这个指令指定的元素和它的子元素的编译过程。
+
+跳过大量没有指令的节点会加快编译速度。
+
+```html
+    <div id="app">
+        <h2>{{msg}}</h2>
+        <!--原样输出了，没有对{{}}进行编译-->
+        <h2 v-pre>{{msg}}</h2>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                msg: "Hello Vue!"
+            },
+            methods: {}
+        });
+    </script>
+```
+
+**v-cloak**
+
+指令保持在元素上直到元素被Vue关联上。
+
+vue项目中，在vue的el关联元素没有被vue关联上时，vue中的data是不不会被绑定到DOM上的，那么在网页中显示的可能就是一些没有数据的标签，如{{msg}}、{{username}}等等，就是没有data中的数据，如果实例化vue的代码执行的时间很长，在页面DOM被浏览器解析了很久才执行到实例化vue，那么网页就是很长的一段时间都在显示一些vue的指令，对用户来说体感不够友好。v-cloak的作用就是给el关联的元素在vue代码执行之前添加v-cloak这么一个属性，在DOM和vue做了关联之后该属性消失，然后配合css一起使用[v-cloak]{dislay:none;}，指定在DOM在关联vue之前是display:none；不被显示的状态的，使用体感会好很多。
+
+> 在实际项目场景中，该指令一般不会用到。
+
+```html
+    <div id="app">
+        <h3>{{msg}}</h3>
+    </div>
+    <script>
+        //创建Vue实例,得到 ViewModel
+        setTimeout(function () {
+            let app = new Vue({
+                el: '#app',
+                data: {
+                    msg: "Hello Vue!"
+                },
+                methods: {}
+            });
+        }, 3000);
+    </script>
+```
+
+如代码，正常情况下是这样的效果：
+
+![没有添加v-cloak属性效果](../../public/images/i61.png)
+
+网页刚开始渲染的时候，直接显示出了vue数据模板，直到DOM和Vue做了关联之后。然后我们看给DOM添加上v-cloak指令后的效果：
+
+```html
+    <div id="app" v-cloak>
+        <h3>{{msg}}</h3>
+    </div>
+    <!--style标签位置不一定要和DOM在一起-->
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+    <script>
+        //创建Vue实例,得到 ViewModel
+        setTimeout(function () {
+            let app = new Vue({
+                el: '#app',
+                data: {
+                    msg: "Hello Vue!"
+                },
+                methods: {}
+            });
+        }, 3000);
+    </script>
+```
+
+![添加v-cloak后的显然效果](../../public/images/i62.png)
+
+网页刚开始渲染的时候，DOM和Vue没有关联，页面显示的是空白，直到DOM和Vue做了关联后，才正常的显示了正常需要渲染的内容，体感好了很多。
