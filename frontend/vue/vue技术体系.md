@@ -342,6 +342,8 @@ Vue应用中，组件也是有生命周期的，其周期基本和Vue的生命�
 
 插值操作，指的是data中的一些数据，插入到DOM中，专业术语称为mustache，也称为双大括号({{}})语法。
 
+**v-once**
+
 v-once:该指令指定当前数据只能被渲染一次，标签上的数据不再随着数据的改变而改变了.也就是说，该指令指定的组件，只能被渲染一次，之后的数据的变化，都会跳过该组件或元素。在特殊场景下，可以用于优化渲染性能。
 
 ```html
@@ -371,3 +373,36 @@ v-once:该指令指定当前数据只能被渲染一次，标签上的数据不�
 ![调试效果](../public/images/../../../public/images/i60.png)
 
 虽然我们在开发者工具修改了msg的属性值，但是只有第一个h3随着数据的改变而改变了值，第二个h3并没有出现我们想像中的结果，没有随着数据的改变而自动重新渲染。这正是因为v-once指令起到了作用。
+
+**v-html**
+
+v-html指定的元素，vue会将其作为当前元素的innerHTML。插入的内容，会按照普通的HTML进行插入，vue不会将其作为vue模板进行编译。
+
+> 在网页中动态插入HTML是很危险的，可能会导致XSS攻击，所以只可以在非常信任的元素上使用v-html,否则不要使用。
+
+> 另外在单文件的模板组件文件中，scoped的样式不会作用于v-html内部，因为v-html部分的HTML没有被vue的模板编译器进行处理。
+
+```html
+    <div id="app">
+        <h3 v-html="url"></h3>
+        <h3>
+            <a :href="surl">CSDN</a>
+        </h3>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                msg: "Hello Vue!",
+                url: '<a href="https://www.baidu.com">百度一下</a>',
+                surl: "https://www.csdn.net"
+            },
+            methods: {}
+        });
+    </script>
+```
+
+如demo所示，两个链接都可以正常的显示出来。
+
