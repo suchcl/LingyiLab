@@ -653,3 +653,88 @@ vue中，我们既可以给一个DOM元素添加一个普通的class属性，也
 
 vue中动态绑定class有两种方式，一种为对象语法，一种为数组语法。
 
+对象语法，就是上面刚刚了解到的，数组语法，其实和对象语法基本相同，只是将{}改成了[].
+
+数组语法，一般是用在class类名比较多的情况下，看demo：
+
+```html
+    <div id="app">
+        <h2 v-bind:class='["active","line","vixited"]'>{{msg}}</h2>
+    </div>
+```
+
+元素h2有多个class，这里将class放置到一个数组中管理。效果如下图：
+
+![vue动态绑定class属性的数组语法](../../public/images/i63.png)
+
+从新学一门技术上来讲，我们有了多种class的绑定形式，会有一定的新鲜感，但是一般不会用到。如果这些class是固定的话，我们可以直接这些class赋值给class属性就了，但是如果会根据外部场景切换class，我们可以将这些class封装到一个方法中，比现在直接在DOM中赋值要更加灵活些。
+
+```html
+    <div id="app">
+        <h2 v-bind:class='["active","line","vixited"]'>{{msg}}</h2>
+        <h2 v-bind:class="getClasses()">{{msg}}</h2>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                msg: "Hello Vue!",
+                active: "active",
+                line: "line",
+                visited: "visited"
+            },
+            methods: {
+                getClasses() {
+                    return [this.active, this.line, this.visited];
+                }
+            }
+        });
+    </script>
+```
+
+两种class的绑定方式，效果是相同的：
+
+![数组语法的class绑定](../../public/images/i64.png)
+
+通过方法获取class列表的方式，对象语法也有同样的实现：
+
+```html
+    <div id="app">
+        <h2 v-bind:class="{active:isActive,line: isLined,visited: isVisited}">{{msg}}</h2>
+        <h2 v-bind:class="getClasses()">{{msg}}</h2>
+        <button @click="btnClick">active切换</button>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                msg: "Hello Vue!",
+                isActive: true,
+                isLined: true,
+                isVisited: true
+            },
+            methods: {
+                btnClick: function () {
+                    this.isActive = !this.isActive; // 给isActive取反，就不用记录当前的状态了
+                    this.isVisited = !this.isVisited;
+                },
+                // 把class封装到方法中，通过方法来返回对象语法的class列表
+                getClasses() {
+                    return {
+                        active: this.isActive,
+                        line: this.isLined,
+                        visited: this.isVisited
+                    };
+                }
+            }
+        });
+    </script>
+```
+
+对象语法和数组语法的class绑定，基本是一致的，就是封装数据的时候注意下数据类型就可以了。
+
+> 需要注意的是，动态绑定的class通过方法获取class列表的时候，方法名都加了小括号。但我们在其他的地方见到事件响应的方法的时候，方法名没有加小括号。那么什么时候方法名需要加小括号，什么时候不需要加？先留个悬念吧。
