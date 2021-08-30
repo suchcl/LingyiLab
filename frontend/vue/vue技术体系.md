@@ -571,3 +571,85 @@ vue项目中，在vue的el关联元素没有被vue关联上时，vue中的data�
 实际的场景应该就是这样子的，有很多的链接，数量不固定，内容不知，服务端给客户端下发的内容，是在一定规则下的内容，客户端只要求服务端下发的内容是按照一定格式的即可。demo中，我们把ur通过v-bind指令给动态的绑定到了DOM元素上。
 
 那么我们不给DOM的属性添加v-bind可以吗？肯定是不可以的，不添加v-bind指令，说明该属性就是一个普通的HTML属性，它是不会解析vue数据的，只有添加了v-bind指令后，vue在执行的过程中，就会解析该属性，属性值会被当作是一个变量从vue中去检索，然后赋值给该属性。另外，mustache语法也不可以赋值给v-bind指令指定的属性值。mustache语法是插入内容的，不是给属性赋值的。像<h2>{{msg}}</h2>这里的是内容，而<hr :title="msg">{{msg}}</h2>中的title是属性，且title被v-bind指令指定，它的值就是一个动态的值。
+
+**v-bind动态绑定class**
+
+专门介绍动态绑定class，并不是因为class和其他属性有什么特别的地方，而仅仅是因为class的使用频率较高。
+
+v-bind:可以绑定任意类型的值，可以是字符串，也可以是对象。vue对class和style的解析，做了特别的增强，v-bind值除了可以是表达式、字符串外，也可以是对象、数组。
+
+```html
+    <div id="app">
+        <h3 :class="{active:isActive,link:isLinked}">Hello Vue!</h3>
+    </div>
+```
+
+demo中class属性的值就是一个对象，对象中属性的值是一个boolean类型值，当boolean类型值为true时，该class就生效，boolean类型值为false时，该class失效。
+
+```html
+    <div id="app">
+        <h3 :class="{active:isActive,link:isLinked}">Hello Vue!</h3>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                isActive: true,
+                isLinked: true
+            },
+            methods: {}
+        });
+    </script>
+
+    <style>
+        .active {
+            font-size: 32px;
+        }
+
+        .link {
+            color: #369;
+        }
+    </style>
+```
+
+我们可以添加按钮，来演示这个效果：
+
+```html
+    <div id="app">
+        <h3 :class="{active:isActive,link:isLinked}">Hello Vue!</h3>
+        <button @click="btnClick">active切换</button>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                isActive: true,
+                isLinked: true
+            },
+            methods: {
+                btnClick:function(){
+                    this.isActive = !this.isActive; // 给isActive取反，就不用记录当前的状态了
+                }
+            }
+        });
+    </script>
+
+    <style>
+        .active {
+            font-size: 32px;
+        }
+
+        .link {
+            color: #369;
+        }
+    </style>
+```
+
+vue中，我们既可以给一个DOM元素添加一个普通的class属性，也可以通过v-bind动态绑定class类，实际项目上，这两种方式都是合法、有效的。一般情况下，当某个class是一定会有的，不会根据外部条件的变化而变化的部分，就可以直接给一个静态的普通的class，当有有些class可能会随着外部条件的变化而变化的，我们就通过v-bind来动态绑定class。静态固定的class和通过v-bind动态绑定的class是可以共存的，代码在解析的时候，是一个合并的操作，而不是覆盖。
+
+vue中动态绑定class有两种方式，一种为对象语法，一种为数组语法。
+
