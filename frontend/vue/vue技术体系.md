@@ -514,3 +514,60 @@ vue项目中，在vue的el关联元素没有被vue关联上时，vue中的data�
 ![添加v-cloak后的显然效果](../../public/images/i62.png)
 
 网页刚开始渲染的时候，DOM和Vue没有关联，页面显示的是空白，直到DOM和Vue做了关联后，才正常的显示了正常需要渲染的内容，体感好了很多。
+
+### v-bind 动态属性绑定
+
+在实际项目中，很多地方的属性我们是不能直接在代码中写成固定的，比如一个图片列表中的图片src属性，文字列表中的href属性。不光是图片列表还是文字列表，一般情况下都是循环遍历出来的内容，所以我们需要给图片的src和a的href设置成动态属性。
+
+```html
+    <div id ="app">
+        <ul class="list">
+            <li><a href="https://www.baidu.com">百度</a></li>
+            <li><a href="https://wwww.qq.com">QQ</a></li>
+            <li><a href="https://www.163.com">163</a></li>
+        </ul>    
+    </div>
+```
+
+比如这样的列表，这里我们展示了3条内容链接，但是在很多场景下，并不是只展示3条，而是数量都是不固定的，每个地方需要显示的条数都不同，即便在同一个模块，不同的条件展示的数量也会有所不同，所以我们就不能写成固定数量的链接。我们希望在Vue项目中能够实现这样的功能，vue给我们提供了v-bind指令，可以实现动态属性绑定。
+
+```html
+<ul class="list">
+    <li v-for="item in list"><a v-bind:href="item.url">{{item.title}}</a></li>
+</ul>
+<script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                list: [
+                    {
+                        title: "百度",
+                        url: "https://www.baidu.com"
+                    },
+                    {
+                        title: "163",
+                        url: "https://www.163.com"
+                    },
+                    {
+                        title: "QQ",
+                        url: "https://www.qq.com"
+                    },
+                    {
+                        title: "淘宝",
+                        url: "https://www.taobao.com"
+                    },
+                    {
+                        title: "搜狐",
+                        url: "https://www.sohu.com"
+                    }
+                ]
+            },
+            methods: {}
+        });
+    </script>
+```
+
+实际的场景应该就是这样子的，有很多的链接，数量不固定，内容不知，服务端给客户端下发的内容，是在一定规则下的内容，客户端只要求服务端下发的内容是按照一定格式的即可。demo中，我们把ur通过v-bind指令给动态的绑定到了DOM元素上。
+
+那么我们不给DOM的属性添加v-bind可以吗？肯定是不可以的，不添加v-bind指令，说明该属性就是一个普通的HTML属性，它是不会解析vue数据的，只有添加了v-bind指令后，vue在执行的过程中，就会解析该属性，属性值会被当作是一个变量从vue中去检索，然后赋值给该属性。另外，mustache语法也不可以赋值给v-bind指令指定的属性值。mustache语法是插入内容的，不是给属性赋值的。像<h2>{{msg}}</h2>这里的是内容，而<hr :title="msg">{{msg}}</h2>中的title是属性，且title被v-bind指令指定，它的值就是一个动态的值。
