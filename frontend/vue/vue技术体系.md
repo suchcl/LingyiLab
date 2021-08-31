@@ -781,3 +781,45 @@ v-bind可以动态绑定DOM属性，前面介绍了增强的class，除了增强
         });
     </script>
 ```
+
+**计算属性**
+
+一般情况下，当需要使用的数据，需要经过一些计算、处理后的，或者是需要依赖其他的数据变化而变化的数据时，也就是说需要使用经过处理后的数据的返回值时，我们就可以使用计算属性。
+
+计算属性，本质上是属性，但是形式上和方法相同，形式上就是一个函数。
+
+因为计算属性本质上是一个属性，所以一般在给计算属性起名字时，不给名字加动词，而方法、函数名一边都会有一个动词；在mustache语法中使用时，也不需要给计算属性名加小括号，虽然它的表现是一个函数，但是在mustache语法中使用方法时就需要给方法名加上小括号。
+
+```html
+    <div id="app">
+        <!--mustache语法除了可以变量插值，也可以使用方法，方法名需要加小括号-->
+        <h2>{{getFullName()}}</h2>
+
+        <!--计算属性：计算属性不需要加小括号-->
+        <h2>{{fullName}}</h2>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                firstName: "Nicholas",
+                lastName: "Zakas"
+            },
+            computed:{
+                // 计算属性命名，不加动词，计算属性本质上还是属性，虽然表现上是一个函数
+                fullName(){
+                    // return this.firstName + " " + this.lastName;  // 这种方式也可以，也还只是变量的拼接方式不同
+                    return `${this.firstName} ${this.lastName}`;
+                }
+            },
+            methods: {
+                getFullName(){
+                    // return this.firstName+ " " +this.lastName; // 这种方式也可以，就是拼接变量
+                    return `${this.firstName} ${this.lastName}`;
+                }
+            }
+        });
+    </script>
+```
