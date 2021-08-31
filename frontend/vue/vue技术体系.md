@@ -823,3 +823,48 @@ v-bind可以动态绑定DOM属性，前面介绍了增强的class，除了增强
         });
     </script>
 ```
+
+仅仅从上面demo来看，想了解下计算属性，已经有了大概的认识，但是计算属性的优势没有体现出来。实际场景中，可能使用计算属性就是一个非常优秀的实践，比如下面的demo，有很多书，我想显示这些书的总价。正常的思维应该是封装一个方法，让这个方法去给我计算这些书的总价。封装方法计算性价这个思路非常好。
+
+但是我们刚刚了解到了计算属性，那么是不是使用计算属性比使用方法更优秀呢？这个得了解了计算属性和方法的区别后才能知道，但是现在可以说的是，计算属性，在依赖值没有变化的时候，那这个属性（也可以说是一个方法）无论被调用几次，它都只执行依次，但是方法就不同了，方法是调用一次就执行依次。计算属性有一个缓存的优势。
+
+```html
+    <div id="app">
+        <h2>总价：{{totalPrice}}</h2>
+        <h3>总价：{{allPrice}}</h3>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                books: [
+                    {id: 1, name: "Javascript高级程序设计", price: 119},
+                    {id: 2, name: "Es6标准入门",price: 89},
+                    {id: 3,name: "Nodejs实战",price: 129},
+                    {id: 4,name: "中国近代史纲要",price: 49}
+                ]
+            },
+            computed: {
+                // 两种计算总价的计算属性，只是使用了不同的js的基本功能
+                // 这是最普通的一种遍历
+                totalPrice() {
+                    let result = 0;
+                    for (let i = 0; i < this.books.length; i++) {
+                        result += this.books[i].price;
+                    }
+                    return result;
+                },
+
+                // 这里使用了es6的reduce方法，数组变量，数据归并，
+                allPrice() {
+                    return this.books.reduce(function (prev, cur, index, arr) {
+                        return prev + cur.price;
+                    }, 0);
+                }
+            },
+            methods: {}
+        });
+    </script>
+```
