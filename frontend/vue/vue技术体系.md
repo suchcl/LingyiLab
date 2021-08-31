@@ -738,3 +738,46 @@ vue中动态绑定class有两种方式，一种为对象语法，一种为数组
 对象语法和数组语法的class绑定，基本是一致的，就是封装数据的时候注意下数据类型就可以了。
 
 > 需要注意的是，动态绑定的class通过方法获取class列表的时候，方法名都加了小括号。但我们在其他的地方见到事件响应的方法的时候，方法名没有加小括号。那么什么时候方法名需要加小括号，什么时候不需要加？先留个悬念吧。
+
+**动态绑定style**
+
+v-bind可以动态绑定DOM属性，前面介绍了增强的class，除了增强了动态绑定class，也增强了style。增强的style和class基本相同，也同时支持对象语法和数组语法。和动态绑定class稍微不同的是，style的本身就是对象类型的，本身就是key:value形式的，不过这里的key，在css中有的是多个单词组成的，单词之间用-链接，在v-bind绑定的style的对象语法中，css属性中由多个单词拼接而成以-拼接的属性，可以使用驼峰形式，如fontSize，当然也可以像在普通的css中一样使用-链接。
+
+```html
+    <div id="app">
+        <!--普通内联css-->
+        <h2 style="font-size: 36px;">{{msg}}</h2>
+        <!--动态绑定style的对象语法-->
+        <h2 :style="{fontSize: '24px', color: 'red'}">{{msg}}</h2>
+        <!--动态绑定style的数组语法-->
+        <h2 :style="[color,fz]">{{msg}}</h2>
+        <!--动态绑定style，通过方法获取对象语法-->
+        <!--方法getStyleByObj的小括号后面不要有分号-->
+        <h2 :style="getStyleByObj()">{{msg}}</h2>
+        <!--动态绑定style，通过方法获取数组语法-->
+        <h2 :style="getStyleByArray()">{{msg}}</h2>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                msg: "Hello Vue!",
+                color: { color: "#369" },
+                fz: { fontSize: "40px" }
+            },
+            methods: {
+                getStyleByObj() {
+                    return {
+                        fontSize: "60px",
+                        color: "#659"
+                    };
+                },
+                getStyleByArray() {
+                    return [this.color, this.fz];
+                }
+            }
+        });
+    </script>
+```
