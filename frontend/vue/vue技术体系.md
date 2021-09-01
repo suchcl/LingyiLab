@@ -962,3 +962,53 @@ v-bind可以动态绑定DOM属性，前面介绍了增强的class，除了增强
 ```
 
 这样，我们就可以修改计算属性的值了。
+
+**计算属性和methods对比**
+
+基本上使用计算属性的地方，也都有使用methods实现，那么计算属性和methods有什么区别呢？看demo：
+
+```html
+    <div id="app">
+        <!--我们分别执行计算属性和methods方法的获取全名的方法，执行计算属性就是注释掉methods部分，执行methods就注释掉计算属性部分，我们看到执行计算属性部分的时候，计算属性函数执行了1次，而methods执行了4次-->
+        <!--计算属性-->
+        <h2>{{fullName}}</h2>
+        <h2>{{fullName}}</h2>
+        <h2>{{fullName}}</h2>
+        <h2>{{fullName}}</h2>
+        <!--methods-->
+        <h2>{{getFullName()}}</h2>
+        <h2>{{getFullName()}}</h2>
+        <h2>{{getFullName()}}</h2>
+        <h2>{{getFullName()}}</h2>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                firstName: "Nicholas",
+                lastName: "Zakas"
+            },
+            computed: {
+                fullName() {
+                    console.log();
+                    console.log("计算属性：fullName");
+                    return this.firstName + " " + this.lastName;
+                }
+            },
+            methods: {
+                getFullName() {
+                    console.log("methods:getFullName()");
+                    return this.firstName + " " + this.lastName;
+                }
+            }
+        });
+    </script>
+```
+
+从demo中，表面的现象是多次获取同样的值，计算属函数性执行了一次，methods执行了多次。说明了：计算属性的缓存能力，依赖值没有变化的时候，多获取同一个值只执行依次；而methods则会执行多次。
+
+那么什么时候使用计算属性，什么时候使用methods呢？
+
+在一些值需要经过处理后展示的时候，就可以使用计算属性，如需要显示一些商品的总价的时候，我们可以通过计算属性去计算；而需要相应监听事件的时候，我们就使用methods，如一个点击事件的处理函数、一个敲击回车键的响应事件等等，都可以使用methods。
