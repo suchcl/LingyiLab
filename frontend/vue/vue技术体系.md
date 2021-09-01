@@ -868,3 +868,97 @@ v-bind可以动态绑定DOM属性，前面介绍了增强的class，除了增强
         });
     </script>
 ```
+
+**计算属性的setter和getter**
+
+> 计算属性是有缓存的
+
+为什么计算舒心是按照属性的方式使用，而不是按照函数的方式去使用呢？
+
+计算属性，本质上是属性，所以就会有获取属性值和设置属性值的情况,计算属性内部有getter和getter机制实现属性的设置值和获取值。可参考下面的demo：
+
+```html
+    <div id="app">
+        <h2>{{fullName}}</h2>
+    </div>
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                firstName: "Nichoalas",
+                lastName: "Zakas"
+            },
+            computed: {
+                fullName: {
+                    set(newValue) {
+                        this.firstName = newValue.split(" ")[0];
+                        this.lastName = newValue.split(" ")[1];
+                    },
+                    get() {
+                        return this.firstName + " " + this.lastName;
+                    }
+                }
+            },
+            methods: {}
+        });
+    </script>
+```
+
+不过在一般的情况下，计算属性只需要获取值，很少有给计算属性赋值的情况，所以一般在实现getter和setter的时候，会省略setter，只留下getter。大多数场景会省略setter，但是不代表不能设置setter。
+
+> 默认情况下，计算属性是没有实现setter方法的，也就是说，我们只能获取属性值，而不能给属性赋值。
+
+```html
+    <div id="app">
+        <h2>{{fullName}}</h2>
+    </div>
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                firstName: "Nichoalas",
+                lastName: "Zakas"
+            },
+            computed: {
+                fullName(){
+                    return this.firstName + " " + this.lastName;
+                }
+            },
+            methods: {}
+        });
+    </script>
+```
+
+如demo所示，计算属性fullName是默认方式，默认方式只实现了getter，无论是从开发者工具中调试，还是代码中给计算属性fullName赋值，都不行，无论何种方式都不能给计算属性赋值，因为默认形式下的计算属性，实际上是getter方法，缺省了setter方法，所以没有办法重新设置值。那么我们有没有办法修改这个属性的值呢？当然有了，显示的实现setter方法。
+
+```html
+    <div id="app">
+        <h2>{{fullName}}</h2>
+    </div>
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                firstName: "Nichoalas",
+                lastName: "Zakas"
+            },
+            computed: {
+                fullName: {
+                    set(newValue) {
+                        this.firstName = newValue.split(" ")[0];
+                        this.lastName = newValue.split(" ")[1];
+                    },
+                    get() {
+                        return this.firstName + " " + this.lastName;
+                    }
+                }
+            },
+            methods: {}
+        });
+    </script>
+```
+
+这样，我们就可以修改计算属性的值了。
