@@ -10,6 +10,26 @@ let：没有变量声明的提升，在哪里声明的就是在那个节点之�
 
 const：没有变量声明的提升，同let，只有在声明的地方之后才可以使用，在代码的一个执行周期中，其值不可以变，所以它声明的是一个常量。
 
+> 常量，指的的是指向的对象不能被修改，但是对象的属性可以被修改。
+
+```html
+    <button id="changeConst">修改const对象属性</button>
+    <script>
+        const p = {
+            name: "Nicholas"
+        };
+        const p2 = {
+            age: 12
+        };
+        document.getElementById("changeConst").addEventListener("click", function () {
+            p.name = "Qiuyan Huo";
+            console.log(p.name); // Qiuyan Huo
+            p = p2; // Uncaught TypeError: Assignment to constant variable.
+            // console.log(p);
+        });
+    </script>
+```
+
 > var和let、const的非常明显的一个区别，就是var可以在一个作用域内重复声明多次，最终的结果是以最后的一次声明为准，最后的一次声明会覆盖前面的声明；而let、const在同一个作用域内对同一个变量只能声明一次，否则会报异常。
 
 > 暂时性死区：javascript在ES6之后，有了2个新的声明变量的关键词let和const，这两个关键词声明的变量在声明之前是禁止使用的，如果硬要使用会报错。这个现象被称为暂时性死区。
@@ -571,7 +591,7 @@ console.log(c.getAnimalInfo()); // 调用了父类的方法，而自己本身并
 console.log(c.play()); // 子类也可以有自己的方法，子类就是一个正常的类，可以有自己的构造方法、属性和方法
 ```
 
-### 结构赋值
+### 解构赋值
 
 以前我们在获取一个对象里面的属性值的时候，需要这样做：
 
@@ -604,3 +624,6 @@ function decAssign() {
 
 console.log(decAssign()); // {uname: "Nicholas", age: 16, gender: "Male"}
 ```
+
+### 对象字面量增强写法
+
