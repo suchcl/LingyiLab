@@ -1012,3 +1012,38 @@ v-bind可以动态绑定DOM属性，前面介绍了增强的class，除了增强
 那么什么时候使用计算属性，什么时候使用methods呢？
 
 在一些值需要经过处理后展示的时候，就可以使用计算属性，如需要显示一些商品的总价的时候，我们可以通过计算属性去计算；而需要相应监听事件的时候，我们就使用methods，如一个点击事件的处理函数、一个敲击回车键的响应事件等等，都可以使用methods。
+
+**事件监听**
+
+指令：v-on  绑定事件监听器  缩写：@   预期：function   参数：event
+
+```html
+    <div id="app">
+        <h2>{{counter}}</h2>
+        <!--正常的全拼写法-->
+        <button v-on:click="increment">+</button>
+        <button v-on:click="decrement">-</button>
+        <hr>
+        <!--语法糖写法-->
+        <button @click="increment">+</button>
+        <button @click="decrement">-</button>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                counter: 0
+            },
+            methods: {
+                increment(){
+                    this.counter++;
+                },
+                decrement(){
+                    this.counter--;
+                }
+            }
+        });
+    </script>
+```
