@@ -31,7 +31,35 @@ fn();
 
 作用域概念：主要指变量作用域，指变量在什么范围内可用；
 
-ES5及以前的js版本中，if、for是没有作用域的概念的，所以很多在if、for的场景中，需要借助匿名function来解决应用外部变量的问题，匿名函数，一般就是指闭包
+ES5及以前的js版本中，if、for是没有作用域的概念的，所以很多在if、for的场景中，需要借助匿名function来解决应用外部变量的问题，匿名函数，一般就是指闭包。
+
+```html
+    <button class="btn">按钮1</button>
+    <button class="btn">按钮2</button>
+    <button class="btn">按钮3</button>
+    <button class="btn">按钮4</button>
+    <button class="btn">按钮5</button>
+
+    <script>
+        var btn = document.getElementsByClassName("btn");
+
+        // 这种常规的思路，无论点击哪个按钮，都会显示第5个按钮，因为for本身没有作用域的概念
+        // for (var i = 0; i < btn.length; i++) {
+        //     btn[i].addEventListener("click", function () {
+        //         console.log("第" + i + "个按钮被点击");
+        //     });
+        // }
+
+        // 这里借助了闭包（函数）解决了应用外部变量的问题,点哪个就显示哪个
+        for (var i = 0; i < btn.length; i++) {
+            (function (i) {
+                btn[i].addEventListener("click", function () {
+                    console.log("第" + i + "个按钮被点击"); 
+                });
+            })(i);
+        }
+    </script>
+```
 
 在ES6之前，Javascript只有全局作用域和函数作用域，从ES6标准开始，引入了一个新的作用域概念：块级作用域，以大括号{}标识。
 
