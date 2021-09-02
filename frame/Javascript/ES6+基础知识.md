@@ -453,7 +453,7 @@ Array.every()和Array.some()正好相反，Array.some()是数组中只要有一�
 
 和Array.reduce()功能相似的，还有另外一个归并方法Array.reduceRight()，reduce()从左侧开始计算，reduceRight()从右侧开始计算。可参考[Array中reduce](./arr.md)
 
-### 对象属性同名简写
+### 对象属性同名简写（对象属性的增强写法）
 
 ```javascript
 // 以前的写法
@@ -483,6 +483,26 @@ function getObjByES6() {
 }
 console.log(getObjByES6());//{username: "Nicholas", age: 26}
 ```
+
+这种增强写法，是ES6标准新增的一种语法，在对象字面量中，如果字面量的属性值是一个变量，且字面量属性和属性值同名的时候，我们就可以使用这种增强的写法。对象字面量中，方法也可以使用增强的写法。无论是属性的增强写法，还是方法的增强写法都只能使用在字面量的对象中。
+
+```javascript
+        let name = "Nicholas Zakas";
+        let age = 12;
+        let p = {
+            name,
+            age,
+            eat(){
+                console.log("该吃饭了");
+            },
+            // play方法没有增强，eat方法的本质，和play方法一样
+            play:function(){
+                console.log("该去锻炼身体了");
+            }
+        };
+```
+
+demo中，属性和方法都增强了，确实比ES5精简了一些代码，
 
 ### Promise
 
@@ -625,5 +645,7 @@ function decAssign() {
 console.log(decAssign()); // {uname: "Nicholas", age: 16, gender: "Male"}
 ```
 
-### 对象字面量增强写法
+### 对象的增强写法（对象字面量的增强写法）
+
+对象字面量，很多开发语言中都有类似的概念。
 
