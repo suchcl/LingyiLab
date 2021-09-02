@@ -51,12 +51,19 @@ ES5及以前的js版本中，if、for是没有作用域的概念的，所以很�
         // }
 
         // 这里借助了闭包（函数）解决了应用外部变量的问题,点哪个就显示哪个
-        for (var i = 0; i < btn.length; i++) {
-            (function (i) {
-                btn[i].addEventListener("click", function () {
-                    console.log("第" + i + "个按钮被点击"); 
-                });
-            })(i);
+        // for (var i = 0; i < btn.length; i++) {
+        //     (function (i) {
+        //         btn[i].addEventListener("click", function () {
+        //             console.log("第" + i + "个按钮被点击"); 
+        //         });
+        //     })(i);
+        // }
+
+        // ES6中有块级作用域的概念，直接常规思路编码即可
+        for(let i = 0; i < btn.length; i++){
+            btn[i].addEventListener("click",function(){
+                console.log("点击了第" + i + "个按钮");
+            });
         }
     </script>
 ```
