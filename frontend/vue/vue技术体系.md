@@ -1047,3 +1047,77 @@ v-bind可以动态绑定DOM属性，前面介绍了增强的class，除了增强
         });
     </script>
 ```
+
+**v-on参数**
+
+1. 不需要参数的情况：
+
+    - 在事件监听时，响应监听事件的方法后，可没有小括号，但是也可以有；
+    - 但如果在mustache语法中做插值操作时，方法后的小括号不可省；
+
+```html
+    <div id ="app">
+        <!--mustache中，方法小括号不可省-->
+        <h2>{{initCounter()}}</h2>
+        <!--响应监听事件的方法，没有参数的情况下，方法名后的小括号可以省略，也可以加上，效果相同-->
+        <button @click="btn1Click()">button1</button>
+        <button @click="btn1Click">button1-1</button>
+    </div>
+
+    <script>
+     //创建Vue实例,得到 ViewModel
+     let app = new Vue({
+        el: '#app',
+        data: {
+            counter: 0
+        },
+        methods: {
+            btn1Click(){
+                console.log("按钮1被点击了");
+            },
+            initCounter(){
+                let num = this.counter + 2;
+                return num;
+            }
+        }
+     });
+    </script>
+```
+
+    - 在事件定义时，写方法时省略了小括号，但是方法本身是需要一个小括号的，这个时候，vue会默认将浏览器产生的event事件作为参数传递到方法中，这个时候再调用方法的时候，不加参数，就默认把event参数传递给方法了
+      
+      - 同样的场景，如果在方法调用时，给方法加上了小括号，那么传递给方法的就是一个undefined
+
+```html
+        <!--在事件定义时，写方法时省略了小括号，但是方法本身是需要一个小括号的，这个时候，vue会默认将浏览器产生的event事件作为参数传递到方法中，这个时候再调用方法的时候，不加参数，就默认把event参数传递给方法了-->
+        <button @click="btn2Click">button2</button>
+
+        <!--这个时候方法调用时加上了小括号，方法在执行时的参数就是undefined-->
+        <button @click="btn2Click()">button2</button>
+    </div>
+
+    <script>
+     //创建Vue实例,得到 ViewModel
+     let app = new Vue({
+        el: '#app',
+        data: {
+            counter: 0
+        },
+        methods: {
+            btn1Click(){
+                console.log("按钮1被点击了");
+            },
+            btn2Click(name){
+                console.log(name); // name没有打印出来，PointerEvent {isTrusted: true, pointerId: 1, width: 1, height: 1, pressure: 0, …}  把当前的事件给打印了出来，说明在没有给命名方法传递参数的时候，vue就将浏览器的默认事件传递给了方法
+            },
+            initCounter(){
+                let num = this.counter + 2;
+                return num;
+            }
+        }
+     });
+    </script>
+```
+
+> 前端中，在响应事件监听的函数中，会默认传递给函数一个event
+
