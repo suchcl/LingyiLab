@@ -1330,3 +1330,34 @@ demo中，我们使用了v-if、v-else-if、v-else，但是这并不是一种很
     });
 </script>
 ```
+
+一个简单的逻辑切换的demo，切换用户的登录状态。现在需要登录的系统，一般都会优先使用手机号登录，或者再使用账号登录，我们看下简单的实现：
+
+```html
+<div id="app">
+    <div class="login-mobile" v-if="isMobile">手机号登录</div>
+    <div class="login-acc" v-else>账号登录</div>
+    <button @click="changeLoginTYpe">{{loginType}}</button>
+</div>
+
+<script>
+    //创建Vue实例,得到 ViewModel
+    let app = new Vue({
+        el: '#app',
+        data: {
+            loginType: "账号登录",
+            isMobile: true
+        },
+        methods: {
+            changeLoginTYpe() {
+                this.isMobile = !this.isMobile;
+                if (this.isMobile) {
+                    this.loginType = "账号登录";
+                } else {
+                    this.loginType = "手机号登录";
+                }
+            }
+        }
+    });
+</script>
+```
