@@ -33,11 +33,15 @@ console.log("%c这是一件神奇的%o事情","color: #f20",{color: "#369",fontS
 
 ![%o，对象形式输出](../../public/images/i65.png)
 
-console.info()
+console.info():　向控制台输出一条信息，用法基本和console.log()相同
 
-console.warn()
+console.warn()：向控制台输出一条警告信息，以黄色三角的形式区别于console.log和console.info，用法基本和console.log相同，也支持格式化输出
 
-console.error()
+![warn警示性输出，带有黄色警示标志](../../public/images/i66.png)
+
+console.error()：向控制台输出一条错误信息，以红色差号、默认红色文字区别于其他类型的输出，用法同console.log，也支持格式化输出
+
+![错误信息输出，默认红色文字、红色差子区别其他类别输出](../../public/images/i67.png)
 
 console.clear():　清空控制台信息
 
