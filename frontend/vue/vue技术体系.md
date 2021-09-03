@@ -1195,3 +1195,78 @@ v-bind可以动态绑定DOM属性，前面介绍了增强的class，除了增强
     </script>
 ```
 
+* .prevent：阻止默认行为
+
+一些DOM元素都是有默认行为的，如a元素点击后是会进行跳转的，form元素会默认向目标服务器提交数据等，但是在一些场景中，我们并不希望这些元素进行这些默认的行为，而是希望我们能够主动控制这些元素的行为，那么在vue项目中个，我们可以给这些元素的事件添加.prevent修饰符。
+
+```html
+<!--阻止默认事件:元素a，点击后默认是要跳转出去的，但是在点击事件中添加了.prevent修饰符后，就不会进行跳转动作了-->
+<a href="https://www.baidu.com" target="_blank" @click.prevent="aClick">百度</a>
+    <script>
+//创建Vue实例,得到 ViewModel
+let app = new Vue({
+    el: '#app',
+    data: {},
+    methods: {
+        aClick() {
+            console.log("元素a被点击了");
+        }
+    }
+});
+</script>
+```
+
+原生js中阻止默认行为的方法,需要调用事件对象的preventDefault()方法，看demo：
+
+```html
+<a href="https://www.baidu.com" target="_blank" id="link">百度</a>
+<script>
+    let link = document.getElementById("link");
+    link.addEventListener("click",function(event){
+        console.log("元素a被点击了");
+        event.preventDefault();
+    });
+</script>
+```
+
+* once:指定事件只执行一次
+
+特殊的场景下，我们需要某个事件只能被执行依次，这个时候就可以使用.once修饰符。现在没有想到什么场景，就先把功能演示一下吧。
+
+```html
+<!--这个按钮只能执行一次点击事件-->
+<button @click.once="btnClickOnce">.once修饰符</button>
+    <script>
+//创建Vue实例,得到 ViewModel
+let app = new Vue({
+    el: '#app',
+    data: {},
+    methods: {
+        btnClickOnce(){
+            console.log("这个按钮只能被执行一次点击事件");
+        }
+    }
+});
+</script>
+```
+
+* 按键修饰符：就是监听键盘上按键的事件，可以通过绑定按键码和按键别名来绑定按键，指定只有在绑定的按键在该事件才去执行响应函数。不过现在按键码（keyCode）已经废弃了，新版本的浏览器可能会不支持，我们只需要了解通过按键别名的方式就可以了。
+
+```html
+<!--默认情况下，所有按键的按键松开事件都会执行响应函数，加上了.enter修饰符后，只有在回车键松开的时候，才会执行响应函数-->
+<input type="text" @keyup.enter="keyUp">
+    <script>
+//创建Vue实例,得到 ViewModel
+let app = new Vue({
+    el: '#app',
+    data: {},
+    methods: {
+        keyUp(){
+            console.log("keyUp事件执行了");
+        }
+    }
+});
+</script>
+```
+
+除了上面介绍的几个修饰符之外，还有其他的一些修饰符，可以参考下官方文档：[vue2中的事件修饰符https://cn.vuejs.org/v2/guide/events.html#%E4%BA%8B%E4%BB%B6%E4%BF%AE%E9%A5%B0%E7%AC%A6](https://cn.vuejs.org/v2/guide/events.html#%E4%BA%8B%E4%BB%B6%E4%BF%AE%E9%A5%B0%E7%AC%A6)、[vue3中的事件修饰符：https://vue3js.cn/docs/zh/guide/events.html#%E4%BA%8B%E4%BB%B6%E4%BF%AE%E9%A5%B0%E7%AC%A6](https://vue3js.cn/docs/zh/guide/events.html#%E4%BA%8B%E4%BB%B6%E4%BF%AE%E9%A5%B0%E7%AC%A6) 粗略的扫了一眼，没有发现什么差异。
