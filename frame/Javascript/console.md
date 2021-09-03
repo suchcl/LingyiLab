@@ -35,11 +35,23 @@ console.log("%c这是一件神奇的%o事情","color: #f20",{color: "#369",fontS
 
 console.info():　向控制台输出一条信息，用法基本和console.log()相同
 
+```javscript
+console.info("%c这又是一件神奇的事情","color: #369");
+```
+
 console.warn()：向控制台输出一条警告信息，以黄色三角的形式区别于console.log和console.info，用法基本和console.log相同，也支持格式化输出
+
+```javascript
+console.warn("%c这是意见值得注意的事情","font-size: 32px");
+```
 
 ![warn警示性输出，带有黄色警示标志](../../public/images/i66.png)
 
 console.error()：向控制台输出一条错误信息，以红色差号、默认红色文字区别于其他类型的输出，用法同console.log，也支持格式化输出
+
+```javascript
+console.error("%c这是一件错误的事情","color: green");
+```
 
 ![错误信息输出，默认红色文字、红色差子区别其他类别输出](../../public/images/i67.png)
 
