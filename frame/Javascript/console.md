@@ -26,13 +26,13 @@ console.clear():　清空控制台信息
 console.timer()　计时器,单位毫秒ms，使用方式看demo：
 
 ```javascript
-        console.time("timer");
-        let sum = 0;
-        for (let i = 0; i < 1000; i++) {
-            sum += i;
-            console.log(sum);
-        }
-        console.timeEnd("timer");
+console.time("timer");
+let sum = 0;
+for (let i = 0; i < 1000; i++) {
+    sum += i;
+    console.log(sum);
+}
+console.timeEnd("timer");
 ```
 
 页面中最多可以设置10000个计时器，计时器名字必须唯一，结束以此计时器时调用console.timeEnd(),会输出对应计时器所经过的时间。计时器的名字可以自定义，不是必须以demo中的timer，但是需要注意统计同一个计时器，要知道开始时调用console.time(计时器名)，结束时调用console.timeEnd(计时器名)就可以了。
