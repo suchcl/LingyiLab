@@ -14,6 +14,24 @@ console.log()：向控制台输出一条信息，向控制台输出信息时可�
 | %f | 浮点数 |
 | %o或%O | Object对象 |
 
+```javascript
+console.log("%d + %d = %d", 1, 1, 3); //格式化输出： 1 + 1 = 3,C语言中有类似的语法
+
+// 整数格式输出：%d和%i都是相同的效果，对于后面需要格式化的数字，都是去尾法输出
+console.log("%i",3.2); // 3
+console.log("%i",3.7); // 3
+console.log("%d",3.2); // 3
+console.log("%d",3.7); // 3
+
+// 设置个性化的输出格式，每个%c对应一个CSS样式，每个被%c标识的文本，都只能设置一个个性化样式
+console.log("%c这是一件神奇的%c事情","color: #f20","font-size: 32px");
+
+
+// 被%o标识的部分，会以object的样式输出，如下图所示：
+console.log("%c这是一件神奇的%o事情","color: #f20",{color: "#369",fontSize: "32px"});
+```
+
+![%o，对象形式输出](../../public/images/i65.png)
 
 console.info()
 
