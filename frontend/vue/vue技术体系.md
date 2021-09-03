@@ -1270,3 +1270,63 @@ let app = new Vue({
 ```
 
 除了上面介绍的几个修饰符之外，还有其他的一些修饰符，可以参考下官方文档：[vue2中的事件修饰符https://cn.vuejs.org/v2/guide/events.html#%E4%BA%8B%E4%BB%B6%E4%BF%AE%E9%A5%B0%E7%AC%A6](https://cn.vuejs.org/v2/guide/events.html#%E4%BA%8B%E4%BB%B6%E4%BF%AE%E9%A5%B0%E7%AC%A6)、[vue3中的事件修饰符：https://vue3js.cn/docs/zh/guide/events.html#%E4%BA%8B%E4%BB%B6%E4%BF%AE%E9%A5%B0%E7%AC%A6](https://vue3js.cn/docs/zh/guide/events.html#%E4%BA%8B%E4%BB%B6%E4%BF%AE%E9%A5%B0%E7%AC%A6) 粗略的扫了一眼，没有发现什么差异。
+
+### v-if
+
+和v-if配对使用的v-else-if、v-else，v-else-if用的场景很少，因为在DOM做条件判断，不如在js代码中做逻辑判断更顺畅。语法比较简单，直接看demo吧：
+
+```html
+<div id="app">
+    <h2 v-if="score >= 90">优秀</h2>
+    <h2 v-else-if="score >= 80">良好</h2>
+    <h2 v-else-if="score >= 60">及格</h2>
+    <h2 v-else>不及格</h2>
+</div>
+
+<script>
+    //创建Vue实例,得到 ViewModel
+    let app = new Vue({
+        el: '#app',
+        data: {
+            score: 96
+        },
+        methods: {}
+    });
+</script>
+```
+
+demo中，我们使用了v-if、v-else-if、v-else，但是这并不是一种很好的实践，因为DOM中大量的逻辑判断，我们可以放在js中：
+
+```html
+<div id="app">
+    <h2>{{results}}</h2>
+</div>
+
+<script>
+    //创建Vue实例,得到 ViewModel
+    let app = new Vue({
+        el: '#app',
+        data: {
+            score: 46,
+            result: "优秀"
+        },
+        computed: {
+            results() {
+                let score = this.score;
+                let result = "优秀";
+                if (score >= 90) {
+                    result = "优秀";
+                } else if (score >= 80) {
+                    result = "良好";
+                } else if (score >= 60) {
+                    result = "及格";
+                } else {
+                    result = "不及格";
+                }
+                return result;
+            }
+        },
+        methods: {}
+    });
+</script>
+```
