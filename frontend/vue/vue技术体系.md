@@ -1121,4 +1121,77 @@ v-bind可以动态绑定DOM属性，前面介绍了增强的class，除了增强
 
 > 前端中，在响应事件监听的函数中，会默认传递给函数一个event
 
-2. 方法定义时需要event（浏览器事件）参数，也需要一个其他的参数，那么在方法调用时怎么获取到浏览器的事件(event)呢？
+2. 方法定义时需要event（浏览器事件）参数，也需要一个其他的参数，那么在方法调用时怎么获取到浏览器的事件(event)呢？vue给我们提供了：$event,可以帮我们手动获取浏览器事件
+
+```html
+<!--方法定义时需要一个event参数，也需要一个其他的参数,这个时候可以通过$event手动获取浏览器事件-->
+<button @click="btn3Click(abc,$event)">button3</button>
+<script>
+    //创建Vue实例,得到 ViewModel
+    let app = new Vue({
+        el: '#app',
+        data: {
+            counter: 0,
+            abc: "Hello"
+        },
+        methods: {
+            btn3Click(abc, event) { // 方法调用的地方，通过$event将事件传递给了方法
+                console.log("+++++++", abc, event);
+            }
+        }
+    });
+</script>
+```
+
+**v-on修饰符**
+
+* .stop 阻止事件继续传播，传播包括向上的冒泡和向下的捕获
+
+```html
+    <div id="app">
+        <div @click="divClick">
+            <!--不添加.stop修饰符，点击按钮的同时会触发div的点击事件，加上.stop修饰符，会阻止按钮的点击事件向上冒泡-->
+            <button @click.stop="btnClick">button</button>
+        </div>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {},
+            methods: {
+                divClick() {
+                    console.log("Div被点击了");
+                },
+                btnClick() {
+                    console.log("button被点击了");
+                }
+            }
+        });
+    </script>
+```
+
+在原生js中，阻止事件冒泡的方式需要调用js的stopPropagation()方法，可看demo：
+
+```html
+    <div class="box">
+        <div class="btn-area" id="btnArea">我是button包裹元素
+            <button id="btn">button</button>
+        </div>
+    </div>
+
+    <script>
+        let btnArea = document.getElementById("btnArea");
+        let btn = document.getElementById("btn");
+        btn.addEventListener("click", function (e) {
+            console.log("按钮被点击");
+            // 阻止调用相同事件的传播：传播包括向上的冒泡和向下的捕获
+            e.stopPropagation();
+        });
+        btnArea.addEventListener("click", function () {
+            console.log("div被点击");
+        });
+    </script>
+```
+
