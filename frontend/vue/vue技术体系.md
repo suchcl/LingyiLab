@@ -1273,7 +1273,7 @@ let app = new Vue({
 
 ### v-if
 
-和v-if配对使用的v-else-if、v-else，v-else-if用的场景很少，因为在DOM做条件判断，不如在js代码中做逻辑判断更顺畅。语法比较简单，直接看demo吧：
+v-if，控制元素是否被渲染，和v-if配对使用的v-else-if、v-else，v-else-if用的场景很少，因为在DOM做条件判断，不如在js代码中做逻辑判断更顺畅。语法比较简单，直接看demo吧：
 
 ```html
 <div id="app">
@@ -1455,4 +1455,63 @@ vue中，如果有经过逻辑判断展示不同的DOM的时候，vue并不是�
 ```
 
 新的demo和原来的相比，只有在两个input空间中加了个key属性，就解决了我们当前的问题了。
+
+**v-show**
+
+v-show，控制元素是否显示，用法和v-if相同，属性值是一个Boolean值。
+
+```html
+    <div id ="app">
+        <h2 v-show="isShow">{{msg}}</h2>
+    </div>
+
+    <script>
+     //创建Vue实例,得到 ViewModel
+     let app = new Vue({
+        el: '#app',
+        data: {
+            msg: "Hello Vue!",
+            isShow: true
+        },
+        methods: {}
+     });
+    </script>
+```
+
+**v-show和v-if的区别以及选用哪个**
+
+1. v-if: 指定元素是否渲染，是否添加到DOM中；
+
+2. v-show：指定元素是否展示，是否展示指的是元素已经被渲染到了DOM中，而已经渲染到DOM中的元素是否被看到；
+
+3. v-show:指定的元素，本质上是通过css样式display：none/block来控制元素是否展示的，所以它控制的是样式；
+
+```html
+    <div id ="app">
+        <!--当isShow被修改为false时，该元素直接没有被渲染到DOM中-->
+        <h2 v-if="isShow" id="vif">{{msg}}</h2>
+        <!--当isShow被修改为false时，该元素通过display：none；隐藏掉了-->
+        <h2 v-show="isShow" id="vshow">{{msg}}</h2>
+    </div>
+
+    <script>
+     //创建Vue实例,得到 ViewModel
+     let app = new Vue({
+        el: '#app',
+        data: {
+            msg: "Hello Vue!",
+            isShow: true
+        },
+        methods: {}
+     });
+    </script>
+```
+
+效果可以在开发者工具中修改isShow来看效果。
+
+那我们在项目中应该怎么选用v-if和v-show呢？
+
+v-if:当一个模块中需要切换的频率很低，比如只有一次时，我们可以选择v-if。v-if指定元素是否被渲染，切换频率低，减少被渲染的元素可以减小页面的质量，减少初次渲染的代码量，一定程度上可以提升页面的加载性能；
+
+v-show：当一个模块会被频繁的切换时，可以选择v-show。v-show指定的元素是是否被展示，它们已经被完全的渲染了出来，只是通过css样式的display属性来控制了是否展示。所以在选择v-show时，初次的渲染时可能会有一定的影响，但是后续不论多少次的模块切换，都不会重新加载，使用体验会更顺畅。
 
