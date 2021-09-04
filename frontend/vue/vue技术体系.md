@@ -1515,3 +1515,135 @@ v-if:当一个模块中需要切换的频率很低，比如只有一次时，我
 
 v-show：当一个模块会被频繁的切换时，可以选择v-show。v-show指定的元素是是否被展示，它们已经被完全的渲染了出来，只是通过css样式的display属性来控制了是否展示。所以在选择v-show时，初次的渲染时可能会有一定的影响，但是后续不论多少次的模块切换，都不会重新加载，使用体验会更顺畅。
 
+### v-for遍历属组和数组
+
+v-for可以遍历数组和对象，语法比较简单。
+
+**遍历数组**
+
+格式：(item,index) 可以遍历到数组的项和当前数组项的索引.
+
+遍历数组的时候，既可以遍历两个项，也可以遍历一个项:
+
+遍历两个项的时候，则分别为数组项、当前数组项的索引;
+
+当遍历一个项的时候，则为数组项
+
+```html
+    <div id="app">
+        <ul>
+            <!--如果遍历了两个值，则分别为数组项、当前项的索引-->
+            <li v-for="(item,index) in fruits">{{index + 1}}-{{item}}</li>
+        </ul>
+        <ul>
+            <!--如果只遍历了一个项，则为数组项-->
+            <li v-for="item in fruits">{{item}}</li>
+        </ul>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                fruits: ["Apple", "Pear", "Peach"]
+            },
+            methods: {}
+        });
+    </script>
+```
+
+**遍历对象**
+
+v-for还可以遍历对象，有3重格式:
+
+1. v-for="value in obj": 遍历的项为当前对象的各属性值
+
+```html
+    <div id="app">
+        <!--只遍历一个值：则为当前对象的各属性值-->
+        <ul>
+            <!--遍历中使用了个item变量，名称可以自定义，这里实际表示的是当前对象的属性的value-->
+            <li v-for="item in author">{{item}}</li>
+        </ul>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                author: {
+                    name: "Nicholas Zakas",
+                    age: 26,
+                    job: "Programmer"
+                }
+            },
+            methods: {}
+        });
+    </script>
+```
+
+看效果：
+
+![只遍历一个值：则为当前对象的各属性值](../../public/images/i70.png)
+
+2. v-for="(value,key) in obj"：遍历的项分别为当前对象各属性值、各属性的key
+
+```html
+    <div id="app">
+        <!--遍历2个值：则为当前对象的各属性值、各属性key-->
+        <ul>
+            <li v-for="(value,key) in author">{{key}}：{{value}}</li>
+        </ul>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                author: {
+                    name: "Nicholas Zakas",
+                    age: 26,
+                    job: "Programmer"
+                }
+            },
+            methods: {}
+        });
+    </script>
+```
+
+看效果图：
+
+![遍历2个值：则为当前对象的各属性值、各属性key](../../public/images/i71.png)
+
+3. v-for="(value,key,index) in obj"：遍历的项分别为当前对象个属性的值、各属性的key、各属性的索引
+
+```html
+    <div id="app">
+        <!--遍历对象3个值，分别为对象各属性值、个属性key、各属性索引-->
+        <ul>
+            <li v-for="(value,key,index) in author">{{index}}-{{key}}：{{value}}</li>
+        </ul>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                author: {
+                    name: "Nicholas Zakas",
+                    age: 26,
+                    job: "Programmer"
+                }
+            },
+            methods: {}
+        });
+    </script>
+```
+
+效果图：
+
+![遍历对象3个值，分别为对象各属性值、个属性key、各属性索引](../../public/images/i72.png)
