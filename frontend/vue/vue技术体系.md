@@ -1361,3 +1361,98 @@ demo中，我们使用了v-if、v-else-if、v-else，但是这并不是一种很
     });
 </script>
 ```
+
+vue中，如果有经过逻辑判断展示不同的DOM的时候，vue并不是直接切换不同逻辑需要展示的DOM，而是会先通过diff算法判断已经展示的DOM和即将要展示的DOM的区别，生成虚拟DOM，然后将即将要展示的DOM的和已经展示DOM的不同的地方，转换到已经展示的DOM上，然后再渲染到浏览器上。因为vue的这种操作原理，所以有的场景，比如前后两种逻辑都有输入框的时候，已经在前一个逻辑中输入了一些文字，在切换了逻辑后，那么这些已经输入的文字，会被原样的带到切换后的逻辑中的输入框中。
+
+如登录方式的切换demo：
+
+```html
+    <div id="app">
+        <!--手机号方式登录-->
+        <div class="login-mobile" v-if="isMobile">
+            <label for="mobile">手机号：</label>
+            <input type="text" id="mobile" placeholder="请输入手机号">
+        </div>
+        <!--账号方式登录-->
+        <div class="login-acc" v-else>
+            <label for="acc">用户名：</label>
+            <input type="text" id="acc" placeholder="请输入用户名">
+        </div>
+        <button @click="changeLoginType">切换为{{loginType}}</button>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                isMobile: true,
+                loginType: "账号方式登录"
+            },
+            methods: {
+                changeLoginType() {
+                    this.isMobile = !this.isMobile;
+                    if (this.isMobile) {
+                        this.loginType = "账号方式登录";
+                    } else {
+                        this.loginType = "手机号登录";
+                    }
+                }
+            }
+        });
+    </script>
+```
+
+效果如图：
+
+![登录方式切换，输入框输入内容在切换了登录方式后原样带了过去](../../public/images/i68.png)
+
+我们点了按钮后，效果如下：
+
+![登录方式切换，输入框输入内容在切换了登录方式后原样带了过去](../../public/images/i69.png)
+
+> 输入框输入的内容，在切换了登录方式后，原样带了过去，是因为vue的内部处理，有一个比较明显的表现：就是两种登录方式的DOM结构相同，只是内部的一些属性值不同。如果DOM结构不同了，vue的diff算法就不会认为它们相同了，值也就带不过去了。
+
+虽然vue这样的处理，在性能上有了一定程度的提升，但是我们在实际的业务场景上，并不是我们想要的，我们并不想要它能够直接输入之前输入过的内容。那怎么办呢？
+
+直接给输入框加一个属性key即可。
+
+```html
+    <div id="app">
+        <!--手机号方式登录-->
+        <div class="login-mobile" v-if="isMobile">
+            <label for="mobile">手机号：</label>
+            <input type="text" id="mobile" placeholder="请输入手机号" key="mobile">
+        </div>
+        <!--账号方式登录-->
+        <div class="login-acc" v-else>
+            <label for="acc">用户名：</label>
+            <input type="text" id="acc" placeholder="请输入用户名" key="acc">
+        </div>
+        <button @click="changeLoginType">切换为{{loginType}}</button>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                isMobile: true,
+                loginType: "账号方式登录"
+            },
+            methods: {
+                changeLoginType() {
+                    this.isMobile = !this.isMobile;
+                    if (this.isMobile) {
+                        this.loginType = "账号方式登录";
+                    } else {
+                        this.loginType = "手机号登录";
+                    }
+                }
+            }
+        });
+    </script>
+```
+
+新的demo和原来的相比，只有在两个input空间中加了个key属性，就解决了我们当前的问题了。
+
