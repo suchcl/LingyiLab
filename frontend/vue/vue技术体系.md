@@ -1714,3 +1714,233 @@ vue中数据是响应式的，那么数组中的哪些方法是响应式的，�
 通过数组索引的方式修改了数组后，修改后的数据没有响应式的渲染到页面上，但是数据确实是已经被修改了
 
 ![通过数组索引修改数组元素，修改后的数据没有响应式的渲染到页面上，但是数据已经被修改了](../../public/images/i73.png)
+
+**那么我们还是想通过索引来修改数组，怎么办呢？**
+
+有两种办法：
+
+1. 使用splice方法
+
+```javascript
+this.letters.splice(0, 1, "qq"); // 通过元素替换的方式
+```
+
+2. 使用Vue.set()方法
+
+```javascript
+Vue.set(this.letters, 0, "vip");
+```
+
+
+**数组的下列方法，可以响应式的渲染到页面上：**
+
+1. push：从数组尾部添加元素
+
+2. pop：元素尾部移除，删除数组最后一个元素
+
+```html
+    <div id="app">
+        <ul>
+            <li v-for="(item,index) in letters">{{item}}</li>
+        </ul>
+        <button @click="btnClick">动态添加元素</button>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                letters: ["a", "b", "c", "d"]
+            },
+            methods: {
+                btnClick(){
+                    // pop 元素尾部移除
+                    // this.letters.pop();
+                }
+            }
+        });
+    </script>
+```
+
+3. shift：元素头部移除，删除数组第一个元素
+
+```html
+    <div id="app">
+        <ul>
+            <li v-for="(item,index) in letters">{{item}}</li>
+        </ul>
+        <button @click="btnClick">动态添加元素</button>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                letters: ["a", "b", "c", "d"]
+            },
+            methods: {
+                btnClick(){
+                    // shift 元素头部移除
+                    this.letters.shift();
+                }
+            }
+        });
+    </script>
+```
+
+4. unshift:在数组最前面添加元素
+
+```html
+   <div id="app">
+        <ul>
+            <li v-for="(item,index) in letters">{{item}}</li>
+        </ul>
+        <button @click="btnClick">动态添加元素</button>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                letters: ["a", "b", "c", "d"]
+            },
+            methods: {
+                btnClick(){
+                    // unshift 在数组头部添加元素
+                    this.letters.unshift("kkk","lll","mmm"); // unshift可以头部添加多个元素，也可以添加1个元素
+                }
+            }
+        });
+    </script>
+```
+
+5. splice
+
+这个方法，功能有点多，既可以插入元素、也可以删除元素，还可以替换元素。
+
+splice(start,):
+
+start：插入元素、删除元素、替换元素的起始位置
+
+第2个参数：
+
+- 要删除或者替换元素的个数，第2个元素为要删除元素的个数；如果第2个参数没有传，那么会从起始元素之后的元素全部删除；
+
+如果只有1个参数，则参数表示起始位置，从起始位置之后的所有元素都要被删除；起始位置从索引0开始；
+
+```html
+    <div id="app">
+        <ul>
+            <li v-for="(item,index) in letters">{{item}}</li>
+        </ul>
+        <button @click="btnClick">动态添加元素</button>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                letters: ["a", "b", "c", "d", "e"]
+            },
+            methods: {
+                btnClick() {
+                    // 只有1个参数
+                    this.letters.splice(2); // 留下a、b，之后的字母全部被删除
+
+                }
+            }
+        });
+    </script>
+```
+
+如果是有2个参数，在第一个参数是起始位置，第2个参数是要删除的元素的个数；
+
+```html
+   <div id="app">
+        <ul>
+            <li v-for="(item,index) in letters">{{item}}</li>
+        </ul>
+        <button @click="btnClick">动态添加元素</button>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                letters: ["a", "b", "c", "d", "e"]
+            },
+            methods: {
+                btnClick() {
+                    // 只有1个参数
+                    this.letters.splice(1, 2); // 从b开始删除2个字母，最后结果为a、d、e
+
+                }
+            }
+        });
+    </script>
+```
+
+如果有2个以上的参数，则第一个参数为起始位置，第2个参数为要替换元素的数量，后面的参数为替换的元素(也可以理解为：第一个参数为起始位置，没有变化，第2个参数为要删除的元素的个数，后面的元素为要重新插入的元素)，无论是哪种描述和理解，最终的结果都是相同的，就是一些位置的元素成了新的元素，原来的元素没有了
+
+```html
+    <div id="app">
+        <ul>
+            <li v-for="(item,index) in letters">{{item}}</li>
+        </ul>
+        <button @click="btnClick">动态添加元素</button>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                letters: ["a", "b", "c", "d", "e"]
+            },
+            methods: {
+                btnClick() {
+                    // 只有1个参数
+                    this.letters.splice(1, 2, "m", "n"); // "a", "m", "n", "d", "e"
+                }
+            }
+        });
+    </script>
+```
+
+只要splice的参数超过了3个，那么第1个参数，就是起始位置不会变，第2个参数是要变动的元素的个数，后面的元素无论多少，都会插入到从起始位置开始的地方，元素多了就多插入，元素少了就少插入
+
+```html
+   <div id="app">
+        <ul>
+            <li v-for="(item,index) in letters">{{item}}</li>
+        </ul>
+        <button @click="btnClick">动态添加元素</button>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                letters: ["a", "b", "c", "d", "e"]
+            },
+            methods: {
+                btnClick() {
+                    // 只有1个参数
+                    this.letters.splice(1, 3, "m", "n", "k", "l"); // 'a', 'm', 'n', 'k', 'l', 'e'
+                }
+            }
+        });
+    </script>
+```
+
+6. sort
+
+7. reverse
+
+数组的这些方法，可以直接将修改后的数据渲染到页面上。
