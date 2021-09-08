@@ -1946,3 +1946,44 @@ start：插入元素、删除元素、替换元素的起始位置
 7. reverse
 
 数组的这些方法，可以直接将修改后的数据渲染到页面上。
+
+
+**数据遍历的一个小demo**
+
+有一组数组，第一条数据永远展示为红色，其余数据点击的时候变为红色，点击后第一条数据也还是红色保持不变.
+
+```html
+<style>
+    .active,
+    .isFirst {
+        color: #f20;
+    }
+
+    .fruits li {
+        cursor: pointer;
+    }
+</style>
+<div id="app">
+    <ul class="fruits">
+    <!--这里是用了动态class去绑定，去控制样式为红色的class是否绑定到元素上面-->
+        <li v-for="(item,index) in fruits" :Key="item"
+            :class="{active: currentIndex === index, isFirst: index === 0}" @click="liClick(index)">{{item}}</li>
+    </ul>
+</div>
+
+<script>
+    //创建Vue实例,得到 ViewModel
+    let app = new Vue({
+        el: '#app',
+        data: {
+            fruits: ["Apple", "Peach", "Pear", "Banana", "Potato"],
+            currentIndex: 0
+        },
+        methods: {
+            liClick(index) {
+                this.currentIndex = index;
+            }
+        }
+    });
+</script>
+```
