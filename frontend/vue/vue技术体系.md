@@ -1647,3 +1647,70 @@ v-for还可以遍历对象，有3重格式:
 效果图：
 
 ![遍历对象3个值，分别为对象各属性值、个属性key、各属性索引](../../public/images/i72.png)
+
+**v-for绑定和不绑定key的区别**
+
+> 在v-for遍历中，key要保持唯一性，一般不要使用index，使用index对性能的帮助几乎没有，不能保证key的唯一；
+
+**检查数组的更新**
+
+vue中数据是响应式的，那么数组中的哪些方法是响应式的，哪些数组的方法做不到响应式呢？
+
+1. 通过push方法修改数组可以做到响应式
+
+```html
+   <div id="app">
+        <ul>
+            <li v-for="(item,index) in letters">{{item}}</li>
+        </ul>
+        <button @click="btnClick">动态添加元素</button>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                letters: ["a", "b", "c", "d"]
+            },
+            methods: {
+                btnClick(){
+                    this.letters.push("ffff");
+                }
+            }
+        });
+    </script>
+```
+
+当我们点击按钮的时候，添加的元素可以直接响应式的渲染到页面上，可以直接看到效果。
+
+2. 通过数组索引值修改数组是不能响应式的
+
+```html
+    <div id="app">
+        <ul>
+            <li v-for="(item,index) in letters">{{item}}</li>
+        </ul>
+        <button @click="btnClick">动态添加元素</button>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                letters: ["a", "b", "c", "d"]
+            },
+            methods: {
+                btnClick(){
+                    // 通过数组索引修改数组，不能直接响应式的渲染到页面上，但是数据确实是已经修改过了
+                    this.letters[0] = "修改了数组第一个元素";
+                }
+            }
+        });
+    </script>
+```
+
+通过数组索引的方式修改了数组后，修改后的数据没有响应式的渲染到页面上，但是数据确实是已经被修改了
+
+![通过数组索引修改数组元素，修改后的数据没有响应式的渲染到页面上，但是数据已经被修改了](../../public/images/i73.png)
