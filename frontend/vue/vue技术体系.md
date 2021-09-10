@@ -1993,3 +1993,67 @@ start：插入元素、删除元素、替换元素的起始位置
 过滤器，也是个函数
 
 > 过滤器，既然也是个函数，那么它和methods以及computed有什么区别呢？
+
+### v-model
+
+前面学过了mustache语法，将数据绑定到普通的DOM元素上的时候，我们通过v-bind指令，或者通过语法糖的形式，那么将数据和表单绑定的时候，可以通过专用指令v-model，v-model可以实现表单和数据的双向绑定。
+
+> 数据和普通DOM元素绑定，用mustache语法；数据和表单绑定的时候，用v-model.
+
+```html
+    <div id="app">
+        <input type="text" v-model="msg">
+        <h2>{{msg}}</h2>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                msg: "Hello Vue!"
+            },
+            methods: {}
+        });
+    </script>
+```
+
+就这么简单的就实现了表单和数据的双向绑定。双向绑定，指的是表单数据的变化，会映射到data中数据的变化，同样，data中数据的变化也会在表单中体现出来。看demo：
+
+![表单通过v-model的双向绑定](../../public/images/i74.png)
+
+我们在表单输入框中输入文字的时候，下面对应的内容会跟着变化，说明表单中数据的变化已经响应到了data数据；我们在开发者工具中通过修改app.msg来修改值，修改后的值也直接在表单中体现了出来，说明表单通过v-model实现了和数据的双向绑定。
+
+**那么表单是怎么通过v-model实现的双向绑定呢？**
+
+表单通过v-model实现了表单和数据的双向绑定，其实是做了两件事情，我们也可以简单的认为v-model是做的这两件事的一个语法糖。
+
+1. 首先通过v-bind质量将数据和表单的value属性进行绑定；
+
+2. 通过监听表单（以输入控件input为例）的input事件，实现数据的变化。
+
+通过上述两件事情，就实现了表单和数据的双向绑定。
+
+```html
+    <div id="app">
+        <!--通过v-bind指令实现了数据和表单value属性的绑定，通过监听input控件的input输入事件，实现了input控件修改后的value和data的改变-->
+        <!--通过v-bind和value属性的绑定、监听input控件的输入事件input实现了表单和数据的双向绑定-->
+        <input type="text" :value="msg" @input="valueChange">
+        <h2>{{msg}}</h2>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                msg: "Hello Vue!"
+            },
+            methods: {
+                valueChange(event) {
+                    this.msg = event.target.value;
+                }
+            }
+        });
+    </script>
+```
