@@ -2084,3 +2084,40 @@ v-model的双向绑定，除了可以应用到input，也同样适用textarea控
         });
     </script>
 ```
+
+**v-model和radio的配合使用**
+
+v-model和radio配合使用的时候，同一组radio需要绑定同一个变量，这样就可以实现radio的单选效果。
+
+如果我们期望有默认的选中值，如性别选择中期望默认选择“男”，我们就可以直接在数据中定义变量值为“男”就可以了。
+
+另外就是在常规的HTML中，在同一个选项组中，需要使用name属性来标识，但是在vue中，如果使用了v-model绑定数据了，那么只需要这个选项组中绑定了同一个变量就可以了，那么属性可以省略。当然了，不缺省name属性也是完全可以的。
+
+```html
+    <div id="app">
+        <ul>
+            <li>
+                <label for="male">
+                    <input type="radio" name="gender" value="男" v-model="sex" id="male">男
+                </label>
+            </li>
+            <li>
+                <label for="female">
+                    <input type="radio" name="gender" value="女" v-model="sex" id="female">女
+                </label>
+            </li>
+        </ul>
+        <h3>你选择了：{{sex}}</h3>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                sex: "男"
+            },
+            methods: {}
+        });
+    </script>
+```
