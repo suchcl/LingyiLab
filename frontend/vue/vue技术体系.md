@@ -2039,6 +2039,33 @@ start：插入元素、删除元素、替换元素的起始位置
         <!--通过v-bind指令实现了数据和表单value属性的绑定，通过监听input控件的input输入事件，实现了input控件修改后的value和data的改变-->
         <!--通过v-bind和value属性的绑定、监听input控件的输入事件input实现了表单和数据的双向绑定-->
         <input type="text" :value="msg" @input="valueChange">
+        <h3>换一种方式：@input="msg = $event.target.value"</h3>
+        <input type="text" :value="msg" @input="msg = $event.target.value">
+        <h2>{{msg}}</h2>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                msg: "Hello Vue!"
+            },
+            methods: {
+                valueChange(event) {
+                    this.msg = event.target.value;
+                }
+            }
+        });
+    </script>
+```
+
+v-model的双向绑定，除了可以应用到input，也同样适用textarea控件。
+
+```html
+    <div id="app">
+        <textarea v-model="msg"></textarea>
+        <textarea :value="msg" @input="valueChange"></textarea>
         <h2>{{msg}}</h2>
     </div>
 
