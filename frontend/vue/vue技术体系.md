@@ -2164,3 +2164,46 @@ checkbox一般情况下，有两种使用场景，一种是单选的可反选形
         });
     </script>
 ```
+
+**v-model之select**
+
+select和checkbox基本相同，也有单选和复选的使用场景。
+
+> vue中，select的默认选项，是通过数据来控制，通过v-model绑定的变量的默认值，就是select控件的默认值，而不是通过select控件的selected属性控制默认选项。
+
+```html
+    <div id="app">
+        <!--单选场景-->
+        <div class="single">
+            <select v-model="city">
+                <option value="全部">全部</option>
+                <option value="河北">河北</option>
+                <option value="山东">山东</option>
+                <option value="北京">北京</option>
+            </select>
+            <h3>你选择的城市是：{{city}}</h3>
+        </div>
+        <!--多选场景-->
+        <div class="multi">
+            <select v-model="cities" multiple>
+                <option value="全部">全部</option>
+                <option value="河北">河北</option>
+                <option value="山东">山东</option>
+                <option value="北京">北京</option>
+            </select>
+            <h3>你选择了:{{cities}}</h3>
+        </div>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                city: "全部", // 单选场景下，使用字符串，本demo中给了一个默认值，在vue中，给select一个默认值，是在数据中给定默认值，而不是通过select控件的selected属性
+                cities: ["北京"] // 给一个默认的选项
+            },
+            methods: {}
+        });
+    </script>
+```
