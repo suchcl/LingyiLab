@@ -2121,3 +2121,46 @@ v-model和radio配合使用的时候，同一组radio需要绑定同一个变量
         });
     </script>
 ```
+
+**v-model和checkbox的配合使用**
+
+checkbox一般情况下，有两种使用场景，一种是单选的可反选形式，如是否同意隐私协议，然后才可以进行下一步之类的场景；另一种就是真正的多选了，如收集用户的爱好、多个可选条件中选择适合自己的选项等。
+
+单选场景下，一般会通过v-model绑定一个Boolean值，来确认是否选中了；在多选的场景下，一般情况下会通过v-model绑定一个数组，来收集已经选择的项。
+
+```html
+    <div id="app">
+        <!--单选复选，如是否同意协议、隐私协议之类的-->
+        <div class="single">
+            <label for="is-agree">
+                <input type="checkbox" v-model="isAgree" id="is-agree">是否同意
+            </label>
+            <h2>你的选择：{{isAgree}}</h2>
+            <button :disabled="!isAgree">下一步</button>
+        </div>
+        <!--多个项目选择-->
+        <div class="multi">
+            <h3>你有什么爱好？</h3>
+            <div class="hobby">
+                <input type="checkbox" value="足球" v-model="hobbies">足球
+                <input type="checkbox" value="篮球" v-model="hobbies">篮球
+                <input type="checkbox" value="羽毛球" v-model="hobbies">羽毛球
+                <input type="checkbox" value="跳绳" v-model="hobbies">跳绳
+                <input type="checkbox" value="看电影" v-model="hobbies">看电影
+            </div>
+            你选择的爱好：{{hobbies}}
+        </div>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                isAgree: false,
+                hobbies: []
+            },
+            methods: {}
+        });
+    </script>
+```
