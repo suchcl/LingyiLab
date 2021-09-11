@@ -2207,3 +2207,77 @@ select和checkbox基本相同，也有单选和复选的使用场景。
         });
     </script>
 ```
+
+**v-model之值绑定**
+
+vue中有这么一个概念叫值绑定，看文档看的云里雾里，没有看的很明白，这里将我的一些理解，以案例的形式简单描述一下。
+
+比如我们经常会见到图中的场景，就是选择城市区域。
+
+![v-model之值绑定，选择城市区域](../../public/images/i75.png)
+
+在做这样的技术实现的时候，如果我们不做好技术实现方案，可能就直接把这样的几个城市直接写死到代码中了，像这样：
+
+```html
+        <label for="北京">
+            <input type="checkbox" id="北京" value="北京" v-model="cities">北京
+        </label>
+        <label for="石家庄">
+            <input type="checkbox" id="石家庄" value="石家庄" v-model="cities">石家庄
+        </label>
+        <label for="天津">
+            <input type="checkbox" id="天津" value="天津" v-model="cities">天津
+        </label>
+        <label for="成都">
+            <input type="checkbox" id="成都" value="成都" v-model="cities">成都
+        </label>
+        <h4>你选择了的城市有：{{cities}}</h4>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                cities: []
+            },
+            methods: {}
+        });
+    </script>
+```
+
+这里先不要纠结id属性的合理性。然后绑定下v-model,我们就实现了选中城市数据的绑定，能获取到页面中选中的城市数据。效果看起来很完美。
+
+但是很多时候，这些城市数据并不是固定的，而是这些城市数据都是从后台系统中配置的，我后台系统中配置了新的城市，新的城市就需要展示出来，已经展示的城市不需要了，就不需要在页面中展示了。那我们不能说每次有城市数据变化的时候，都要提新需求，来次代码开发上线流程吧。明显的不合理。我们更加期望的是城市从后台数据，在后台控制城市数据的展示与否。那么上面的实现方式就不那么灵活了。
+
+我们直接看实现方式吧：
+
+```html
+    <div id="app">
+        <!--v-model值绑定-->
+        <div>
+            <label :for="item" v-for="item in originCities">
+                <input type="checkbox" :id="item" :value="item" v-model="cities">{{item}}
+            </label>
+            <h4>你选择了:{{cities}}</h4>
+        </div>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                originCities: ["北京", "石家庄", "天津", "成都", "上海", "重庆", "武汉", "深圳", "广州"],
+                cities: []
+            },
+            methods: {}
+        });
+    </script>
+```
+
+现在的实现方案，已经满足了业务方的需求。
+
+我们通过一个变量保存原始城市数据（当然了，是从服务端获取的），然后以此为依据遍历出来所有的城市数据。然后再通过v-model绑定选中的城市，实现了选中的值和DOM元素的绑定。
+
+可能我的这种理解不科学，但是理解起来更容易一些。
