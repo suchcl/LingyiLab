@@ -2281,3 +2281,106 @@ vue中有这么一个概念叫值绑定，看文档看的云里雾里，没有�
 我们通过一个变量保存原始城市数据（当然了，是从服务端获取的），然后以此为依据遍历出来所有的城市数据。然后再通过v-model绑定选中的城市，实现了选中的值和DOM元素的绑定。
 
 可能我的这种理解不科学，但是理解起来更容易一些。
+
+**v-model修饰符**
+
+.lazy
+
+默认情况下，通过v-model绑定的表单，和数据双向绑定，是时时响应的，好处是只要一方有了数据的变化，我在另一个端就能即刻发现数据的变动，但是也有一个不好的地方，就是有的场景下，我并不希望这种变化是时时的，而是希望能够在表单输入完成的时候，再发生一次表单和数据的绑定、交互。这个时候，只要给v-model添加一个修饰符.lazy就可以了。
+
+```html
+    <div id ="app">
+        <input type="text" v-model.lazy="msg">
+        <h2>{{msg}}</h2>    
+    </div>
+
+    <script>
+     //创建Vue实例,得到 ViewModel
+     let app = new Vue({
+        el: '#app',
+        data: {
+            msg: "Hello Vue!"
+        },
+        methods: {}
+     });
+    </script>
+```
+
+v-model添加了.lazy修饰符后，只有在失去焦点或者敲击回车时才会发生数据的交互。
+
+.number
+
+在一些表单输入中，我们希望输入数字类型。我们知道，如果期望输入的值是number类型，那么将input的type属性设置成number就可以了。但是在vue中绑定了v-model属性后，就有问题了。v-model绑定的变量，默认都都是string类型，如果我们希望v-model绑定的变量是number类型的，那么给v-model添加.number修饰符就可以了。
+
+```html
+    <div id ="app">
+        <input type="number" v-model="age">
+        <h2>你的年龄：{{age}} - {{typeof age}}</h2>
+    </div>
+
+    <script>
+     //创建Vue实例,得到 ViewModel
+     let app = new Vue({
+        el: '#app',
+        data: {
+            age: 12
+        },
+        methods: {}
+     });
+    </script>
+```
+
+![v-model默认绑定string类型](../../public/images/i76.png)
+
+看demo，默认情况下，我们可以看到age字段是number类型，应该是没问题的，但是只要我们在输入框重新输入一个数字，那么这个修改后的数字，就变成了string类型了。这也印证了我们上面的结论，v-model绑定的变量，默认都是string类型。那么接下来就需要解决问题了，就是希望默认展示的是number类型的，修改后的数字，也是number类型的，只需要给v-model添加.number修饰符即可。
+
+```html
+    <div id ="app">
+        <input type="number" v-model.number="age">
+        <h2>你的年龄：{{age}} - {{typeof age}}</h2>
+    </div>
+
+    <script>
+     //创建Vue实例,得到 ViewModel
+     let app = new Vue({
+        el: '#app',
+        data: {
+            age: 12
+        },
+        methods: {}
+     });
+    </script>
+```
+
+![v-model添加.number修饰符，绑定number类型](../../public/images/i77.png)
+
+.trim
+
+在input输入框输入内容的时候，有些时候可能由于输入的疏忽，或者操作失误，或者设备的原因，可能会在开始输入或者结束输入的时候，会多出来一些空格，如下案例：
+
+![开始多出了空格](../../public/images/i78.png)
+
+在输入的时候，多输出了一些空格，虽然在浏览器中展示的时候，只展示了一个空格的位置（如图中2的位置，浏览器在展示字符串的时候，默认给移除掉了开始和结尾的空格，当有多个空格的时候，只保留一个展示），但是实际上是多个空格存在的（如图中3的位置）。一些场景中，我们并不希望这些空格存在，而不仅仅是展示了一个就可以了。只需要给v-model添加.trim修饰符就可以了。
+
+```html
+    <div id="app">
+        <!--trim-->
+        <input type="text" v-model.trim="message">
+        <h2>输入的信息:{{message}}</h2>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                msg: "Hello Vue!",
+                age: 12,
+                message: ""
+            },
+            methods: {}
+        });
+    </script>
+```
+
+添加了.trim修饰符后，输入框在开始和结束输入的空格，在输入框失去焦点后，都会自动消失，数据也不会保存这些开始和结束位置的空格。
