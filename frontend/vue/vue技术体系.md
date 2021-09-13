@@ -2630,3 +2630,52 @@ Vue.component("My-Component", cpnConstructor);
         });
     </script>
 ```
+
+### 注册组件的语法糖
+
+前面我们学到了，在VUE中使用组件，有3个步骤：
+
+1. 通过Vue.extend()方法创建组件的构造器；
+
+2. 通过Vue.component()方法来注册组件；
+
+3. 使用组价，使用组件的过程中需要注意一些注册的组件名和组件使用时的命名方式。
+
+虽然现在的3个步骤，很清晰明了，对于开始学习Vue的时候来说，学习起来容易，但是在实际使用中，总会感觉有些繁琐，于是实践中会把第1步和第2步合并为一步，Vue也给我们提供了这样的能力，Vue.component()第2个参数传入一个构造器，或者传入一个对象，传入对象参数时会自动调用Vue.extend()参数。
+
+```html
+    <div id ="app">
+        <my-cpn></my-cpn>
+        <my-cpn2></my-cpn2>
+    </div>
+
+    <script>
+        // 第2个参数，传入了一个选项对象，会自动调用Vue.extend()方法，也称为组件的语法糖
+        // 语法糖形式，注册的全局组件
+        Vue.component("my-cpn",{
+            template:`
+                <div class="box">
+                    <h2>语法糖的标题</h2>
+                    <p>组件语法糖的内容</p>
+                </div>
+            `
+        });
+     //创建Vue实例,得到 ViewModel
+     let app = new Vue({
+        el: '#app',
+        data: {},
+        methods: {},
+        components:{
+            // 语法糖格式注册了局部组件
+            "my-cpn2":{
+                template:`
+                    <div class="box">
+                        <h2>语法糖注册局部组件标题</h2>
+                        <p>语法糖注册局部组件内容</p>    
+                    </div>
+                `
+            }
+        }
+     });
+    </script>
+```
