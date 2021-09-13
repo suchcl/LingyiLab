@@ -2585,3 +2585,48 @@ Vue.component("My-Component", cpnConstructor);
         });
     </script>
 ```
+
+**父组件和子组件**
+
+在项目中，组件拆分的颗粒化程度不同，有的一些场景，一个组件可能会包含其他的一些组件，如组件A中可能会包含使用了组件B，那么我们就称A为父组件，组件B为子组件，组件A和组件B互为父子组件。
+
+```html
+    <div id="app">
+        <!--页面中只使用了组件cpnC2，但结果是两个组件的内容都被正常的渲染了出来-->
+        <cpn-c2></cpn-c2>
+    </div>
+
+    <script>
+        const cpnC1 = Vue.extend({
+            template: `
+                <div class="box">
+                    <h2>组件1标题</h2>
+                    <p>组件1内容组件1内容</p>
+                </div>
+            `
+        });
+        const cpnC2 = Vue.extend({
+            template: `
+                <div class="box">
+                    <h2>组件2标题</h2>
+                    <p>组件2内容组件2内容</p>
+                    <cpn-c1></cpn-c1>
+                </div>
+            `,
+            // 一个组建中又注册了另外一个组件
+            // 当前组件cpnC2为父组件，注册的新组建cpnC1为子组件，组件cpnC2和组件cpnC1互为父子组件
+            components: {
+                cpnC1: cpnC1
+            }
+        });
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+            components: {
+                cpnC2: cpnC2
+            }
+        });
+    </script>
+```
