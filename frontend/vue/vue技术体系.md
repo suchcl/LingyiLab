@@ -2384,3 +2384,87 @@ v-model添加了.lazy修饰符后，只有在失去焦点或者敲击回车时�
 ```
 
 添加了.trim修饰符后，输入框在开始和结束输入的空格，在输入框失去焦点后，都会自动消失，数据也不会保存这些开始和结束位置的空格。
+
+### 组件化
+
+vue中的组件，大致上可以分为3个步骤：
+
+1. 创建组件的构造器对象：通过调用Vue.extend()方法
+
+```javascript
+    // 1. 创建组件的构造器对象
+    const cpnConstructor = Vue.extend({
+        template: `
+        <div>
+            <h2>标题标题标题</h2>
+            <p>内容内容内容内容</p>
+        </div>
+    `
+    });
+```
+
+2. 注册组件：通过调用Vue.component()方法
+
+```javascript
+    // 2. 注册组件
+    Vue.component("MyComponent", cpnConstructor);
+```
+
+3. 使用组件
+
+第2步骤确定的标签名，就像普通的HTML标记一样使用就可以了。
+
+* 如果定义的标签名是多个单词组成，单词之间以-分隔，则标签使用时可以直接使用；也可以每个单词开始字母大写，单词之间以-分隔的形式使用；
+  
+```javascript
+// 该组件名，可以<my-component></my-component>、<My-Component></My-Component>两种方式使用
+Vue.component("my-component", cpnConstructor);
+```
+
+* 如果定义的标签名由多个单词组成，单词之间没有分隔线：
+  * 如果单词都是小写字母
+    * 则使用时可以直接使用；
+    * 也可以大驼峰的形式使用
+  
+  ```javascript
+    // 组件名多个单词、全部小写拼接而成，则可以<MyComponent></MyComponent>、<mycomponent></mycomponent>方式使用
+    Vue.component("mycomponent", cpnConstructor);
+  ```
+
+  * 如果自定义的标签名的多个单词就是以大驼峰的形式命名的，那么在使用时就需要以分割线-分隔的形式使用；
+
+```html
+    <div id="app">
+        <my-component></my-component>
+    </div>
+
+    <script>
+        // 1. 创建组件的构造器对象
+        const cpnConstructor = Vue.extend({
+            template: `
+            <div>
+                <h2>标题标题标题</h2>
+                <p>内容内容内容内容</p>
+            </div>
+        `
+        });
+
+        // 2. 注册组件
+        // 注册组件的组件名：MyComponent，大驼峰形式，使用形式只能是：<my-component></my-component>
+        Vue.component("MyComponent", cpnConstructor);
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {},
+            methods: {}
+        });
+    </script>
+```
+    * 组件名，当有多个单词组成时，不允许大驼峰+分割线的形式命名
+
+```javascript
+// 这种命名方式是不允许的，
+Vue.component("My-Component", cpnConstructor);
+```
+
+
