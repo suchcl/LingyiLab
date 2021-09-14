@@ -2930,6 +2930,8 @@ Vue.component("My-Component", cpnConstructor);
 
 凡是Vue实例拥有的属性，组件都可以拥有，但是需要记住不能在script、template类似仅仅是分离组件的地方使用，而是需要在组件渲染的地方使用。按照当前我们已经掌握的知识点，可以在创建组件构造器的时候、组件注册的时候使用:
 
+> 组件对象的原型指向Vue
+
 ```javascript
     // 创建组件构造器是声明多种组件选项
     let cpnC = Vue.extend({
@@ -2958,3 +2960,159 @@ Vue.component("My-Component", cpnConstructor);
         methods: {}
     });
 ```
+
+### 为什么data必须要是一个函数？
+
+组件的数据、方法、属性，都放到组件自己的域内。组件之间要相互隔离，不能相互渗透。
+
+```html
+    <div id="app">
+        <counter></counter>
+        <counter></counter>
+        <counter></counter>
+    </div>
+
+    <template id="counter">
+        <div class="counter">
+            <h2>当前数是：{{counter}}</h2>
+            <div class="btn-area">
+                <button @click="increment">+</button>
+                <button @click="decrement" :disabled="isDisabled">-</button>
+            </div>
+        </div>
+    </template>
+    <script>
+        Vue.component("counter", {
+            template: "#counter",
+            data() {
+                return {
+                    counter: 0
+                }
+            },
+            computed: {
+                isDisabled() {
+                    return this.counter <= 1 ? true : false;
+                }
+            },
+            methods: {
+                increment() {
+                    this.counter++;
+                },
+                decrement() {
+                    this.counter--;
+                }
+            }
+        });
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {},
+            methods: {}
+        });
+    </script>
+```
+
+组件中的data必须是一个函数，为了不让多个组件实例共享同一个data对象，组件之间应该相互隔离。
+
+### 组件通信
+
+**父子组件之间的通信**
+
+从以前的知识了解到，子组件是不能直接访问到父组件或者顶层Vue实例中的数据的，但有些场景，或者叫大部分场景，数据是从父组件获取到的，子组件还要使用。
+
+实际上，也都是父组件将值传递给子组件，然后子组件可以将这些数据根据规则展示。
+
+**如何进行父子组件之间的通信呢？**
+
+Vue给我们提供了两种方式：
+
+1. 父组件通过props属性向子组件传递数据；
+
+    props传值有两种方式：
+
+    * 字符串数组，数组中的字符串就是传递时的名称
+        
+        - 数组形式的传值，在实际项目中很少使用
+    
+```html
+    <div id="app">
+        <!--父组件将数据fruits传递给了子组件的自定义属性cfruits-->
+        <fruits :cfruits="fruits"></fruits>
+    </div>
+
+    <template id="fruits">
+        <ul class="fruits">
+            <!--子组件可以使用自定义属性cfruits-->
+            <li v-for="(item,index) in cfruits" :key="item">{{item}}</li>
+        </ul>
+    </template>
+
+    <script>
+
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                fruits: ["apple", "banana", "pear", "peach", "photos"]
+            },
+            methods: {},
+            components: {
+                "fruits": {
+                    template: "#fruits",
+                    // 子组件自定义了一个自定义属性(props)cfruits，用来接收父组件的数据
+                    props: ["cfruits"]
+                }
+            }
+        });
+    </script>
+```
+
+    * 对象，对象可以设置传递时的类型，也可以设置默认值、是否必须得传值等
+
+```html
+    <div id="app">
+        <blog :ctitle="title" :ccontent="content" :cauthor="author"></blog>
+    </div>
+
+    <!--自定义个一个模板-->
+    <template id="article">
+        <div class="article">
+            <div class="title">
+                <h3>{{ctitle}}</h3>
+            </div>
+            <div class="content">{{ccontent}}</div>
+        </div>
+    </template>
+
+    <script>
+        const blog = {
+            template: "#article",
+            // props向子组件传值：对象形式，可限定属性类型、默认值
+            props: {
+                ctitle: String, // 限定类型
+                ccontent: {
+                    type: String, // 限定类型
+                    default: "今天我们来探讨一个有趣的问题，如果玉兔遇到莱昂纳多·斐波那契，那明年中秋嫦娥在月亮上会拥有几只玉兔呢？" // 设置默认值
+                },
+                cauthor: {
+                    type: String,
+                    required: true // 设置该属性必须要从父组件传值过来
+                }
+            }
+        };
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                title: "基于活文档理念的 UI 自动化测试框架",
+                content: "不管是需求文档、代码、还是测试用例，本质上都是一种知识的表达，不同时期每一种知识载体的权威性也不同。比如在需求评审阶段，需求文档就是最权威的知识。而测试阶段，测试用例又变成了最权威的知识载体。"
+            },
+            methods: {},
+            components: {
+                blog
+            }
+        });
+    </script>
+```
+
+1. 子组件通过事件向父组件发送消息，向父组件发送信息
