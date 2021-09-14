@@ -3115,4 +3115,53 @@ Vue给我们提供了两种方式：
     </script>
 ```
 
+在父组件向子组件通过props传值时，子组件中自定义的props中的属性，命名方式可以是驼峰形式，也可以是以-分隔的方式，但是在使用驼峰形式命名时，在组件中接收数据的时候，需要修改成以-分隔的形式，否则代码无法被正常解析，接收不到数据，但代码不会报错。
+
+```html
+    <div id="app">
+        <!--子组件user中的props的userName属性，在组件传值中引用的时候，需要将驼峰改成-分隔的形式，否则无法正常解析，代码不会报错-->
+        <user :user-name="name" :age="age" :occ="occ"></user>
+        <div class="remark" :p1="p1" :propsName="p2" :props-prop="p3">{{remark}}</div>
+    </div>
+
+    <template id="user">
+        <div class="user">
+            <h3>姓名：{{userName}}</h3>
+            <p>年龄：{{age}}</p>
+            <p>职业：{{occ}}</p>
+        </div>
+    </template>
+    <script>
+        const user = {
+            template: "#user",
+            props: {
+                userName: String, // 属性命名可以是驼峰形式，但是在组件中接收数据时，需要使用以-分隔的形式，如user-name
+                age: Number,
+                occ: String
+            }
+        };
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                name: "Nicholas Zakas",
+                age: 26,
+                occ: "Programmer",
+                remark:"备注信息",
+                p1: "自定义属性",
+                p2: "自定义属性2",
+                p3: "自定义属性3"
+            },
+            methods: {},
+            components: {
+                user
+            }
+        });
+    </script>
+```
+
+> 不光是在父子组件通过props方式通信时有类似问题，而是只要铜鼓v-bind指令的时候，都有类似的问题。只不过是在常规的数据绑定时，如果属性名有驼峰标识的，就自动转换成小写了，如果是属性是以-分隔的，就原样输出。
+
+![v-bind指令绑定的属性，驼峰命名规则现象](../../public/images/i83.png)
+
 1. 子组件通过事件向父组件发送消息，向父组件发送信息
