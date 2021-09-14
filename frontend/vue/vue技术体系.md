@@ -2679,3 +2679,99 @@ Vue.component("My-Component", cpnConstructor);
      });
     </script>
 ```
+
+**组件模板抽离**
+
+前面我们已经熟悉了Vue中模板的使用方法，可以分为3个步骤，分别通过Vue.extend()创建组件构造器、Vue.component()注册组件，最后使用；之后我们也了解到了3个步骤可以合并为2个步骤，就是创建组件构造器这个步骤可以省略掉，而直接给Vue.component()方法传递选项参数，当然了，底层的实现还是调用了Vue.extend()方法。无论这两种方法，都有一个共性，就是组件的DOM结构都写到了js代码中，感觉代码乱乱的，而且在Js代码中写HTML结构代码，没有提示（我现在没有发现，不知道是不是我没有找到合适的插件）：
+
+```html
+    <div id="app">
+        <my-cpn></my-cpn>
+    </div>
+
+    <script>
+        // 创建组件的构造器
+        // 组件构造器中，是js代码中掺杂了HTML结构代码，输入时没有智能提示，还有点乱，如果能将HTML结构代码分离出去，写代码就友好了
+        let cpnC = Vue.extend({
+            template: `
+                <div class="box">
+                    <h2>组件标题</h2>
+                    <p>组件内容</p>
+                </div>
+            `
+        });
+
+        // 注册全局组件
+        Vue.component("my-cpn", cpnC);
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {},
+            methods: {}
+        });
+    </script>
+```
+
+那我们是否可以把HTML结构代码从js代码中给分离出来呢？当然是有的，常用的有两种方式吧：
+
+1. 通过script标签，设置script标签的type为text/x-template，以及设置id属性，在Vue.component()注册组件的时候，通过给template属性赋值前面script标签的ID即可
+
+2. 通过template标签，设置id属性，也是在Vue.component()注册组件的时候，通过template属性关联template标签id
+
+```html
+    <div id="app">
+        <my-cpn></my-cpn>
+        <box></box>
+        <news></news>
+    </div>
+
+    <!--第一种分离出Vue组件的方式：通过script标记，设置type="text/x-template",并设置id属性，和组件注册时的template属性关联-->
+    <script type="text/x-template" id="box">
+        <div class="box">
+            <h2>组件分离第一种方式标题</h2>
+            <p>组件分离第一种方式内容</p>
+        </div>
+    </script>
+
+    <!--通过template标记声明组件，设置id属性-->
+    <template id="news">
+        <ul class="list">
+            <li>我是一个抽离出来的组件-新闻列表</li>
+            <li>我是一个抽离出来的组件-新闻列表</li>
+            <li>我是一个抽离出来的组件-新闻列表</li>
+        </ul>
+    </template>
+    <script>
+        // 创建组件的构造器
+        // 组件构造器中，是js代码中掺杂了HTML结构代码，输入时没有智能提示，还有点乱，如果能将HTML结构代码分离出去，写代码就友好了
+        let cpnC = Vue.extend({
+            template: `
+                <div class="box">
+                    <h2>组件标题</h2>
+                    <p>组件内容</p>
+                </div>
+            `
+        });
+
+        // 注册全局组件
+        Vue.component("my-cpn", cpnC);
+
+        // 通过script标记分离组件方式注册组件
+        Vue.component("box", {
+            template: "#box"
+        });
+
+        // 通过template组件分离方式注册组件
+        Vue.component("news", {
+            template: "#news"
+        });
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {},
+            methods: {}
+        });
+    </script>
+```
+
+> 一般项目中，不会使用这种方式进行组件的开发，但是了解这些方式，对于Vue的学习、组件的使用是有很大帮助的。
