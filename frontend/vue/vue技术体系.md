@@ -3164,4 +3164,102 @@ Vue给我们提供了两种方式：
 
 ![v-bind指令绑定的属性，驼峰命名规则现象](../../public/images/i83.png)
 
-1. 子组件通过事件向父组件发送消息，向父组件发送信息
+2. 子组件通过事件向父组件发送消息，向父组件发送信息
+
+子组件在给父组件传递消息时，可以通过$emit向父组件发送消息，告诉父组件当前子组件发生了一些事情，并把发生的事情的具体信息汇总给父组件。
+
+简单用法：
+
+```html
+    <!--监听子组件自定义事件item-click的响应函数cpnClick可以没有参数，默认会把子组件自定义函数的参数传递给处理函数-->
+    <categories :categories="categories" @item-click="cpnClick"></categories>
+    <template id="categories">
+        <div>
+            <!--响应函数itemClick(item)需要加参数item，告知父组件什么数据被传递了过去-->
+            <button class="category" v-for="item in categories" :Key="item.id"
+                @click="itemClick(item)">{{item.name}}</button>
+        </div>
+    </template>
+    <script>
+        itemClick(item) {
+            this.$emit("item-click", item); // $emit通常可以有2个参数，第一个参数为自定义事件，也就是父组件需要监听的事件，第2个参数为需要向父组件传递的参数
+        }
+    </script>
+```
+
+来看下完整的案例：
+
+```html
+    <div id="app">
+        <!--监听子组件自定义事件item-click的响应函数cpnClick可以没有参数，默认会把子组件自定义函数的参数传递给处理函数-->
+        <categories :categories="categories" @item-click="cpnClick"></categories>
+    </div>
+
+    <template id="categories">
+        <div>
+            <!--响应函数itemClick(item)需要加参数item，告知父组件什么数据被传递了过去-->
+            <button class="category" v-for="item in categories" :Key="item.id"
+                @click="itemClick(item)">{{item.name}}</button>
+        </div>
+    </template>
+    <script>
+        const categories = {
+            template: "#categories",
+            props: {
+                categories: {
+                    type: Array,
+                    default() {
+                        return []
+                    }
+                }
+            },
+            methods: {
+                itemClick(item) {
+                    this.$emit("item-click", item);
+                }
+            }
+
+        };
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                categories: [
+                    {
+                        id: "mobile",
+                        name: "手机"
+                    },
+                    {
+                        id: "computer",
+                        name: "电脑"
+                    },
+                    {
+                        id: "digital",
+                        name: "数码"
+                    },
+                    {
+                        id: "shoes",
+                        name: "鞋"
+                    },
+                    {
+                        id: "books",
+                        name: "图书"
+                    }
+                ]
+            },
+            methods: {
+                // 监听子组件自定义事件的响应函数，需要接收从子组件自定义函数传递过来的参数
+                cpnClick(name,item) {
+                    console.log(item);
+                    console.log(name);
+                }
+            },
+            components: {
+                categories
+            }
+        });
+    </script>
+```
+
+> 通过$emit向父组件传递消息，是常用的几种父子组件通信方式中的一种，还有其他的几种方式，如事件总成、provide/inject、$attrs和$listeners等，可以逐渐熟悉。
+
