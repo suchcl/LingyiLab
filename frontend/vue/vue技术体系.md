@@ -2775,3 +2775,186 @@ Vue.component("My-Component", cpnConstructor);
 ```
 
 > 一般项目中，不会使用这种方式进行组件的开发，但是了解这些方式，对于Vue的学习、组件的使用是有很大帮助的。
+
+**组件里怎么动态显示数据**
+
+经过对组件的学习，已经体会到了组件给我们的带来的便利，但是现在还有一个小问题，就是前面我们学习组件，组件中的内容都是写的固定的，那么组件能不能能动态绑定数据呢？
+
+我们尝试下给组件访问下Vue实例中的数据
+
+```html
+    <div id="app">
+        <my-cpn></my-cpn>
+    </div>
+
+    <template id="box">
+        <div class="box">
+            <!--通过mustache语法将顶层Vue实例中的数据title绑定到了组件中-->
+            <h2>{{title}}</h2>
+            <p>我是组件内容</p>
+        </div>
+    </template>
+
+    <script>
+        Vue.component("my-cpn", {
+            template: "#box"
+        });
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                // 在Vue实例中声明了一个变量，将其绑定到组件中
+                title: "我是组件标题"
+            },
+            methods: {}
+        });
+    </script>
+```
+
+运行代码，发现不行，报错了：
+
+![组件中不能访问顶层Vue实例中的数据](../../public/images/i81.png)
+
+案例给我们证实了一点，就是组件不能访问顶层Vue实例中的数据的。
+
+> 即便在技术上可以实现组件访问顶层Vue实例中的数据，也不建议这么做。一个项目中，组件的数量很多，我们不能将组件中应用到的数据都放到顶层的Vue中，因为这样就会增大顶层的Vue实例的质量，不利于代码的性能。
+
+组件中有没有可以存储数据的地方呢？
+
+组件中是有可以存放数据的地方，其存放的数据可以供本组件使用。
+
+在组件声明或者创建组件构造器的时候，有一个data参数，可以用来存放当前组件的数据。只不过data属性是一个函数类型，而不是一个普通对象，该函数再返回一个对象。
+
+```html
+    <div id="app">
+        <my-cpn></my-cpn>
+    </div>
+
+    <template id="box">
+        <div class="box">
+            <!--通过mustache语法将当前组件中存放的数据title绑定到了组件中-->
+            <h2>{{title}}</h2>
+            <p>{{content}}</p>
+        </div>
+    </template>
+
+    <script>
+        Vue.component("my-cpn", {
+            template: "#box",
+            data() {
+                return {
+                    title: "我是分离出来的组件的标题",
+                    content: "我说分离出来的组件的内容"
+                }
+            }
+        });
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {},
+            methods: {}
+        });
+    </script>
+```
+
+当前组件中存放的数据，被完美的展示了出来。
+
+前面学习到了可以通过script、template标记将组件中的HTML结构分离出来，我们要注意，不能够在这两个组件中声明存放数据的data参数，这两个标记，仅仅是将HTML结构分离出来，不做数据的处理。
+
+```html
+    <div id="app">
+        <my-cpn></my-cpn>
+        <!--在模板中定义存放数据的data后的组件渲染-->
+        <news></news>
+    </div>
+
+    <template id="box">
+        <div class="box">
+            <!--通过mustache语法将当前组件中存放的数据title绑定到了组件中-->
+            <h2>{{title}}</h2>
+            <p>{{content}}</p>
+        </div>
+    </template>
+
+    <script type="text/x-template" id="news">
+        <ul>
+            <li>{{title}}</li>
+        </ul>
+        <!--在模板中，是不能定义data参数存放数据的，即便定义的data是一个函数类型-->
+        data() {
+            return {
+                title: "我是新闻标题"
+            }
+        },
+    </script>
+
+    <script>
+        Vue.component("my-cpn", {
+            template: "#box",
+            data() {
+                return {
+                    title: "我是分离出来的组件的标题",
+                    content: "我说分离出来的组件的内容"
+                }
+            }
+        });
+        Vue.component("news", {
+            template: "#news"
+        });
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {},
+            methods: {}
+        });
+    </script>
+```
+
+如案例所示，我们在template组件中定义data参数，报错了:
+
+![不能够在script、template分离出来的组件中定义存放数据的data参数](../../public/images/i82.png)
+
+组件，其实就和Vue实例很相似，Vue实例也可以看成是一个组件。
+
+组件，可以有：
+
+1. 自己的data属性；
+
+2. methods属性；
+
+3. computed属性；
+
+4. 声明周期；
+
+……
+
+凡是Vue实例拥有的属性，组件都可以拥有，但是需要记住不能在script、template类似仅仅是分离组件的地方使用，而是需要在组件渲染的地方使用。按照当前我们已经掌握的知识点，可以在创建组件构造器的时候、组件注册的时候使用:
+
+```javascript
+    // 创建组件构造器是声明多种组件选项
+    let cpnC = Vue.extend({
+        template: ``,
+        data() {
+            return {
+
+            }
+        },
+        computed: {},
+        methods: {}
+    });
+
+    // 组件注册时声明多种组件选项
+    Vue.component("my-cpn", {
+        template: ``,
+        data() {
+            return {}
+        },
+        methods: {}
+    });
+    //创建Vue实例,得到 ViewModel
+    let app = new Vue({
+        el: '#app',
+        data: {},
+        methods: {}
+    });
+```
