@@ -3263,3 +3263,189 @@ Vue给我们提供了两种方式：
 
 > 通过$emit向父组件传递消息，是常用的几种父子组件通信方式中的一种，还有其他的几种方式，如事件总成、provide/inject、$attrs和$listeners等，可以逐渐熟悉。
 
+### 子组件不要直接绑定props中的值，而是要绑定data或计算属性中的值
+
+> 一般情况下，子组件中的值都是从父组件获取的，那么假如子组件中有form表单使用v-model的时候，那么表单不要直接绑定子组件的props，而应该绑定子组件的data中的值或者计算属性。
+
+**原则已经了解了，那么子组件中，v-model可以直接绑定子组件的props吗？**
+
+仅从子组件的数据实现上，是可以实现的，表面上看是没有问题的，但是代码在执行过程中，会报异常：
+
+```html
+    <div id="app">
+        <cpn :number1="num1" :number2="num2"></cpn>
+    </div>
+
+    <template id="cpn">
+        <div>
+            <h3>props中的只：{{number1}}</h3>
+            <!--直接绑定了props中的属性，从表面上看是没有问题的，但是代码运行过程中会报异常-->
+            <input type="text" v-model="number1">
+            <h3>props中的值：{{number2}}</h3>
+            <!--直接绑定了props中的属性，从表面上看是没有问题的，但是代码运行过程中会报异常-->
+            <input type="text" v-model="number2">
+        </div>
+    </template>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                num1: 1,
+                num2: 0
+            },
+            methods: {},
+            components: {
+                cpn: {
+                    template: "#cpn",
+                    props: {
+                        number1: Number,
+                        number2: Number
+                    }
+                }
+            }
+        });
+    </script>
+```
+
+![子组件直接和props绑定会报错](../../public/images/i84.png)
+
+异常信息也提示我们了，可以使用data或者计算属性来绑定v-model。 ------- 需要注意，子组件的data是一个函数，不是一个对象。
+
+```html
+    <div id="app">
+        <cpn :number1="num1" :number2="num2"></cpn>
+    </div>
+
+    <template id="cpn">
+        <div>
+            <h3>props中的只：{{number1}}</h3>
+            <!--直接绑定了props中的属性，从表面上看是没有问题的，但是代码运行过程中会报异常-->
+            <input type="text" v-model="number1">
+            <h3>data中：{{dnumber1}}</h3>
+            <!--绑定了data中的值，页面展示正常，代码执行过程中也没有报异常，完美-->
+            <input type="text" v-model="dnumber1">
+            <h3>props中的值：{{number2}}</h3>
+            <!--直接绑定了props中的属性，从表面上看是没有问题的，但是代码运行过程中会报异常-->
+            <input type="text" v-model="number2">
+            <!--绑定了计算属性，效果完美-->
+            <h3>绑定计算属性：{{cnumber2}}</h3>
+            <input type="text" v-model="cnumber2">
+        </div>
+    </template>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                num1: 1,
+                num2: 0
+            },
+            methods: {},
+            components: {
+                cpn: {
+                    template: "#cpn",
+                    data() {
+                        return {
+                            dnumber1: this.number1,
+                            dnumber2: this.number2
+                        }
+                    },
+                    computed: {
+                        cnumber2: {
+                            set(newValue) {
+                                this.dnumber2 = newValue;
+                            },
+                            get() {
+                                return this.dnumber2;
+                            }
+                        }
+                    },
+                    props: {
+                        number1: Number,
+                        number2: Number
+                    }
+                }
+            }
+        });
+    </script>
+```
+
+还是上面的案例，希望实现在子组件中值的变化的时候，也能修改到父组件中的值，怎么实现呢？因为是表单，所以就表单的v-model拆解一下就可以了。
+
+```html
+    <div id="app">
+        <cpn :number1="num1" :number2="num2" @num1-change="num1Change"></cpn>
+    </div>
+
+    <template id="cpn">
+        <div>
+            <h3>props中的只：{{number1}}</h3>
+            <!--直接绑定了props中的属性，从表面上看是没有问题的，但是代码运行过程中会报异常-->
+            <input type="text" v-model="number1">
+            <h3>data中：{{dnumber1}}</h3>
+            <!--绑定了data中的值，页面展示正常，代码执行过程中也没有报异常，完美-->
+            <input type="text" v-model="dnumber1">
+            <h3>在子组件变化时，也修改到父组件中的值，也就是props中的值：{{number1}}</h3>
+            <input type="text" :value="dnumber1" @input="number1Change">
+            <h3>props中的值：{{number2}}</h3>
+            <!--直接绑定了props中的属性，从表面上看是没有问题的，但是代码运行过程中会报异常-->
+            <input type="text" v-model="number2">
+            <!--绑定了计算属性，效果完美-->
+            <h3>绑定计算属性：{{cnumber2}}</h3>
+            <input type="text" v-model="cnumber2">
+        </div>
+    </template>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                num1: 1,
+                num2: 0
+            },
+            methods: {
+                num1Change(value){
+                    console.log(value);
+                    this.num1 = parseInt(value);
+                }
+            },
+            components: {
+                cpn: {
+                    template: "#cpn",
+                    data() {
+                        return {
+                            dnumber1: this.number1,
+                            dnumber2: this.number2
+                        }
+                    },
+                    computed: {
+                        cnumber2: {
+                            set(newValue) {
+                                this.dnumber2 = newValue;
+                            },
+                            get() {
+                                return this.dnumber2;
+                            }
+                        }
+                    },
+                    props: {
+                        number1: Number,
+                        number2: Number
+                    },
+                    methods:{
+                        number1Change(event){
+                            this.dnumber1 = event.target.value;
+                            this.$emit("num1-change",this.dnumber1);
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+```
+
+所有的需求都实现了。
