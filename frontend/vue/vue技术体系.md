@@ -3831,3 +3831,35 @@ $children:是一个数组，可以获取当前组件的所有子组件，通过�
 
 **具名插槽slot**
 
+```html
+<cpn><button>按钮</button></cpn>
+<div class="cpn">
+    <h3>组件标题</h3>
+    <p>组件内容</p>
+    <slot></slot>
+    <slot></slot>
+    <slot></slot>
+</div>
+```
+
+看代码，假如我们的组件中使用了多个slot，那么组件中的内容，会替换组件中的哪个slot呢？没有办法去找，结果是替换元素替换了所有的slot。
+
+实际上，我并不想替换所有的slot，而是只想替换中间的一个，那么我怎么使用呢？
+
+只需要给slot加一个name属性就可以了，也就是具名slot（插槽），然后在使用的时候，使用slot属性指定name属性即可，如
+
+```html
+<cpn slot="center"></cpn>
+<div class="cpn">
+    <h3>组件标题</h3>
+    <p>组件内容</p>
+    <slot name="left"></slot>
+    <slot name="center"></slot>
+    <slot name="right"></slot>
+</div>
+```
+
+这样就会只替换slot的name值为center的slot了。
+
+> 在组件中的替换slot元素，如果不加slot属性，那么就只能替换匿名的slot，且是所有的，有1个匿名slot就替换1个，有多个匿名slot就替换多个匿名的slot。
+
