@@ -3849,7 +3849,9 @@ $children:是一个数组，可以获取当前组件的所有子组件，通过�
 只需要给slot加一个name属性就可以了，也就是具名slot（插槽），然后在使用的时候，使用slot属性指定name属性即可，如
 
 ```html
-<cpn slot="center"></cpn>
+<cpn>
+    <button slot="center"></button>
+</cpn>
 <div class="cpn">
     <h3>组件标题</h3>
     <p>组件内容</p>
@@ -3862,4 +3864,39 @@ $children:是一个数组，可以获取当前组件的所有子组件，通过�
 这样就会只替换slot的name值为center的slot了。
 
 > 在组件中的替换slot元素，如果不加slot属性，那么就只能替换匿名的slot，且是所有的，有1个匿名slot就替换1个，有多个匿名slot就替换多个匿名的slot。
+
+来看完整的案例：
+
+```html
+    <div id="app">
+        <cpn>
+            <!--通过slot指定要替换的slot-->
+            <button slot="center">按钮</button>
+        </cpn>
+    </div>
+
+    <template id="cpn">
+        <div class="cpn">
+            <h3>组件标题</h3>
+            <p>组件内容</p>
+            <slot name="left"><span>左侧元素</span></slot>
+            <slot name="center"><span>中间元素</span></slot>
+            <slot name="right"><span>右侧元素</span></slot>
+        </div>
+    </template>
+    <script>
+        let cpn = {
+            template: "#cpn"
+        };
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+            components: {
+                cpn
+            }
+        });
+    </script>
+```
 
