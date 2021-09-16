@@ -3705,3 +3705,129 @@ $children:是一个数组，可以获取当前组件的所有子组件，通过�
 ```
 
 虽然从技术上可以实现子组件访问父组件，但是优秀的实践一般不这么做，因为这会破坏组件的复用性，提高子组件和当前父组件的耦合性。拆分组件的目的就是为了复用，但是如果子组件和某个固定的父组件耦合了，就不具备了扩展性和复用性了，除非做很多的判断。
+
+### slot 插槽
+
+在生活中，我们都接触过USB接口，电脑上的USB口，我可以接入一个键盘，可以接入鼠标，也可以接入音箱、硬盘等等外接设备。那么在前端的开发中是否也有类似的功能或者场景呢？看如下案例：
+
+![slot案例](../../public/images/i85.png)
+
+从案例中我们可以看到，这几个模块是一个组件的重复使用渲染出来的结果，但是实际场景中，确实又出现了如图片中一些诉求。如有的地方需要放置一个按钮，有的地方需要放置一些斜体字等等，但是组件的大部分的模块还是相同的，仅仅有部分且是小部分不同。
+
+1. 针对每个模块都重新封装一个组件：但是现在的组件大部分是相同的，重新封装，应该不是一个最好的解决方案；
+
+2. 把不同的元素，放在组件外面去实现：现在的场景正好是需要在组建的末尾有元素不同，那如果是正好是在已经显示的两个元素的中间呢？
+
+上面的两种方式都不太理想，vue给我们提供了一种slot(插槽)解决方案，就类似电脑上的USB接口，slot就类似USB接口，只是一个占位，具体接入的什么，就让接入者去决定。那么这样一来，组件封装可以按照这样的规则：
+
+1. 抽取共性；
+
+2. 保留区别(不同)：不同的地方使用slot占位
+
+```html
+<!--组件中，title和content部分都是相同的，抽取这部分的共性，剩下的部分不同，使用slot占位，具体是什么，接入者去决定-->
+<div class="slot">
+    <h3>{{title}}</h3>
+    <p>{{content}}</p>
+    <slot></slot>
+</div>
+```
+
+看组件的定义和应用：
+
+```html
+<cpn :title="title" :content="content">
+    <!--button元素就替换了组件中的slot-->
+    <button>按钮</button>
+</cpn>
+<cpn :title="title" :content="content">
+    <!--span元素替换了组件中的slot-->
+    <span>我被span包裹了</span>
+</cpn>
+<template id="cpn">
+    <!--组件中，title和content部分都是相同的，抽取这部分的共性，剩下的部分不同，使用slot占位，具体是什么，接入者去决定-->
+    <div class="slot">
+        <h3>{{title}}</h3>
+        <p>{{content}}</p>
+        <slot></slot>
+    </div>
+</template>
+```
+
+现在情况又来了，比如有一个组件被复用了多次，使用slot的地方，大多数的组件都相同，仅有个别的不同，那么slot可以设置默认值吗？可以的。
+
+1. slot可以设置默认值：如果设置了默认值，组件不给slot传值的时候，就直接使用默认值；
+
+```html
+<!--slot中的元素，为slot的默认值-->
+<slot><i class="fcr">我是红色斜体</i></slot>
+```
+
+2. slot设置了默认值后，如果组件又给slot传值了，那么就slot就使用组件给传递过来的值
+
+```html
+    <div id="app">
+        <cpn :title="title" :content="content">
+            <!--button元素就替换了组件中的slot-->
+            <button>按钮</button>
+        </cpn>
+        <cpn :title="title" :content="content">
+            <!--span元素替换了组件中的slot-->
+            <span>我被span包裹了</span>
+        </cpn>
+        <!--下面两个元素都没有给slot传值，那么就会直接使用slot的默认值，显示红色斜体文字-->
+        <cpn :title="title" :content="content"></cpn>
+        <cpn :title="title" :content="content"></cpn>
+    </div>
+
+    <template id="cpn">
+        <!--组件中，title和content部分都是相同的，抽取这部分的共性，剩下的部分不同，使用slot占位，具体是什么，接入者去决定-->
+        <div class="slot">
+            <h3>{{title}}</h3>
+            <p>{{content}}</p>
+            <!--slot中的元素，为slot的默认值-->
+            <slot><i class="fcr">我是红色斜体</i></slot>
+        </div>
+    </template>
+    <script>
+        let cpn = {
+            template: "#cpn",
+            props: {
+                title: String,
+                content: String
+            }
+        };
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                title: "组件标题",
+                content: "组件内容"
+            },
+            methods: {},
+            components: {
+                cpn
+            }
+        });
+    </script>
+```
+
+**插槽slot知识点汇总**
+
+1. 基本使用：<slot></slot>
+
+2. 默认值：<slot><span>222</span></slot>
+
+3. 如果组件中给插槽传递了多个值，那么多个值都会传递给slot
+
+```html
+<cpn :title="title" :content="content">
+    <!--下面的3个元素都会传递给组件的slot-->
+    <button>按钮</button>
+    <span>我是后来的文字</span>
+    <i>斜体字</i>
+</cpn>
+```
+
+**具名插槽slot**
+
