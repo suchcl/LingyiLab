@@ -3449,3 +3449,149 @@ Vue给我们提供了两种方式：
 ```
 
 所有的需求都实现了。
+
+### 父组件调用子组件的方法&获取子组件的数据
+
+父子组件通信，可以通过props实现父组件给子组件传值，子组件可以通过$emit自定义事件向父组件发送消息，携带数据的方式实现数据的互传。但在一些场景，父组件中可能需要出发一些事件来执行子组件中的方法、获取子组件的数据，那么获取子组件就成了一个现实的问题了。
+
+Vue给我们提供了2个属性来获取子组件：$children、$refs.
+
+$children:是一个数组，可以获取当前组件的所有子组件，通过数组索引精准获取子组件。
+
+> 由于子组件的不确定性，可能会动态的添加、移除，所以$children的这种获取子组件的方式，有些场景不是很方便，用的相对少一些。
+
+```html
+    <div id="app">
+        <cpn :msg="msg" :info="info"></cpn>
+        <cpn :msg="msg" :info="info"></cpn>
+        <cpn :msg="msg" :info="info"></cpn>
+        <button @click="getChildrenMethod">调用子组件方法</button>
+        <button @click="getChildrenData">获取子组件数据</button>
+    </div>
+    <template id="cpn">
+        <div class="cpn">
+            <h3>{{msg}}</h3>
+            <p>{{info}}</p>
+        </div>
+    </template>
+
+    <script>
+        let cpn = {
+            template: "#cpn",
+            data() {
+                return {}
+            },
+            props: {
+                msg: String,
+                info: String
+            },
+            methods: {
+                showMessage() {
+                    console.log(this.msg);
+                }
+            }
+        };
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                msg: "父组件调用子组件方法",
+                info: "父组件获取子组件数据"
+            },
+            methods: {
+                // 通过$children获取子组件的方法
+                getChildrenMethod() {
+                    this.$children[0].showMessage();
+                },
+                // 通过$children获取子组件的数据
+                getChildrenData() {
+                    console.log(this.$children[0].info);
+                }
+            },
+            components: {
+                cpn
+            }
+        });
+    </script>
+```
+
+通过$children、索引的方式，成功的执行了子组件的方法、获取到了子组件的数据。
+
+但是我们也可以从demo中看到，子组件没有自己的唯一标识，只能通过数组索引来获取、定位子组件，但是如果在一些逻辑中动态的添加了子组件、移除了子组件，可能之前获取、定位到的子组件就不对了，这个时候可以通过$refs来精准定位子组件。
+
+**$refs精准获取子组件**
+
+首先给子组件添加ref属性，然后父组件就可以通过$refs拿到子组件的ref的属性值，就实现了子组件的精准定位。由于$refs的精准定位，不会因为子组件的增减、位置移动而改变所以使用的场景相对$children要多一些。
+
+```html
+    <div id="app">
+        <cpn :msg="cpnMsg" :info="cpnInfo" ref="cpn"></cpn>
+        <mycpn :msg="mycpnMsg" :info="mycpnInfo" ref="mycpn"></mycpn>
+        <button @click="getChildMethod">通过$refs执行子组件方法</button>
+        <button @click="getChildData">通过$refs获取子组件数据</button>
+    </div>
+
+    <template id="cpn">
+        <div class="refs">
+            <h3>{{msg}</h3>
+            <p>{{info}}</p>
+        </div>
+    </template>
+    <template id="mycpn">
+        <div class="refs">
+            <h3>{{msg}}</h3>
+            <p>{{info}}</p>
+        </div>
+    </template>
+    <script>
+        let cpn = {
+            template: "#cpn",
+            props: {
+                msg: String,
+                info: String
+            },
+            methods: {
+                showMsg() {
+                    console.log("子组件cpn的方法被执行了");
+                }
+            }
+        };
+        let mycpn = {
+            template: "#mycpn",
+            props: {
+                msg: String,
+                info: String
+            },
+            methods: {
+                showMsg() {
+                    console.log("子组件mycpn的方法被执行了");
+                }
+            }
+        };
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                cpnMsg: "cpn通过$refs获取子组件执行子组件方法",
+                cpnInfo: "cpn通过$refs获取子组件数据",
+                mycpnMsg: "mycpn通过$refs获取子组件执行子组件方法",
+                mycpnInfo: "mycpn通过$refs获取子组件数据"
+            },
+            methods: {
+                //通过$refs精准获取子组件，并通过获取的子组件执行了子组件的方法
+                getChildMethod() {
+                    this.$refs.cpn.showMsg(); // 子组件cpn的方法被执行了
+                    this.$refs.mycpn.showMsg(); // 子组件mycpn的方法被执行了
+                },
+                getChildData() {
+                    console.log(this.$refs.cpn.msg); //cpn通过$refs获取子组件执行子组件方法
+                    console.log(this.$refs.mycpn.msg); //mycpn通过$refs获取子组件执行子组件方法
+                }
+            },
+            components: {
+                cpn,
+                mycpn
+            }
+        });
+    </script>
+```
