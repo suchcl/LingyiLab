@@ -3523,6 +3523,13 @@ $children:是一个数组，可以获取当前组件的所有子组件，通过�
 
 首先给子组件添加ref属性，然后父组件就可以通过$refs拿到子组件的ref的属性值，就实现了子组件的精准定位。由于$refs的精准定位，不会因为子组件的增减、位置移动而改变所以使用的场景相对$children要多一些。
 
+组件中更需要添加ref属性
+
+```html
+<cpn :msg="cpnMsg" :info="cpnInfo" ref="cpn"></cpn>
+<mycpn :msg="mycpnMsg" :info="mycpnInfo" ref="mycpn"></mycpn>
+```
+
 ```html
     <div id="app">
         <cpn :msg="cpnMsg" :info="cpnInfo" ref="cpn"></cpn>
@@ -3595,3 +3602,106 @@ $children:是一个数组，可以获取当前组件的所有子组件，通过�
         });
     </script>
 ```
+
+### 父子组件的相互访问
+
+父组件访问子组件：
+
+1. $children 数组格式，可以通过数组索引定位、获取子组件，但是由于子组件的可能会动态变化，所以个别场景下通过$children不能精准的获取到子组件，用的较少；
+
+2. $refs 对象格式化，可以在子组件使用时添加ref属性，然后父组件通过$refs获取子组件的ref的属性值，精准获取子组件，简单、好用，使用场景较多
+
+```html
+<cpn :msg="cpnMsg" :info="cpnInfo" ref="cpn"></cpn>
+<mycpn :msg="mycpnMsg" :info="mycpnInfo" ref="mycpn"></mycpn>
+<script>
+    this.$refs.cpn.showMsg(); // 访问、调用子组件的方法
+    this.$refs.cpn.msg; // 访问、获取子组件数据
+</script>
+```
+
+**子组件访问父组件**
+
+可以通过$parent实现子组件调用父组件的方法、获取父组件的数据，可以通过$root获取根组件（就是Vue实例），并执行根组件的方法，获取根组件的数据。
+
+```html
+    <div id="app">
+        <pcpn :msg="msg"></pcpn>
+    </div>
+
+    <template id="pcpn">
+        <div class="pcpn">
+            <h3>父组件</h3>
+            <ccpn></ccpn>
+        </div>
+    </template>
+
+    <template id="ccpn">
+        <div class="ccpn">
+            <h4>子组件</h4>
+            <button @click="executeParentMethod">子组件获取父组件，执行父组件方法</button><br>
+            <button @click="getParentData">子组件获取父组件数据</button><br>
+            <button @click="executeRootMethod">子组件执行根组件方法</button><br>
+            <button @click="getRootData">子组件获取根组件数据</button>
+        </div>
+    </template>
+
+    <script>
+        let ccpn = {
+            template: "#ccpn",
+            methods: {
+                // 通过$parent获取父组件，执行父组件中的方法
+                executeParentMethod() {
+                    this.$parent.showMessage(); //父组件的方法被执行了
+                },
+
+                // 通过$parent获取到了父组件数据
+                getParentData() {
+                    console.log(this.$parent.msg); // 根组件传递给父组件的数据
+                },
+
+                // 通过$root执行根组件方法
+                executeRootMethod() {
+                    this.$root.showMessage(); // 根组件的方法被执行了
+                },
+
+                // 通过$root获取根组件数据
+                getRootData() {
+                    console.log(this.$root.rinfo); //根组件数据
+                }
+            }
+        };
+        let pcpn = {
+            template: "#pcpn",
+            components: {
+                ccpn
+            },
+            props: {
+                msg: String
+            },
+            methods: {
+                showMessage() {
+                    console.log("父组件的方法被执行了");
+                }
+            }
+        };
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {
+                msg: "根组件传递给父组件的数据",
+                rinfo: "根组件数据"
+            },
+            methods: {
+                showMessage() {
+                    console.log("根组件的方法被执行了");
+                }
+            },
+            components: {
+                pcpn
+            }
+        });
+    </script>
+```
+
+虽然从技术上可以实现子组件访问父组件，但是优秀的实践一般不这么做，因为这会破坏组件的复用性，提高子组件和当前父组件的耦合性。拆分组件的目的就是为了复用，但是如果子组件和某个固定的父组件耦合了，就不具备了扩展性和复用性了，除非做很多的判断。
