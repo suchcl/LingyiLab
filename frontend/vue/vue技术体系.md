@@ -3900,3 +3900,78 @@ $children:是一个数组，可以获取当前组件的所有子组件，通过�
     </script>
 ```
 
+**作用域插槽**
+
+父组件替换插槽的标签，但是内容由子组件来决定。在使用过程中，slot需要通过一个自定义的属性绑定数据源，然后使用时通过slot的slot-scope属性来获取当前slot所在的组件的数据源，如：
+
+```html
+    <div>
+    <!--slot通过自定义属性:data绑定了当前组件的数据源planguages，表示该slot从当前组件获取数据源-->
+        <slot :data="planguages">
+            <ul>
+                <li v-for="item in planguages">{{item}}</li>
+            </ul>
+        </slot>
+    </div>
+
+    <!--slot取得了当前组件的数据源，在使用时需要通过slot-scope属性来指定当前slot是从本身所在的组件获取数据的-->
+    <cpn>
+        <!--获取子组件的数据-->
+        <!--Vue2.5.x以下需要使用template模板，2.5.x版本以上就可以不再使用template模板了-->
+        <!--slot-scope属性固定，属性值可以自定义，这里我使用的slot，也可以是其他的自定义名字，如scope、abc等，只是在取数据的时候需要和该属性名保持一致即可-->
+        <template slot-scope="slot">
+            <span v-for="item in slot.data">{{item}}</span>
+        </template>
+    </cpn>
+```
+
+来看下完整demo：
+
+```html
+    <div id="app">
+        <cpn></cpn>
+        <cpn>
+            <!--获取子组件的数据-->
+            <!--Vue2.5.x以下需要使用template模板，2.5.x版本以上就可以不再使用template模板了-->
+            <!--slot-scope属性固定，属性值可以自定义，这里我使用的slot，也可以是其他的自定义名字，如scope、abc等，只是在取数据的时候需要和该属性名保持一致即可-->
+            <template slot-scope="slot">
+                <span v-for="item in slot.data">{{item}}</span>
+            </template>
+        </cpn>
+        <cpn>
+            <template slot-scope="slot">
+                <span>{{slot.data.join(', ')}}</span>
+            </template>
+        </cpn>
+    </div>
+
+    <template id="cpn">
+        <div>
+            <slot :data="planguages">
+                <ul>
+                    <li v-for="item in planguages">{{item}}</li>
+                </ul>
+            </slot>
+        </div>
+    </template>
+
+    <script>
+        let cpn = {
+            template: "#cpn",
+            data() {
+                return {
+                    planguages: ["Javascript", "C++", "Python", "Java", "Object-C", "Go"]
+                }
+            }
+        };
+        //创建Vue实例,得到 ViewModel
+        let app = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+            components: {
+                cpn
+            }
+        });
+    </script>
+```
