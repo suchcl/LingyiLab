@@ -9,3 +9,5 @@
 5. [nodejs中的模块系统:module.exports和exports](module.md)
 
 6. [yarn设置、获取全局安装、缓存路径](yarn.md)
+
+7. [node获取环境变量](./node获取系统环境变量.md)
