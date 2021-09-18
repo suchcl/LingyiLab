@@ -3979,3 +3979,126 @@ $children:是一个数组，可以获取当前组件的所有子组件，通过�
 ###　模块化开发
 
 早期的js功能简单，技术实现重在服务端，前端开发相对简单一些。随着项目规模的扩大、人员的扩增，js文件增多，不易维护了。就需要找一些解决方案来解决开发中出现的问题。
+
+js代码模块化之前，js开发大概率会遇到的一些常见问题：
+
+1. 全局变量同名；
+
+2. 依赖顺序：js的依赖顺序是固定的，不能灵活变动
+
+解决全量同名、命名冲突的问题，按照ES5及以前的技术标准，可以通过立即执行函数来解决，即：
+
+```javascript
+//a.js
+var flag = true;
+
+function sum(a, b) {
+    return a + b;
+}
+
+//b.js
+var flag = false;
+
+function increment(a, b) {
+    return a + b;
+}
+```
+
+那么在引用这2个js文件的时候，如：
+
+```html
+    <script src="./js/a.js"></script>
+    <script src="./js/b.js"></script>
+    <script>
+        var newFlag = flag;
+    </script>
+```
+
+newFlag的值是什么呢？当然了，大家应该都知道，值是false，但是最初的初衷可能是想用true的。
+
+所以原来的js技术标准，有一些常见的问题，但是也有一些解决：就是上面提到的立即执行函数:比如a.js
+
+```javascript
+; (function () {
+    var flag = true;
+
+    function sum(a, b) {
+        return a + b;
+    }
+
+})();
+```
+
+命名的问题是解决了，但是在这个函数之外，我也就用不到这个函数里面定义的变量和方法了，就失去了代码的复用性了。那有没有办法让我们已经写的代码既能够复用，又能避免上面提到的一些比如命名冲突、依赖顺序固定的问题呢？按照之前的技术标准，还是借助立即执行函数，也有类似的解决方案（现在已经已经不用了，从ES6标准开始，ECMA标准内置了标准的模块化方案）。
+
+
+```javascript
+//a.js 优化后的
+;
+var moduleA = (function () {
+    //新建一个空对象，用来结束需要、可以返回的属性、方法
+    var obj = {};
+    var flag = true;
+
+    function sum(a, b) {
+        return a + b;
+    }
+
+    // 将在这个立即执行函数中声明的变量、方法，赋值给空对象的属性
+    obj.flag = flag;
+    obj.sum = sum;
+
+    // 将对象暴露出去，外部只要拿到了这个对象，就可以使用这个对象的内部属性、方法了
+    return obj;
+})();
+```
+
+在立即执行函数内部（立即执行函数是一个密闭空间），将函数的变量、函数，都赋值给一个空对象，在函数执行的时候，将对象暴露出去，最终在引用这个文件的时候，就会自动拿到了函数内部的变量和方法。
+
+```html
+    <script src="./js/a.js"></script>
+    <script>
+        var newFlag = moduleA.flag;
+        var newFlag2 = moduleB.flag;
+        console.log(newFlag); // true
+    </script>
+```
+
+在ES6标准之前，这是常用的一种模块化方案。
+
+> 立即执行函数解决了命名冲突问题，命名函数中使用返回对象的方式，又解决了代码的复用问题。
+
+**常用的模块化规范**
+
+1. CommonJS
+
+2. AMD
+
+3. CMD
+
+4. ES6 Modules
+
+这些模块化规范中，AMD和CMD用的比较少，现在常用的是ES6 modules，其中CommonJS是一个规范，其典型的案例是nodejs，webpack也使用了其文件、模块的导入、导出思想。
+
+CommonJS规范，一个文件就是一个模块，文件也不需要使用立即执行函数（匿名函数）来实现环境的隔离了，模块通过导出(exports)、导入(require)来实现，可以看个简单案例（CommonJs规范在浏览器中没有实现环境，只浏览下代码的样子吧）：
+
+```javascript
+// a.js
+var flag = true;
+
+function sum(a, b) {
+    return a + b;
+}
+
+module.exports = { flag, sum }; //导出的是一个对象
+
+//b.js
+var mA = require("./a"); // 导入的mA也是一个对象，也可以以一种结构的方式引入，如下
+
+console.log(mA.flag); // true
+console.log(mA.sum(3, 4)); // 7
+
+
+// b.js 以结构的方式引入a.js
+var { flag, sum } = require("./a"); // 结构后的引用，就可以直接使用在a模块中定义的变量和方法了
+```
