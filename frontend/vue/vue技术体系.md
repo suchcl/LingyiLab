@@ -4102,3 +4102,68 @@ console.log(mA.sum(3, 4)); // 7
 // b.js 以结构的方式引入a.js
 var { flag, sum } = require("./a"); // 结构后的引用，就可以直接使用在a模块中定义的变量和方法了
 ```
+
+### ES6 Module
+
+ES6 modules,两个核心，就是export、import。
+
+导出，大概可以分为导出变量、对象、函数、class。
+
+**导出变量**
+
+导出方式1：
+
+模块导出：
+
+```javascript
+var flag = false;
+
+function sum(a, b) {
+    return a + b;
+}
+
+export { flag, sum };
+```
+
+导出方式2：变量、对象直接导出 -----  定义时直接导出
+
+```javascript
+// 这种到处方式，其实也是对象的导出方式，导入时也需要以对象的形式导入
+export var age = 18;
+var person = {
+    name: "Nicholas Zakas",
+    age: 18,
+    job: "Programmer"
+};
+
+// 导入
+import {age,person} from "./a.js"
+console.log(age);
+```
+
+导出方式3：变量、对象先定义后，最后统一在一个对象中导出
+
+```javascript
+var username = "Nicholas Zakas";
+var job = "Programmer";
+var birthday = "2021-12-12";
+export { username, job, birthday };
+
+// 导入,导入后可直接使用
+import {username,job,birthday} from "./a.js";
+console.log(username); // Nicholas Zakas
+console.log(job); // Programmer
+console.log(birthday); //2021-12-12
+```
+
+**导出函数、class**
+
+导出函数，可以按如下语法：
+
+```javascript
+// 导出方式1
+export function fn(){}
+```
+
+**export default**
+
