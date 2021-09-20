@@ -4167,3 +4167,16 @@ export function fn(){}
 
 **export default**
 
+同一个模块中，有且只能有一个export default。
+
+通过export default导出的变量，不需要使用{}包裹，引入的时候也不需要使用{}包裹，但是导出的变量，需要是一个已经存在的变量。
+
+```javascript
+// 导出时，名称sum不能使用{}包裹，
+function sum(num1,num2){
+    return num1 + num2;
+}
+export default sum;
+//导入时，自定义的变量名也不能使用{}包裹
+import sum from "./a.js"; // sum是自定义的，不能使用{}包裹
+```
