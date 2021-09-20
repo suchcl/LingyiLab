@@ -4214,6 +4214,22 @@ gulp、grunt的核心是task，是任务流，前端自动化管理工具。
 这样的两个场景，使用gulp是一个不错的选择，轻量化的工具，灵活的配置。
 #### webpack的安装
 
+依赖node环境：webpack的运行需要先安装了node.js
+
+node中有一个包管理工具：npm（node package manager），管理node各种包。
+
+**webpack、node、npm的关系**
+
+1. webpack的运行需要依赖node
+
+2. node有很强大的功能，但是需要各种node工具的支持，node提供了一个包的管理工具npm(Node package manager)来管理这些node的工具包；
+
+3. webpack也是一个node的工具包，可以通过npm来安装、管理webpack；
+
+> webpack一般情况下，不建议全局安装。在学习的时候， 为了更好的了解webpack，可以全局安装来学习使用。
+
+> 通过webpack或者一些框架的脚手架工具初始化的项目，项目中都会有一个package.json文件，该文件中的scripts部分，有执行webpack命令的，这里的webpack，是项目内部的，不是全局的。
+
 #### webpack起步
 
 #### webpack配置
