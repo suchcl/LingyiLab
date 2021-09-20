@@ -4218,6 +4218,14 @@ gulp、grunt的核心是task，是任务流，前端自动化管理工具。
 
 node中有一个包管理工具：npm（node package manager），管理node各种包。
 
+> webpack --version：查看webpack的版本
+
+```bash
+npm install webpack -g // 以全局方式安装最新版本的webpack
+npm install webpack --save-dev // 本地安装
+webpack --version 查看webpack版本
+```
+
 **webpack、node、npm的关系**
 
 1. webpack的运行需要依赖node
@@ -4232,7 +4240,92 @@ node中有一个包管理工具：npm（node package manager），管理node各�
 
 #### webpack起步
 
+一般情况下，前端项目都会有两个目录：src、dist
+
+> src:source，源 ,dist:distribution,发布
+
+项目的源文件，都放在src中，编译后放到dist中，最后只需要将dist部署到服务器即可。
+
+main.js:一般情况下，前端项目习惯使用main.js来作为入口文件（也有使用index.js作为入口文件的，但是在前端项目中，使用的比较少）。
+
+在使用了webpack或者其他模块化工具的项目中，我们开发的源代码，都使用模块化的思维去组织、编写代码，至于代码之间的依赖关系、我们不用去理会，webpack或者使用的其他的编译工具会帮我们梳理这些不同模块之间的依赖关系。
+
+webpack一些指令：
+
+```bash
+webpack src/*.js dist/*.js  # webpack编译文件，将src目录下的*.js打包、编译到dist目录下的*.js文件
+```
+
+源代码中，使用的模块化方式不受限制，一些常规的模块化方式都可以被webpack完美的解析、编译。
+
+```js
+// src下，main.js入口文件，mathUtil.js功能函数
+// CommonJS模块化方式
+// mathUtil.js
+function add(num1, num2) {
+    return num1 + num2;
+}
+
+function mul(num1, num2) {
+    return num1 * num2;
+}
+
+module.exports = {
+    add, mul
+};
+
+// main.js引入方式
+const {add, mul} = require("./mathUtil.js");
+console.log(add(20, 24));
+console.log(mul(10, 25));
+
+
+// 也可以使用ES6的模块化方式
+// mathUtil.js
+function add(num1, num2) {
+    return num1 + num2;
+}
+
+function mul(num1, num2) {
+    return num1 * num2;
+}
+
+export {
+    add, mul
+};
+
+// mainjs
+import {add,mul} from "./mathUtil" // webpack环境下，模块文件的扩展名.js可以省略
+console.log(add(10, 20));
+console.log(mul(15, 20));
+```
+
+注意下，我们每次改动了代码后， 都需要重新webpack编译：
+
+```bash
+webpack .\src\main.js .\dist\bundle.js
+```
+
+到目前为止，我们还没有设置webpack的热启动，所以每次改动了文件之后，都需要重新编译，以后配置了webpack的热启动之后，就不需要每次都重新编译了。
+
 #### webpack配置
+
+上面的案例中，我们每次改动了文件之后，都需要执行webpack ./src/main.js ./dist/bundle.js指令，告诉webpack去做一些事情，将main.js编译、打包到dist目录下，那么有没有办法不需要每次都敲这么多的指令，而只是简单的敲一个webpack，就可以完成我们上面复杂的指令呢？
+
+通过webpack的配置，是可以达到这个目的的。只是我们告诉webpack需要做的事情的方式，发生了一些改变而已.原来是在终端告诉webpack要做一些事情,怎么去做,现在我把这些指令放到了一个配置文件中,让webpack自己去找这个配置文件.
+
+配置文件名:webpack.config.js  配置文件名固定，不允许更改。（以后会有更改方式，到目前为止，可以先认为该文件名就是固定的、不可更改就可以了，方便理解）
+
+```javascript
+const path = require("path"); // 引入path包，获取当前文件的绝对路径
+module.exports = {
+    entry: "./src/main.js",
+    output: {
+        path: path.resolve(__dirname,"dist"), // __dirname,node上下文中的一个全局变量，用来获取当前文件的绝对路径
+        filename: "bundle.js"
+    }
+};
+```
 
 #### webpack核心loader的使用
 
