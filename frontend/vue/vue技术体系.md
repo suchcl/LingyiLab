@@ -4327,6 +4327,52 @@ module.exports = {
 };
 ```
 
+> 项目中只要使用到了node包的时候，就先通过npm init初始化一个package.json文件，用来管理node包。不过不建该文件代码也不会报错，不会出现代码不能正常执行的情况。
+
+**配置执行命令，如将webpack指令配置成npm run build**
+
+package.json中有一个scripts选项属性，可以配置执行指令，配置好的指令以npm run xxx的方式运行，如npm run dev。
+
+```json
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+```
+
+之后，就可以通过npm run build来编译打包文件了。
+
+在packages.json中的scripts中配置了执行指令之后，那么指令会优先寻找本地的包，如果本地（也就是当前项目中）没有指令需要的包，就会去全局去找。
+
+> npm安装、管理包的是，有开发时依赖和运行时依赖两个场景，开始时依赖，npm install pck --save-dev,运行时依赖，npm install pkg --save;webpack是一个开发时依赖，项目build完之后，webpack就没有什么用了。
+
+package.json中：
+
+1. devDependencies：开发时依赖，只有在开发的时候会用到，代码开发完并编译、打包后，就不会再用到了，如webpack
+
+2. dependencies：运行时依赖，代码在运行时会用的到，而不管是在代码打包前，还是在代码打包后，如vue、UI库、工具包之类的；
+
+**直接在终端执行webpack指令，执行的是本地的还是全局的webpack呢？**
+
+直接在终端执行webpack指令，执行的是全局的webpack指令。
+
+**怎么可以在终端执行本地的webpack指令呢？局部安装webpack**
+
+1. 在package.json中的scripts选项中，配置自定义指令：会优先执行本地项目内的webpack指令，如果本地项目内找不到才会去全局环境去找webpack；
+
+```json
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+```
+
+2. 根据本地webpack目录找到webpack后执行，才是本地的webpack指令
+
+```bash
+ ./node_modules/.bin/webpack
+```
+
 #### webpack核心loader的使用
 
 #### webpack中配置vue
