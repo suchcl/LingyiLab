@@ -4413,6 +4413,58 @@ console.log(mul(5, 10));
 require("./css/normal.css")
 ```
 
+webpack的配置文件中，对loader的读取顺序，为从右到左；
+
+**less-loader**
+
+在通过less预处理器编写样式的时候，需要用到less-loader，先安装，然后配置，看下配置文件吧：
+
+```javascript
+//webpack.config.js
+    module: {
+        rules: [
+            {
+                test: /\.css$/i,
+                // 在有多个loader时，webpack的读取顺序是从右到左
+                use: ["style-loader", "css-loader"],
+            },
+            // less-loader
+            {
+                test: /\.less$/i,
+                loader: [
+                    // compiles Less to CSS
+                    'style-loader',
+                    'css-loader',
+                    'less-loader',
+                ],
+            }
+        ]
+    }
+```
+
+loader的配置，还有另外一种形式，对象形式，现在是数组格式：
+
+数组格式：如果只是配置loader一个属性选项，数组格式简洁；
+
+对象格式：如果不光要配置loader，还要配置其他一些选项，使用对象格式就方便了许多：
+
+```javascript
+    {
+        test: /\.less$/i,
+        // loader: [
+        //     // compiles Less to CSS
+        //     'style-loader',
+        //     'css-loader',
+        //     'less-loader',
+        // ],
+        use: [
+            {"loader": "style-loader"},
+            {"loader": "css-loader"},
+            {"loader": "less-loader"}
+        ]
+    }
+```
+
 #### webpack中配置vue
 
 #### plugin的使用
