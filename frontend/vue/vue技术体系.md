@@ -4379,6 +4379,40 @@ webpack本身只能处理js模块，但是在基于webpack管理的项目中，�
 
 本质上，loader就是个函数。
 
+```javascript
+const path = require("path");
+
+module.exports = {
+    entry: "./src/main.js",
+    output: {
+        path: path.resolve(__dirname, "dist"),
+        filename: "bundle.js"
+    },
+    module: {
+        // 简单的两个样式的loader的配置，配置前先要install安装一下
+        rules: [
+            {
+                test: /\.css$/i,
+                // 在有多个loader时，webpack的读取顺序是从右到左
+                use: ["style-loader", "css-loader"],
+            },
+        ]
+    }
+};
+```
+
+配置完成loader之后，webpack就可以处理css像js模块一样来处理样式模块了，
+
+```javascript
+import {sum, mul} from "./js/mathUtil";
+
+console.log(sum(10, 20));
+console.log(mul(5, 10));
+
+// 在需要的地方通过requrie引入css即可
+require("./css/normal.css")
+```
+
 #### webpack中配置vue
 
 #### plugin的使用
