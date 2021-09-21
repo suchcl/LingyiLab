@@ -4375,6 +4375,10 @@ package.json中：
 
 #### webpack核心loader的使用
 
+webpack本身只能处理js模块，但是在基于webpack管理的项目中，万物皆模块，webpack本身又处理不了非js的文件，那么就需要loader来处理了。
+
+本质上，loader就是个函数。
+
 #### webpack中配置vue
 
 #### plugin的使用

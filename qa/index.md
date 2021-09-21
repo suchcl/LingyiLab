@@ -5,3 +5,4 @@
 5. [网页截图和css设置的元素尺寸不同的问题](./网页截图和实际css设置尺寸不符.md)
 6. [HTML标记设置width属性不生效](./HTML标记的width属性.md)
 7. [Uncaught SyntaxError: Illegal return statement](./非法返回.md)
+8. [ERROR in ./src/css/normal.css Module build failed: TypeError: this.getOptions is not a function at Object.loader]()
