@@ -4465,6 +4465,38 @@ loader的配置，还有另外一种形式，对象形式，现在是数组格�
     }
 ```
 
+**图片文件的处理：背景图片（资源图片，还不清楚）**
+
+不要犹豫，就是需要loader去处理。图片资源（背景图片）会涉及到2个loader：
+
+1. url-loader：先看下基本配置：
+
+```javascript
+ rules: [
+      {
+        test: /\.(png|jpg|gif)$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192
+            }
+          }
+        ]
+      }
+    ]
+```
+
+一般情况下，属性中用到了url的，就会使用url-loader,比如background-image: url("../images/icon-pdf.png");用到了url，所以该背景图片就会用到url-loader。
+
+配置中有一个limit配置选项，当图片资源小于limit值时，则会通过url-loader将图片资源转译成base64加载
+
+> base64本身是一个字符串，可以减少一次的HTTP请求，不需要一个实体的资源文件等待加载；
+
+2. file-loader
+
+当文件资源大于url-loader中的limit值时，则会使用file-loader将文件资源重命名、移动到目标目录下，这个时候就需要一个实体的文件资源承载。因为都是动态编译的，所以需要一个变量指定目标目录，可以是publicPath
+
 #### webpack中配置vue
 
 #### plugin的使用
