@@ -4523,6 +4523,35 @@ output: {
 }
 ```
 
+**webpack配置ES6转ES5的处理：babel**
+
+> 本文学习中，使用的所有的工具包的版本都比较低，如果有什么不对的地方，就降低下版本就可以了，webpack的版本是3.6.0。
+
+babel，将es6等高级标准语法转换成es5.
+
+需要安装一些工具包：
+
+```bash
+npm install babel-loader@7.0.0 babel-core babel-preset-es2015 --save-dev
+```
+
+其中babel-preset-es2015也可以更改为babel-preset-env，但是如果安装这个包，那么就需要在.babelrc文件中做一些配置，现在暂时不配置这个。
+
+看配置文件：
+
+```javascript
+{
+    test: /\.m?js$/,
+    exclude: /(node_modules|bower_components)/,
+    use: {
+        loader: 'babel-loader',
+        options: {
+            presets: ['es2015'] // 如果按照文档上些的安装babel-preset-env,这里则需要配置为@babel/preset-env
+        }
+    }
+}
+```
+
 #### webpack中配置vue
 
 #### plugin的使用
