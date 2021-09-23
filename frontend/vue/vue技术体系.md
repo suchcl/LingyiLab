@@ -4568,6 +4568,36 @@ const app = new Vue({
 ```
 这是写好了代码，但是想让vue运行起来，还需要做一些配置。
 
+安装好了vue后，就直接编译运行吧：npm run build,编译成功，看效果：
+
+报错了:
+
+![vue运行时错误](../../public/images/i86.png)
+
+提示在使用了template的地方使用了只读的运行时环境，解决办法：
+
+使用webpack在构建vue时，产生了两个版本的运行时：
+
+1. runtime-only:只读的运行时环境，不能编译带有template的vue代码
+
+2. runtimme-compiler:带有编译器，可以编译带有template的vue代码
+
+报错的原因，就是使用了runtime-only,所以解决办法就是指定一下，明确使用runtime-compiler:
+
+```javascript
+// webpack.config.js
+    resolve: {
+        alias: {
+            /**
+             * 在执行import Vue from "vue";时，指定使用vue/dist/vue.esm.js去编译vue文件，默认使用的是vue/dist/vue.runtime.js编译器
+             */
+            "vue$":"vue/dist/vue.esm.js"
+        }
+    }
+```
+
+其实，就是编译时修改下默认的编译器就可以了。
+
 #### plugin的使用
 
 #### 搭建本地服务器
