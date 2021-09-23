@@ -4623,7 +4623,55 @@ new Vue({
 
 Vue项目的终极形态，是使用.vue文件。
 
+**省略引入模块的扩展名**
+
+如代码：import App from "./App.vue";引入一个vue模板的时候，我不想写.vue这个扩展，webpack也可以通过配置来实现.
+
+```javascript
+    resolve: {
+        // 配置需要省略的扩展名
+        extensions:[".js",".vue",".css",".less"]
+    },
+```
+
+详情可参考：[https://webpack.docschina.org/configuration/resolve/#resolveextensions](https://webpack.docschina.org/configuration/resolve/#resolveextensions)
+
 #### plugin的使用
+
+现有一些框架扩充的一些功能，这些功能就是插件：一般是对现有功能的丰富，这些丰富就是插件。
+
+**插件、laoder的区别**
+
+loader：转换器、加载器，对文件的格式、形式的转换
+
+plugin：对现有功能的丰富，这些丰富，就是插件
+
+**plugin的使用步骤**
+
+1. 安装：npm install，有些plugin已经被webpack内置了，就不需要重新安装了；
+
+2. 配置：webpack.config.js中配置
+
+**配置版权插件**
+
+常用的开源协议：MIT、Apache，虽然是开源，但是有不同的限制；
+
+BannerPlugin，这是一个webpack内置的插件，不需要进行安装，直接使用即可。
+
+```javascript
+// webpack.config.js
+const webpack = require("webpack"); // 先引入一下webpack，因为要直接使用webpack，而不是执行编译指令
+// 配置
+module.exports = {
+    // ……
+    plugins:[
+        // 这是一个简单的输出，可以有很多的参数、功能的配置
+        new webpack.BannerPlugin("版权归大哥大所有！")
+    ]
+};
+```
+
+详情也可以参考：[https://webpack.docschina.org/plugins/banner-plugin/](https://webpack.docschina.org/plugins/banner-plugin/)
 
 #### 搭建本地服务器
 
