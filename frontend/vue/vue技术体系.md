@@ -4554,6 +4554,20 @@ npm install babel-loader@7.0.0 babel-core babel-preset-es2015 --save-dev
 
 #### webpack中配置vue
 
+```javascript
+// 配置vue进行vue的开发
+import Vue from "vue";
+
+const app = new Vue({
+        el: "#app",
+        data: {
+            msg: "Hello Vue!"
+        }
+    }
+);
+```
+这是写好了代码，但是想让vue运行起来，还需要做一些配置。
+
 #### plugin的使用
 
 #### 搭建本地服务器
