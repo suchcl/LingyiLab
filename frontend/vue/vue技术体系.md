@@ -4598,6 +4598,29 @@ const app = new Vue({
 
 其实，就是编译时修改下默认的编译器就可以了。
 
+**创建vue时，template和el的区别**
+
+```javascript
+new Vue({
+    el: "#app",
+    template:`
+      <div class="userinfo">
+        <h2>{{userName}}</h2>
+        <p>{{age}}</p>
+        <p>{{height}}</p>
+      </div>
+    `,
+    data: {
+        msg: "Hello Webpack!",
+        userName: "Nicholas Zakas",
+        age: 18,
+        height: 1.88
+    }
+});
+```
+
+如在这个实例中，template会在vue运行时，被自动的赋值到el中。
+
 #### plugin的使用
 
 #### 搭建本地服务器
