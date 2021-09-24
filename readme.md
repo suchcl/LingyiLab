@@ -66,7 +66,7 @@
 
 6. [亿图软件——一款易用的办公绘图软件](./Hodgepodge/亿图软件.md)
 
-7. [什么是科学的教育观](./Hodgepodge/科学教育观.md)
+7. [科学的教育观和信仰、灵魂](./Hodgepodge/科学教育观.md)
 
 8. [永远不要使用默认的浏览器弹窗](./Hodgepodge/alert.md)
 
