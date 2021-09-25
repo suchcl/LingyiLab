@@ -4648,9 +4648,11 @@ plugin：对现有功能的丰富，这些丰富，就是插件
 
 **plugin的使用步骤**
 
-1. 安装：npm install，有些plugin已经被webpack内置了，就不需要重新安装了；
+1. webpack.config.js先导入webpack；
 
-2. 配置：webpack.config.js中配置
+2. 安装：npm install，有些plugin已经被webpack内置了，就不需要重新安装了；
+
+3. 配置：webpack.config.js中配置
 
 **配置版权插件**
 
@@ -4672,6 +4674,33 @@ module.exports = {
 ```
 
 详情也可以参考：[https://webpack.docschina.org/plugins/banner-plugin/](https://webpack.docschina.org/plugins/banner-plugin/)
+
+**HtmlWebpackPlugin**
+
+到目前为之，我写的案例中，index.html都是写到项目根目录中的，而预期的是直接将dist目录部署到服务器，HtmlWebpackPlugin可以帮助我们完成这个任务。
+
+HtmlWebpackPlugin可以为我做这些事情，也是期望它为我们做的主要的两件事情：
+
+1. 自动生成一个index.html文件（可以由指定的文件来生成）； ---- 插件给我们生成的是一个HTML5文件
+
+2. 将打包的js文件，自动通过script标签插入到body中；
+
+```javascript
+// webpack.config.js 
+// 引入html-webpack-plugin
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+// 配置
+// ……
+plugins:[
+    // 这是一个简单的输出，可以有很多的参数、功能的配置
+    new webpack.BannerPlugin("版权归大哥大所有！"),
+    // 配置html-webpack-plugin,自动在指定目录生成一个html5文件，并自动插入script标签
+    new HtmlWebpackPlugin({
+        template:"./index.html"
+    })
+]
+```
 
 #### 搭建本地服务器
 
