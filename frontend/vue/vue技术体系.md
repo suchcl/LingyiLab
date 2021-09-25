@@ -4702,6 +4702,29 @@ plugins:[
 ]
 ```
 
+**UglifyjsWebpackPlugin**
+
+丑化js文件，减小文件质量，提升网页的加载速度。
+
+```js
+// webpack.config.js
+
+// 引入
+const UglifyjsWebpackPlugin = require("uglifyjs-webpack-plugin");
+
+// 配置
+// ……
+plugins:[
+    // 这是一个简单的输出，可以有很多的参数、功能的配置
+    new webpack.BannerPlugin("版权归大哥大所有！"),
+    new HtmlWebpackPlugin({
+        template:"./index.html"
+    }),
+    // 配置uglifyjs-webpack-plugin
+    new UglifyjsWebpackPlugin()
+]
+```
+
 #### 搭建本地服务器
 
 1. 本地服务器，热更新
