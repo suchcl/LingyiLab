@@ -4728,3 +4728,16 @@ plugins:[
 #### 搭建本地服务器
 
 1. 本地服务器，热更新
+
+```javascript
+    // 该配置只需要在开发环境中使用，生产环境不需要
+    devServer:{
+        contentBase: "./dist",
+        inline: true
+    }
+```
+
+不加open参数，dev结束后，需要手动点开一下链接，加上open参数后，dev后可自动打开链接
+```json
+"dev": "webpack-dev-server --open" 
+```
