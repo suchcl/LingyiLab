@@ -4741,3 +4741,13 @@ plugins:[
 ```json
 "dev": "webpack-dev-server --open" 
 ```
+
+#### webpack配置文件开发环境、生产环境分离
+
+可以将webpack的配置文件都统一放到一个目录，比如根目录下的build目录吧。然后新建3个配置文件，分别为：
+
+1. base.config.js  公共的配置信息
+
+2. dev.config.js 开发环境的配置信息
+
+3. prod.config.js 生产环境的配置信息
