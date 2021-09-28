@@ -4751,3 +4751,70 @@ plugins:[
 2. dev.config.js 开发环境的配置信息
 
 3. prod.config.js 生产环境的配置信息
+
+可以将分离出来的配置文件统一管理到根目录下的build目录吧：
+
+![分离配置后的目录结构](../../public/images/i87.png)
+
+**设置dev和build的时候找各自的配置文件**
+
+由于之前我们都是把配置文件都配置到了一个文件中webpack.config.js，那么现在我们已经把webpack.config.js分开配置成了3个配置文件，做了环境的分离，那么我们怎么将配置文件根据运行环境进行合并呢？
+
+使用webpack-merge插件，可以帮助我们实现文件的合并。
+
+```bash
+npm install webpack-merge --save-dev # 开发时依赖
+```
+
+文件合并
+
+```javascript
+// prod.config.js
+const UglifyjsWebpackPlugin = require("uglifyjs-webpack-plugin");
+const WebpackMerge = require("webpack-merge"); // 导入webpack-merge插件
+const baseConfig = require("./base.config"); // 导入base.config.js
+
+// 合并base.config.js文件，再和当前环境的配置信息合并，统一导出
+module.exports = WebpackMerge(baseConfig, {
+    plugins: [
+        new UglifyjsWebpackPlugin()
+    ]
+})
+```
+
+dev.config.js的合并也完全相同：
+
+```javascript
+// dev.config.js
+const WebpackMerge = require("webpack-merge"); // 导入webpack-merge插件
+const baseConfig = require("./base.config"); // 导入base.config.js
+
+module.exports = WebpackMerge(baseConfig,{
+// 该配置只需要在开发环境中使用，生产环境不需要
+devServer:{
+    contentBase: "./dist",
+    inline: true
+}
+})
+```
+
+因为我们知道webpack默认是使用webpack.config.js作为配置文件运行的，但是现在经过我们的环境分离的配置后，已经没有了webpack.config.js文件了，只需要在package.json中scripts中配置下对应的配置文件就可以了：
+
+```json
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config ./build/prod.config.js", // 通过--config参数指定相应环境的配置文件
+    "dev": "webpack-dev-server --open --config ./build/dev.config.js"  // 通过--config参数指定相应环境的配置文件
+  }
+```
+
+最后需要关注build操作的输出目录，因为之前webpack.config.js和dist是同级，现在已经不是同级了，这里注意下就可以了：
+
+```javascript
+// base.config.js
+    output: {
+        path: path.resolve(__dirname, "../dist"), // 目录结构不一定是../dist，根据自己项目的实际目录结构配置就可以了
+        filename: "bundle.js",
+        // publicPath: "dist/"
+    },
+```
