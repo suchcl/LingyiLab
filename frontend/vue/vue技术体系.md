@@ -4840,3 +4840,15 @@ npm install @vue/cli-init -g #之后就可以通过vue-cli2的指令来创建项
 
 vue init webpack project # 通过vue-cli2创建一个基于webpack模板的项目
 ```
+
+**项目构建时两种方式：**
+
+1. runtime+compiler：操作简单，工具直接给我们提供了很多的基础功能，大多数人在用
+
+2. runtime-only：可以比带有编译器的构建方式更轻便，可以小6kb，构建的速度也更快，效率更高
+
+在通过脚手架创建项目时，有一些信息时读取的本地的git的信息，可以使用，也可以不用，在创建时重新输入就可以了，代表性的就是author字段。
+
+**config和build**
+
+通过vue-cli2构建的项目，同时有build和config，通过读代码知道，build目录为webpack的配置文件，那么config是什么呢？config目录主要定义了一些变量，供其他文件去使用，如环境、端口、是否开启ESlint等等。
