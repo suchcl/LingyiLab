@@ -4818,3 +4818,15 @@ devServer:{
         // publicPath: "dist/"
     },
 ```
+
+> webpack默认做了代码的热更新，就是在开发环境中，更改了代码后，会自动的刷新页面。
+
+### vue脚手架
+
+日常所说的脚手架，指的是vue-cli工具。
+
+脚手架安装：
+
+```bash
+npm install @vue/cli -g // 一般全局安装即可
+```
