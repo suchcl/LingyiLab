@@ -4830,3 +4830,13 @@ devServer:{
 ```bash
 npm install @vue/cli -g // 一般全局安装即可
 ```
+
+> 学习脚手架，都以@vue/cli 3.2.1版本为准
+
+怎么在安装了@vue/cli 3.2.1的情况下，还能使用vue-cli2的功能创建项目呢？安装一个@vue/cli-init就可以了，这是因为vue-cli不低于3的版本和vue-cli2的版本使用了相同的vue指令，只是高版本的cli把低版本的cli指令给覆盖了，所以如果我们还想继续使用低版本的init指令创建项目时，只需要全局安装一个命令行的桥接工具就可以了。
+
+```bash
+npm install @vue/cli-init -g #之后就可以通过vue-cli2的指令来创建项目了
+
+vue init webpack project # 通过vue-cli2创建一个基于webpack模板的项目
+```
