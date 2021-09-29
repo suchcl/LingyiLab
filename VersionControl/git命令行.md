@@ -39,3 +39,13 @@ git push --set-upstream origin dev
 ```bash
 git pull
 ```
+
+
+### branch的相关操作
+
+```bash
+git branch # 查看本地分支列表
+git branch -r # 查看远程的服务器分支列表
+git branch -a # 查看本地和远程所有分支列表
+git checkout branchname  #切换到分支branchName
+```
