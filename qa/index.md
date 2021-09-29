@@ -5,4 +5,4 @@
 5. [网页截图和css设置的元素尺寸不同的问题](./网页截图和实际css设置尺寸不符.md)
 6. [HTML标记设置width属性不生效](./HTML标记的width属性.md)
 7. [Uncaught SyntaxError: Illegal return statement](./非法返回.md)
-8. [ERROR in ./src/css/normal.css Module build failed: TypeError: this.getOptions is not a function at Object.loader]()
+8. [Uncaught (in promise) Error: Maximum recursive updates exceeded. This means you have a reactive effect that is mutating its own dependencies and thus recursively triggering itself. Possible sources include component template, render function, updated hook or watcher source function.](./Uncaught%20(in%20promise)%20Error.md)
