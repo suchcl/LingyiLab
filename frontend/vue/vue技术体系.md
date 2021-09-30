@@ -4858,7 +4858,7 @@ vue init webpack project # 通过vue-cli2创建一个基于webpack模板的项�
 ```
 D:\vue2p1
 ├─.babelrc
-├─.editorconfig
+├─.editorconfig //该文件一定要有，可以规范一个团队共同的编码规范、格式
 ├─.eslintignore
 ├─.eslintrc.js
 ├─.postcssrc.js
@@ -4895,3 +4895,42 @@ static、src的assets目录都可以存放一些静态资源，那么有什么�
 1. static目录下的资源，会被webpack原样的复制到dist目录下（打包的目标目录下）；
 
 2. src中的assets目录中的资源，会被webpack中的各种loader去处理，如会根据图片的大小去决定是否对图片进行压缩还是转码base64、css以及less的编译、js的编译、模块化操作等；
+
+**.babelrc**
+
+.babelrc,是babel的配置文件，具体babel的东西，暂时先参考下它的网站吧：[https://www.babeljs.cn/](https://www.babeljs.cn/).
+
+```javascript
+{
+  "presets": [
+    ["env", {
+      "modules": false,
+      "targets": {
+        "browsers": ["> 1%", "last 2 versions", "not ie <= 8"] // 表示对市场份额占有率大于1%，且不是低于IE8的浏览器的最后2个版本进行转化、兼容
+      }
+    }],
+    "stage-2" // 表示对state-2阶段的js进行转译，这里配置了state-2这个阶段，是和babel-preset-stage-2这个包对应的，在package.json中可以看到
+  ],
+  "plugins": ["transform-vue-jsx", "transform-runtime"]
+}
+```
+
+**package.json**
+
+可以主要看下依赖包
+
+```javascript
+"dependencies": {
+    "vue": "^2.5.2"
+},
+```
+
+主要看包的版本号，有的版本号前面有一个^,也有的一些版本号前面有一个~。
+
+1. ^表示高于当前指定的版本，只能修改最后一位。如这里指定的vue：2.5.2，但实际上安装的vue可能是2.5.3也可嫩是2.5.4，但不能是2.5.1，也不能是2.6.1；
+
+2. ~表示可以修改版本号的后两位：如vue:2.5.2,表示可能安装了vue的2.5.2版本，也可能安装了2.6.3的版本，但不能安装3.0.1版本。
+
+实际上，package.json只是记录了npm包的大概的一个版本依赖，并不是真正的安装版本，真正的npm包的版本管理，是在package-lock.json文件中。
+
+<font color="#f20">这里好像解释的有点问题，明天再翻阅一些资料。</font>
