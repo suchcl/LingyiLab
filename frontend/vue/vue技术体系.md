@@ -4852,3 +4852,40 @@ vue init webpack project # 通过vue-cli2创建一个基于webpack模板的项�
 **config和build**
 
 通过vue-cli2构建的项目，同时有build和config，通过读代码知道，build目录为webpack的配置文件，那么config是什么呢？config目录主要定义了一些变量，供其他文件去使用，如环境、端口、是否开启ESlint等等。
+
+**通过vue-cli2生成的项目的目录结构**
+
+```
+D:\vue2p1
+├─.babelrc
+├─.editorconfig
+├─.eslintignore
+├─.eslintrc.js
+├─.postcssrc.js
+├─index.html
+├─package-lock.json
+├─package.json
+├─README.md
+├─tree.md
+├─static
+├─src
+|  ├─App.vue
+|  ├─main.js
+|  ├─components
+|  |     └HelloWorld.vue
+|  ├─assets
+|  |   └logo.png
+├─config
+|   ├─dev.env.js
+|   ├─index.js
+|   └prod.env.js
+├─build
+|   ├─build.js
+|   ├─check-versions.js
+|   ├─logo.png
+|   ├─utils.js
+|   ├─vue-loader.conf.js
+|   ├─webpack.base.conf.js
+|   ├─webpack.dev.conf.js
+|   └webpack.prod.conf.js
+```
