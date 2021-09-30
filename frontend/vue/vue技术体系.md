@@ -4867,13 +4867,13 @@ D:\vue2p1
 ├─package.json
 ├─README.md
 ├─tree.md
-├─static
+├─static // 存放一些静态资源如图片、css、js文件等
 ├─src
 |  ├─App.vue
 |  ├─main.js
 |  ├─components
 |  |     └HelloWorld.vue
-|  ├─assets
+|  ├─assets // 目录下也可以存放一些图片、css、js等静态资源
 |  |   └logo.png
 ├─config
 |   ├─dev.env.js
@@ -4889,3 +4889,9 @@ D:\vue2p1
 |   ├─webpack.dev.conf.js
 |   └webpack.prod.conf.js
 ```
+
+static、src的assets目录都可以存放一些静态资源，那么有什么区别呢？
+
+1. static目录下的资源，会被webpack原样的复制到dist目录下（打包的目标目录下）；
+
+2. src中的assets目录中的资源，会被webpack中的各种loader去处理，如会根据图片的大小去决定是否对图片进行压缩还是转码base64、css以及less的编译、js的编译、模块化操作等；
