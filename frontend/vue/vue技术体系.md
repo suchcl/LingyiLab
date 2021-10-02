@@ -4970,3 +4970,38 @@ new Vue({
   }
 })
 ```
+
+### @vue/cli3和vue-cli2的区别
+
+1. @vue/cli3基于webpack4，vue-cli2基于webpack3；
+
+2. @vue/cli3的设计原则是“0配置”，移除了根目录下的配置文件，主要是config、biuld两个目录以及其他一些文件；
+
+3. @vue/cli3提供了vue ui命令，提供了可视化操作，使用更简单了一些；
+
+4. 移除了static目录，新增了public目录，且index.html移动到了public目录中；
+
+虽然@vue/cli3试下了0配置，工具本身给我们提供好了很多的配置，但是也有很多需要个性化的配置，这时可以在项目根目录下创建一个vue.config.js文件，将我们个性化的webpack配置写到vue.config.js中，其喷气式方式和webpack.config.js完全相同。
+
+**Vue.config.productionTip = false**
+
+项目在开发环境或者项目构建的时候的提示信息，一般在开发环境不需要，但是在产品部署的是，对应到代码中，也就是在代码build的时候，可以把这个提示打开，提示我们本次的build的提示信息。
+
+该提示的用途，相对来说不是很大，能记住就记住了，记不住，就可以忽略了 。
+
+**@vue/cli3创建项目**
+
+```bash
+# 使用脚手架3创建一个名为projectname的vue项目
+vue create projectname;
+```
+
+### 通过@vue/cli3及更高版本的cli工具创建的项目，怎么看或者修改默认的webpack配置呢？
+
+现在我认识2种方式：
+
+1. 执行vue ui指令，通过图形化工具查看webpack配置；
+
+2. 在node_modules->@vue->cli-service下查看webpack.config.js
+
+如果想修改的时候，可以在项目的根目录下添加一个vue.config.js，在vue.config.js添加的配置，会覆盖掉webpack的默认配置。
