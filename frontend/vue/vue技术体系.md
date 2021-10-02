@@ -4934,3 +4934,15 @@ static、src的assets目录都可以存放一些静态资源，那么有什么�
 实际上，package.json只是记录了npm包的大概的一个版本依赖，并不是真正的安装版本，真正的npm包的版本管理，是在package-lock.json文件中。
 
 <font color="#f20">这里好像解释的有点问题，明天再翻阅一些资料。</font>
+
+**runtime+compiler、runtime-only**
+
+主要区别：
+
+1. runtime-only:效率、性能更高:因为少了将template编译成ast的过程
+
+2. runtime+compiler:将template->ast->render->vdom->UI
+
+> runtime
+
+建议选择使用runtime-only，代码质量可以小6kb。
