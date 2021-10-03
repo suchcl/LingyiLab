@@ -5005,3 +5005,70 @@ vue create projectname;
 2. 在node_modules->@vue->cli-service下查看webpack.config.js
 
 如果想修改的时候，可以在项目的根目录下添加一个vue.config.js，在vue.config.js添加的配置，会覆盖掉webpack的默认配置。
+
+### 箭头函数
+
+定义函数，有3种方式：
+
+1. 通过function关键词定义
+
+2. 为变量赋值的方式定义函数
+
+3. 对象字面量中增强写法
+   
+   ```javascript
+    const obj = {
+        add(){
+            // 代码逻辑
+        }
+    };
+   ```
+
+4. ES6中的新方式：箭头函数
+
+**箭头函数的参数问题**
+
+1. 当有2个参数的时候，都放到一个小括号中
+
+```javascript
+// 有2个参数时，参数都放如到小括号中，然后通过return返回结果
+const sum = (num1, num2) => { // 两个参数num1、num2都放到小括号中了
+    return num1 + num2;
+}
+console.log(sum(3, 4)); // 7
+```
+
+2. 当只有1个参数时，参数可以放到小括号中，但是这个小括号可以省略
+
+```javascript
+// 只有1个参数时，参数可以放到小括号中，但是这个小括号可以省略
+const power = num => { // 参数num的小括号省略了
+    return num * num;
+}
+console.log(power(3)); // 9
+```
+
+3. 当箭头函数的函数体只有一行代码时，可以省略函数体的大括号和return
+
+```javascript
+const muilty = (num1, num2) => num1 * num2;
+// 该函数等同于
+const muilty2 = (num1, num2) => {
+    return num1 * num2;
+};
+console.log(muilty(4, 5)); // 20
+console.log(muilty2(4, 6)); // 24
+```
+
+只有一行代码的箭头函数，在省略了大括号以及return的时候，编译器会自动给我们加上return；
+
+> 当只有一行代码的箭头函数，无论函数是否有返回值，都可以省略大括号以及return关键字。在只有一行的代码且没有返回值的函数体，也可以省略大括号和return，其实这个时候函数也是有返回值的，只不过返回的是undefined
+
+```javascript
+const print = () => console.log("Nicholas Zakas");
+console.log(print()); // 先打印了Nicholas Zakas，再返回一个undefined
+```
+
+执行结果，可以看下图：
+
+![只有一行代码的箭头函数，无论有没有返回值，都可以省略函数体的大括号和return关键字](../../public/images/i89.png)
