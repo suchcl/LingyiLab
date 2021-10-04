@@ -5168,3 +5168,14 @@ Hash
 通过history.pushState修改路由，前端资源也没有重新请求、刷新，favicon.ico也还存在同样的问题，被浏览器默认重新加载了。
 
 > 只要发生了路由（前端路由）的变化，favicon.ico就会被重新加载，需要继续调研下该现象。
+
+history除了可以使用pushState修改路由，也还有以下几个方法，也可以修改前端路由：
+
+1. history.replaceState()：用法和history.pushState完全相同，只是浏览器中的前进、后退操作补可用了。因为replace是替换了原路由，而不是压栈操作，只是修改了下原路由；
+
+2. history.back():后退一步，等同于浏览器的后退操作按钮，和history.go(-1)效果也相同；
+
+3. history.go(num)：num可以为正数，也可以为负数，常用的为-1.为-1时，等同于history.back();
+
+4. history.forward()：前进一步，等同于浏览器的前进按钮，效果正好和history.back()相反。
+
