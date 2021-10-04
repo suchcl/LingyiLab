@@ -5140,3 +5140,31 @@ console.log(print()); // 先打印了Nicholas Zakas，再返回一个undefined
 **前端路由的核心是什么？**
 
 改变URL，但是页面只进行局部刷新。
+
+**Hash、History两种路由模式**
+
+在浏览器的开发者工具中，可以通过location.hash、history.pushState的方式主动调试路由变化。
+
+Hash
+
+1. 修改location.hash修改前端路由
+
+先看下项目初始化完刚加载时加载的资源，如图：
+
+![项目初始化完刚加载时加载的资源](../../public/images/i90.png)
+
+清空下请求的网络资源，然后在开发者工具手动修改location.hash，在修改了hash后，前端路由跟着发生了变化，通过观察，页面所需要的静态资源没有重新加载、刷新。现象可以看图：
+
+![location.hash变化，触发前端路由的变化](../../public/images/i91.png)
+
+![location.hash变化，触发前端路由的变化](../../public/images/i92.png)
+
+> 但是favicon.ico被重新请求加载了，现在还没有明白这个原理。
+
+2. 通过history.pushState主动触发路由变化
+
+![通过history.pushState主动修改前端路由](../../public/images/i93.png)
+
+通过history.pushState修改路由，前端资源也没有重新请求、刷新，favicon.ico也还存在同样的问题，被浏览器默认重新加载了。
+
+> 只要发生了路由（前端路由）的变化，favicon.ico就会被重新加载，需要继续调研下该现象。
