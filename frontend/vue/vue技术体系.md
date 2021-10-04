@@ -5179,3 +5179,40 @@ history除了可以使用pushState修改路由，也还有以下几个方法，�
 
 4. history.forward()：前进一步，等同于浏览器的前进按钮，效果正好和history.back()相反。
 
+#### 认识vue-router
+
+当前流行的几个大的前端框架，都有自己的路由实现：
+
+Angular的ngRouter
+
+React的ReactRouter
+
+Vue的vue-router
+
+**vue-router**
+
+vue-router基于路由和组件。
+
+#### 安装和使用vue-router
+
+1. 安装vue-router
+
+```bash
+npm install vue-router --save; # 注意是运行时依赖，不能是开发时依赖
+```
+
+2. 在模块化工程中去使用(路由本身是一个插件，Vue可以通过Vue.use()方法来使用它)
+
+    1. 导入路由对象，调用Vue.use(VueRouter);
+    2. 创建路由实例，传入路由映射配置；
+    3. 在Vue实例中挂载创建的路由实例；
+
+> Vue中，无论是用什么样的插件都需要通过Vue.use()来安装、挂载插件。
+
+#### 使用vue-router（步骤）
+
+1. 创建路由组件
+
+2. 配置路由映射：组件和路由之间的映射关系；
+
+3. 使用路由：通过<router-link>和<router-view>
