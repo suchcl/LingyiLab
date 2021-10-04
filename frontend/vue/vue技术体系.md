@@ -5239,3 +5239,18 @@ const routes = [
 3. 使用路由：通过<router-link>和<router-view>
 
 > router-link是vue-router一个内置的组件，最终会被渲染成a标记
+
+#### 路由的默认路径
+
+> 配置文件修改后，需要重启服务才可生效，如.eslintrc等配置文件。
+
+```javascript
+  {
+    path: "/",
+    component: Home
+    // redirect: "/home"
+  },
+```
+
+设置默认路由，path属性可以有/也可以没有，既可以通过component属性指定组件，也可以通过重定向重新跳转到一个路由。
+
