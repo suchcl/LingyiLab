@@ -5254,3 +5254,56 @@ const routes = [
 
 设置默认路由，path属性可以有/也可以没有，既可以通过component属性指定组件，也可以通过重定向重新跳转到一个路由。
 
+#### router-link的常用属性
+
+1. to：指定跳转路径
+
+2. tag：指定当前的router-link的渲染标签、渲染方式
+
+3. replace：指定当前的路由跳转使用repalceState的模式，即路由跳转后浏览器的前进、后退按钮不可用。该属性不需要属性值，只加属性即可。
+
+> 测试了下，只有当第一次跳转的时候，浏览器的后退按钮才不可以操作，当重复点击的时候，后续的操作是会有回退操作的。
+
+```html
+    <ul class="nav">
+      <li>
+        <router-link to="/home">首页</router-link>
+      </li>
+      <li>
+        <router-link to="/about" replace>关于我们</router-link>
+      </li>
+    </ul>
+```
+
+4. active-class：设置激活class，两种方式：
+
+* 直接在当前的router-link上添加active-class属性
+
+```html
+    <ul class="nav">
+      <li>
+        <router-link to="/home" active-class="active">首页</router-link>
+      </li>
+      <li>
+        <router-link to="/about" replace>关于我们</router-link>
+      </li>
+    </ul>
+```
+
+在当前的router-link上配置，可以实现已经添加了active-class的router-link上点击选中后样式变化，但是也存在了一个异常的现象：就是当前没有添加active-class属性的router-link，在点击过程中，也会出现样式变化，当鼠标松开后，样式又恢复原样。
+
+![router-link上添加active-class](../../public/images/i94.png)
+
+* 在路由的实例化对象上配置linkActiveClass属性
+
+```javascript
+const router = new VueRouter({
+  // 配置路由和组件之间的映射关系
+  routes,
+  mode: "history",
+  linkActiveClass: "linkedOn" // 配置被选中路由的样式
+});
+
+```
+
+![从路由实例化对象上配置linkActiveClass属性](../../public/images/i95.png)
