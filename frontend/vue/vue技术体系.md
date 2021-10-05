@@ -5307,3 +5307,30 @@ const router = new VueRouter({
 ```
 
 ![从路由实例化对象上配置linkActiveClass属性](../../public/images/i95.png)
+
+####　路由跳转的几种方式
+
+1. 通过router-link组件:配置to属性
+
+```html
+<router-link to="/home">首页</router-link>
+```
+
+2. 利用vue-router提供的$router属性的push()方法,监听元素的事件，响应事件处理即可
+
+```html
+<button @click="homeClick">首页</button>
+<button @click="aboutClick">关于我们</button>
+<script>
+export default {
+  methods: {
+    homeClick() {
+      this.$router.push("/home");
+    },
+    aboutClick() {
+      this.$router.push("/about");
+    }
+  }
+};
+</script>
+```
