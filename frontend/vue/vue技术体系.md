@@ -5334,3 +5334,103 @@ export default {
 };
 </script>
 ```
+
+#### 动态路由
+
+简单的路由跳转，只需要进行简单的路由配置就可以了，但是很多场景，通过简单的配置不能满足实际的需求，比如有一个用户列表，点击当前的用户名称进入到当前的用户信息详情页面。
+
+vue-router也给我们提供了功能的解决方案：动态路由，配置一个路由参数，该参数动态获取，这样就是先了不同条件的路由。
+
+```html
+<!--组件中动态配置路由，注意动态的属性的拼接-->
+<router-link :to="'/user/' + userId">个人中心</router-link>
+
+<script>
+data() {
+  return {
+    userId: 123 // 动态的路由参数
+  };
+},
+
+</script>
+```
+
+路由的配置，注意是动态的路由映射关系配置：
+
+```javascript
+  {
+    path: "/user/:userId", // 动态接受userId参数
+    component: User
+  }
+```
+
+**获取动态路由中的动态参数**
+
+this.$route.params.参数名
+
+看案例：
+
+```html
+    <tr v-for="item in userinfo" :key="item.id">
+      <td>{{ item.id }}</td>
+      <td>
+      <!--动态路由传参-->
+        <router-link :to="'/user/' + item.id">
+          {{ item.username }}
+        </router-link>
+      </td>
+      <td>
+        {{ item.age }}
+      </td>
+    </tr>
+```
+
+路由映射配置：
+
+```javascript
+  {
+    path: "/user/:userid",
+    component: UserDetail
+  }
+```
+
+关注下这里的动态参数：userid，这里设置的动态参数名userid，在模板中接受该路由参数的时候，也要接收这个参数，不能改变：
+
+```html
+<template>
+  <div class="user-detail">
+    <h2>用户详情</h2>
+    <h3>姓名：{{ userid }}</h3>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      userid: this.$route.params.userid // 参数userid就是在路由映射关系中配置的参数名
+    };
+  }
+};
+</script>
+```
+
+**$router和$route**
+
+$router:当前项目的vue-router实例：可调用路由实例的方法。
+
+$route：当前的活跃路由，可用在组建中接收其他组件、路由传递过来参数的场景。
+
+很多时候，路由跳转都会传参，那么就可以通过this.$route.params.参数名的方式获取传递的参数。
+
+```javascript
+    // 通过$router实现路由跳转
+    homeClick() {
+      this.$router.push("/home");
+    },
+
+    // 通过$route获取当前活跃路由传递过来的参数
+    return {
+      userid: this.$route.params.userid
+    };
+```
