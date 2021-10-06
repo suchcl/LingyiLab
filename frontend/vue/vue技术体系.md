@@ -5597,3 +5597,83 @@ const HomeMessage = () => import("../components/HomeMessage");
       <router-view></router-view>
     </div>
 ```
+
+#### 路由跳转时的参数传递
+
+参数传递主要有两种方式：params和query
+
+**params类型**
+
+1. 配置的路由格式：/router/:id
+
+2. 传递的方式：在path后面跟上对应的值
+
+3. 传递后形成的完整路径：/router/123，/router/456
+
+**query类型**
+
+1. 配置的路由格式：/router,也就是最普通的配置形式；
+
+2. 参数传递方式：对象中使用query的key作为传递方式
+
+> query是一个对象，对象中有多个参数
+
+3. 传递后形成的路径：/router?id=12，/router?userId=18
+
+query传参：
+
+```html
+<router-link :to="{ path: '/profile', query: {username: 'Nicholas Zakas',age: 18, height: 182} }">个人中心</router-link>
+```
+
+query是一个参数对象，对象中可以有多个参数。
+
+目标组件中接收query传参的方式：this.$route.query，获取的是query的参数对象，如果需要获取具体的参数，则直接通过对象的点表示法获取就可以了，如this.$route.query.username.
+
+```html
+<template>
+  <div class="profile">
+    <h2>姓名：{{ profile.username }}</h2>
+    <p>年龄：{{ profile.age }}</p>
+    <p>身高：{{ profile.height }}</p>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      profile: this.$route.query
+    };
+  }
+};
+</script>
+```
+
+通过query的传参方式，参数列表会直接显示到URL上面，如：
+
+![query传参的参数列表](../../public/images/i98.png)
+
+通过响应时间的方式传参：
+
+```javascript
+    // query传参方式
+    profileClick() {
+      this.$router.push({
+        path: "/profile",
+        query: {
+          username: this.username,
+          age: this.age,
+          job: this.job
+        }
+      });
+    }
+```
+
+**补充一个URL的小知识**
+
+看下URL的完整格式：
+
+![URL的完整格式](../../public/images/i99.png)
+
+可见query(查询)是URL中的一个组成部分，参数的传递、获取、在URL中的显示，和URL的基本构成是一一对应的，所以计算机科学，对于基础内容的掌握的重要性。
