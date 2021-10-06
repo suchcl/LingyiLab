@@ -5545,3 +5545,55 @@ const User = () => import("../components/user.vue");
 实现了路由懒加载后，打包编译后文件目录结构可参考如下：
 
 ![实现了路由懒加载后的编译后文件目录](../../public/images/i97.png)
+
+#### 嵌套路由
+
+实现路由嵌套的步骤：
+
+1. 创建对应的组件，在路由映射中配置对应的子路由；
+
+2. 在组件内部使用<router-view>标签；
+
+子路由配置时，需要使用children属性，且子路由的path属性不要添加"/"，组件的导入还是可以继续使用路由懒加载的方式导入。
+
+在组件中，通过router-link进行路由跳转时，需要拼接上父组件的路由成一个完整的路由：
+
+```javascript
+// router.js
+// 导入子组件
+const HomeNews = () => import("../components/HomeNews");
+const HomeMessage = () => import("../components/HomeMessage");
+
+// 配置路由和组件之间的映射关系
+  {
+    path: "/home",
+    component: Home,
+    children: [ // children属性为数组类型
+      // 配置默认路由，在路由跳转到父组件对应的路由时，指定一个默认的组件去渲染
+      {
+        path: "", // 可以指定为父组件的路由，也可以为空，表示当进入父组件的路由时
+        redirect: "news"
+      },
+      {
+        path: "news", // 注意子组件的路由不能添加"/"，否则就会路由到根目录
+        component: HomeNews
+      },
+      {
+        path: "msg",
+        component: HomeMessage
+      }
+    ]
+  },
+```
+
+在父组件中定义<router-view>占位符
+
+```html
+    <div class="home-nav">
+    <!--注意父组件中的router-link，to属性需要拼接父组件的路由和子组件的路由，形成一个完整的路由-->
+      <router-link to="/home/news">新闻中心</router-link>
+      <router-link to="/home/msg">消息列表</router-link>
+      <!--占位符-->
+      <router-view></router-view>
+    </div>
+```
