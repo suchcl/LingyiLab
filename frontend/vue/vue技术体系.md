@@ -5677,3 +5677,40 @@ export default {
 ![URL的完整格式](../../public/images/i99.png)
 
 可见query(查询)是URL中的一个组成部分，参数的传递、获取、在URL中的显示，和URL的基本构成是一一对应的，所以计算机科学，对于基础内容的掌握的重要性。
+
+#### 导航守卫
+
+导航，也就是路由。导航守卫，也可以理解为路由守卫，指在路由跳转过程中可能需要做一些事情，实现是监听路由的跳转动作。
+
+router.beforeEach((to,from,next){})
+
+如果我们的代码实现中，调用了router.beforeEach()，那么就必须要调用next()方法，如果没有显示的调用router.beforeEach()则不必调用next().
+
+vue-router内部默认实现了next()方法的，但是如果我们显示调用了beforeEach(),则会覆盖默认实现的next(),所以只要调用了beforeEach()就必须要调用next()方法，否则无法实现路由的跳转。
+
+可以看一个给页面设置title的demo：
+
+```javascript
+// 配置路由和组件的映射关系，添加一个meta属性
+const routes = [
+  // 路由、组件的映射关系 
+  {
+    path: "/profile",
+    component: Profile,
+    meta: {
+      title: "用户档案"
+    }
+  }
+];
+
+
+// 导航守卫
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title; // 有时在有路由嵌套时，会取不到to.meta.title,这个时候可以这样取：to.matched[0].meta.title
+  next();
+});
+```
+
+有一些路由嵌套场景的时候，可能通过to.meta.title拿不到组件的title信息，这个时候可以尝试下：to.matched[0].meta.title。我尝试了下路由嵌套的场景，没有复现。
+
+to，from本身就是一个route，是一个路由。
