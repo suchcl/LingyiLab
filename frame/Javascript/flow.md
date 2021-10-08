@@ -10,13 +10,7 @@ flow的原理：在代码中添加类型注解，来标明变量的类型，称�
 
 **flow的使用**
 
-1. 安装flow
-
-```bash
-npm install flow-bin --save-dev
-```
-
-2. 初始化package.json
+1. 初始化项目，建立package.json文件
 
    我习惯npm，直接使用npm init初始化即可。
 
@@ -25,6 +19,12 @@ npm install flow-bin --save-dev
    ```
 
    执行命令后，直接下一步即可。
+
+2. 安装flow
+
+```bash
+npm install flow-bin --save-dev
+```
 
 3. 在package.json的scripts添加flow指令
 
@@ -45,7 +45,11 @@ npm install flow-bin --save-dev
 
 ![flow的配置文件.flowconfig](../../public/images/i100.png)
 
-5. 
+.flowconfig文件的配置，可以参考：[https://flow.org/en/docs/config/](https://flow.org/en/docs/config/)
+
+5. 新建文件验证效果
+
+在需要flow进行类型校验的文件，需要在文件顶部加入：// @flow 或者 /* @flow */，就是一行注释+@flow，表示是
 
 ### 5. Typescript语言规范与基本应用
 
