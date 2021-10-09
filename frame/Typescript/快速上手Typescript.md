@@ -266,3 +266,24 @@ console.log('helloMsg: ', helloMsg); // 你好
 const wordMsg:HelloMsg = HelloMsg.wolrd;
 console.log('wordMsg: ', wordMsg); // hello world
 ```
+
+**any类型**
+
+表示任意类型，变量值可以赋值任意类型的值。
+
+当给一个变量设置为一个any类型的时候，就相当于之前的Es5，没有给变量设置任何的类型。
+
+那么any类型有什么用呢？在现在较多的基于Vue、React或者小程序开发的时候，都是基于数据驱动的，不建议使用any类型，那么在一些场景中需要操作dom的时候，可以使用any类型。
+
+![dom操作](../../public/images/i105.png)
+
+虽然代码可以正常运行，但是从语法上没有编译通过，提示变量oBox可能是一个null类型，但是不能给变量oBox设置为null类型，因为变量接收的是一个Element对象的DOM，这个时候就给oBox设置为any类型最为合适。
+
+```javascript
+let oBox:any = document.getElementById("box");
+oBox.style.color = "#f60"
+```
+
+oBox设置为any类型，效果上完全符合要求，在语言层面上也完全符合语法要求。
+
+> ts语言，在编译时，有些场景即使编译出了异常，也不会影响代码的运行。Ts只是让我们的代码更加严谨了，但最终是编译成js去执行的。
