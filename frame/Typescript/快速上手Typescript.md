@@ -250,4 +250,19 @@ const payUnpaid:PayStatus = PayStatus.unpaid;
 console.log('payUnpaid: ', payUnpaid); // 0 索引仍从0开始
 ```
 
-2. 如果枚举成员有非数字类型的初始值的时候，那么所有的成员都需要初始化值；
+2. 如果枚举成员有非数字类型的初始值的时候，那么该初始值成员之后的元素都需要初始化值；
+
+```javascript
+enum HelloMsg {
+    welcome, // 第一个元素，可以没有初始化值，取值为该元素的索引值
+    hello = "你好", // 元素初始化了非数字类型的值，该元素之后的元素world也要初始化值
+    wolrd="hello world"
+}
+
+const welcomeMsg:HelloMsg = HelloMsg.welcome;
+console.log('welcomeMsg: ', welcomeMsg);  // 0
+const helloMsg:HelloMsg = HelloMsg.hello;
+console.log('helloMsg: ', helloMsg); // 你好
+const wordMsg:HelloMsg = HelloMsg.wolrd;
+console.log('wordMsg: ', wordMsg); // hello world
+```
