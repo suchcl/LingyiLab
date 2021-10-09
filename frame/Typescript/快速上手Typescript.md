@@ -129,3 +129,125 @@ PS D:\ts>
 每次当我们修改了ts源码后，在进行保存动作时编辑器就会自动执行tsc指令，进行ts文件的编译。
 
 > 如果编辑器关闭了，那么编辑器再次打开时需要重新进行第4步动作。
+
+### 数据类型
+
+Ts提供了：
+
+1. boolean（布尔类型）：只有两个值：true、false
+2. number(数字类型)
+3. string(字符串类型)
+4. array（数组）
+5. tuple（元组）
+6. enum（枚举）
+7. any（任意）
+8. null
+9. undefined
+10. void（空类型）
+11. never
+
+ts共计提供了这11种类型。
+
+> Ts中没有对整型和浮点型数据类型做具体的区分，只使用了number做了数字类型和其他类型的区分。
+
+数组类型的定义，和js稍微有些区别，可看案例:
+
+1. 看第一种定义数组的方式
+
+```javascript
+let num: number[] = [3, 4, 89];
+let strArray:string[] = ["Hello world!"];
+```
+
+这都是定义的合法的ts数组，类型后面跟上[]表示数组。
+
+2. 第二种定义数组的方式：通过泛型的方式定义
+
+```javascript
+// 表示定义一个字符串类型的数组，这种怪怪的方式，叫做泛型
+let fruits: Array<string> = ["apple", "peach", "banana"];
+```
+
+**元组**
+
+tuple，属于数组的一种，可以指定数组中每个元素的类型。
+
+tuple，只能给数组赋值指定的个数的元素，元素个数和定义数组的类型的个数相同，如：
+
+```javascript
+// 案例中，定义元组时定义了3个数据类型，那么具体赋值时也只能是赋3个值，且类型要一一对应，元素的数量不能比声明的数据类型的数量多，也不能少
+let books: [string, number, boolean] = ["Javascript高级程序设计", 99.86, true];
+```
+
+**枚举类型**
+
+枚举类型，主要用来定义标识符，如在这样的一个场景中：
+
+一个交易环节，有支付状态这个字段pay_status  0:未支付  1:支付  2:交易成功
+
+在这场景中，刚开始编码时，记得清清楚楚，每个数字代表了什么意思，但是过段时间，或者来了新的团队成员，就不明白0、1、2表示什么意思了，怎么办呢？可以使用枚举来标识。
+
+定义方式：通过关键字enum来定义，具体如下：
+
+enum 枚举名{
+    标识符[=常量值],
+    标识符[=常量值],
+    标识符[=常量值],
+    ……
+    标识符[=常量值]
+}
+
+```javascript
+enum PayStatus {
+    unpaid = 0,
+    paid = 1,
+    success = 2
+}
+const pageStatus: PayStatus = PayStatus.paid;
+```
+
+案例定义了一个支付状态的枚举，0表示未支付，1表示已支付，2表示交易成功
+
+> 枚举元素中的标识符不能是数字
+
+```javascript
+// 枚举中不允许有数字类型的标识符，如案例中都是以数字为标识符的，是不合法的
+enum PayStatus {
+    1 = 未支付,
+    2 = 已支付,
+    3 = 交易成功
+}
+```
+
+如果仅仅定义了枚举的标识符而没有对应常数值那么在使用枚举值的时候，就会使用枚举元素的索引
+
+```javascript
+enum PayStatus {
+    unpaid, paid, success
+};
+const payStatus: PayStatus = PayStatus.paid;
+console.log('payStatus: ', payStatus); // 2 没有给枚举元素赋常量值，最终取枚举元素的索引
+```
+
+几个细节，需要注意下：
+
+1. 枚举成员如果都是数字的常量值的时候，枚举元素可以部分元素有初始值，部分元素没有初始值；
+   
+   1. 如果枚举的某个元素赋值了，那么整个的枚举索引是从0开始，赋值的那个元素值为指定的值
+      
+      1. 如果赋值后的元素赋值了：那么该元素就取指定的值
+
+      2. 如果赋值后的元素没有赋值：该元素取值为前一个赋值元素的值+1
+
+```javascript
+enum PayStatus {
+    unpaid, paid=2.3, success
+};
+
+const paySuccess: PayStatus = PayStatus.success;
+console.log('paySuccess: ', paySuccess);  // 3.3  前一个元素赋值了2.3，而当前元素没有赋值，就取值为前一个元素的值+1
+const payUnpaid:PayStatus = PayStatus.unpaid;
+console.log('payUnpaid: ', payUnpaid); // 0 索引仍从0开始
+```
+
+2. 如果枚举成员有非数字类型的初始值的时候，那么所有的成员都需要初始化值；
