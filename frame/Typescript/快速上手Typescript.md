@@ -297,7 +297,12 @@ let num;
 console.log('num: ', num); // undefined, 变量定义了但是没有赋值，使用时会显示undefined
 ```
 
+ts中，如果为一个变量同时声明为一个其他类型和undefined，那么这个变量没有赋值而直接使用就不会报错了，它的值就是undefined。
 
+```javascript
+let a:string | undefined;
+console.log('a: ', a); // undefined
+```
 
 **never 其他类型**
 
