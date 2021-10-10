@@ -378,3 +378,175 @@ run(); // running
 ```
 
 > 函数、方法声明时，和变量声明道理是一样的，都可以声明类型。
+
+### Ts函数
+
+> 为了方便说明，本文中的所有地方，函数、方法都统一简写为函数了。
+#### 函数的定义
+
+**js中定义函数，有两种方式**
+
+1. 关键字function声明
+
+```javascript
+function sum(num1, num2) {
+    return num1 + num2;
+}
+```
+
+2. 匿名函数定义法
+
+```javascript
+var add = function (num1, num2) {
+    return num1 + num2;
+}
+```
+
+**Ts的函数定义**
+
+基本方式和js相同，只是增加了参数和函数的类型的限定。
+
+1. 函数声明法
+
+```typescript
+function sum(num1: number, num2: number): number {
+    return num1 + num2;
+}
+```
+
+2. 匿名函数定义法
+
+```typescript
+let add = function(num1:number,num2:number):number{
+    return num1 + num2;
+}
+```
+
+**Ts中定义方法传参**
+
+Ts中的函数、方法，要同时给函数、方法的参数和函数、方法的返回值限定数据类型，如：
+
+```typescript
+// 要同时给参数num1、num2设置参数的数据类型，也要给函数sum设置一个返回值类型number
+function sum(num1: number, num2: number): number {
+    return num1 + num2;
+}
+```
+
+> 如果函数、方法没有返回值，则给函数、方法设置void类型即可。
+
+**函数、方法的可选参数**
+
+js中，函数的形参、实参可以不一样。
+
+ts中，函数的形参、实参必须一样，如果不相同，则需要配置可选参数。参数后加?标识符表示该参数为可选参数
+
+```typescript
+// 参数age后的?表示age参数可选
+function getUserInfo(username:string,age?:number){
+    if(age){
+        return `${username} 今年${age}岁了`;
+    }else{
+        return `${username} 的年龄保密，打听别人的年龄很不礼貌哦！`;
+    }
+}
+```
+
+> 可选参数必须设置到参数列表的最后面。如上面的函数getUserInfo的可选参数age，不能放到第一个位置
+
+**默认参数**
+
+ES5中不能设置默认参数
+
+ES6和Ts设置默认参数
+
+```typescript
+function getUserMsg(username: string, age: number = 23) {
+    return `${username}今年${age}岁了`;
+}
+console.log('getUserMsg("Nicholas"): ', getUserMsg("Nicholas")); // Nicholas今年23岁了
+```
+
+如果给设置了默认值的参数重新传了值，那么传入的值将会覆盖默认值。
+
+**剩余参数**
+
+ES6中的三点运算符（也叫rest参数），接收一组数据，类数组，但不是数组，ts中同样适用。
+
+```typescript
+// 表示接收一个number类型数组，存放到result中
+function multiSum(...result: number[]):number {
+    let sum = 0;
+    for (let i = 0; i < result.length; i++) {
+        sum += result[i];
+    }
+    return sum;
+}
+console.log('multiSum(2,3): ', multiSum(2,3)); // 5
+```
+
+如果已经有了指定的参数，那么在函数调用时，前面传入的参数会赋值给固定的参数，后面的参数会赋值给剩余参数，如：
+
+```typescript
+// 有固定参数num，在函数调用时，第一个参数6会赋值给参数num,其余的值赋值给result
+function multiSum(num: number, ...result: number[]): number {
+    let sum = num;
+    for (let i = 0; i < result.length; i++) {
+        sum += result[i];
+    }
+    return sum;
+}
+console.log('multiSum(2,3): ', multiSum(6, 2, 3)); // 11
+```
+
+**函数的重载**
+
+js中没有函数重载的概念，java中有。
+
+java中的函数重载，指的是两个或两个以上的同名函数，但它们的参数不同，这时候就出现了函数重载的情况。
+
+ts中的函数重载，通过为同一个函数提供多个函数类型定义来进行函数的重载：ts函数重载，就是定义多个函数，函数名相同，但是函数的参数类型、顺序、个数不同。
+
+<font color="#f20">函数的重载，概念上不好理解，还需要再次理解，先给个例子看下</font>
+
+```typescript
+function getAuthorInfo(username: string): string;
+function getAuthorInfo(age: number): number;
+function getAuthorInfo(str: any): any {
+    if(typeof str === "string"){
+        console.log('str: ', "我的名字是：" + str);
+    }else{
+        console.log("作者今年" + str +"岁了");
+    }
+}
+
+getAuthorInfo("Nicholas"); // 我的名字是：Nicholas
+getAuthorInfo(18); // 作者今年18岁了
+```
+
+案例中定义了多个同名的函数，但是前面的函数没有函数的实现，只有函数的定义，函数的实现在最后一个函数中。
+
+还有一种函数重载的实现，还是看案例吧：
+
+```typescript
+function getAuthorInfo(username: string): string;
+function getAuthorInfo(username: string, age: number): string;
+function getAuthorInfo(username: any, age?: any): any {
+    if (age) {
+        console.log(`作者${username}今年${age}岁了`);
+    } else {
+        console.log(`作者是${username},年龄保密哦，不允许随意打听别人的年龄！`);
+    }
+}
+
+getAuthorInfo("Nicholas"); // 作者是Nicholas,年龄保密哦，不允许随意打听别人的年龄！
+getAuthorInfo("Nicholas", 26); // 作者Nicholas今年26岁了
+```
+
+> 函数重载，做函数实现的那个函数，参数和函数的返回值类型都是any。
+
+### Typescript的优势
+
+1. 类型系统
+
+2. 开发时有类型提示
