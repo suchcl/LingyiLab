@@ -287,3 +287,30 @@ oBox.style.color = "#f60"
 oBox设置为any类型，效果上完全符合要求，在语言层面上也完全符合语法要求。
 
 > ts语言，在编译时，有些场景即使编译出了异常，也不会影响代码的运行。Ts只是让我们的代码更加严谨了，但最终是编译成js去执行的。
+
+**null、undefined**
+
+js中：undefined:变量定义了但是没有赋值，那么这个变量是undefined。
+
+```javascript
+let num;
+console.log('num: ', num); // undefined, 变量定义了但是没有赋值，使用时会显示undefined
+```
+
+
+
+**never 其他类型**
+
+
+ts中，可以为变量定义多种类型，如可以同时为一个变量声明为number、string和boolean类型，使用时，可以给变量赋值为number、string和boolean类型中的任意一种。
+
+```javascript
+// ts中，可以为变量声明为多种类型，那么在给变量赋值时，就可以是声明的这几种变量中的任意一种类型
+let nums: string | number;
+
+nums = "Nicholas"; // string类型
+console.log('nums: ', nums); // Nicholas
+
+nums = 16; // number类型
+console.log('nums: ', nums); // 16
+```
