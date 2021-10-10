@@ -168,6 +168,13 @@ let strArray:string[] = ["Hello world!"];
 let fruits: Array<string> = ["apple", "peach", "banana"];
 ```
 
+3. 可以通过any类型变相定义数组
+
+```typescript
+let arr2: any = [1, 2, "hello"];
+console.log('arr2: ', arr2); // [ 1, 2, 'hello' ]
+```
+
 **元组**
 
 tuple，属于数组的一种，可以指定数组中每个元素的类型。
@@ -178,6 +185,8 @@ tuple，只能给数组赋值指定的个数的元素，元素个数和定义数
 // 案例中，定义元组时定义了3个数据类型，那么具体赋值时也只能是赋3个值，且类型要一一对应，元素的数量不能比声明的数据类型的数量多，也不能少
 let books: [string, number, boolean] = ["Javascript高级程序设计", 99.86, true];
 ```
+
+> 通过元组和any变相定义数组，any更灵活一些，元组只能定义固定数量的数组，any不固定元素个数。
 
 **枚举类型**
 
@@ -306,6 +315,30 @@ console.log('a: ', a); // undefined
 
 **never 其他类型**
 
+never类型，是其他类型(包含了null和undefined类型)的子类型,表示永远不会出现的值。
+
+声明为nerver类型的变量只能被never类型所赋值。
+
+Ts中，只能给变量赋值为声明时的变量的类型，如声明的变量为string类型的，那么就只能为其赋值为string类型的值，为变量声明了number类型，就只能为其赋值为number类型的值。如：
+
+```typescript
+let a:string;
+a = 123; // 不合法的，a只能被赋值为string类型的值。
+```
+
+有一个可以适用never类型的案例：
+
+```typescript
+let n: never;
+n = (() => {
+    throw new Error("Error");
+})();
+```
+
+<font color="#f20">现在还不是很了解never这个类型，还需要再次深入的了解、学习</font>
+
+一般的时候不会用到never类型，never类型也可以被any类型替代。
+
 
 ts中，可以为变量定义多种类型，如可以同时为一个变量声明为number、string和boolean类型，使用时，可以给变量赋值为number、string和boolean类型中的任意一种。
 
@@ -319,3 +352,29 @@ console.log('nums: ', nums); // Nicholas
 nums = 16; // number类型
 console.log('nums: ', nums); // 16
 ```
+
+**void**
+
+空类型，一般用在定义方法、函数时，方法、函数没有返回值，就可以定义为一个void返回值类型。
+
+例如在js中，可以这样定义函数：
+
+```javascript
+function run() {
+    console.log("running");
+}
+
+run(); // running
+```
+
+但是在ts中，为了代码的严谨性，在函数、方法没有返回值的时候，就可以给方法、函数声明称void类型的：
+
+```typescript
+function run(): void {
+    console.log("running");
+}
+
+run(); // running
+```
+
+> 函数、方法声明时，和变量声明道理是一样的，都可以声明类型。
