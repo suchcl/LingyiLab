@@ -5714,3 +5714,56 @@ router.beforeEach((to, from, next) => {
 有一些路由嵌套场景的时候，可能通过to.meta.title拿不到组件的title信息，这个时候可以尝试下：to.matched[0].meta.title。我尝试了下路由嵌套的场景，没有复现。
 
 to，from本身就是一个route，是一个路由。
+
+> vue-router中，有默认的导航守卫，它可以帮我们做一些默认的事情。但是如果我们手动实现了导航守卫后，就必须要调用next()方法。
+
+**导航守卫分类**
+
+1. 前置导航守卫
+
+```javascript
+// 前置导航守卫（钩子（hook、guard））
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title; // 有时在有路由嵌套时，会取不到to.meta.title,这个时候可以这样取：to.matched[0].meta.title
+  next();
+});
+```
+
+2. 后置导航守卫
+
+```javascript
+// 后置导航守卫
+router.afterEach((to, from) => {
+
+});
+```
+
+**全局守卫**
+
+对所有的路由跳转都进行监听、进行守卫的守卫，称为全局守卫，就像前面案例中介绍到的，就是全局守卫，它对全局所有的路由都进行监听。
+
+**其他的守卫**
+
+1. 路由独享守卫：进入到某个路由内才会进行的守卫，称为路由独享守卫
+
+具体的文档参考[路由独享守卫](https://router.vuejs.org/zh/guide/advanced/navigation-guards.html#%E8%B7%AF%E7%94%B1%E7%8B%AC%E4%BA%AB%E7%9A%84%E5%AE%88%E5%8D%AB)
+
+再写个案例吧
+
+2. 组件内的守卫
+
+> foo、bar是程序员非常喜欢用的两个名字，但是这两个名字的由来，不记得了。
+
+
+#### keep-alive
+
+组件内部的状态都没有被保存下来，每次组件加载时都被重新加载一次。
+
+那么怎么保存之前的组件状态呢？可以使用keep-alive
+
+> keep-alive是vue的内置组件
+> router-view是vue-router的内置组件
+
+keep-alive是vue的一个内置组件，可以使被包含的组件保留状态，或避免重新渲染。
+
+router-view是vue-router的一个内置组件，如果直接被包含在keep-alive中，所有路径匹配到的视图组件都会被缓存。
