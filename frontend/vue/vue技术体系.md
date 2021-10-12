@@ -5750,7 +5750,32 @@ router.afterEach((to, from) => {
 
 再写个案例吧
 
+```javascript
+// 路由独享的守卫
+{
+path: "news",
+component: HomeNews,
+beforeEnter: (to, from, next) => {
+    next();
+},
+meta: {
+    title: "新闻中心"
+}
+},
+```
+
 2. 组件内的守卫
+
+```html
+<script>
+// 组件内的守卫
+export default {
+  beforeRouteEnter(to, from, next) {
+    next();
+  }
+};
+</script>
+```
 
 > foo、bar是程序员非常喜欢用的两个名字，但是这两个名字的由来，不记得了。
 
@@ -5767,3 +5792,58 @@ router.afterEach((to, from) => {
 keep-alive是vue的一个内置组件，可以使被包含的组件保留状态，或避免重新渲染。
 
 router-view是vue-router的一个内置组件，如果直接被包含在keep-alive中，所有路径匹配到的视图组件都会被缓存。
+
+场景：
+
+在一个页面中的一个场景跳转出去的时候，可能还会再跳转回来，再跳转回来的时候希望能继续回到原来的状态。这时候就可以在router-view外包裹一层keep-alive组件，并在路由跳转的时候做一些处理：
+
+```html
+<!--router-view包裹keep-alive-->
+    <keep-alive>
+      <router-view />
+    </keep-alive>
+```
+
+将需要跳转页面的默认的路由跳转给去掉
+
+```javascript
+  {
+    path: "/",
+    // component: Home
+    // redirect: "/home", // 配置一个默认路由，当进入项目时，重定向到一个指定的组件、路由
+    meta: {
+      title: "首页"
+    }
+  },
+  {
+    path: "/home",
+    component: Home,
+    children: [
+      // {
+      //   path: "",
+      //   redirect: "news"
+      // },
+```
+
+在需要进行状态记录的组件进行相应的一些路由导航的守卫：
+
+```html
+<script>
+export default {
+  data() {
+    return {
+      path: "/home/news"
+    };
+  },
+  activated() {
+    this.$router.push(this.path);
+  },
+  beforeRouteLeave(to, from, next) {
+    console.log(this.$route.path);
+    this.path = this.$route.path;
+    next();
+  }
+};
+</script>
+```
+
