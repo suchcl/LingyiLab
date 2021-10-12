@@ -5847,3 +5847,25 @@ export default {
 </script>
 ```
 
+vue中，activated和deactivated只有在组件中使用了keep-alive时才有效，否则不会生效。
+
+keep-alive->组件就会有activated和deactivated两个状态。
+
+keep-alive包裹后组件就不会被重复的创建和销毁，会被缓存掉。那么如果keep-alive中的一些组件不希望被缓存怎么处理呢？
+
+​	keep-alive有两个常用的属性：
+
+ 	1. include: 字符串或正则，包含哪些组件是希望被缓存的
+ 	2. exclude：字符串或正则，应该排除哪些组件是不希望被缓存的
+
+> 这两个组件的属性如果是字符串值，则可以使用组件的name属性。
+
+> exclude和include属性值中，不能有任何空格即便是有了逗号或其他的分隔符，也不能加空格。
+>
+> 还有一个场景，就是在正则中，也不能随便加空格。
+
+```html
+<!--exclude="Profile,User"中不能有任何空格-->
+<keep-alive exclude="Profile,User"></keep-alive>
+```
+
