@@ -5869,3 +5869,4 @@ keep-alive包裹后组件就不会被重复的创建和销毁，会被缓存掉�
 <keep-alive exclude="Profile,User"></keep-alive>
 ```
 
+> 移动端项目中，底部tabbar的高度，一般情况下是49px，使用体验是最友好的。
