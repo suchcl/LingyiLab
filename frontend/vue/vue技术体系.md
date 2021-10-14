@@ -3976,6 +3976,24 @@ $children:是一个数组，可以获取当前组件的所有子组件，通过�
     </script>
 ```
 
+slot本质上就是一个占位的作用，等到后期被真实元素替换，其本身不具有任何的能力。所以如果有元素控制的情况下，不要控制在slot上，可以在slot的外面替包裹一层元素，去控制外层元素去实现元素控制的目标。
+
+```html
+  <div class="tab-bar-item">
+    <div class="tab-item-icon" v-if="!isActive">
+      <slot name="item-icon"></slot>
+    </div>
+    <div class="tab-item-icon" v-else>
+      <slot name="item-icon-active"></slot>
+    </div>
+    <div class="tab-item-text" :class="{ active: isActive }">
+      <slot name="item-text"></slot>
+    </div>
+  </div>
+```
+
+如案例中，都在slot的外面包裹了一层DOM元素，不在slot上面做任何的控制，仅仅占位。
+
 ###　模块化开发
 
 早期的js功能简单，技术实现重在服务端，前端开发相对简单一些。随着项目规模的扩大、人员的扩增，js文件增多，不易维护了。就需要找一些解决方案来解决开发中出现的问题。
