@@ -4618,6 +4618,62 @@ const app = new Vue({
 
 其实，就是编译时修改下默认的编译器就可以了。
 
+**配置路径别名**
+
+```javascript
+// vue.config.js,如果项目根目录下没有该文件，就新建一个
+const path = require("path");
+
+function resolve(dir) {
+  return path.join(__dirname, dir);
+}
+
+module.exports = {
+  chainWebpack: (config) => {
+    config.resolve.alias
+      .set("@", resolve("./src"))
+      .set("@assets", resolve("./src/assets"))
+      .set("@components", resolve("./src/components"));
+  },
+};
+```
+
+不同版本的cli配置方式稍微有些差别，如果是vue-cli2版本，可以参考：
+
+```javascript
+// webpack.base.conf.js
+  resolve: {
+    extensions: [".js", ".vue", ".json"],
+    // 配置路径别名
+    alias: {
+      "@": resolve("src"),
+      "@assets": resolve("src/assets"),
+      "@components": resolve("src/components")
+    }
+  },
+```
+
+配置文件配置好以后，需要重启dev-serve,才可以在开发环境看到效果。
+
+别名配置好后应用：
+
+1. js中通过import则可以直接使用别名代替指定的目录
+
+```javascript
+// 导入组件
+// import Tabbar from "./tabbar.vue";
+// import TabBarItem from "./TabBarItem.vue";
+// 设置别名
+import Tabbar from "@components/tabbar/tabbar.vue";
+import TabBarItem from "@components/tabbar/TabBarItem.vue";
+```
+
+2. HTML中使用别名，则需要在别名前添加一个~
+
+```html
+<img src="~@assets/images/tabbar/img3.png" alt="" />
+```
+
 **创建vue时，template和el的区别**
 
 ```javascript
