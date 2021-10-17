@@ -12,3 +12,5 @@
 ## Vue
 1. [对vue生命周期的理解](./vue/life.md)
 2. [vue中组件渲染和更新过程的是什么样子的](./vue/组件渲染和更新过程.md)
+3. [delete和Vue.delete删除数组的区别](./vue/delete和Vue.delete删除数组的区别.md)
+4. [Vue为什么采用异步渲染](./vue/vue为什么采用异步渲染.md)
