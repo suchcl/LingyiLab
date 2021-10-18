@@ -329,3 +329,28 @@ var a = 2;
 foo.call(obj)(); // 1,2返回值是一个函数，执行内部函数，其调用方是window，所以window.a是2
 ```
 
+面试题，就是各种绕你，但是只要抓住了其中不变的地方以及核心的几个知识点，是绕不开的。
+
+```javascript
+var obj = {
+  a: "obj",
+  foo: function () {
+    console.log(
+      "%c [ foo ]",
+      "font-size:13px; background:pink; color:#bf2c9f;",
+      this.a
+    );
+    return function () {
+      console.log("inner", this.a);
+    };
+  },
+};
+
+var a = "window";
+var obj2 = {
+  a: "obj2",
+};
+obj.foo()(); // obj,window
+obj.foo.call(obj2)(); // obj2, window
+obj.foo().call(obj2); //obj, obj2
+```
