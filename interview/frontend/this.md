@@ -64,6 +64,14 @@ console.log(obj.getNum()); // 2
 
 ### 隐式绑定
 
+隐式绑定，就是被隐式绑定的函数在特定的情况下会丢失绑定对象。
+
+有两种情况会发生隐式丢失问题：
+
+1. 使用另一个变量为函数取别名；
+
+2. 将函数作为参数传递时会被隐式赋值，回调函数丢失this绑定；
+
 this永远指向最后调用它的那个对象，谁最后调用的函数，函数内部的this指向的就是谁（剪头函数除外）。
 
 ```javascript
@@ -113,4 +121,21 @@ var obj = { a: 1, foo };
 var a = 2;
 var obj2 = { a: 3, doFoo };
 obj2.doFoo(obj.foo); //obj2,2
+```
+
+> 非严格模式下，会把一些全局的this指向到window；在严格模式下，全局的this会指向到undefined
+
+```javascript
+"use strict";
+function foo() {
+  console.log(this.a);
+}
+function doFoo(fn) {
+  console.log(this);
+  fn();
+}
+var obj = { a: 1, foo };
+var a = 2;
+var obj2 = { a: 3, doFoo };
+obj2.doFoo(obj.foo); // obj2,异常提示，因为在严格模式下，全局的this指向了undefined，undefined是没有a属性的，所以就给出来异常信息提示
 ```
