@@ -85,3 +85,32 @@ var foo2 = foo;
 obj.foo(); // 1 obj最后调用的foo，所以foo内部this指向的是obj
 foo2(); // 2 foo2 = foo,是将foo函数的内存地址赋值给了foo2,且调用foo2的是window（缺省了），所以this指向的还是window
 ```
+
+```javascript
+function foo() {
+  console.log(this.a);
+}
+function doFoo(fn) {
+  console.log(this); // window
+  fn();
+}
+var obj = { a: 1, foo };
+var a = 2;
+doFoo(obj.foo); // window 2,注意obj.foo没有小括号，就说明这个函数并没有执行，所以obj.foo是没有打印输出的，只是一个参数而已
+```
+
+```javascript
+function foo() {
+  console.log(this.a);
+}
+
+function doFoo(fn) {
+  console.log(this);
+  fn();
+}
+
+var obj = { a: 1, foo };
+var a = 2;
+var obj2 = { a: 3, doFoo };
+obj2.doFoo(obj.foo); //obj2,2
+```
