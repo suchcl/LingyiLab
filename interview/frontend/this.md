@@ -139,3 +139,63 @@ var a = 2;
 var obj2 = { a: 3, doFoo };
 obj2.doFoo(obj.foo); // obj2,异常提示，因为在严格模式下，全局的this指向了undefined，undefined是没有a属性的，所以就给出来异常信息提示
 ```
+
+### 显示绑定
+
+显示绑定this，就是通过一些方法，显示的改变函数的this指向，主要通过的方法有call()、apply()、bind()直接指定this的绑定对象。
+
+**注意：**
+
+1. 使用.call()或者.apply()的函数是会直接执行的；
+
+2. bind()是创建一个新的函数，需要手动调用才会执行；
+
+3. .call()和.apply()用法基本类似，只是.call()接收多个参数，.apply()接收一个数组参数，就是一个参数的集合。
+
+```javascript
+function foo() {
+  console.log(this.a);
+}
+var obj = { a: 1 };
+var a = 2;
+foo(); //2
+foo.call(obj); // 1
+foo.apply(obj); // 1
+foo.bind(obj); // 什么都没有输出，bind会创建一个新的函数，需要手动调用才可以执行，否则不会执行
+foo.bind(obj)(); // 1 新建一个函数，并执行，重新指定了this
+```
+
+**bind()**
+bind()会创建一个新的函数，当这个函数被执行时，它的this就指向传递给bind的第一个参数
+
+```javascript
+var num = 9;
+var mymodule = {
+  num: 81,
+  getNum: function () {
+    console.log(this.num);
+  },
+};
+mymodule.getNum(); // 81
+
+var getNum = mymodule.getNum;
+getNum(); // 9
+
+getNum.bind(mymodule)(); // 创建一个新的函数，this指向创建新函数时的第一个参数，该行代码，也可以这么组织：
+
+var boundGetNum = getNum.bind(mymodule);
+boundGetNum(); // 81
+```
+
+> 如果call()、apply()、bind()接收的第一个参数是空或者null、undefined的话，则会忽略这个参数
+
+```javascript
+function foo() {
+  console.log(this.a);
+}
+var a = 2;
+foo.call(); // 2
+foo.call(null); // 2
+foo.call(undefined); // 2 虽然这3个调用都调用了call，但是给call传入了空、null或undefined，传入这些值，这些参数会被直接忽略
+```
+
