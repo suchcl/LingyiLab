@@ -30,6 +30,8 @@ foo();
 
 ### 闭包中的this指向window
 
+闭包中的this指向window，如果期望闭包可以访问其包裹函数的this，将其包裹函数的作用域传给闭包即可。
+
 ```javascript
 var num = 1;
 var obj = {
@@ -43,4 +45,19 @@ var obj = {
 console.log(obj.getNum()); // 1
 ```
 
-闭包中的this指向window，所以闭包中的this.num,最终找的是绑定在window上的num
+闭包中的this指向window，所以闭包中的this.num,最终找的是绑定在window上的num。
+
+那如果这个案例中，如果闭包想访问内部的num怎么获取呢？传入一下作用域就可以了。
+
+```javascript
+var num = 1;
+var obj = {
+  num: 2,
+  getNum: function () {
+    return (function (self) {
+      return self.num;
+    })(this); // 传入当前的函数作用域，就可以取当前函数中的数据了
+  },
+};
+console.log(obj.getNum()); // 2
+```
