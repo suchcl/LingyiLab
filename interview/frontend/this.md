@@ -278,5 +278,54 @@ var obj = {
 var a = 2;
 foo(); //2
 foo.call(obj); //1
-foo().call(obj); // 2 类型错误，因为foo()执行后就是一个数值了，该数值没有方法call(),所以就报错了
+foo().call(obj); // 2 类型错误，因为foo()执行后正常打印了数值2，最后对foo函数的返回值执行call，foo函数的返回值是undefined，所以就报错了
 ```
+
+函数内部的函数执行，如果没有指定调用方，那么就是window调用的
+
+```javascript
+function foo() {
+  console.log(this.a);
+  return function () {
+    console.log(this.a);
+  };
+}
+var obj = {
+  a: 1,
+};
+var a = 2;
+foo(); //2
+foo.call(obj); // 1
+foo().call(obj); // 2, 1 // foo()的返回值是一个函数，该函数的调用方是window，但是通过call将this指向了obj
+```
+
+```javascript
+function foo() {
+  console.log(this.a);
+  return function () {
+    console.log(this.a);
+  };
+}
+var obj = {
+  a: 1,
+};
+var a = 2;
+foo(); //2
+foo.bind(obj); // 无输出  函数没有执行foo.bind(obj)()才是执行了
+foo().bind(obj); // 2，无输出   函数返回值只是重新绑定了this的指向，但是新函数没有执行，所以无输出
+```
+
+```javascript
+function foo() {
+  console.log(this.a);
+  return function () {
+    console.log(this.a);
+  };
+}
+var obj = {
+  a: 1,
+};
+var a = 2;
+foo.call(obj)(); // 1,2返回值是一个函数，执行内部函数，其调用方是window，所以window.a是2
+```
+
