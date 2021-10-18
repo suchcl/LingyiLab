@@ -354,3 +354,37 @@ obj.foo()(); // obj,window
 obj.foo.call(obj2)(); // obj2, window
 obj.foo().call(obj2); //obj, obj2
 ```
+
+```javascript
+var obj = {
+  a: 1,
+  foo: function (b) {
+    b = b || this.a;
+    return function (c) {
+      // console.log(this); // window
+      console.log(this.a + b + c);
+    };
+  },
+};
+var a = 2;
+var obj2 = {
+  a: 3,
+};
+
+obj.foo(a).call(obj2, 1); // 6
+/**
+ * 解释上面一行代码
+ * obj.foo(a) foo的this为obj，b得到赋值为2
+ * 返回值内部函数再次执行：内部函数的this指向window，但是通过call改变了this指向，所以内部函数中的this.a = 3;
+ * c为传入的参数：1
+ * 所以最终结果位：this.a + b + c = 3 + 2 + 1 = 6
+ */
+obj.foo.call(obj2)(1); // 6
+/**
+ * 解释上面一行代码
+ * obj.foo.call(obj2)：obj中foo原本的this为obj，但是通过call改变了this的指向，指向到了obj2
+ * 因此得到b = this.a也就是obj2中的a，即3
+ * 接下来返回值函数执行：返回值函数的this指向window，所以this.a = 2; c为传入的参数1
+ * 所以最终结果为this.a + b + c = 2 + 3 + 1 = 6
+ */
+```
