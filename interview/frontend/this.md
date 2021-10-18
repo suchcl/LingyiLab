@@ -61,3 +61,16 @@ var obj = {
 };
 console.log(obj.getNum()); // 2
 ```
+
+### 隐式绑定
+
+this永远指向最后调用它的那个对象，谁最后调用的函数，函数内部的this指向的就是谁（剪头函数除外）。
+
+```javascript
+function foo() {
+  console.log(this.a);
+}
+var obj = { a: 1, foo };
+var a = 2;
+obj.foo(); // 1  谁最后调用的函数，函数中的this就指向谁，案例中obj最后调用的foo，那么函数foo中this指向的就是foo
+```
