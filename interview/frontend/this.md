@@ -267,3 +267,16 @@ var a = 3;
 obj2.foo1(); // 2
 obj2.foo2(); //window, 3
 ```
+
+```javascript
+function foo() {
+  console.log(this.a);
+}
+var obj = {
+  a: 1,
+};
+var a = 2;
+foo(); //2
+foo.call(obj); //1
+foo().call(obj); // 2 类型错误，因为foo()执行后就是一个数值了，该数值没有方法call(),所以就报错了
+```
