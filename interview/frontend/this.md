@@ -27,3 +27,20 @@ foo();
 ```
 
 案例中，函数foo的this指向的是window，函数外通过var声明的a，默认绑定到了window上，函数内通过var声明的变量a，具有函数的作用域，如果在函数内部找a，找的是函数内部声明的a=2，但是如果在函数内部通过this找a，则找的是window上的a。
+
+### 闭包中的this指向window
+
+```javascript
+var num = 1;
+var obj = {
+  num: 2,
+  getNum: function () {
+    return (function () {
+      return this.num;
+    })();
+  },
+};
+console.log(obj.getNum()); // 1
+```
+
+闭包中的this指向window，所以闭包中的this.num,最终找的是绑定在window上的num
