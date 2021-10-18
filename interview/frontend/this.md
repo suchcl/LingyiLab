@@ -74,3 +74,14 @@ var obj = { a: 1, foo };
 var a = 2;
 obj.foo(); // 1  谁最后调用的函数，函数中的this就指向谁，案例中obj最后调用的foo，那么函数foo中this指向的就是foo
 ```
+
+```javascript
+function foo() {
+  console.log(this.a);
+}
+var obj = { a: 1, foo };
+var a = 2;
+var foo2 = foo;
+obj.foo(); // 1 obj最后调用的foo，所以foo内部this指向的是obj
+foo2(); // 2 foo2 = foo,是将foo函数的内存地址赋值给了foo2,且调用foo2的是window（缺省了），所以this指向的还是window
+```
