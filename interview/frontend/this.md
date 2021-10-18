@@ -412,3 +412,56 @@ foo2.call(window); // 2
  * 无论foo2怎么绑定，但是内部执行的代码已经有所绑定的对象了，都不会变
  */
 ```
+
+还是考察定力
+
+```javascript
+function foo1(b) {
+  console.log(`${this.a} + ${b}`);
+  return this.a + b;
+}
+var a = 1;
+var obj = {
+  a: 2,
+};
+
+var foo2 = function () {
+  return foo1.call(obj, ...arguments);
+};
+var num = foo2(3);
+console.log(num); // 2 + 3, 5
+/**
+ * 本题并不难，但是需要注意别被乱七八糟的东西给迷惑了
+ */
+```
+
+数组的filter、map、forEach也可以绑定this，改变this的指向
+
+```javascript
+function foo(item) {
+  console.log(item, this.a);
+}
+var obj = {
+  a: "obj",
+};
+var a = "window";
+var arr = [1, 2, 3];
+arr.filter(function (i) {
+  console.log(i, this.a);
+  /**
+   * 1 obj
+   * 2 obj
+   * 3 obj
+   */
+  return i > 2;
+}, obj);
+```
+
+#### 小结
+
+1. this永远指向最后调用它的那个对象
+2. 匿名函数的this指向window
+3. 使用call()或者apply()的函数会立即执行
+4. bind()会创建一个新的函数，不会自动立即执行，需手动调用才可执行
+5. 如果call()、apply()、bind()接收到的第一个参数是null、undefined或者是空，则忽略这个参数
+6. 数组的forEach、map、filter函数的第2个参数也可以动态的显示的绑定this，改变this的指向

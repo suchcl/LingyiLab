@@ -110,3 +110,8 @@
 | https://github.com/suchcl        | 458      | 2021.10.17 |
 |                                  |          |            |
 
+| URL                              | 提交次数 | 日期       |
+| -------------------------------- | -------- | ---------- |
+| https://github.com/WindrunnerMax | 721      | 2021.10.18 |
+| https://github.com/suchcl        | 476      | 2021.10.18 |
+|                                  |          |            |
