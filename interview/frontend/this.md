@@ -199,3 +199,71 @@ foo.call(null); // 2
 foo.call(undefined); // 2 虽然这3个调用都调用了call，但是给call传入了空、null或undefined，传入这些值，这些参数会被直接忽略
 ```
 
+```javascript
+var obj1 = {
+  a: 1,
+};
+var obj2 = {
+  a: 2,
+  foo1: function () {
+    console.log(this.a);
+  },
+  foo2: function () {
+    setTimeout(function () { // 注意这里发生了隐式绑定的隐式丢失
+      console.log(this);
+      console.log(this.a);
+    }, 0);
+  },
+};
+var a = 3;
+obj2.foo1(); // 2
+obj2.foo2(); // window 3
+```
+
+call()改变this指向
+
+```javascript
+var obj1 = {
+  a: 1,
+};
+var obj2 = {
+  a: 2,
+  foo1: function () {
+    console.log(this.a);
+  },
+  foo2: function () {
+    setTimeout(
+      function () {
+        console.log(this);
+        console.log(this.a);
+      }.call(obj1),
+      0
+    );
+  },
+};
+var a = 3;
+obj2.foo1(); //2
+obj2.foo2(); //obj1,1
+```
+
+内部函数，如果是window调用的，其this也是指向window
+
+```javascript
+var obj1 = { a: 1 };
+var obj2 = {
+  a: 2,
+  foo1: function () {
+    console.log(this.a);
+  },
+  foo2: function () {
+    function inner() {
+      console.log(this);
+      console.log(this.a);
+    }
+    inner(); // 注意：谁调用的函数，this就指向谁，这里是window调用的，所以this指向的window
+  },
+};
+var a = 3;
+obj2.foo1(); // 2
+obj2.foo2(); //window, 3
+```
