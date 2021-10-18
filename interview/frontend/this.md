@@ -388,3 +388,27 @@ obj.foo.call(obj2)(1); // 6
  * 所以最终结果为this.a + b + c = 2 + 3 + 1 = 6
  */
 ```
+
+### 显示绑定的其他一些用法
+
+可以在一个函数内部使用call来显示绑定某个对象，这样无论怎么样调用，其内部的this总是指向这个对象。
+
+```javascript
+function foo1() {
+  console.log(this.a);
+}
+var a = 1;
+var obj = {
+  a: 2,
+};
+var foo2 = function () {
+  foo1.call(obj); // 无论外部怎么调用，怎么绑定其他的迷惑人的对象，其内部的foo1的obj始终指向obj
+};
+foo2(); // 2
+foo2.call(window); // 2
+/**
+ * 解释上一行代码
+ * 虽然foo2.call(window)绑定了window，但是foo2的函数体内执行的是foo1，foo1绑定了obj
+ * 无论foo2怎么绑定，但是内部执行的代码已经有所绑定的对象了，都不会变
+ */
+```
