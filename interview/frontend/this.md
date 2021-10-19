@@ -652,3 +652,27 @@ obj2.foo()(); //obj2, obj2
 obj3.foo()(); // window,window
 obj4.foo()(); // window,window
 ```
+
+```javascript
+var name = "window";
+function Person(name) {
+  this.name = name;
+  this.foo1 = function () {
+    console.log(this.name);
+  };
+  // 箭头函数的外部作用域为Person
+  this.foo2 = () => {
+    console.log(this.name);
+  };
+}
+var person2 = {
+  name: "person2",
+  foo2: () => {
+    console.log(this.name);
+  },
+};
+var person1 = new Person("person1");
+person1.foo1(); // person1
+person1.foo2(); // person1
+person2.foo2(); // window
+```
