@@ -465,3 +465,85 @@ arr.filter(function (i) {
 4. bind()会创建一个新的函数，不会自动立即执行，需手动调用才可执行
 5. 如果call()、apply()、bind()接收到的第一个参数是null、undefined或者是空，则忽略这个参数
 6. 数组的forEach、map、filter函数的第2个参数也可以动态的显示的绑定this，改变this的指向
+
+### new绑定
+
+不管是new绑定还是其他方式的绑定，以及call、apply、bind，还是数组的forEach、filter、map等，函数内部的this始终指向最后调用它的对象。
+
+```javascript
+function Person(name) {
+  this.name = name;
+}
+var name = "window";
+var person1 = new Person("Nicholas");
+console.log(person1.name); // Nicholas
+```
+
+```javascript
+function Person(name) {
+  this.name = name;
+  this.foo1 = function () {
+    console.log(this.name);
+  };
+  this.foo2 = function () {
+    return function () {
+      console.log(this.name);
+    };
+  };
+}
+var person1 = new Person("p1");
+person1.foo1(); // p1
+person1.foo2()(); // 空值，没有输出
+/**
+ * 比较有意思的是，一开始给输出了一个window，原来是我之前代码中定义过name属性赋值为window，var name="window",代码删除了之后，浏览器也不会回收
+ * 当前的浏览器标签页关掉了才可以回收之前window上的属性
+ */
+```
+
+```javascript
+var name = "Nicholas";
+function Person(name) {
+  this.name = name;
+  this.foo = function () {
+    console.log(this.name);
+    return function () {
+      console.log(this.name);
+    };
+  };
+}
+var person2 = {
+  name: "person2",
+  foo: function () {
+    console.log(this.name);
+    return function () {
+      console.log(this.name);
+    };
+  },
+};
+
+var person1 = new Person("person1");
+person1.foo()(); //person1,Nicholas
+person2.foo()(); //person2,Nicholas
+```
+无论是函数，还是对象，其内部匿名函数的this，始终指向window
+
+```javascript
+var name = "window";
+function Person(name) {
+  this.name = name;
+  this.foo = function () {
+    console.log(this.name);
+    return function () {
+      console.log(this.name);
+    };
+  };
+}
+
+var person1 = new Person("person1");
+var person2 = new Person("person2");
+person1.foo.call(person2)(); // person2,widnow
+person2.foo().call(person2); // person2,person2
+```
+
+百变不离其宗，只要抓住几个核心的点，谁调用的函数、bind、call、apply以及数组的几个方法：forEach、map、filter
+
