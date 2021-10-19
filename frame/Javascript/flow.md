@@ -52,6 +52,3 @@ npm install flow-bin --save-dev
 在需要flow进行类型校验的文件，需要在文件顶部加入：// @flow 或者 /* @flow */，就是一行注释+@flow，表示是
 
 ### 5. Typescript语言规范与基本应用
-
-
-
