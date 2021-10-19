@@ -5972,5 +5972,49 @@ npm install vuex --save #　运行时依赖，不是开发时依赖
 2. 应用组件
 
 ```javascript
+// store > index.js
+// 导入Vue、Vuex
+import Vue from "vue";
+import Vuex from "vuex";
 
+// 安装（管理、应用）Vuex
+Vue.use(Vuex);
+
+// 创建Vuex对象
+/**
+ * 注意不是new Vuex，而是new Vuex.Store,因为真正起作用的是Vuex的Store属性,Store本身也是一个类
+ */
+const store = new Vuex.Store({
+  // Vuex就用这几个属性，固定的，不会变
+  state: {},
+  mutations: {},
+  actions: {},
+  getters: {},
+  modules: {},
+});
+
+// 导出store
+export default store;
 ```
+
+#### Vuex的流程
+
+看图：
+
+![Vuex流程图](../../public/images/i107.png)
+
+从图可以看出，Vuex的状态管理，理想状态下是单向的数据流动，不能随意的逆向操作（当然了从技术上是可以实现逆向操作的，只是不推荐的做法）。
+
+Vue Components：组件的变化，分发给Actions。
+
+Actions：Actions实际上是做异步操作的，比如发生网络请求的时候。<font color="#f20">如果在没有异步操作的场景下，Actions这个步骤其实是可以省略的。</font>
+
+Mutations：Mutations只能做同步操作，Actions部分做完了异步操作，提交给Mutations，那么Mutations做同步操作就可以了。
+
+State：Mutations部分的变化，引起、使State发生变化。然后State的变化，通过render函数渲染到Components。
+
+
+Vuex不让开发者随意修改状态，给出的解释是官方给了个Vue-devtools的浏览器插件，这个插件可以跟踪状态的变化，如果我们不按照给定的流去做状态的修改，那么这个工具就不能正常的跟踪状态的变化，不好做调试了。
+
+我觉着这是一个比较牵强的说法。
+
