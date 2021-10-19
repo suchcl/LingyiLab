@@ -6018,3 +6018,31 @@ Vuex不让开发者随意修改状态，给出的解释是官方给了个Vue-dev
 
 我觉着这是一个比较牵强的说法。
 
+#### Vuex5个核心的属性
+
+State
+
+Getters
+
+Actions
+
+Mutations
+
+Modules
+
+**Getters**
+
+Getters，类似于计算属性，表现上是一个函数，本质上是一个属性，函数有一个默认的参数state。
+
+从store中获取经过变异、变化、处理后的状态、数据，就可以放在Getters。如要获取一个数的平方，但是state只会存放该数，类似这样的场景，就可以在Getters中去处理。
+
+使用Getters，按照属性的方式去使用
+
+Getters的引用： 
+
+```html
+{{$store.getters.自定义getter}}
+<script>
+this.$store.getters.自定义getter
+</script>
+```
