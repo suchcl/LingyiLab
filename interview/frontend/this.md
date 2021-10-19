@@ -547,3 +547,108 @@ person2.foo().call(person2); // person2,person2
 
 百变不离其宗，只要抓住几个核心的点，谁调用的函数、bind、call、apply以及数组的几个方法：forEach、map、filter
 
+### 箭头函数的this绑定
+
+普通的函数，其this永远指向最后调用它的那个对象，但是箭头函数就不是了：
+
+箭头函数中的this，是由外层作用域决定的，指向函数定义时的this，而不是执行时的this。
+
+> 箭头函数中没有this绑定，必须通过查找作用域链来决定this的指向的值，如果剪头函数被非箭头函数包裹，则箭头函数中的this指向的是最近一层非箭头函数的this，否则，this值位undefined
+
+```javascript
+var obj = {
+  name: "obj",
+  foo1: () => {
+    // foo1箭头函数，其作用域是外层作用域，外层作用域也就是window
+    console.log(this.name);
+  },
+  foo2: function () {
+    console.log(this.name);
+    return () => {
+      console.log(this.name);
+    };
+  },
+};
+var name = "window";
+obj.foo1(); // window
+obj.foo2()(); // obj, obj
+```
+
+```javascript
+var name = "window";
+var obj1 = {
+  name: "obj1",
+  foo: function () {
+    console.log(this.name);
+  },
+};
+var obj2 = {
+  name: "obj2",
+  foo: () => {
+    console.log(this.name);
+  },
+};
+obj1.foo(); // obj1
+obj2.foo(); // window
+```
+
+下面这个题目比较绕，但是还是抓住核心的几个点：
+
+1. 箭头函数的this指向定义时的作用域，即指向外部作用域，而不是执行时的作用域
+
+2. 函数内部匿名函数的this指向window
+
+3. 
+
+```javascript
+var name = "window";
+var obj1 = {
+  name: "obj1",
+  foo: function () {
+    console.log(this.name);
+    return function () {
+      console.log(this.name);
+    };
+  },
+};
+
+var obj2 = {
+  name: "obj2",
+  foo: function () {
+    console.log(this.name);
+    return () => {
+      // this为定义箭头函数时的作用域，即obj2
+      console.log(this.name);
+    };
+  },
+};
+
+var obj3 = {
+  name: "obj3",
+  foo: () => {
+    // 箭头函数为定义时的外层作用域，即window
+    console.log(this.name);
+    return function () {
+      // 匿名函数，this指向window
+      console.log(this.name);
+    };
+  },
+};
+
+var obj4 = {
+  name: "obj4",
+  foo: () => {
+    // 箭头函数的this指向定义时的外层作用域，即window
+    console.log(this.name);
+    return () => {
+      // 箭头函数this指向定义时的作用域，该函数定义时的作用域为window
+      console.log(this.name);
+    };
+  },
+};
+
+obj1.foo()(); // obj1, window
+obj2.foo()(); //obj2, obj2
+obj3.foo()(); // window,window
+obj4.foo()(); // window,window
+```
