@@ -676,3 +676,79 @@ person1.foo1(); // person1
 person1.foo2(); // person1
 person2.foo2(); // window
 ```
+
+```javascript
+var name = "window";
+function Person(name) {
+  this.name = name;
+  this.foo1 = function () {
+    console.log(this.name);
+    return function () {
+      // 对象中的匿名函数，也指向window
+      console.log(this.name);
+    };
+  };
+  this.foo2 = function () {
+    console.log(this.name);
+    return () => {
+      // this指向外层作用域，对象中定义的，Person
+      console.log(this.name);
+    };
+  };
+  this.foo3 = () => {
+    // 箭头函数，this指向外部作用域Person
+    console.log(this.name);
+    return function () {
+      // 匿名函数，this指向window
+      console.log(this.name);
+    };
+  };
+  this.foo4 = () => {
+    // this指向Person
+    console.log(this.name);
+    return () => {
+      // 指向外部作用域的this，即Person
+      console.log(this.name);
+    };
+  };
+}
+var person1 = new Person("person1");
+person1.foo1()(); // person1, window
+person1.foo2()(); // person1, person1
+person1.foo3()(); // person1, window
+person1.foo4()(); // person1, person1
+```
+
+```javascript
+var name = "window";
+var obj1 = {
+  name: "obj1",
+  foo1: function () {
+    console.log(this.name);
+    return () => {
+      console.log(this.name);
+    };
+  },
+  foo2: () => {
+    // this指向外层作用域：window
+    console.log(this.name);
+    return function () {
+      console.log(this.name);
+    };
+  },
+};
+
+var obj2 = {
+  name: "obj2",
+};
+obj1.foo1.call(obj2)(); // obj2,obj2 foo1返回函数的作用域被call给转向到了obj2
+obj1.foo1().call(obj2); //obj1,obj1
+/**
+ * obj1.foo1().call(obj2) 解释
+ * obj1.foo1()：打印的是obj1，比较容易理解
+ * 但是内部的返回函数，按照常理应该是绑定给了obj2，所以返回 函数的this指向的是obj2，但是有一点我们需要注意：
+ * 箭头函数的this指向，也是作用域，是在函数定义时定义的，而不是在函数执行时决定的，即便使用了call也不会改变这个规则
+ */
+obj1.foo2.call(obj2)(); // window,window
+obj1.foo2().call(obj2); // window,obj2
+```
