@@ -752,3 +752,74 @@ obj1.foo1().call(obj2); //obj1,obj1
 obj1.foo2.call(obj2)(); // window,window
 obj1.foo2().call(obj2); // window,obj2
 ```
+
+#####  箭头函数使用小结
+
+1. 箭头函数的作用域是由外层作用域决定的，且指向函数定义时的this而不是执行时的this
+2. 字面量创建的对象，作用域是window；如果字面量对象中有箭头函数属性，该箭头函数的this指向window
+3. 构造函数创建的对象，作用域就是这个构造函数，这个构造函数的this指向该构造函数的实例化对象，即this指向这个实例化对象
+4. 箭头函数的this不能通过call、apply、bind来直接修改，但是可以通过修改作用域的this来修改箭头函数的this指向
+
+##### 避免使用箭头函数的场景
+
+1. 使用箭头函数定义对象的方法
+
+   ```javascript
+   let obj = {
+     value: "Nicholas Zakas",
+     getValue: () => {
+       // this指向window，现在window不存在属性value
+       console.log(this.value);
+     },
+   };
+   
+   obj.getValue(); //undefined   打印一个不存在的属性，输出undefined
+   ```
+
+   > 打印一个对象中不存在的属性，输出undefined；打印一个不存在的变量，异常信息提示：变量未定义
+
+2. 定义原型方法
+
+   ```javascript
+   function Foo(value) {
+     this.value = value;
+   }
+   
+   Foo.prototype.getValue = () => {
+     /**
+      * this指向window
+      * 定义时的作用域为外层作用域，Foo的作用域为window
+      */
+     console.log(this.value); // 打印的是window的value
+   };
+   var foo = new Foo("hahha");
+   foo.getValue(); // undefined
+   ```
+
+3. 构造函数使用箭头函数
+
+   ```javascript
+   const Foo = (value) => {
+     this.value = value;
+   };
+   const foo1 = new Foo("heheh");
+   console.log(foo1); // Uncaught TypeError: Foo is not a constructor
+   ```
+
+4. 作为事件的回调函数
+
+   ```javascript
+   const btn = document.getElementById("btn");
+   btn.addEventListener("click", () => {
+     console.log(this); // this指向了window
+     this.innerText = "啊大方"；
+   });
+   ```
+
+##### 1.7.3 适合使用箭头函数的场景
+
+在不需要绑定this到当前函数时的场景比较适合使用，this可以跟随上下文，不追求函数本身的情况下。
+
+没有说的很明确，其实就是不好总结规律。
+
+我比较喜欢在一些数组的操作中使用。
