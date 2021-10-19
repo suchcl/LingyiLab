@@ -823,3 +823,123 @@ obj1.foo2().call(obj2); // window,obj2
 没有说的很明确，其实就是不好总结规律。
 
 我比较喜欢在一些数组的操作中使用。
+
+```javascript
+var name = "window";
+var person1 = {
+  name: "person1",
+  foo1: function () {
+    console.log(this.name);
+  },
+  foo2: () => {
+    console.log(this.name);
+  },
+  foo3: function () {
+    return function () {
+      console.log(this.name);
+    };
+  },
+  foo4: function () {
+    return () => {
+      console.log(this.name);
+    };
+  },
+};
+var person2 = {
+  name: "person2",
+};
+person1.foo1(); // person1
+person1.foo1.call(person2); // person2
+person1.foo2(); // window
+person1.foo2.call(person2); // window
+person1.foo3()(); //window
+person1.foo3.call(person2)(); // window  注意返回的是一个函数，而不是绑定了this的函数
+person1.foo3().call(person2); // person2
+person1.foo4()(); // person1 person1.foo4()的作用域是person1
+person1.foo4.call(person2)(); // person2
+person1.foo4().call(person2); // person1 箭头函数使用call不会重新绑定this
+```
+
+```javascript
+var name = "window";
+function Person(name) {
+  this.name = name;
+  this.foo1 = function () {
+    console.log(this.name);
+  };
+  this.foo2 = () => {
+    console.log(this.name);
+  };
+  this.foo3 = function () {
+    return function () {
+      console.log(this.name);
+    };
+  };
+  this.foo4 = function () {
+    return () => {
+      console.log(this.name);
+    };
+  };
+}
+
+var person1 = new Person("person1");
+var person2 = new Person("person2");
+person1.foo1(); // person1
+person1.foo1.call(person2); // person2
+
+person1.foo2(); // person1
+person1.foo2.call(person2); // person1 箭头函数在执行时通过call、apply、bind是不会起作用的
+
+person1.foo3()(); // window
+person1.foo3.call(person2)(); // window
+person1.foo3().call(person2); // person2
+
+person1.foo4()(); // person1
+person1.foo4.call(person2)(); // person2
+person1.foo4().call(person2); // person1 箭头函数执行时通过call已经不生效了
+```
+
+```javascript
+var name = "window";
+function Person(name) {
+  this.name = name;
+  this.obj = {
+    name: "obj",
+    foo1: function () {
+      return function () {
+        // 匿名函数，指向window
+        console.log(this.name);
+      };
+    },
+    foo2: function () {
+      return () => {
+        console.log(this.name);
+      };
+    },
+  };
+}
+
+var person1 = new Person("person1");
+var person2 = new Person("person2");
+
+person1.obj.foo1()(); // window
+person1.obj.foo1.call(person2); // 执行结果只是返回来一个函数，没有打印输出
+person1.obj.foo1().call(person2); // person2
+
+
+// 注意谁调用，this就指向谁
+person1.obj.foo2()(); // obj
+person1.obj.foo2.call(person2)(); // person2
+person1.obj.foo2().call(person2); // obj
+```
+
+```javascript
+function foo() {
+  console.log(this.a);
+}
+var a = 2;
+(function () {
+  "use strict"; // 使用了严格模式，匿名函数内部的this是undefined
+  foo(); // 注意调用foo的依旧是window，所以打印的是window.a 2
+})();
+```
