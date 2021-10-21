@@ -129,6 +129,8 @@ node选择chrome v8引擎作为js的解释器，v8引擎将js代码解析后去�
 
 模型中的每个方块都代表事件循环的一个阶段。
 
+<font color="#f20">这个不太好理解，还没有梳理好</font>
+
 ### 题目分析
 
 ```javascript
@@ -179,4 +181,48 @@ Promise.resolve()
   });
 console.log(9);
 //1  9 7  8  2  3  10  11  12   13
+```
+
+```javascript
+async function async1() {
+  console.log("async1 start");
+  await async2();
+  console.log("async1 end");
+}
+
+async function async2() {
+  console.log("async2");
+}
+
+async1();
+
+new Promise(function (resolve) {
+  console.log("promise1");
+  resolve();
+}).then(function () {
+  console.log("promise2");
+});
+console.log("script end");
+//async1 start、async2、promise1、script end、async1 end、promise2
+```
+
+```javascript
+const s = new Date().getSeconds();
+
+setTimeout(function () {
+  console.log("Ran after " + (new Date().getSeconds() - s) + "seconds");
+}, 500);
+
+while (true) {
+  if (new Date().getSeconds() - s >= 2) {
+    console.log("Good,looped for 2 seconds");
+    break;
+  }
+}
+// Good,looped for 2 seconds、Ran after 2seconds
+// 先同步执行栈，再异步
+```
+
+```javascript
+
 ```
