@@ -50,7 +50,7 @@ Js的一个非常主要的任务是与用户互动、操作DOM。如果Js是多�
 
 **那么异步代码的执行过程呢？**
 
-js引擎遇到一个异步事件后，并不会一直等待其返回结果，因为js非阻塞的特点，而是会将这个事件挂起（pending），继续执行执行栈中的其他任务。当一个异步事件返回结果后，js引擎会将这个事件加入到与当前执行栈不同的另外一个队列，一般称为事件队列。被放入事件队列的事件不会被立即执行，而是会等待当前执行栈中的所有任务都执行完成后、主线程处于闲置状态时，主线程会去查找事件队列中是否有任务在排队等待执行。如果有，那么主线程就会从事件队列中抽取出排位第一顺序的事件对应的回调函数放入到执行栈中，然后执行其中的同步代码。按照这个规律反复循环。这个过程就是事件循环（Event loop）。
+js引擎遇到一个异步事件后，并不会一直等待其返回结果，因为js非阻塞的特点，而是会将这个事件挂起（pending），继续执行执行栈中的其他任务。当一个异步事件返回结果后，js引擎会将这个事件加入到与当前执行栈不同的另外一个队列，一般称为事件队列。被放入事件队列的事件不会被立即执行，而是会<font color="#f20">等待当前执行栈中的所有任务都执行完成后、主线程处于闲置状态时，主线程会去查找事件队列中是否有任务在排队等待执行。如果有，那么主线程就会从事件队列中抽取出排位第一顺序的事件对应的回调函数放入到执行栈中，然后执行其中的同步代码</font>。按照这个规律反复循环。这个过程就是事件循环（Event loop）。
 
 ```javascript
 var btn = document.getElementById("btn");
@@ -94,7 +94,7 @@ console.log("欢迎你!");
 
 当当前执行栈执行完毕时，会立刻处理所有微任务队列中的事件，然后再去处理执行宏任务队列中的事件。
 
-同一次时间循环中，微任务永远在宏任务之前执行。
+同一次事件循环中，微任务永远在宏任务之前执行。
 
 ### node环境下的事件循环机制
 
@@ -224,5 +224,113 @@ while (true) {
 ```
 
 ```javascript
+setTimeout(() => {
+  console.log(1);
+}, 20);
 
+setTimeout(() => {
+  console.log(2);
+}, 0);
+
+setTimeout(() => {
+  console.log(3);
+}, 10);
+
+setTimeout(() => {
+  console.log(5);
+}, 10);
+
+console.log(4);
+
+// 4  2  3   5  1
+```
+
+```javascript
+setTimeout(() => {
+  console.log(1);
+}, 20);
+setTimeout(() => {
+  console.log(2);
+}, 0);
+setTimeout(() => {
+  console.log(3);
+}, 30);
+console.log(4);
+// 4  2  1  3
+```
+
+```javascript
+console.log(1);
+new Promise((resolve, reject) => {
+  console.log(2);
+  resolve();
+}).then((res) => {
+  console.log(3);
+});
+console.log(4);
+// 1  2  4  3
+```
+
+```javascript
+setTimeout(function () {
+  console.log(1);
+}, 0);
+
+new Promise(function (resolve, reject) {
+  console.log(2);
+  resolve();
+})
+  .then(function () {
+    console.log(3);
+  })
+  .then(function () {
+    console.log(4);
+  });
+console.log(6);
+// 2 6 3 4 1
+```
+
+```javascript
+setTimeout(function () {
+  console.log(1);
+}, 0);
+new Promise(function (resolve, reject) {
+  console.log(2);
+  for (var i = 0; i < 10000; i++) {
+    if (i === 10) {
+      console.log(10);
+    }
+    i == 9999 && resolve();
+  }
+  console.log(3);
+}).then(function () {
+  console.log(4);
+});
+console.log(5);
+//2  10  3  5  4  1
+```
+
+```javascript
+console.log("start");
+setTimeout(() => {
+  console.log("children2");
+  Promise.resolve().then(() => {
+    console.log("children3");
+  });
+}, 0);
+
+new Promise(function (resolve, reject) {
+  console.log("children4");
+  setTimeout(function () {
+    console.log("children5");
+    resolve("children6");
+  }, 0);
+}).then((res) => {
+  console.log("children7");
+  setTimeout(() => {
+    console.log(res);
+  }, 0);
+});
+//start、children4、children2、children3、children5、children7、children6
+// 需要注意当前执行栈中的所有任务都执行完成后才去执行下一个任务
 ```
