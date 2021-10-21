@@ -70,3 +70,7 @@ async/await写法更优雅；
 async/await和promise一样，不阻塞
 
 async/await看起来像同步代码，但本质上是异步；
+
+
+#### promise和async/await的异常捕获方式
+
