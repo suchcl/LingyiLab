@@ -95,3 +95,88 @@ console.log("欢迎你!");
 当当前执行栈执行完毕时，会立刻处理所有微任务队列中的事件，然后再去处理执行宏任务队列中的事件。
 
 同一次时间循环中，微任务永远在宏任务之前执行。
+
+### node环境下的事件循环机制
+
+**node中的事件循环机制和浏览器中的区别**
+
+node中的事件循环机制和浏览器中的基本相同，只是node有自己的事件模型，node中的事件循环的实现依赖libuv引擎。
+
+node选择chrome v8引擎作为js的解释器，v8引擎将js代码解析后去调用对应的node api，这些node api最后由libuv引擎驱动，执行对应的任务，并把不同的事件放在不同的队列中等待主线程执行。
+
+所以说node中的事件循环存在于libuv引擎中。
+
+**node的事件模型**
+
+ ┌───────────────────────┐
+┌─>│        timers         │
+│  └──────────┬────────────┘
+│  ┌──────────┴────────────┐
+│  │     I/O callbacks     │
+│  └──────────┬────────────┘
+│  ┌──────────┴────────────┐
+│  │     idle, prepare     │
+│  └──────────┬────────────┘      ┌───────────────┐
+│  ┌──────────┴────────────┐      │   incoming:   │
+│  │         poll          │<──connections───     │
+│  └──────────┬────────────┘      │   data, etc.  │
+│  ┌──────────┴────────────┐      └───────────────┘
+│  │        check          │
+│  └──────────┬────────────┘
+│  ┌──────────┴────────────┐
+└──┤    close callbacks    │
+   └───────────────────────┘
+
+模型中的每个方块都代表事件循环的一个阶段。
+
+### 题目分析
+
+```javascript
+setTimeout(function () {
+  console.log(1);
+});
+
+new Promise(function (resolve, reject) {
+  console.log(2);
+  resolve(3);
+}).then(function (val) {
+  console.log(val);
+});
+// 执行结果：2,3,1
+```
+
+```javascript
+console.log(1);
+setTimeout(function () {
+  console.log(2);
+}, 0);
+
+const intervarId = setInterval(function () {
+  console.log(3);
+}, 0);
+
+setTimeout(function () {
+  console.log(10);
+  new Promise(function (resolve) {
+    console.log(11);
+    resolve();
+  })
+    .then(function () {
+      console.log(12);
+    })
+    .then(function () {
+      console.log(13);
+      clearInterval(intervarId);
+    });
+}, 0);
+
+Promise.resolve()
+  .then(function () {
+    console.log(7);
+  })
+  .then(function () {
+    console.log(8);
+  });
+console.log(9);
+//1  9 7  8  2  3  10  11  12   13
+```
