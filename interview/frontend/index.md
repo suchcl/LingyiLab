@@ -21,6 +21,16 @@
 2. [vue中组件渲染和更新过程的是什么样子的](./vue/组件渲染和更新过程.md)
 3. [delete和Vue.delete删除数组的区别](./vue/delete和Vue.delete删除数组的区别.md)
 4. [Vue为什么采用异步渲染](./vue/vue为什么采用异步渲染.md)
+5. [vuex和provide](./vue/vuex&provide.md)
+6. [vue的双向绑定远离](./vue/vue的双向绑定原理.md)
+7. [nextTick原理](./vue/nextTick原理.md)
+8. [虚拟DOM](./vue/虚拟DOM.md)
+
+## webpack
+
+1. [webpack优化手段](./webpack/webpack优化.md)
+
+## React/React native
 
 ## 综合
 
