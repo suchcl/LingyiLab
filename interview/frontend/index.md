@@ -30,6 +30,7 @@
 6. [vue的双向绑定远离](./vue/vue的双向绑定原理.md)
 7. [nextTick原理](./vue/nextTick原理.md)
 8. [虚拟DOM](./vue/虚拟DOM.md)
+9. [vue-router异步加载原理](./vue/vue-router异步加载原理.md)
 
 ## webpack
 
@@ -37,6 +38,9 @@
 
 ## React/React native
 
+## 设计模式
+
+1. [观察者模式和订阅模式的区别]()
 
 ## 综合
 
