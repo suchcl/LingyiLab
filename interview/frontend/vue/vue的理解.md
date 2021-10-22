@@ -1,3 +1,21 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+  - [对vue是怎么理解的？](#%E5%AF%B9vue%E6%98%AF%E6%80%8E%E4%B9%88%E7%90%86%E8%A7%A3%E7%9A%84)
+  - [Vue的历史](#vue%E7%9A%84%E5%8E%86%E5%8F%B2)
+  - [那么Vue到底是什么呢？](#%E9%82%A3%E4%B9%88vue%E5%88%B0%E5%BA%95%E6%98%AF%E4%BB%80%E4%B9%88%E5%91%A2)
+  - [Vue的核心特性](#vue%E7%9A%84%E6%A0%B8%E5%BF%83%E7%89%B9%E6%80%A7)
+  - [Vue和jQuery的区别?](#vue%E5%92%8Cjquery%E7%9A%84%E5%8C%BA%E5%88%AB)
+  - [Vue和React、Angular的异同](#vue%E5%92%8Creactangular%E7%9A%84%E5%BC%82%E5%90%8C)
+- [重点来了，对Vue是怎么理解的](#重点来了对vue是怎么理解的)
+  - [组件机制](#组件机制)
+  - [响应式系统](#响应式系统)
+  - [虚拟DOM： Virtual DOM](#虚拟dom-virtual-dom)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+[toc]
 ### 对vue是怎么理解的？
 
 我认为对一件事情，或者物件的理解，首先会想到的几个方面，就是这个物件、事务是什么，它的发展历史是什么，它是为了解决什么问题的，它怎么解决问题，有针对性的去解决什么问题，以及有没有其他的类似功能的物件、事务也能起到类似相同的作用，如果有，那它的优势是什么，如果没有，我们是怎么继续让这件事做的更优？
@@ -113,3 +131,27 @@ ViewModel：视图模型层，从概念上也可以看出来，表示链接View�
 * 组件化通信方式的不同：React使用的是回调函数来实现数据通信的，Vue中不同组件之间的数据通信是通过事件和回调函数
 
 * 数据变化的实现原理不同：react使用的不可变数据，vue使用的是可变数据
+
+## 重点来了，对Vue是怎么理解的
+
+Vue是一套用于构建用户界面的渐进式框架，其核心有2点：
+
+1. 构建用户界面；
+
+2. 渐进式；
+
+**什么是渐进式呢？**
+
+渐进式的核心就是减少强制，比如Vue，我们使用vue做项目，可以使用vue只重构项目中的某一个页面，而不是必须整个项目必须都要全部使用vue实现；你可以使用vue的vue-router而不是必须使用vuex等等。总之，就是vue框架本身以及生态很强大，你可以选择有必要的部分去使用，框架本身不要求我们必须要引入、使用框架的全部内容。
+
+**构建用户界面**
+
+由于vue的定位位构建用户界面，其在界面构建方面做了大量的工作，如组件化系统、声明式渲染、数据持久化等等，都对界面的构建提供了非常友好的支持。
+
+### 组件机制
+
+
+
+### 响应式系统
+
+### 虚拟DOM： Virtual DOM
