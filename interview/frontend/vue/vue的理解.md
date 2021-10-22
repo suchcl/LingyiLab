@@ -344,6 +344,11 @@ generate：根据AST结构拼接成render函数的字符串。
 
 ##### 预编译
 
+vue中，模板编译只有在组件实例化的时候被编译一次，生成渲染函数之后就不再对组件进行编译了。编译，对组件的runtime是一种性能上的损耗，模板编译的目的，仅仅是将template编译、转换成渲染函数。而组件、模板的这个转换过程，是可以在项目的构建过程中完成。
+
+vue项目的构建，webpack配置的vue-loader依赖了vue-template-compiler模块，在webpack对vue项目的构建过程中，将template预编译成了渲染函数，然后在runtime就可以直接跳过了模板编译过程。
+
+vue的runtime，仅仅需要的是render函数，而有了预编译之后，我们只需要保证在项目构建过程中生成render函数就可以了，那么就可以减少runtime时生成render函数的性能损耗了。
 
 #### 小结
 
