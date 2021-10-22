@@ -10,6 +10,16 @@
   - [Vue和React、Angular的异同](#vue%E5%92%8Creactangular%E7%9A%84%E5%BC%82%E5%90%8C)
 - [重点来了，对Vue是怎么理解的](#重点来了对vue是怎么理解的)
   - [组件机制](#组件机制)
+    - [数据传递](#数据传递)
+    - [事件传递](#事件传递)
+    - [内容分发](#内容分发)
+      - [默认插槽](#默认插槽)
+      - [具名插槽](#具名插槽)
+      - [作用域插槽](#作用域插槽)
+    - [模板渲染](#模板渲染)
+      - [模板编译](#模板编译)
+      - [预编译](#预编译)
+    - [小结](#小结)
   - [响应式系统](#响应式系统)
   - [虚拟DOM： Virtual DOM](#虚拟dom-virtual-dom)
 
@@ -150,8 +160,197 @@ Vue是一套用于构建用户界面的渐进式框架，其核心有2点：
 
 ### 组件机制
 
+组件就是对一个逻辑单元独立的功能和样式的封装，从而使得代码得到更好的复用，提高开发的效率；
 
+Vue组件，可以从外部传入数据过来，包括属性和事件，组件内部也有自己的状态，可以有自己的声明周期和计算属性等，综合外部的传递和内部的自己的属性，决定了组件最终的交互和逻辑体现；
+
+#### 数据传递
+
+每个组件之间是相互独立的、相互割裂的，就是说每个组件之间不存在任何的耦合，各个组件之间互不影响，除非发生了组件之间的相互引用。
+
+Vue中如果发生了组件的引用，允许外部向组件内部通过props传递数据。
+
+```html
+<!--组件-->
+<template>
+    <div class="tt">{{ msg }}</div>
+</template>
+
+<script>
+export default {
+    props: {
+        msg: {
+            type: String,
+            default: "Hello Vue"
+        }
+    }
+}
+</script>
+```
+
+下面为引用：
+
+```html
+<tt :msg="info"></tt>
+<script>
+import UserCenter from "./components/UserCenter.vue";
+import Tt from "./components/tt.vue";
+export default {
+  name: "App",
+  components: {
+    UserCenter,
+    Tt
+  },
+  data() {
+    return {
+      info: "Hello Vue"
+    };
+  }
+};
+</script>
+```
+
+数据的传递，可以发生在父子组件之间：父组件向子组件传递数据、子组件向父组件推送数据。
+
+#### 事件传递
+
+Vue内部实现了一个事件总线系统，也就是EventBus。Vue可以使用EventBus来作为沟通桥梁的概念。每个Vue组件都继承了EventBus，都可以接受事件$on和发送事件$emit
+
+除了父子组件之间可以使用$emit、$on来传递和监听事件，也可以通过一个Vue实例为多层级的父子组件之间建立通信的桥梁；
+
+```javascript
+// 父组件通过$on来监听事件
+const eventBus = new Vue();
+eventBus.$on("eventName",val => {
+  // 做一些事情
+});
+
+// 子组件通过$emit触发事件
+eventBus.$emit("eventName","触发的事件");
+```
+
+除了$on、$emit外，事件总线还提供了另外2个方法：$once、$off.
+
+$on:监听、注册事件
+
+$emit:触发事件
+
+$once:注册事件，仅允许该事件注册一次，触发后立即移出该事件
+
+$off:移除事件
+
+#### 内容分发
+
+Vue根据Web Components规范草案的内容分发系统，将<slot>元素作为承载分发内容的出口。
+
+slot，就是一个占位符，至于这个占位的地方要显示的内容，以及显示内容的样式，完全由父组件来决定。
+
+插槽（slot），又分为默认插槽、具名插槽。
+
+##### 默认插槽
+
+默认插槽，就是没有名字的插槽，一个组件内只能有1个默认插槽。
+
+```html
+  <!--父组件-->
+    <tt :msg="info" @getName="getName">
+      <div>
+        <h3>这里是一个slot</h3>
+      </div>
+    </tt>
+  <!--子组件-->
+    <div class="child">
+        <div class="tt">{{ msg }}</div>
+        <button @click="btnClick">子组件中点击事件</button>
+        <slot></slot>
+        <slot name="btn"></slot>
+    </div>
+```
+
+如该组件只有1个默认插槽，且也只能有1个默认插槽。
+
+子组件中的默认插槽，会被父组件中的div>h3取代。
+
+##### 具名插槽
+
+具名插槽，就是有name属性的插槽。具名插槽，一个组件内可以有多个。
+
+```html
+<!--父组件-->
+    <tt :msg="info" @getName="getName">
+      <div>
+        <h3>这里是一个slot</h3>
+        <button slot="btn">这是一个slot占位的button</button>
+        <p slot="text">这里是一个slot占位的text</p>
+      </div>
+    </tt>
+<!--子组件-->
+    <div class="child">
+        <div class="tt">{{ msg }}</div>
+        <button @click="btnClick">子组件中点击事件</button>
+        <slot></slot>
+        <slot name="btn"></slot>
+        <slot name="text"></slot>
+    </div>
+```
+
+子组件中的两个具名插槽btn和text会分别被父组件的div>button和div>p取代。
+
+实际上，默认插槽也有name属性，只不过属性值是default，可以缺省。
+
+##### 作用域插槽
+
+有个小疑问没有搞清楚：是不是作用域插槽不能是具名插槽？
+
+#### 模板渲染
+
+Vue的核心是声明式渲染，不是命令式渲染。
+
+声明式渲染，是只告诉程序，我想要的结果，至于结果的计算过程，不必关心，这些事情交给程序去处理。
+
+命令式渲染，是要命令程序一步一步的根据命令去执行渲染，需要一步一步的告诉程序去做什么，下一步继续做什么，最后得出一个我们期望的结果。
+
+可以看下案例：
+
+```javascript
+var arr = [1, 2, 3, 4, 5];
+// 命令式渲染，关心每一步，关心过程，得出结果
+var newARr = [];
+for (var i = 0; i < arr.length; i++) {
+  return newARr.push(arr[i] * 2);
+}
+
+// 声明式渲染，不关心中间过程，只关心最终结果
+var newArr1 = arr.map((item) => {
+  return item * 2;
+});
+```
+
+##### 模板编译
+
+为什么要进行模板编译呢？
+
+因为Vue的组件化系统，组件中的template浏览器是没有办法直接解析的，因为template不是正常的HTMl标签，而模板编译，就是将模板template编译成可执行的javascript代码，也就是将template编译成真正的渲染函数。
+
+模板编译分为3个阶段：parse、optimize、generate，最终生成render函数。
+
+![模板编译阶段](../../../public/images/i111.png)
+
+parse：使用正则表达式将template进行字符串解析，得到指令、class、style等数据，生成抽象语法树AST。
+
+optimize：寻找抽象语法树AST中的静态节点进行标记，为后面的VNode的patch过程做对比优化；
+
+generate：根据AST结构拼接成render函数的字符串。
+
+##### 预编译
+
+
+#### 小结
 
 ### 响应式系统
 
 ### 虚拟DOM： Virtual DOM
+
+https://juejin.cn/post/6844904020864139278#heading-2
+
+https://juejin.cn/post/7021394272519716872#heading-4
