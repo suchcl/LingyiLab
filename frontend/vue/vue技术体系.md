@@ -1,3 +1,69 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Vue技术体系](#vue%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB)
+- [vuejs安装](#vuejs%E5%AE%89%E8%A3%85)
+- [响应式，什么是响应式呢？](#%E5%93%8D%E5%BA%94%E5%BC%8F%E4%BB%80%E4%B9%88%E6%98%AF%E5%93%8D%E5%BA%94%E5%BC%8F%E5%91%A2)
+- [vue指令](#vue%E6%8C%87%E4%BB%A4)
+- [MVVM](#mvvm)
+- [Vue对象实例化时的参数：options](#vue%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E6%97%B6%E7%9A%84%E5%8F%82%E6%95%B0options)
+  - [方法和函数有什么区别？什么时候叫方法，什么时候叫函数？](#%E6%96%B9%E6%B3%95%E5%92%8C%E5%87%BD%E6%95%B0%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E5%8F%AB%E6%96%B9%E6%B3%95%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E5%8F%AB%E5%87%BD%E6%95%B0)
+- [Vue的生命周期](#vue%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F)
+- [vscode创建模板文件](#vscode%E5%88%9B%E5%BB%BA%E6%A8%A1%E6%9D%BF%E6%96%87%E4%BB%B6)
+- [Vue模板语法](#vue%E6%A8%A1%E6%9D%BF%E8%AF%AD%E6%B3%95)
+- [v-bind 动态属性绑定](#v-bind-%E5%8A%A8%E6%80%81%E5%B1%9E%E6%80%A7%E7%BB%91%E5%AE%9A)
+- [v-if](#v-if)
+- [v-for遍历属组和数组](#v-for%E9%81%8D%E5%8E%86%E5%B1%9E%E7%BB%84%E5%92%8C%E6%95%B0%E7%BB%84)
+- [v-model](#v-model)
+- [组件化](#%E7%BB%84%E4%BB%B6%E5%8C%96)
+- [全局组件和局部组件](#%E5%85%A8%E5%B1%80%E7%BB%84%E4%BB%B6%E5%92%8C%E5%B1%80%E9%83%A8%E7%BB%84%E4%BB%B6)
+- [注册组件的语法糖](#%E6%B3%A8%E5%86%8C%E7%BB%84%E4%BB%B6%E7%9A%84%E8%AF%AD%E6%B3%95%E7%B3%96)
+- [为什么data必须要是一个函数？](#%E4%B8%BA%E4%BB%80%E4%B9%88data%E5%BF%85%E9%A1%BB%E8%A6%81%E6%98%AF%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0)
+- [组件通信](#%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1)
+- [子组件不要直接绑定props中的值，而是要绑定data或计算属性中的值](#%E5%AD%90%E7%BB%84%E4%BB%B6%E4%B8%8D%E8%A6%81%E7%9B%B4%E6%8E%A5%E7%BB%91%E5%AE%9Aprops%E4%B8%AD%E7%9A%84%E5%80%BC%E8%80%8C%E6%98%AF%E8%A6%81%E7%BB%91%E5%AE%9Adata%E6%88%96%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7%E4%B8%AD%E7%9A%84%E5%80%BC)
+- [父组件调用子组件的方法&获取子组件的数据](#%E7%88%B6%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8%E5%AD%90%E7%BB%84%E4%BB%B6%E7%9A%84%E6%96%B9%E6%B3%95%E8%8E%B7%E5%8F%96%E5%AD%90%E7%BB%84%E4%BB%B6%E7%9A%84%E6%95%B0%E6%8D%AE)
+- [父子组件的相互访问](#%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E7%9A%84%E7%9B%B8%E4%BA%92%E8%AE%BF%E9%97%AE)
+- [slot 插槽](#slot-%E6%8F%92%E6%A7%BD)
+- [ES6 Module](#es6-module)
+- [webpack](#webpack)
+  - [认识webpack](#%E8%AE%A4%E8%AF%86webpack)
+    - [前端模块化和打包的关系](#%E5%89%8D%E7%AB%AF%E6%A8%A1%E5%9D%97%E5%8C%96%E5%92%8C%E6%89%93%E5%8C%85%E7%9A%84%E5%85%B3%E7%B3%BB)
+    - [和gulp、grunt的区别](#%E5%92%8Cgulpgrunt%E7%9A%84%E5%8C%BA%E5%88%AB)
+  - [webpack的安装](#webpack%E7%9A%84%E5%AE%89%E8%A3%85)
+  - [webpack起步](#webpack%E8%B5%B7%E6%AD%A5)
+  - [webpack配置](#webpack%E9%85%8D%E7%BD%AE)
+  - [webpack核心loader的使用](#webpack%E6%A0%B8%E5%BF%83loader%E7%9A%84%E4%BD%BF%E7%94%A8)
+  - [webpack中配置vue](#webpack%E4%B8%AD%E9%85%8D%E7%BD%AEvue)
+  - [plugin的使用](#plugin%E7%9A%84%E4%BD%BF%E7%94%A8)
+  - [搭建本地服务器](#%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0%E6%9C%8D%E5%8A%A1%E5%99%A8)
+  - [webpack配置文件开发环境、生产环境分离](#webpack%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E5%88%86%E7%A6%BB)
+- [vue脚手架](#vue%E8%84%9A%E6%89%8B%E6%9E%B6)
+- [@vue/cli3和vue-cli2的区别](#vuecli3%E5%92%8Cvue-cli2%E7%9A%84%E5%8C%BA%E5%88%AB)
+- [通过@vue/cli3及更高版本的cli工具创建的项目，怎么看或者修改默认的webpack配置呢？](#%E9%80%9A%E8%BF%87vuecli3%E5%8F%8A%E6%9B%B4%E9%AB%98%E7%89%88%E6%9C%AC%E7%9A%84cli%E5%B7%A5%E5%85%B7%E5%88%9B%E5%BB%BA%E7%9A%84%E9%A1%B9%E7%9B%AE%E6%80%8E%E4%B9%88%E7%9C%8B%E6%88%96%E8%80%85%E4%BF%AE%E6%94%B9%E9%BB%98%E8%AE%A4%E7%9A%84webpack%E9%85%8D%E7%BD%AE%E5%91%A2)
+- [箭头函数](#%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0)
+- [箭头函数中的this指向](#%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E4%B8%AD%E7%9A%84this%E6%8C%87%E5%90%91)
+- [vue-router](#vue-router)
+- [前端路由阶段](#%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E9%98%B6%E6%AE%B5)
+  - [前后端分离阶段](#%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%98%B6%E6%AE%B5)
+  - [单页面富应用阶段](#%E5%8D%95%E9%A1%B5%E9%9D%A2%E5%AF%8C%E5%BA%94%E7%94%A8%E9%98%B6%E6%AE%B5)
+  - [认识vue-router](#%E8%AE%A4%E8%AF%86vue-router)
+  - [安装和使用vue-router](#%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8vue-router)
+  - [使用vue-router（步骤）](#%E4%BD%BF%E7%94%A8vue-router%E6%AD%A5%E9%AA%A4)
+  - [路由的默认路径](#%E8%B7%AF%E7%94%B1%E7%9A%84%E9%BB%98%E8%AE%A4%E8%B7%AF%E5%BE%84)
+  - [router-link的常用属性](#router-link%E7%9A%84%E5%B8%B8%E7%94%A8%E5%B1%9E%E6%80%A7)
+  - [动态路由](#%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1)
+  - [路由的懒加载](#%E8%B7%AF%E7%94%B1%E7%9A%84%E6%87%92%E5%8A%A0%E8%BD%BD)
+  - [嵌套路由](#%E5%B5%8C%E5%A5%97%E8%B7%AF%E7%94%B1)
+  - [路由跳转时的参数传递](#%E8%B7%AF%E7%94%B1%E8%B7%B3%E8%BD%AC%E6%97%B6%E7%9A%84%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92)
+  - [导航守卫](#%E5%AF%BC%E8%88%AA%E5%AE%88%E5%8D%AB)
+  - [keep-alive](#keep-alive)
+- [Vuex](#vuex)
+  - [Vuex的流程](#vuex%E7%9A%84%E6%B5%81%E7%A8%8B)
+  - [Vuex5个核心的属性](#vuex5%E4%B8%AA%E6%A0%B8%E5%BF%83%E7%9A%84%E5%B1%9E%E6%80%A7)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ### Vue技术体系
 
 > 本文所有内容都是以Vue2为基础的，如果有内容和现在的Vue3有区别的，请大家注意。
@@ -6138,4 +6204,86 @@ const store = new Vuex.Store({
 // 导出store
 export default store;
 
+```
+
+**Mutation**
+
+Vuex中store状态更新的唯一的方式：提交mutation
+
+Mutation主要包含两个部分：
+
+1. 字符串的事件类型:type
+
+2. 一个回调函数(handler):该回调函数的第一个参数就是state
+
+mutation的定义方式
+
+```javascript
+ mutations: {
+    // increment称为事件类型，后面的部分称为回调函数，state是回调函数的第一个参数
+    increment(state) {
+      state.counter++;
+    }
+  },
+```
+
+mutation的调用方式：$store.commit("事件类型")
+
+```javascript
+    addition() {
+      this.$store.commit("increment");
+    }
+```
+
+通过mutation修改state状态，如果需要传递参数，可以通过为commit方法添加参数的方式实现：
+
+commit方法第一个参数为事件类型，第二个参数就是要传递的参数，也称为mutation的payload(载荷)
+
+```javascript
+// 通过commit mutation的方法添加学生：对象数据
+addStudent() {
+    const student = {
+    id: 108,
+    name: "Iverson",
+    age: 29
+    };
+    this.$store.commit("addStudent", student);
+}
+
+// 接收数据
+// store.js
+  mutations: {
+    // addStudent称为事件类型，后面的部分称为回调函数，state是回调函数的第一个参数,stu位传递过来的参数，可以是对象类型数据，也可以是基本类型数据
+    addStudent(state, stu) {
+      state.students.push(stu);
+    },
+  },
+```
+
+**mutation中的代码示例**
+
+```javascript
+    increment(state) {
+      state.counter++;
+    },
+    decrement(state) {
+      state.counter--;
+    },
+    incrementCount(state, count) {
+      state.counter += count;
+    },
+    addStudent(state, stu) {
+      state.students.push(stu);
+    },
+```
+
+提交mutation时可以携带参数，参数可以是基本的数据类型，也可以是对象类型
+
+```javascript
+    incrementCount(state, count) {
+      state.counter += count;
+    },
+    addStudent(state, stu) {
+      state.students.push(stu);
+    }
 ```
