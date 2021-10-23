@@ -227,6 +227,12 @@ class App extends React.Component {
 ReactDOM.render(<App title="..." />, document.getElementById("root"));
 ```
 
+类组件，一定要实现render函数。
+
+React.Componnet是一个抽象类，所以实现的时候必须要实现抽象类中的方法。
+
 ### 4.3 更老的一种方法
+
+在2015年以前ES6标准还没有发布的时候，React通过创建类的方法做了实现。
 
 ### 4.4 组件的组合、嵌套
