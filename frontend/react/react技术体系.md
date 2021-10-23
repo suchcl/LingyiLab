@@ -94,11 +94,138 @@ React两个优势：
 
 ## 三、编写第一个React应用
 
+通过脚手架搭建的项目，先把src下面的文件全部删除掉。
+
+1. src下新建入口文件：index.js  必须是这个文件名，不可改
+
+   react可以做两件事：
+
+   1. 基于浏览器的web项目
+   2. 开发原生的app：native
+
+   入口文件中，先把需要使用到的react核心的文件导入
+
+   ```javascript
+   // React变量名按照规范，首字母要大写，但不是技术上一定要这样
+   import React from "react";
+   /**
+    * react可以做基于浏览器的web项目，也可以做native，也就是app
+    * 如果是做基于浏览器的web项目，则需要导入react-dom
+    * 如果是做native，则需要导入react-native
+    */
+   import ReactDOM from "react-dom";
+   ```
+
+2. 简单的做一个小小的封装
+
+   ```javascript
+   // index.js 入口文件，必须是这个文件名
+   // React变量名按照规范，首字母要大写，但不是技术上一定要这样
+   // import React from "react";
+   /**
+    * react可以做基于浏览器的web项目，也可以做native，也就是app
+    * 如果是做基于浏览器的web项目，则需要导入react-dom
+    * 如果是做native，则需要导入react-native
+    */
+   import ReactDOM from "react-dom";
+   import App from "./app";
+   
+   /**
+    * render函数渲染一个模板，也就是段DOM结构
+    * 但要注意这段DOM结构外面不要使用引号包裹，这段代码，就是jsx
+    * react实现的核心：告诉render函数要渲染什么，以及渲染到哪里，就完成了react的使命了
+    */
+   ReactDOM.render(
+     //   App, // 这里直接App，是不可以的，因为App本身是一个class，而render需要的是一个组件，直接将App按照组件的方式写就可以了，按照组件的方式写，本质上就是一个类实例化的过程
+     <App />,
+     // document.getElementById("root")
+     document.querySelector("#root")
+   );
+   
+   // app.js 定义了一个class类组件
+   import React from "react";
+   
+   class App extends React.Component {
+     render() {
+       return <div>Hello,经过封装后的jsx组件</div>;
+     }
+   }
+   
+   export default App;
+   ```
+
 ## 四、元素与组件
 
 ### 4.1 函数式组件
 
+jsx语法中显示变量，使用一对大括号包裹变量，Vue中使用两对大括号包裹变量
+
+```javascript
+import React from "react";
+import ReactDOM from "react-dom";
+
+// ReactDOM.render(
+//   /**
+//    * 这种方式可以让render函数将组件渲染到指定的元素上
+//    * 但是假如我想给组件传递参数的时候怎么办呢？现在的jsx是做不到的
+//    * 可以把jsx抽离出去，抽离成一个函数，然后函数返回jsx，然后render函数中通过执行抽离出去的函数，这个函数就叫做组件函数
+//    * 看下面的代码案例
+//    */
+//   <div>Hello, React</div>, // jsx
+//   document.getElementById("root")
+// );
+
+const app = (props) => {
+  return <div>Hello,新世界{props}</div>; // jsx中使用一对大括号包裹变量
+};
+
+ReactDOM.render(app("!!!"), document.getElementById("root"));
+```
+
+React中：
+
+HTML元素，也称为React元素，React元素使用小驼峰的命名方式(camel-case)，即首字母小写
+
+React组件，使用大驼峰的命名方式(pascal-case)，即首字母大写
+
+```javascript
+const App = (props) => {
+  let title = props.title;
+  let name = props.name;
+  return (
+    <div>
+      Hello,{name}
+      {title}
+    </div>
+  );
+};
+
+// ReactDOM.render(app("!!!"), document.getElementById("root")); // 组件app()方式，还可以通过<app></app>方式编码
+
+ReactDOM.render(
+  <App title="." name="Nicholas" />,
+  document.getElementById("root")
+);
+```
+
 ### 4.2 class组件
+
+函数式组件，可以通过给函数传参的方式传递props，那么类组件呢，怎么传递props？
+
+类组件，是把props直接绑定到了class上面，可以通过this.props拿到当前class上的props。
+
+```javascript
+/**
+ * props默认可以绑定到class上，然后通过this.props获取到当前class上关联的props
+ */
+class App extends React.Component {
+  render() {
+    return <div>Hello,Cookie{this.props.title}</div>;
+  }
+}
+
+ReactDOM.render(<App title="..." />, document.getElementById("root"));
+```
 
 ### 4.3 更老的一种方法
 
