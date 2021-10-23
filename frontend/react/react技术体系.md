@@ -414,3 +414,88 @@ var obj = {
 
 是先有的虚拟DOM，再有的JSX，React把虚拟DOM转换成了JSX。
 
+## 六、组件中的DOM样式
+
+### 6.1 行内样式
+
+```jsx
+<Fragment>
+    <div style={{ fontSize: "50px", color: "#f20" }}>测试下行内样式</div>
+</Fragment>
+```
+
+行内样式，需要注意react元素的属性值，需要使用大括号包裹
+
+设置行内样式的时候，使用了两层大括号包裹，第一层大括号是React的标识，内层的大括号是css样式的标识；
+
+行内样式还有一种写法，可以把css抽离出去，但是抽离出去的也还是个js对象
+
+```jsx
+import React, { Fragment } from "react";
+
+const userListStyle = {
+  fontSize: "32px",
+  color: "#090",
+  textAlign: "center",
+  listStyle: "none",
+};
+
+class ClassStyle extends React.Component {
+  render() {
+    return (
+      <Fragment>
+        <div style={{ fontSize: "50px", color: "#f20" }}>测试下行内样式</div>
+        <ul style={userListStyle}>
+          <li>Nicholas Zakas</li>
+          <li>Hanmeimmei</li>
+        </ul>
+      </Fragment>
+    );
+  }
+}
+
+export default ClassStyle;
+```
+
+这也是一种行内的样式，但是已经把css部分给提取出去了一个js对象，看上去好像干净了一些。
+
+### 6.2 使用class
+
+### 6.3 不同的条件添加不同的样式
+
+### 6.4 css-in-js
+
+## 七、组件的数据加载方式
+
+### 7.1 属性
+
+#### 7.1.1 设置组件默认的props
+
+#### 7.1.2 props.children
+
+#### 7.1.3 使用prop-types检查props
+
+### 7.2 状态
+
+#### 7.2.1 定义state
+
+#### 7.2.2 setState
+
+### 7.3 属性VS状态
+
+### 7.4 状态提升
+
+### 7.5 受控组件与非受控组件
+
+### 7.6 渲染数据
+
+### 八、事件处理
+
+8.1 绑定事件
+
+8.2 事件handle的写法
+
+8.3 EVent对象
+
+8.4 事件的参数传递
+
