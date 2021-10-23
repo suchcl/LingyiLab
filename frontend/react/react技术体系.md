@@ -6,7 +6,14 @@
 - [二、关于React](#二关于react)
   - [2.1 React的起源和发展](#21-react的起源和发展)
   - [2.2 React与传统MVC的关系](#22-react与传统mvc的关系)
+  - [2.3 React高性能的体现：虚拟DOM](#23-react高性能的体现虚拟dom)
+  - [2.4 React的特点和优势](#24-react的特点和优势)
 - [三、编写第一个React应用](#三编写第一个react应用)
+- [四、元素与组件](#四元素与组件)
+  - [4.1 函数式组件](#41-函数式组件)
+  - [4.2 class组件](#42-class组件)
+  - [4.3 更老的一种方法](#43-更老的一种方法)
+  - [4.4 组件的组合、嵌套](#44-组件的组合嵌套)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
