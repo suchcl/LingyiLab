@@ -242,4 +242,175 @@ React.Componnet是一个抽象类，所以实现的时候必须要实现抽象�
 
 在2015年以前ES6标准还没有发布的时候，React通过创建类的方法做了实现。
 
+react文档，有一节给我们讲解了，不使用ES6去创建class组件的，现在项目中基本不会使用这种方式。
+
 ### 4.4 组件的组合、嵌套
+
+react中的组建组合、嵌套，只有父子组价之间的关系，没有像Vue中的内容分发机制slot。
+
+react中，一切的一切都是js，所有的内容都是js。
+
+```jsx
+// 入口文件：index.js
+import ReactDOM from "react-dom";
+import App from "./Nest";
+
+ReactDOM.render(<App />, document.getElementById("root"));
+
+// 组件文件：Nest.js
+import React from "react";
+
+class Header extends React.Component {
+  render(props) {
+    return <div>{this.props.content}</div>;
+  }
+}
+
+class Content extends React.Component {
+  render(props) {
+    return <div>{this.props.content}</div>;
+  }
+}
+
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <Header content="我是传递过来的header"></Header>
+        <Content content="我是传递过来的content"></Content>
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
+React中的组价，和Vue3之前的组件系统相同，组件中需要有一个根节点。我们可以从案例代码中的App组件中看到组件的根节点为div。
+
+使用div作为组件的根节点，从技术实现上是没有问题的，但是这个元素没有什么实际的意义，仅仅是作为一个占位元素存在，可是它确带来了一些负面的影响，就是增加了元素的层级，增加了元素的渲染时长。那有没有办法可以减少这一占位的层级呢？
+
+Vue中的组件根节点有一个template元素占位符，不会被渲染到DOM中。
+
+React中，也有一个元素，有类似Vue中template元素的作用，就是Fragments。Fragments允许我们向其中添加多个组件列表而不需要向DOM中添加额外的DOM节点。使用的时候，需要从react中导入一下:
+
+```jsx
+// 注意导入Fragment，直接解构了
+import React, { Fragment } from "react";
+
+class Header extends React.Component {
+  render(props) {
+    return <div>{this.props.content}</div>;
+  }
+}
+
+class Content extends React.Component {
+  render(props) {
+    return <div>{this.props.content}</div>;
+  }
+}
+
+class App extends React.Component {
+  render() {
+    return (
+      // Fragment可以包裹多个子组件而不会向DOM添加额外的元素
+      <Fragment>
+        <Header content="我是传递过来的header"></Header>
+        <Content content="我是传递过来的content"></Content>
+      </Fragment>
+    );
+  }
+}
+
+export default App;
+```
+
+可看效果图：
+
+![使用Fragment包裹的组件，直接被渲染到了根节点root下，Fragment并没有被渲染到DOM中](./images/i1.png)
+
+Fragment有一个语法糖，就是在React组件中使用Fragment作为根节点的时候，Fragment可以省略，只留一个空的尖括号,然后也不用导入Fragment了。
+
+```jsx
+// 注意导入Fragment，直接解构了
+// Fragment作为根节点的时候，可以省略，只留一对尖括号,这时，Fragment也不用导入了
+import React, { Fragment } from "react";
+
+class Header extends React.Component {
+  render(props) {
+    return <div>{this.props.content}</div>;
+  }
+}
+
+class Content extends React.Component {
+  render(props) {
+    return <div>{this.props.content}</div>;
+  }
+}
+
+class App extends React.Component {
+  render() {
+    return (
+      // Fragment可以包裹多个子组件而不会向DOM添加额外的元素
+      // <Fragment>也可以省略不写，只留一个尖括号<>
+      <>
+        <Header content="我是传递过来的header2"></Header>
+        <Content content="我是传递过来的content2"></Content>
+      </>
+    );
+  }
+}
+
+export default App;
+```
+
+### 4.5 小结
+
+函数式组件、class组件，都可以编写react组件，之前class组件稍微多，现在基本都使用函数式组件了
+
+React元素，React元素使用小驼峰的命名方式(camel-case)，即首字母小写
+
+React组件，使用大驼峰的命名方式(pascal-case)，即首字母大写
+
+## 五、JSX原理
+
+Jsx：即js扩展。
+
+要理解jsx原理，可以想象一下怎么用一个JS对象去描述一段DOM结构。可以先看一段DOM结构：
+
+```html
+<div class="app" id="appRoot">
+    <h1 class="title">这是一个模块标题</h1>
+    <p>React是一个非常不错的UI库，用于构建用户界面</p>
+</div>
+```
+
+然后想一下怎么使用一个JS对象去描述这段DOM结构：
+
+```javascript
+var obj = {
+    tag: "div",
+    attrs: { className: "app", id: "appRoot" },
+    children: [
+        {
+            tag: "h1",
+            attrs: { className: "title" },
+            children: ["这是一个模块标题"]
+        },
+        {
+            tag: "p",
+            attrs: null,
+            children: ["React是一个非常不错的UI库，用于构建用户界面"]
+        }
+    ]
+}
+```
+
+这种js表示DOM结构的这个JS对象，称为虚拟DOM。
+
+如果有数据变化的时候，我们只替换被修改的那个小部分，而不用整个对象全部替换、重新渲染，所以虚拟DOM，在一定程度上，性能是优秀的。
+
+虽然虚拟DOM，也就是这段JS表示的DOM结构的对象，在性能上是优秀的，但是代码写起来不够友好，复杂、可读性不太好，React就帮我们把这段Js对象描述成了一段类似DOM的结构，就是JSX，基本的标签还可以是HTML标签，只是一些属性名有些变化，理解以及可读性都有了很大的改善。
+
+是先有的虚拟DOM，再有的JSX，React把虚拟DOM转换成了JSX。
+
