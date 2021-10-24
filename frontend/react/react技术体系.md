@@ -14,6 +14,26 @@
   - [4.2 class组件](#42-class组件)
   - [4.3 更老的一种方法](#43-更老的一种方法)
   - [4.4 组件的组合、嵌套](#44-组件的组合嵌套)
+  - [4.5 小结](#45-小结)
+- [五、JSX原理](#五jsx原理)
+- [六、组件中的DOM样式](#六组件中的dom样式)
+  - [6.1 行内样式](#61-行内样式)
+  - [6.2 使用class](#62-使用class)
+  - [6.3 不同的条件添加不同的样式](#63-不同的条件添加不同的样式)
+  - [6.4 css-in-js](#64-css-in-js)
+- [七、组件的数据加载方式](#七组件的数据加载方式)
+  - [7.1 属性](#71-属性)
+    - [7.1.1 设置组件默认的props](#711-设置组件默认的props)
+    - [7.1.2 props.children](#712-propschildren)
+    - [7.1.3 使用prop-types检查props](#713-使用prop-types检查props)
+  - [7.2 状态](#72-状态)
+    - [7.2.1 定义state](#721-定义state)
+    - [7.2.2 setState](#722-setstate)
+  - [7.3 属性VS状态](#73-属性vs状态)
+  - [7.4 状态提升](#74-状态提升)
+  - [7.5 受控组件与非受控组件](#75-受控组件与非受控组件)
+  - [7.6 渲染数据](#76-渲染数据)
+  - [八、事件处理](#八事件处理)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -459,11 +479,117 @@ export default ClassStyle;
 
 这也是一种行内的样式，但是已经把css部分给提取出去了一个js对象，看上去好像干净了一些。
 
+行内样式也称为动态样式，即只有在代码运行到了这一行的时候才会去加载、执行样式。
+
 ### 6.2 使用class
+
+react中，除了使用行内样式以外，也可以像普通的网页那样，引入一个外部的样式文件，这种方式称为静态加载，指的是页面在加载的时候，就已经把样式给加载了进来。
+
+```jsx
+import React from "react";
+// 导入外部样式
+import "./assets/css/main.css";
+
+class OuterCss extends React.Component {
+  render() {
+    return (
+      <>
+        {/**通过class设置样式，注意这是在jsx，属于React元素，react元素遵循cacel-case的命名方式，即小驼峰命名 */}
+        <div className="userinfo">
+          <p>姓名：Nicholas Zakas</p>
+          <p>年龄：26</p>
+        </div>
+      </>
+    );
+  }
+}
+
+export default OuterCss;
+```
 
 ### 6.3 不同的条件添加不同的样式
 
+在Vue中，组件中的样式有scoped属性，style添加了scoped属性后，就只能对本组件内的元素生效，不会污染全局的样式。
+
+那么在React中有没有类似的属性也实现类似的效果呢？React没有提供类似的功能。
+
+那么想实现类似的功能怎么处理呢？推荐使用classnames这个包，来帮助我们实现类似vue中styles的scoped功能。
+
+这种方式使用的很少，有兴趣的参考https://www.npmjs.com/package/classnames看下就可以了，很简单。
+
 ### 6.4 css-in-js
+
+这种方式式最常用的，最推荐使用的。
+
+这种方式，需要依赖styled-components包，styled-components是针对react写的一套css-in-js框架，简单来讲就是在js中写css，把css当做是组件，react的思想，就是一切皆组件。
+
+使用styled-components:
+
+1. 安装
+
+   ```bash
+   npm install styled-components --save
+   ```
+
+2. 导入使用
+
+   ```jsx
+   import styled from "styled-components";
+   
+   const DivContainer = styled.div`
+      {
+       /**样式的属性名，可以完全按照css的规则去写，也可以按照React元素的规则去写，即小驼峰的命名规范 */
+     }
+     ${"" /* fontsize: 32px; */}
+     font-size: 50px;
+     color: #6f9;
+   `;
+   
+   export default DivContainer;
+   ```
+
+   这样声明了一个使用了styled-components的react组件，组件定义了组件的根元素div，以及根元素的一些样式。
+
+3. 案例
+
+   ```jsx
+   // 定义styled-components组件
+   import styled from "styled-components";
+   
+   const DivContainer = styled.div`
+      {
+       /**样式的属性名，可以完全按照css的规则去写，也可以按照React元素的规则去写，即小驼峰的命名规范 */
+     }
+     ${"" /* fontsize: 32px; */}
+     font-size: 50px;
+     color: #6f9;
+   `;
+   
+   export default DivContainer;
+   
+   // 导入styled-components组件，并使用
+   import DivContainer from "./StyledComponents";
+   class ClassStyle extends React.Component {
+     render() {
+       return (
+         <Fragment>
+           {/* 使用styled-components组件 */}
+           <DivContainer>styled-components</DivContainer>
+         </Fragment>
+       );
+     }
+   }
+   
+   export default ClassStyle;
+   ```
+
+   我不太喜欢、认可这种代码组织形式，虽然react推崇的一切皆组件，但是这种方式，我认为确实增加了编码的复杂程度，而且不容易理解，代码组织的较为混乱。
+
+   我还是最喜欢的将样式部分抽离成一个文件，可以通过一些技术手段实现样式的模块化，将样式和逻辑分离。
+
+   styled-components其实还实现了另外一个功能，就是混淆了class，一般不会发生class选择器的命名冲突问题。
+
+   ![styled-components解决了命名冲突问题](./images/i2.png)
 
 ## 七、组件的数据加载方式
 
