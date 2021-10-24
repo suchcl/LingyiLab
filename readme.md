@@ -120,6 +120,6 @@
 
 | URL                              | 提交次数 | 日期       |
 | -------------------------------- | -------- | ---------- |
-| https://github.com/WindrunnerMax | 723      | 2021.10.22 |
-| https://github.com/suchcl        | 506      | 2021.10.22 |
+| https://github.com/WindrunnerMax | 725      | 2021.10.22 |
+| https://github.com/suchcl        | 519      | 2021.10.22 |
 |                                  |          |            |

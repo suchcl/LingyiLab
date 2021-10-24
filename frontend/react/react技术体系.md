@@ -595,7 +595,106 @@ export default OuterCss;
 
 ### 7.1 属性
 
+函数式组件，又称为无状态组件（无自主状态）。
+
+函数式组件，占用的内存空间更小
+
+组件只是为了渲染数据，则可以使用函数式组件；如果组件中有复杂的业务逻辑，则可以使用类组件。
+
+```jsx
+// import React from "react";
+
+/**
+ * 这是一个类组件
+ * 这个类组件的数据完全是从外部传入的
+ * 当一个类组件的数据完全从外部传入的时候，就可以不使用类组件了，可以使用函数式组件，可以看下面的函数式组件案例
+ */
+// class Child extends React.Component {
+//   render() {
+//     return <div>我是{this.props.title}</div>;
+//   }
+// }
+
+/**
+ * 这个函数式组件和上面的类组件功能相同，只不过函数式组件中不用实现render函数，也可以使用箭头函数
+ * 函数式组件，是无状态组件(不是没有状态，是没有自主状态)
+ * @param {*} props
+ * @returns {jsx}
+ */
+// function Child(props) {
+//   return <div>我是{props.title}</div>;
+// }
+
+/**
+ * 箭头函数实现函数式组件
+ */
+const Child = (props) => {
+  return <div>我是{props.title}</div>;
+};
+
+export default Child;
+```
+
 #### 7.1.1 设置组件默认的props
+
+类组件通过给类设置静态属性的方式为组件设置默认值（props）：静态属性只有类可以调用，类的实例对象不能调用；
+
+```jsx
+import React from "react";
+
+class Child extends React.Component {
+  // 添加静态属性，设置组件的默认值
+  static defaultProps = {
+    title: "Nicholas Zakas，default value",
+  };
+  render() {
+    return <div>我是{this.props.title}</div>;
+  }
+}
+
+export default Child;
+```
+
+类中的静态属性，可以写在类的内部，因为静态属性只有类可以调用，所以静态属性写在类的外部，也是可以的：
+
+```jsx
+import React from "react";
+
+class Child extends React.Component {
+  // 添加静态属性，设置组件的默认值，静态属性可以写在类的内部，也可以写类的外部，因为静态属性只有类可以调用
+  //   static defaultProps = {
+  //     title: "Nicholas Zakas，default value",
+  //   };
+  render() {
+    return <div>我是{this.props.title}</div>;
+  }
+}
+
+// 写在类外部的静态属性，也可以实现组件默认值的设置
+Child.defaultProps = {
+  title: "我是子组件最新的默认值",
+};
+
+export default Child;
+```
+
+函数式组件默认值的设置：
+
+因为类组件，最终还是会被编译位ES5标准的代码，所以我们可以理解为类组件的本质还是ES5代码的语法糖，那么我们是不是可以直接给函数式 组件的函数设置默认属性呢？可以尝试一下：
+
+```jsx
+function Child(props) {
+  return <div>我是函数式组件，值为{props.title}</div>;
+}
+
+Child.defaultProps = {
+  title: "我是函数式组件的默认值",
+};
+
+export default Child;
+```
+
+实现了函数式组件默认值的设置
 
 #### 7.1.2 props.children
 
@@ -617,11 +716,36 @@ export default OuterCss;
 
 ### 八、事件处理
 
-8.1 绑定事件
+### 8.1 绑定事件
 
-8.2 事件handle的写法
+### 8.2 事件handle的写法
 
-8.3 EVent对象
+### 8.3 EVent对象
 
-8.4 事件的参数传递
+### 8.4 事件的参数传递
 
+### 8.5 处理用户输入
+
+## 九、表单
+
+### 9.1 受控组件
+
+### 9.2 textarea标签
+
+### 9.3 select标签
+
+### 9.4 处理多个输入
+
+### 9.5 文件input标签
+
+### 9.6 受控输入空值
+
+### 9.7 非受控组件
+
+#### 9.7.1 默认值
+
+#### 9.7.2 文件输入
+
+## 十、组件的声明周期
+
+### 10.1 初始化
