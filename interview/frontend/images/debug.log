@@ -3,3 +3,19 @@
 [1026/141602.966:INFO:crash_reporting.cc(219)] Crash reporting enabled for process: gpu-process
 [1026/141603.613:INFO:crash_reporting.cc(219)] Crash reporting enabled for process: utility
 [1026/141802.973:INFO:crash_reporting.cc(219)] Crash reporting enabled for process: gpu-process
+[1026/150230.152:WARNING:angle_platform_impl.cc(45)] compileToBinary(256): 
+C:\fakepath(40,7-55): warning X3571: pow(f, e) will not work for negative f, use abs(f) or conditionally handle negative values if you expect them
+C:\fakepath(52,8-40): warning X3571: pow(f, e) will not work for negative f, use abs(f) or conditionally handle negative values if you expect them
+
+[1026/150230.798:WARNING:angle_platform_impl.cc(45)] compileToBinary(256): 
+C:\fakepath(60,7-55): warning X3571: pow(f, e) will not work for negative f, use abs(f) or conditionally handle negative values if you expect them
+C:\fakepath(72,8-40): warning X3571: pow(f, e) will not work for negative f, use abs(f) or conditionally handle negative values if you expect them
+
+[1026/150230.830:WARNING:angle_platform_impl.cc(45)] compileToBinary(256): 
+C:\fakepath(75,10-46): warning X3571: pow(f, e) will not work for negative f, use abs(f) or conditionally handle negative values if you expect them
+C:\fakepath(98,10-46): warning X3571: pow(f, e) will not work for negative f, use abs(f) or conditionally handle negative values if you expect them
+
+[1026/150231.096:WARNING:angle_platform_impl.cc(45)] compileToBinary(256): 
+C:\fakepath(117,10-46): warning X3571: pow(f, e) will not work for negative f, use abs(f) or conditionally handle negative values if you expect them
+C:\fakepath(140,10-46): warning X3571: pow(f, e) will not work for negative f, use abs(f) or conditionally handle negative values if you expect them
+
