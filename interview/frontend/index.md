@@ -31,6 +31,8 @@
 7. [nextTick原理](./vue/nextTick原理.md)
 8. [虚拟DOM](./vue/虚拟DOM.md)
 9. [vue-router异步加载原理](./vue/vue-router异步加载原理.md)
+10. [双DOM树怎么处理]()
+11. []
 
 ## webpack
 
