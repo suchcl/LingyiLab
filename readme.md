@@ -74,6 +74,8 @@
 
 10. [markdown文件生成目录](./Hodgepodge/markdown生成目录.md)
 
+11. [vscode推荐](./Hodgepodge/vscode工具使用秘籍.md)
+
 ### 面试
 1. [前端相关](interview/frontend/index.md)
 
