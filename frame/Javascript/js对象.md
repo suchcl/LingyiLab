@@ -4,7 +4,7 @@
 
 Object是js中最常用的类型之一，Object本身没有多少功能，但是比较适合存储在和应用之间的交换数据。
 
-**创建对象有两种方式：**
+#### 1. 显示的创建Object对象有两种方式：
 
 1. 使用new操作符和Object的构造函数。
 
@@ -50,11 +50,11 @@ Object是js中最常用的类型之一，Object本身没有多少功能，但是
 
    > 注意，当是数字属性是，不是说可以使用中括号的方式读取属性，而是只能是通过中括号的方式读取属性，不能通过点语法去读取属性。
    >
-   > 在使用对象字面量方式创建函数时，并不会实际调用Object构造函数
+   > 在使用对象字面量方式创建函数时，并不会实际调用Object构造函数  -----  理论上来说，使用对象字面量的方式创建对象不会调用Object的构造函数，但是字面量对象的constructor实际指向了Object的构造函数
 
    对象字面量的属性，可以加引号，也可以不加引号；
 
-**属性的读取**
+#### 2. 属性的读取
 
 js中，对象读取属性有两种方式：
 
@@ -114,13 +114,9 @@ js中，对象读取属性有两种方式：
 
 只有函数有prototype，对象没有
 
-**使用构造函数创建对象和使用字面量方式创建对象的区别？**
+#### 3.  使用构造函数创建对象和使用字面量方式创建对象的区别？
 
 两种创建对象的方法都可以创建对象，但在实践中，更加倾向于使用对象字面量的方式。
-
-
-
-
 
 **上下文**
 
@@ -144,3 +140,78 @@ if (true) {
 ```
 
 这里面就是一个语句上下文。
+
+#### 4. 创建对象的方式
+
+这里说的创建对象，不仅仅指Object对象，而是任意的自定义对象。
+
+##### 4.1使用Object构造函数方式创建
+
+```javascript
+// 使用Object构造函数创建对象
+let Person = new Object();
+Person.name = "Nicholas Zakas";
+Person.age = 21;
+Person["job"] = "Teacher";
+console.log(Person.name); // Nicholas Zakas
+console.log(Person.constructor); // f Object() 构造函数
+console.log(Person["job"]); // 通过中括号语法读取属性
+```
+
+##### 4.2 使用对象字面量方式创建
+
+```javascript
+// 对象字面量方式创建对象
+let p = {
+    name: "Nicholas Zakas",
+    age: 18
+};
+console.log(p.constructor); // f Objct()  使用对象字面量创建对象，并不会实际调用Object的构造函数，那么为什么constructor指向了Object的构造函数
+console.log(p.name); // Nicholas Zakas
+```
+
+有一个地方没有想明白，就是创建字面量对象并不会调用Object构造函数，但是字面量对象的constructor却指向了Object的构造函数，没有想明白这个道理。
+
+##### 4.3 工厂模式
+
+```javascript
+// 工厂模式创建对象
+function createPerson(name, age, job) {
+    let obj = new Object();
+    obj.name = name;
+    obj.age = age;
+    obj.job = job;
+    obj.getName = function () {
+        return this.name;
+    }
+    return obj;
+}
+
+let p1 = createPerson("Nicholas Zakas", 26, "Teacher");
+console.log(p1.getName); // Nicholas Zakas
+console.log(p1.constructor); // f Object
+```
+
+工厂模式，可以创建多个类似的对象，但是这些对象不知道是属于哪个具体的类，这些对象时什么类型的，现在只能是知道是Object类型的，并不知道具体的类型，如Person还是Animal等。
+
+##### 4.4 构造函数模式
+
+> 小常识：函数名问题，一般情况下，构造函数的函数名一般首字母大写，非构造函数的函数名首字母小写。
+
+```javascript
+// 构造函数模式
+function Person(name, age) {
+    this.name = name;
+    this.age = age;
+    this.getName = function () {
+        return this.name;
+    }
+}
+
+let p = new Person("Nicholas Zakas", 17);
+console.log(p.getName());
+```
+
+
+
+##### 4.5 原型模式
