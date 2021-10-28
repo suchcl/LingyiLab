@@ -25,6 +25,7 @@
 14. [软件工程](./frontend/软件工程/软件工程.md)
 15. [webpack](./fontend/../frontend/webpack/index.md)
 16. [性能优化](./frontend/performance/index.md)
+17. [前端开发规范细则](./frontend/软件工程/开发规范.md)
 
 
 ### 服务器知识
