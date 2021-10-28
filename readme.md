@@ -87,6 +87,8 @@
 
 5. [我的面试方法](./interview/我的面试方法.md)
 
+6. [题库](./interview/all/index.md)
+
 ### 常见效果收集
 1.[ant-vue-design时间控件快捷筛选时间范围，可选择今天、昨天、最近一周、最近2周、最近1个月、3个月、半年](./se/antVueRange.md)
 
