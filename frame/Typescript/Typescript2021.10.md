@@ -6,7 +6,7 @@ Typescript主要解决了Javascript类型系统不足的问题。
 
 可以大大提高代码的可靠程度
 
-####　Javascript自有类型的问题
+#### Javascript自有类型的问题
 
 
 
