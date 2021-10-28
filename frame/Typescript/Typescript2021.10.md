@@ -1,3 +1,25 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+    - [Typescript简单认识](#typescript%E7%AE%80%E5%8D%95%E8%AE%A4%E8%AF%86)
+    - [Javascript自有类型的问题](#javascript%E8%87%AA%E6%9C%89%E7%B1%BB%E5%9E%8B%E7%9A%84%E9%97%AE%E9%A2%98)
+- [类型系统](#%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F)
+  - [1. 强类型与弱类型 ---- 类型安全](#1-%E5%BC%BA%E7%B1%BB%E5%9E%8B%E4%B8%8E%E5%BC%B1%E7%B1%BB%E5%9E%8B------%E7%B1%BB%E5%9E%8B%E5%AE%89%E5%85%A8)
+  - [2. 静态类型与动态类型 ---- 类型检查](#2-%E9%9D%99%E6%80%81%E7%B1%BB%E5%9E%8B%E4%B8%8E%E5%8A%A8%E6%80%81%E7%B1%BB%E5%9E%8B------%E7%B1%BB%E5%9E%8B%E6%A3%80%E6%9F%A5)
+  - [3. Javascript自有类型系统的问题](#3-javascript%E8%87%AA%E6%9C%89%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F%E7%9A%84%E9%97%AE%E9%A2%98)
+    - [1. 弱类型的不足 or 问题](#1-%E5%BC%B1%E7%B1%BB%E5%9E%8B%E7%9A%84%E4%B8%8D%E8%B6%B3-or-%E9%97%AE%E9%A2%98)
+    - [2. 强类型的优势](#2-%E5%BC%BA%E7%B1%BB%E5%9E%8B%E7%9A%84%E4%BC%98%E5%8A%BF)
+  - [4. Flow静态类型检查方案](#4-flow%E9%9D%99%E6%80%81%E7%B1%BB%E5%9E%8B%E6%A3%80%E6%9F%A5%E6%96%B9%E6%A1%88)
+  - [5. Typescript语言规范与基本应用](#5-typescript%E8%AF%AD%E8%A8%80%E8%A7%84%E8%8C%83%E4%B8%8E%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8)
+    - [5.1 函数](#51-%E5%87%BD%E6%95%B0)
+    - [5.2 Ts中的类](#52-ts%E4%B8%AD%E7%9A%84%E7%B1%BB)
+      - [5.2.1 ES5实现类的方式](#521-es5%E5%AE%9E%E7%8E%B0%E7%B1%BB%E7%9A%84%E6%96%B9%E5%BC%8F)
+      - [5.2.2 类中的静态方法](#522-%E7%B1%BB%E4%B8%AD%E7%9A%84%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95)
+      - [5.2.3 ES5中的继承](#523-es5%E4%B8%AD%E7%9A%84%E7%BB%A7%E6%89%BF)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ###　概要
 
 #### Typescript简单认识
