@@ -1,3 +1,11 @@
+<!--
+ * @Author: suchcl
+ * @Date: 2021-03-22 09:17:56
+ * @LastEditTime: 2021-10-29 13:57:32
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \LingyiLab\interview\frontend\index.md
+-->
 0. [import、require的区别](./import和require区别.md)
 1. [实现水平、垂直居中效果](实现水平、垂直居中效果.md)
 2. [你对vue是怎么理解的](./vue/vue的理解.md)
@@ -32,7 +40,7 @@
 8. [虚拟DOM](./vue/虚拟DOM.md)
 9. [vue-router异步加载原理](./vue/vue-router异步加载原理.md)
 10. [双DOM树怎么处理]()
-11. []
+11. [SPA页面首屏渲染慢怎么办？](./vue/首屏渲染性能优化.md)
 
 ## webpack
 
