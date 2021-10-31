@@ -6287,3 +6287,34 @@ addStudent() {
       state.students.push(stu);
     }
 ```
+
+**mutation的提交风格**
+
+上面的案例，已经可以正常提交mutation了，但是还有另外一种提交mutation的方式
+
+```javascript
+this.$store.commit({
+    type: "incrementCount",
+    count // 这种方式，表示这是一种简写方法，是es6的增强写法，key和value同名了
+});
+```
+
+提交方式变了后，mutation中的处理方式，是把commit的对象作为payload使用，所以mutation中接收事件的地方也有个改变：
+
+```javascript
+incrementCount(state, count) {
+    console.log(count);
+    state.counter += count.count; // 一眼就看出来了，这里把原来的count改成了count.count
+},
+```
+
+因为提交mutation的地方提交的是一个对象，mutation中接收的地方，第一个参数没有变化，还是state；第二个参数，变了，不再是一个单一的变量了，而是提交的整个对象，所以这个参数名可以更改为payload，所以上述代码可以优化为：
+
+```javascript
+incrementCount(state, payload) {
+    console.log(count);
+    state.counter += payload.count; // 一眼就看出来了，这里把原来的count改成了count.count
+},
+```
+
+这样，代码就合适了。
