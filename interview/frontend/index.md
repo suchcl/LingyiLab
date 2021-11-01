@@ -1,12 +1,3 @@
-<!--
- * @Author: suchcl
- * @Date: 2021-03-22 09:17:56
- * @LastEditTime: 2021-10-29 13:57:32
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \LingyiLab\interview\frontend\index.md
--->
-
 ## Javascript
 
 0. [import、require的区别](./import和require区别.md)
@@ -31,6 +22,7 @@
 19. [对象字面量生成的对象和Object创建的对象的区别](./对象字面量生成的对象和Object创建的对象的区别.md)
 20. [进程与线程的区别](./进程与线程的区别.md)
 21. [浏览器的进程有哪些](./浏览器的进程.md)
+22. [实现一个sleep函数](./sleep.md)
 
 ## Vue
 1. [对vue生命周期的理解](./vue/life.md)
@@ -44,6 +36,7 @@
 9. [vue-router异步加载原理](./vue/vue-router异步加载原理.md)
 10. [双DOM树怎么处理]()
 11. [SPA页面首屏渲染慢怎么办？](./vue/首屏渲染性能优化.md)
+12. [vue项目部署后刷新出现404问题](./vue/vue项目部署后刷新404问题.md)
 
 ## webpack
 
