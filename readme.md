@@ -77,6 +77,8 @@
 
 11. [vscode推荐](./Hodgepodge/vscode工具使用秘籍.md)
 
+12. [windows10C盘突然空间不足](./Hodgepodge/widnows10C盘突然空间不足.md)
+
 ### 面试
 1. [前端相关](interview/frontend/index.md)
 
