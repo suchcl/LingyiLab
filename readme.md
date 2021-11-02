@@ -26,6 +26,7 @@
 15. [webpack](./fontend/../frontend/webpack/index.md)
 16. [性能优化](./frontend/performance/index.md)
 17. [前端开发规范细则](./frontend/软件工程/开发规范.md)
+18. [前端在未来一段时间的发力点](./frontend/软件工程/前端在未来一段时间的发力点.md)
 
 
 ### 服务器知识
