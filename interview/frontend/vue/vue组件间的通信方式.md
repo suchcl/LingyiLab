@@ -46,7 +46,7 @@
 
 **使用场景**
 
-主要用在父子组件之间通信的场景。
+主要用在父子组件之间父组件传递数据给子组件的通信场景。
 
 **使用方式**
 
@@ -120,9 +120,274 @@ props，是vue中最常用的父子组件传值(通信)方式
 
 #### 3.2 通过$emit触发自定义事件
 
+适用场景：父子组件中，子组件向父组件传递数据
 
+适用方案：
+
+1. 子组件通过$emit触发自定义事件，$emit方法接收2个参数：第一个参数为自定义事件名，第二个参数为参数；
+
+2. 父组件通过监听、响应子组件传递过来的自定义事件，实现子组件到父组件的数据传递
+
+   ```vue
+   <!--子组件 Child.vue-->
+   <template>
+       <div>
+           <b>{{ msg }}</b>
+           <p>{{ username }}</p>
+           <p>{{ age }}</p>
+           <p>{{ height }}</p>
+           <button @click="clickHandle">$emit传值</button>
+       </div>
+   </template>
+   
+   <script>
+   export default {
+       data() {
+           return {
+               msg: "子组件"
+           }
+       },
+       props: {
+           username: {
+               type: String,
+               default: "Nicholas Zakas"
+           },
+           age: Number,
+           height: {
+               type: Number,
+               default: 1.98
+           }
+       },
+       methods: {
+           clickHandle() {
+               let user = {
+                   name: "LiLei",
+                   age: 16
+               };
+               /**
+                * $emit提交自定义事件
+                * $emit方法通常会传递2个参数：第一个参数为自定义事件名，第二个参数为子组件向父组件传递的数据
+                */
+               this.$emit("getinfo", user);
+           }
+       }
+   }
+   </script>
+   
+   <!--父组件 Parent.vue-->
+   <template>
+       <div>
+           <b>{{ msg }}</b>
+           <!-- 监听子组件通过$emit定义的自定义事件: getinfo -->
+           <child :username="username" :age="age" :height="height" @getinfo="getUserInfo" />
+       </div>
+   </template>
+   
+   <script>
+   import Child from "./Children.vue";
+   export default {
+       data() {
+           return {
+               msg: "父组件",
+               username: "HanMeimei",
+               age: 18,
+               height: 1.62
+           }
+       },
+       components: {
+           Child
+       },
+       methods: {
+           /**
+            * 响应函数：子组件通过$emit传递过来的自定义事件
+            * 响应函数第一个参数，默认为从子组件传递过来的数据
+            */
+           getUserInfo(data) {
+               let { name, age } = data;
+               console.log(name, age);
+           }
+       }
+   }
+   </script>
+   ```
+
+   
 
 #### 3.3 使用ref
+
+使用方式：
+
+父组件中在使用子组件的时候给子组件设置ref属性
+
+父组件通过this.$refs.子组件中定义的ref属性值来获取子组件的数据、执行子组件中的方法
+
+```vue
+<!--父组件 Parent.vue-->
+<template>
+    <div>
+        <b>{{ msg }}</b>
+        <!-- 监听子组件通过$emit定义的自定义事件: getinfo -->
+        <child
+            :username="username"
+            :age="age"
+            :height="height"
+            @getinfo="getUserInfo"
+            ref="userinfo"
+        />
+        <product
+            :product="product.name"
+            :price="product.price"
+            @priceCommit="getProductInfo"
+            ref="product"
+        />
+        <div class="btn-area">
+            <ul>
+                <li>
+                    <button @click="getUserName">用户信息</button>
+                </li>
+                <li>
+                    <button @click="getProductName">产品信息</button>
+                </li>
+                <li>
+                    <button @click="exeMed">ref执行组件方法</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</template>
+
+<script>
+import Child from "./Children.vue";
+import Product from "./Product.vue";
+export default {
+    data() {
+        return {
+            msg: "父组件",
+            username: "HanMeimei",
+            age: 18,
+            height: 1.62,
+            product: {
+                name: "电脑",
+                price: 2500
+            }
+        }
+    },
+    components: {
+        Child, Product
+    },
+    methods: {
+        /**
+         * 响应函数：子组件通过$emit传递过来的自定义事件
+         * 响应函数第一个参数，默认为从子组件传递过来的数据
+         */
+        getUserInfo(data) {
+            let { name, age } = data;
+            console.log(name, age);
+        },
+        getProductInfo(data) {
+            let { name, price } = data;
+            console.log(name, price);
+        },
+        getUserName() {
+            console.log(this.$refs.userinfo.height);
+        },
+        getProductName() {
+            console.log(this.$refs.product.product);
+        },
+        exeMed() {
+            /**
+             * 通过ref执行子组件中的方法
+             * 注意这个方法要定义在子组件中
+             */
+            this.$refs.product.printLog();
+        }
+    }
+}
+</script>
+
+<!--子组件 Children.vue-->
+<template>
+    <div>
+        <b>{{ msg }}</b>
+        <p>{{ username }}</p>
+        <p>{{ age }}</p>
+        <p>{{ height }}</p>
+        <button @click="clickHandle">$emit传值</button>
+    </div>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+            msg: "子组件"
+        }
+    },
+    props: {
+        username: {
+            type: String,
+            default: "Nicholas Zakas"
+        },
+        age: Number,
+        height: {
+            type: Number,
+            default: 1.98
+        }
+    },
+    methods: {
+        clickHandle() {
+            let user = {
+                name: "LiLei",
+                age: 16
+            };
+            /**
+             * $emit提交自定义事件
+             * $emit方法通常会传递2个参数：第一个参数为自定义事件名，第二个参数为子组件向父组件传递的数据
+             */
+            this.$emit("getinfo", user);
+        }
+    }
+}
+</script>
+<!--子组件 Product.vue-->
+<template>
+    <div>
+        <p>上平名称：{{ product }}}</p>
+        <p>价格：{{ price }}</p>
+        <button @click="priceHandle">价格处理</button>
+    </div>
+</template>
+
+<script>
+export default {
+    data() {
+        return {}
+    },
+    props: {
+        product: {
+            type: String,
+            default: "手机"
+        },
+        price: {
+            type: Number,
+            default: 0
+        }
+    },
+    methods: {
+        priceHandle() {
+            let product = {
+                name: this.product,
+                price: this.price
+            };
+            this.$emit("priceCommit", product);
+        },
+        printLog() {
+            console.log("测试下$refs执行方法");
+        }
+    }
+}
+</script>
+```
 
 #### 3.4 EventBus
 
