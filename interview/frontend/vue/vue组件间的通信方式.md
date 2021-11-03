@@ -536,6 +536,44 @@ Vue内部已经实现了EventBus，在Vue项目中，
 
 #### 3.5 $parent和$root
 
+可以通过$parent执行父组件中的方法，获取父组件中的数据
+
+可以通过$root执行根组件中的方法、获取根组件中的数据
+
+> 通过$parent不能执行跨级中的组件的方法和获取跨级组件的数据
+
+```vue
+<button @click="getParentData">获取父组件中的数据</button>
+<button @click="exeRootFun">执行根组件中的方法</button>
+<script>
+	export default {
+        methods:{
+                    getParentData() {
+            // 获取父组件中的数据
+            console.log(this.$parent.msg);
+        },
+
+        /**
+         * 期望通过$root访问根组件中的属性
+         * 执行根组件中的方法，但是都失败了
+         * 暂时没有找到原因
+         */
+        exeRootFun() {
+            this.$root.showMsg();
+        }
+        }
+    }
+</script>
+```
+
+> 虽然在技术上可以实现子组件访问子组件和根组件，但是优秀的实践不建议这么做。因为这么做提高了子组件和父组件之间的耦合性，会破坏组件之间的复用性。
+>
+> 拆分组件的目标就是为了代码的复用，但是如果子组件通过一些技术方式和父组件绑定到一起了，那么子组件的复用性就会受到破坏，除非做很多的逻辑判断。
+
+> <font color="#f20">vue2，通过脚手架搭建的项目，通过$root访问根组件的属性，执行根组件的方法，都失败了，暂时没有想到原因，懵圈了……</font>
+
+上面简单描述了下$parent和$root访问父组件属性和方法，下面再来阐述通过$parent和$root进行通信。
+
 #### 3.6 attrs和listeners
 
 #### 3.7 Provide和Inject
