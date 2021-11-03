@@ -391,6 +391,149 @@ export default {
 
 #### 3.4 EventBus
 
+适用场景：兄弟组件之间、跨级组件之间
+
+明确一个概念：EventBus，又称“事件总线”
+
+Vue内部已经实现了EventBus，在Vue项目中，
+
+使用方式：
+
+1. 创建事件总线，有两种方式：
+
+   1. 新建一个单独的js文件，如event-bus.js，该文件中也引入Vue
+
+      ```javascript
+      import Vue from "vue";
+      
+      const EventBus = new Vue();
+      
+      export default EventBus;
+      ```
+
+   2. 在项目main.js中直接挂载在Vue的原型上
+
+      ```javascript
+      Vue.prototype.$EventBus = new Vue();
+      ```
+
+      Vue内部实现了EventBus机制，vue中使用EventBus的时候，不用引入单独的EventBus实现包，也不需要自己实现。
+
+      **使用EventBus的一般流程**
+
+      创建EventBus -> 引入EventBus实例 -> 绑定/监听事件 -> 递交/发布事件 -> 销毁监听事件
+
+      > 要注意是同一个页面中的兄弟组件之间、或者跨级的组件之间使用。
+
+      ```vue
+      <!--父组件  C.vue-->
+      <template>
+          <div class="wrapC">
+              <h5>C组件</h5>
+              <A />
+              <B />
+          </div>
+      </template>
+      
+      <script>
+      import A from "./A.vue";
+      import B from "./B.vue";
+      export default {
+          data() {
+              return {}
+          },
+          components: {
+              A, B
+          }
+      }
+      </script>
+      
+      <style>
+      .wrapC {
+          padding: 20px;
+          background-color: azure;
+      }
+      </style>
+      
+      <!--子组件A A.vue-->
+      <template>
+          <div class="wrapA">
+              <h3>组件A</h3>
+              <p>组件A中的数据{{ num }}</p>
+              <button @click="watherEvent">监听事件</button>
+              <Aa />
+          </div>
+      </template>
+      <script>
+      import Aa from "./Aa.vue";
+      export default {
+          data() {
+              return {
+                  num: 0
+              }
+          },
+          components: {
+              Aa
+          },
+          methods: {
+              watherEvent() {
+                  //使用Vue原型链引入
+                  this.$EventBus.$on('getNum', (num) => {
+                      console.log('num', num)
+                      this.num = num * num;
+                  })
+              }
+          }
+      }
+      </script>
+      
+      <!--子组件B B.vue-->
+      <template>
+          <div class="wrapB">
+              <h3>B页面</h3>
+              <button @click="sendMsg">触发事件</button>
+          </div>
+      </template>
+      <script>
+      export default {
+          methods: {
+              sendMsg() {
+                  const num = 2
+                  //使用Vue原型链引入
+                  this.$EventBus.$emit('getNum', num)
+              }
+          }
+      }
+      </script>
+      
+      <!--跨级组件 Aa.vue-->
+      <template>
+          <div class="wrapAa">
+              <h5>组件A的子组件</h5>
+              <p>{{ num }}</p>
+              <button @click="getNum">组件A的子组件监听EventBus通信数据</button>
+          </div>
+      </template>
+      
+      <script>
+      export default {
+          data() {
+              return {
+                  num: 0
+              }
+          },
+          methods: {
+              getNum() {
+                  this.$EventBus.$on("getNum", (info) => {
+                      console.log("组件A的子组件");
+                      this.num = info * 5;
+                  });
+              }
+          }
+      }
+      </script>
+      ```
+
 #### 3.5 $parent和$root
 
 #### 3.6 attrs和listeners

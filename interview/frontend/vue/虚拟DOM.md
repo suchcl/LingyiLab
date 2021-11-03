@@ -48,6 +48,6 @@ var obj = {
 
 ### 3.  怎么实现虚拟DOM
 
-4.小结
+### 4.小结
 
 createElement创建VNode的过程，每个VNode都有children，每个children也是一个VNode，这样就形成了一个虚拟的DOM树，用于描述真实的DOM结构。
