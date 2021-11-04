@@ -6361,5 +6361,55 @@ mutations: {
   }
 ```
 
+**mutation常量类型**
+
+一般情况下，在进行多人的协作或者项目比较大时，mutation方法可能被多出调用了，那么如果一不小心方法名可能会被写错。
+
+Vuex给我们提供了一个思路，就是把mutation的方法名写成常量类型的，就可以大大的减小出错的概率。
+
+> ES6中，允许字面量方式定义对象时，用表达式作为对象的属性名和方法名，即把表达式放在中括号内。
+>
+> 可以参考下ES6中对象字面量对象的扩展语法、计算属性
+
+Vuex中，可以定义一个mutation-types.js文件，存放mutation的常量类型方法名，然后分别在组件和mutation中引入这个mutation-types.js文件，使用里面的常量。
+
+```javascript
+// mutation-types.js
+export const INCREMENT = "increment";
+
+// store.js 中的mutation部分
+// 导入Vue、Vuex
+import Vue from "vue";
+import Vuex from "vuex";
+import {INCREMENT} from '@/store/mutation-types';
+
+ mutations: {
+    // increment称为事件类型，后面的部分称为回调函数，state是回调函数的第一个参数
+    // 使用常量类型来定义mutation
+    [INCREMENT] (state) {
+      state.counter++;
+    },
+ }
+```
+
+组件中使用的时候，就可以直接使用mutation的常量了
+
+```vue
+<script>
+// 导入mutation-types.js，mutation常量
+import { INCREMENT } from "./store/mutation-types";
+export default {
+  name: "App",
+  methods: {
+    addition() {
+      this.$store.commit(INCREMENT);
+    }
+  }
+};
+</script>
+```
+
+
+
 
 
