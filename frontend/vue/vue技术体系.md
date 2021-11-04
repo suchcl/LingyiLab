@@ -6534,5 +6534,130 @@ export default store;
 
 ![action中做异步操作，devtools状态捕获到了state的变化,页面上也响应式的发生改变](./images/i2.png)
 
+##### 18.5.1 组件中派发action参数携带以及回调提示
 
+有一些场景，期望能够在页面中做一些交互，能够改变状态，状态改变结束后给view层一个提示，告知状态改变的结果。
 
+组件中通过dispatch派发action，dispatch方法的第一个参数为要派发的action方法，第二个参数为携带的参数，该参数可以为字符串、函数、对象。
+
+1. 当第2个参数为函数时，我们默认为action中提交(commit时)动作为状态修改成功
+
+   ```vue
+   <!--组件-->
+   <script>
+   	export default {
+           methods:{
+               /**
+                    * 通过action，有异步操作，去修改state
+                    * 第2个参数，可以是函数，可以是字符串，也可以是对象
+                    */
+               updateAthByAction() {
+                   this.$store.dispatch("updateAthDescAction", () => { // 第2个参数为函数
+                       console.log("内部代码已经执行完了");
+                   });
+               },
+           }
+       }
+   </script>
+   ```
+
+   vuex中的处理
+
+   ```javascript
+   // store.js action部分
+   actions: {
+       /**
+        * 修改运动员简介
+        * context:上下文，在vuex中，就可以简单的理解为store对象
+        * action中的方法，默认的第一个参数，不是state了，而是context
+        */
+       updateAthDescAction(context,playload){
+         setTimeout(() => {
+           context.commit(UPDATEATHDESCMUTATION);
+           playload(); // 组件中传递过来的函数，这里直接执行即可
+         },1000);
+       }
+   }
+   ```
+
+2. 当第2个参数为对象时
+
+   ```vue
+   <!--组件-->
+   <script>
+   	export default {
+           methods:{
+               // 下面的代码和上面的代码都是正常且常规的实现，还有另外一种更优雅的实现：Promise
+               updateAthByAction() {
+                 this.$store.dispatch("updateAthDescAction", {
+                   message: "我是组件中携带的参数",
+                   success: () => {
+                     console.log("组件中的代码已经执行完成");
+                   }
+                 })
+               },
+           }
+       }
+   </script>
+   ```
+
+   vuex中的处理
+
+   ```javascript
+   // store.js action部分
+   actions:{
+       // 下面的实现和上面的实现，都是常规且可行的方案，还有一种通过Promsie的优雅的实现方案
+       updateAthDescAction(context,playload){
+         setTimeout(() => {
+           context.commit(UPDATEATHDESCMUTATION);
+           console.log(playload.message); // 组件中传递过来的是对象，可以直接调用
+           playload.success();
+         },1000);
+       }
+   }
+   ```
+
+3. 当第2个参数为字符串时，通过Promise做一些回调
+
+   ```vue
+   <!--组件 做dispatch派发-->
+   <script>
+   	export default {
+           methods:{
+               // promise实现
+               updateAthByAction() {
+                 this.$store
+                     .dispatch("updateAthDescAction", "我从组件携带的参数") // 注意这行代码执行结束后得到的是一个Promise
+                     .then(res => {
+                   console.log(res);
+                 });
+               }
+           }
+       }
+   </script>
+   ```
+
+   Vuex中的处理
+
+   ```javascript
+   // store.js action部分
+   actions:{
+       // 通过Promise实现
+       updateAthDescAction(context,payload){
+         // 留意这里返回的是一个promise
+         return new Promise((resolve) => {
+           setTimeout(() => {
+             context.commit(UPDATEATHDESCMUTATION);
+             console.log(payload);
+             resolve("action中的参数"); // resolve执行后，不再后面继续执行then，而是在组件派发action的地方去执行then
+           },1000);
+         });
+       }
+   }
+   ```
+
+   最后一种方式明显是最优雅的
+
+   需要注意，then，没有在action中执行，而是在组件回调的地方执行的
+
+   因为action方法返回的是一个promise，组件派发action的地方执行完了回调之后，就开始then或者reject。
