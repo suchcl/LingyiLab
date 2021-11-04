@@ -536,6 +536,14 @@ Vue内部已经实现了EventBus，在Vue项目中，
 
 #### 3.5 $parent和$root
 
+适用场景：
+
+$parent:兄弟组件之间，通过父组件构建通信的桥梁
+
+$root:跨级组件之间，通过根组件搭建通信的桥梁
+
+
+
 可以通过$parent执行父组件中的方法，获取父组件中的数据
 
 可以通过$root执行根组件中的方法、获取根组件中的数据
@@ -576,6 +584,119 @@ Vue内部已经实现了EventBus，在Vue项目中，
 
 #### 3.6 attrs和listeners
 
+适用场景：跨级组件，祖先组件传值给子孙组件
+
+
+
 #### 3.7 Provide和Inject
 
+适用场景：祖先组件传值给子孙组件
+
+使用方案：
+
+祖先组件中定义provide，返回需要传递给子孙组件的属性
+
+子孙组件中通过定义inject接收从祖先组件中provide返回的数据
+
+```vue
+<!--祖先组件-->
+<template>
+    <div class="provide">
+        <h5>祖先组件</h5>
+        {{ grandpa }}
+        <Child />
+        <button @click="sendMsg">祖先组件中处理一个数据，发送给子孙组件</button>
+    </div>
+</template>
+
+<script>
+import Child from "./Child.vue";
+
+export default {
+    data() {
+        return {
+            grandpa: "传递过来的数据"
+        }
+    },
+    components: {
+        Child
+    },
+    methods: {
+        sendMsg() {
+            this.grandpa = "经过修改的祖先数据";
+        }
+    },
+    provide() {
+        return {
+            foo: this.sendMsg()
+        }
+    }
+}
+</script>
+
+<!--子组件 Child.vue-->
+<template>
+    <div class="child">
+        <h5>儿子组件</h5>
+        <Child2 />
+    </div>
+</template>
+
+<script>
+import Child2 from "./Child-2.vue";
+export default {
+    data() {
+        return {}
+    },
+    components: {
+        Child2
+    }
+}
+</script>
+
+<!--子孙组件 Child2.vue-->
+<template>
+    <div class="child-2">
+        <h5>孙子组件</h5>
+        <p>
+            从祖先组件中获取的数据:
+            <span class="fcr">{{ foo }}</span>
+        </p>
+    </div>
+</template>
+
+<script>
+export default {
+    inject: ["foo"]
+}
+</script>
+```
+
+> 一般情况下，子孙组件向父级组件、祖先组件通信时，<font color="#f20">只有在页面组件加载时会发生，不能通过其他事件触发</font>。不知道是不是因为我没有找到其他合适的方法。
+
 #### 3.8 Vuex
+
+适用场景：复杂的、全局的、不同的组件之间的数据传递。
+
+Vuex的简单介绍：
+
+Vuex相当于一个全局的状态存储仓库，将需要全局存储的状态都保存在这里，在有需要的地方按需索取。
+
+state：用来存储状态，可以说是全局状态的仓库
+
+getter：类似于state的计算属性，用来获取state中的状态值
+
+mutations：集中管理修改state状态的方法，同步方式进行state状态的修改
+
+actions：用来修改state状态，不过actions经常用来做异步处理。如果没有异步的处理，可以没有actions这个环节。
+
+### 4.小结
+
+父子组件之间的通信，props，父传子
+
+兄弟关系的组件之间，用EventBus，也可以使用$parent
+
+祖先与后代组件之间，使用attrs和listeners，或者provide与inject
+
+复杂的全局的状态可以通过Vuex
+

@@ -160,3 +160,7 @@
     1.  前端切换主题
     2.  生成海报
     3.  vue项目的调试方式：可以在本地搭建https
+
+37. 技术要求
+    1.  属性HTTP、Websocket协议，数量掌握Nodejs、Typescript、Graphql
+    2.  前端工程化、浏览器原理、web安全、WebGL、算法、自动化测试、网络优化
