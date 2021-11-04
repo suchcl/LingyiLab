@@ -6419,7 +6419,120 @@ export default {
 
    如果mutation中是异步操作，如果我们修改了state，修改的state会响应式的反应到页面中，但是devtools追踪不到这个状态的变化。
 
+```javascript
+// store.js mutation部分
+[UPDATEATHINFO](state){
+    /**
+       * 现在从这个地方(mutation中)执行一个异步操作
+       * 这里的变化，页面上也响应式的变化了，但是devtools中，并没有跟着变化，没有捕捉到这个变化
+       */
+    setTimeout(() => {
+        state.userinfo.name = "Nicholas Zakas";
+    },1000)
+}
+```
+![异步修改state，页面上也响应式的变化了，但是devtools中，并没有跟着变化，没有捕捉到这个变化](./images/i1.png)
 
+> mutation中一定不能有异步操作。
+
+如果state的一些状态的变化，必须要使用异步的方式去改变时，怎么办呢？
+
+用action。
+
+#### 18.5 Action
+
+**Mutation中一定不能有异步操作。**
+
+但是一些特殊情况，vuex中需要进行一些异步的操作，比如可能发生的网络请求等，就是异步的。那么怎么处理呢？
+
+前文提到了，用action。
+
+action类似mutation，但是是用来替代mutation做异步操作的。
+
+action不是必须得有的，如果没有异步操作，action环节也是可以省略的。
+
+> 前面既然提到了Action类似Mutation，那么是不是可以直接使用Action修改状态呢？
+>
+> 一定不要使用action修改state，修改state的唯一方式就是mutation，且是以同步的方式提交。
+
+定义了action中的方法后，在组件中通过dispatch方法去调用action中的方法。
+
+```vue
+<div class="athletes">
+    <h5>姓名：{{ $store.state.userinfo.name }}</h5>
+    <p>身高：{{ $store.state.userinfo.height }}</p>
+    <button @click="updateAthByAction">通过action异步操作，修改信息</button>
+</div>
+<script>
+	export default {
+        methods: {
+                /**
+                 * 通过action，有异步操作，去修改state
+                 */
+                updateAthByAction() {
+                  this.$store.dispatch("updateAthDescAction");
+                }
+        }
+    }
+</script>
+```
+
+下面是vuex中的实现：
+
+```javascript
+// store.js
+// 导入Vue、Vuex
+import Vue from "vue";
+import Vuex from "vuex";
+import {INCREMENT,UPDATEATHINFO,UPDATEATHDESCMUTATION} from '@/store/mutation-types';
+
+// 安装（管理、应用）Vuex
+Vue.use(Vuex);
+
+// 创建Vuex对象
+/**
+ * 注意不是new Vuex，而是new Vuex.Store,因为真正起作用的是Vuex的Store属性,Store本身也是一个类
+ */
+const store = new Vuex.Store({
+  // Vuex就用这几个属性，固定的，不会变
+  state: {
+    userinfo:{
+      name: "Jordan",
+      height: 1.98,
+      age: 23,
+      sex: "male"
+    }
+  },
+  mutations: {
+    /**
+     * 通过action修改state
+     * @param {*} state 
+     */
+    [UPDATEATHDESCMUTATION](state){
+      state.userinfo.height = 3.2;
+    },
+  },
+  actions: {
+    /**
+     * 修改运动员简介:身高
+     * context:上下文，在vuex中，就可以简单的理解为store对象
+     * action中的方法，默认的第一个参数，不是state了，而是context
+     */
+    updateAthDescAction(context){
+      setTimeout(() => {
+        context.commit(UPDATEATHDESCMUTATION);
+      },1000);
+    }
+  },
+  getters: {},
+  modules: {},
+});
+
+// 导出store
+export default store;
+```
+
+![action中做异步操作，devtools状态捕获到了state的变化,页面上也响应式的发生改变](./images/i2.png)
 
 
 
