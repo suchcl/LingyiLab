@@ -81,7 +81,7 @@
 12. [windows10C盘突然空间不足](./Hodgepodge/widnows10C盘突然空间不足.md)
 
 ### 面试
-1. [前端相关](interview/frontend/index.md)
+1. [前端相关](interview/index.md)
 
 ### 常见效果收集
 1.[ant-vue-design时间控件快捷筛选时间范围，可选择今天、昨天、最近一周、最近2周、最近1个月、3个月、半年](./se/antVueRange.md)
