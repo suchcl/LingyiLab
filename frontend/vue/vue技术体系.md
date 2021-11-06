@@ -6732,6 +6732,56 @@ $store.state.fbook.moduleA中状态名
 
 来看整体案例
 
+```js
+// store.js  定义modules
+// 模块A moduleA
+const moduleA = {
+  state:{
+    bookName: "Javascript数据结构与算法",
+    price: 69.00,
+    author: "罗伊安妮.格罗纳"
+  },
+  getters:{},
+  mutations:{
+    [UPDATEBOOKNAME](state){
+      state.bookName = "Javascript权威指南";
+    }
+  },
+  actions:{},
+  modules:{}
+};
 
+// 模块B moduleB
+const moduleB = {
+  state:{},
+  getters:{},
+  mutations:{},
+  actions:{},
+  modules:{}
+};
+
+// 实例化Vuex对象
+const store = new Vuex.Store({
+  // Vuex就用这几个属性，固定的，不会变
+  state: {},
+  mutations: {},
+  modules: {
+    fbook:moduleA,
+    order:moduleB
+  },
+});
+```
+
+再看组件中引用moduleA中状态的demo：
+
+```vue
+    <div class="module-demo">
+      <h3>vuex中的modules案例</h3>
+      <h5>获取modules中的state值</h5>
+      <p>书名：《{{ $store.state.fbook.bookName }}》</p>
+    </div>
+```
+
+需要注意表达式：$store.state.fbook.bookName，这里$store是要取模块中的状态，但是并不是$store.modules去找的对应模块的状态，而是还是通过$store对象的state，然后再通过state中去找moduleA的模块映射。
 
 ##### 18.6.2 提交模块中的mutations
