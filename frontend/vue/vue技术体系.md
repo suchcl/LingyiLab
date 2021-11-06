@@ -6661,3 +6661,77 @@ export default store;
    需要注意，then，没有在action中执行，而是在组件回调的地方执行的
 
    因为action方法返回的是一个promise，组件派发action的地方执行完了回调之后，就开始then或者reject。
+
+#### 18.6 module
+
+为什么在vuex中需要(module)模块呢？
+
+Vuex使用单一状态树，就意味着很多状态都交给Vuex来管理；
+
+当应用很复杂时，store对象就有可能会变的很臃肿
+
+为了解决store可能变的臃肿的问题，Vuex允许我们将store分割成多个模块（module），每个模块可以拥有自己的state、mutations、getters、actions等
+
+> modules，每个module都可以理解为一个独立的store，有着自己独立的state、mutations、getters、actions、modules
+>
+> 虽然每个module也可以有自己的mudules，但是一般情况下，这个层级不会太深，优秀的实践是不超过2层
+
+store的代码组织，大致如下：
+
+```js
+import Vue from "vue";
+import Vuex from "vuex";
+
+Vue.use(Vuex);
+const ModuleA = {
+    state:{},
+    mutations:{},
+    actions:{},
+    getters:{}
+};
+
+const ModuleB = {
+    state:{},
+    mutations:{},
+    actions:{},
+    getters:{}
+};
+
+const store = new Vuex.Store({
+    modules:{
+        a: ModuleA,
+        b: ModuleB
+    }
+});
+
+export default store;
+
+// 应用
+store.state.a // 模块ModuleA中的状态
+store.state.b // 模块ModuleB中的状态
+```
+
+##### 18.6.1 获取模块中的state
+
+获取模块(module)中的状态，不能直接通过$store.state.状态名来获取，也不能通过如$store.state.modules.状态名的方式，应该是按照$store.state.模块名.状态名的方式去获取。
+
+注意这里的模块名，这个模块名，是在实例化Vuex对象的时候，modules对象的属性名。如实例化vuex对象的时候：
+
+```js
+  modules: {
+    fbook:moduleA,
+    order:moduleB
+  },
+```
+
+表明modules对象中的属性fbook和moduleA模块对应，引用的是moduleA中的内容。那么我在使用moduleA中状态的时候的正确方式应该是：
+
+```js
+$store.state.fbook.moduleA中状态名
+```
+
+来看整体案例
+
+
+
+##### 18.6.2 提交模块中的mutations
