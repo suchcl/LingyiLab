@@ -6870,3 +6870,172 @@ const store = new Vuex.Store({
 export default store;
 ```
 
+**modules中的getters的用法**
+
+getters，常用的2个参数：
+
+第1个参数，为当前的state
+
+第2个参数：当前getters所在的getters
+
+```js
+getters:{
+    fullName(state){
+        return state.name + state.lastName;
+    },
+    fullName2(state,getters){
+        return getters.fullName + state.firstName;
+    }
+}
+```
+
+在modules中的getters的用法，和在Vuex.Stroe的实例化对象$store中getters的用法相同，view中使用到getters的时候，直接通过getters去找即可。
+
+```vue
+<h3>modules中的getters用法</h3>
+<p>书的基本信息:{{ $store.getters.bookBaseInfo }}</p>
+<p>书的全部信息：{{ $store.getters.bookAllBaseInfo }}</p>
+```
+
+```js
+// module
+// 模块A moduleA
+const moduleA = {
+  state:{
+    bookName: "Javascript数据结构与算法",
+    price: 69.00,
+    author: "罗伊安妮.格罗纳"
+  },
+  getters:{
+    bookBaseInfo(state){
+      return `书名:${state.bookName}，作者：${state.author}`;
+    },
+    bookAllBaseInfo(state,getters){
+      return `${getters.bookBaseInfo}，价格：${state.price}`;
+    }
+  },
+  mutations:{
+    [UPDATEBOOKNAME](state){
+      state.bookName = "Javascript权威指南";
+    }
+  },
+  actions:{},
+  modules:{}
+};
+```
+
+**模块(module)中的getters怎么引用根state中的状态呢？**
+
+接着上面的案例，假如在获取这本书的基本信息的时候，还需要获取一下根state中的count状态，怎么获取呢？
+
+这时可以用getters的第3个参数：rootState。
+
+getters中的属性(本质上是属性，形式上是函数，其实就是计算属性)可以有多个参数：
+
+第1个参数：state，为当前的state
+
+第2个参数：getters，就指当前的getters
+
+第3个参数：rootState，指根state的状态
+
+```vue
+<p>加上了数量：{{ $store.getters.bookAllInfo }}</p>
+```
+
+```js
+// store.js
+// 模块A moduleA
+const moduleA = {
+  state:{
+    bookName: "Javascript数据结构与算法",
+    price: 69.00,
+    author: "罗伊安妮.格罗纳"
+  },
+  getters:{
+    // state：当前module下的state
+    bookBaseInfo(state){
+      return `书名:${state.bookName}，作者：${state.author}`;
+    },
+    // getters：就是当前的getters，可以调用当前module中getters中的其他属性
+    bookAllBaseInfo(state,getters){
+      return `${getters.bookBaseInfo}，价格：${state.price}`;
+    },
+    // rootState,根state，可以通过rootState获取根state中的状态
+    bookAllInfo(state,getters,rootState){
+      return `${getters.bookAllBaseInfo}，数量为：${rootState.counter}`;
+    }
+  },
+  mutations:{
+    [UPDATEBOOKNAME](state){
+      state.bookName = "Javascript权威指南";
+    }
+  },
+  actions:{},
+  modules:{}
+};
+```
+
+**module中actions**
+
+modules中actions的参数，我们知道默认参数context。
+
+在根store对象中，context是指根store。但是在moduels中actions的context，指的是当前的module。
+
+```vue
+<!--通过异步的方式修改内容-->
+<button @click="asyncUpdateBookName">异步修改书名</button>
+<script>
+	export default {
+        methods:{
+            // 异步方式修改书名
+            asyncUpdateBookName() {
+              this.$store.dispatch("aAsyncUpDateBookNameByAction", "Asp.net程序设计");
+            },
+        }
+    }
+</script>
+```
+
+```js
+// store.js
+// 模块A moduleA
+const moduleA = {
+  state:{
+    bookName: "Javascript数据结构与算法",
+    price: 69.00,
+    author: "罗伊安妮.格罗纳"
+  },
+  getters:{
+    // state：当前module下的state
+    bookBaseInfo(state){
+      return `书名:${state.bookName}，作者：${state.author}`;
+    },
+    // getters：就是当前的getters，可以调用当前module中getters中的其他属性
+    bookAllBaseInfo(state,getters){
+      return `${getters.bookBaseInfo}，价格：${state.price}`;
+    },
+    // rootState,根state，可以通过rootState获取根state中的状态
+    bookAllInfo(state,getters,rootState){
+      return `${getters.bookAllBaseInfo}，数量为：${rootState.counter}`;
+    }
+  },
+  mutations:{
+    [UPDATEBOOKNAME](state){
+      state.bookName = "Javascript权威指南";
+    },
+    [ASYNCUPDATEBOOKNAME](state,payload){
+      console.log(state);
+      state.bookName = payload;
+    }
+  },
+  actions:{
+    aAsyncUpDateBookNameByAction(context,payload){ // context,指当前的module
+      setTimeout(() => {
+        context.commit(ASYNCUPDATEBOOKNAME,payload)
+      },1000);
+    }
+  },
+  modules:{}
+};
+```
+
