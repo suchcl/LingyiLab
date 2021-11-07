@@ -6785,3 +6785,88 @@ const store = new Vuex.Store({
 需要注意表达式：$store.state.fbook.bookName，这里$store是要取模块中的状态，但是并不是$store.modules去找的对应模块的状态，而是还是通过$store对象的state，然后再通过state中去找moduleA的模块映射。
 
 ##### 18.6.2 提交模块中的mutations
+
+各模块(module)可以有自己的mutations，那么在view中或者actions中提交mutation的时候，怎么提交呢？
+
+需要先找到当前mutation所在的模块，然后去这个模块查找对应的mutation吗？不需要
+
+mutation中的方法，都是方法名，优秀的方法名是见名知义。现在已经通过modules进行了模块划分，那么在给mutations中的方法起名的时候，就应该可以做到每个方法都是与众不同的名字。
+
+对于这个解释，我有点怀疑，认为不应该把这个工作交给开发者，而应该从框架的底层功能上支持不同模块之间的明明冲突问题。毕竟，ES6的重大贡献之一就是ESM。
+
+**查找mutation的顺序**
+
+view或者actions提交mutation的时候，优先从$store实例的mutation中去找，如果没有再去state中的modules中去找，直到找到为止。
+
+> vuex中mutations、modules部分，没有花费精力去研究，但是对于上面的解释，我是持有疑虑的，我认为一个优秀的框架，那么是一个一般的框架，也不会把一些基础的模块化的工作交给开发者，让开发者编码时注意重名的问题。
+
+看demo吧：
+
+```vue
+<!--view部分-->
+<button @click="updateAthByAction">通过action异步操作，修改信息</button>
+<script>
+// 导入mutation-types
+import { INCREMENT, UPDATEATHINFO, UPDATEBOOKNAME } from "./store/mutation-types";
+    export default {
+      methods: {
+        // 更改书名
+        updateBookName() {
+          this.$store.commit(UPDATEBOOKNAME); // 这个mutation，是module中的mutation
+        },
+      }
+    }
+</script>
+```
+
+```js
+// store.js
+// 导入Vue、Vuex
+import Vue from "vue";
+import Vuex from "vuex";
+import {INCREMENT,UPDATEATHINFO,UPDATEATHDESCMUTATION,UPDATEBOOKNAME} from '@/store/mutation-types';
+
+// 安装（管理、应用）Vuex
+Vue.use(Vuex);
+
+// 模块A moduleA
+const moduleA = {
+  state:{
+    bookName: "Javascript数据结构与算法",
+    price: 69.00,
+    author: "罗伊安妮.格罗纳"
+  },
+  getters:{},
+  mutations:{
+    [UPDATEBOOKNAME](state){
+      state.bookName = "Javascript权威指南";
+    }
+  },
+  actions:{},
+  modules:{}
+};
+
+// 模块B moduleB
+const moduleB = {
+  state:{},
+  getters:{},
+  mutations:{},
+  actions:{},
+  modules:{}
+};
+
+// 创建Vuex对象
+/**
+ * 注意不是new Vuex，而是new Vuex.Store,因为真正起作用的是Vuex的Store属性,Store本身也是一个类
+ */
+const store = new Vuex.Store({
+  modules: {
+    fbook:moduleA,
+    order:moduleB
+  },
+});
+
+// 导出store
+export default store;
+```
+
