@@ -7050,3 +7050,45 @@ Vuex推荐的目录结构如下：
 因为Vuex最核心的地方，就是集中式的状态管理，那么进入到Vuex模块，最关心的、最想看到的应该就是状态了，所以我认为state部分没有抽离出来，是合理的。
 
 其他的几个部分抽离了出来，一是代码的可维护性更高了，二是可读性高了。
+
+### 19.网络请求
+
+vue项目中，推荐使用axios，不推荐使用jquery库，或者自己封装了。
+
+jquery的优势，主要是DOM操作，到了Vue中，极力的不推荐进行DOM操作，所以没有必要为了发送一个网络请求就引入一个jquery库。
+
+自己封装请求方法，从技术上来讲是没有任何问题的，但是自己的力量和开源社区的力量相比，总是有那么的一点点不足。从实现上、以及场景覆盖上，应该是社区开源的方法更加优秀一些。
+
+**axios优势**
+
+1. 支持在浏览器中发送XHR；
+
+2. 支持在node中发送http请求；
+
+3. 支持Promise API；
+
+4. 拦截请求和响应；
+
+5. 转换请求和响应数据；
+
+   ……
+
+#### 19.1 axios支持多种请求方式
+
+axios(config)：默认为get请求，也可以设置为具体的get、post或者put等
+
+axios.request(config)
+
+axios.get(url[,config])
+
+axios.delete(url[,config])
+
+axios.head(url[,config])
+
+axios.post(url,[,data[,config]])
+
+axios.put(url[,data[,config]])
+
+axios.patch(url[,data[,config]])
+
+**axios.get()和axios.post()传参方式、区别**
