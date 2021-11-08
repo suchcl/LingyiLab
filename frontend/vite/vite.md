@@ -45,16 +45,25 @@
 
 2. 使用yarn
 
+   ```bash
+   yarn creae vite
+   ```
+
+   使用yarn创建vite项目,和npm除了开始使用的指令不同,后续的完全一样,项目创建的速度也是非常的快.
+
 3. 使用pnpm
 
 通过上面的3种方式,都可以指定一些模板去创建项目
 
 ```bash
+pnpm create vite
 ```
 
-
+pnpm是一个新的包管理工具,可以在这里查看关于pnpm的一些介绍:[pnpm介绍及使用](../pnpm/pnpm.md).
 
 ### 3. vite创建项目的变化
+
+
 
 ### 4. 项目基础架构搭建
 
