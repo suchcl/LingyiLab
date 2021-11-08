@@ -169,3 +169,6 @@
 38. 技术要求
     1.  属性HTTP、Websocket协议，数量掌握Nodejs、Typescript、Graphql
     2.  前端工程化、浏览器原理、web安全、WebGL、算法、自动化测试、网络优化
+
+39. 场景案例
+    1. 任意显示的省略号

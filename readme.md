@@ -43,6 +43,8 @@
 
 4. [JSON schema for the JavaScript configuration file](./qa/jsonSchema.md)
 
+5. [nrm选中选择内置的源后不显示*](./qa/nrm选中选择内置的源后不显示.md)
+
 ### 版本管理
 
 1. [版本管理](VersionControl/index.md)
