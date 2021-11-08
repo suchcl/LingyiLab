@@ -140,6 +140,56 @@ export default defineConfig({
 
 常用的配置,我可能会选择关于CSS、别名、esbuild(打包)、预处理器(css.preprocessorOptions)等的一些配置,其他的一些不常用的配置,可以使用默认提供的就可以.
 
+**vite配置智能提示小技巧**
+
+因为vite本身附带了Typescript类型,所以在vite配置的时候,可以通过IDE和jsdoc来配合智能提示
+
+通过defineConfig工具函数实现智能提示 ---- vite2.x中,项目创建时就已经把这个工具函数给默认的添加上了.如果不使用这个工具函数,那么配置方式是:
+
+```js
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import path from "path"; // 在有关路径设置的时候需要单独引入path模块
+
+// https://vitejs.dev/config/
+export default {
+  css:{},
+  esbuild:{},
+  // 配置别名
+  alias:{
+    "@":path.resolve(__dirname,"src"),
+    "views": path.resolve(__dirname,"src/views"),
+    "components": path.resolve(__dirname,"src/components"),
+    "apis": path.resolve(__dirname,"src/apis"),
+    "routes": path.resolve(__dirname,"src/routes")
+  },
+  plugins: [vue()]
+}
+```
+
+使用defineConfig工具函数后,导出一个函数
+
+```js
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import path from "path"; // 在有关路径设置的时候需要单独引入path模块
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  css:{},
+  esbuild:{},
+  // 配置别名
+  alias:{
+    "@":path.resolve(__dirname,"src"),
+    "views": path.resolve(__dirname,"src/views"),
+    "components": path.resolve(__dirname,"src/components"),
+    "apis": path.resolve(__dirname,"src/apis"),
+    "routes": path.resolve(__dirname,"src/routes")
+  },
+  plugins: [vue()]
+})
+```
+
 ### 4. 项目基础架构搭建
 
 ### 5. 路由
