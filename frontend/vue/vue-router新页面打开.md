@@ -1,3 +1,11 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [vue-router新窗口打开](#vue-router%E6%96%B0%E7%AA%97%E5%8F%A3%E6%89%93%E5%BC%80)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 ### vue-router新窗口打开
 
