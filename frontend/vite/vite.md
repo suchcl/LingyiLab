@@ -93,9 +93,52 @@ pnpm create vite projectname -- --template vue
 
 更多的关于create-vite的技术细节,可以参考:https://github.com/vitejs/vite/tree/main/packages/create-vite
 
-### 3. vite创建项目的变化
+### 3. vite2的主要变化
 
+配置选项的变化:vue特有选项、创建选项、css选项、jsx选项等
 
+别名行为等变化:不再要求/开头或者结尾
+
+Vue支持:通过插件的方式支持, 通过@vitejs/plugin-vue插件支持,jsx通过@vitejs/plugin-jsx支持
+
+React支持
+
+HRM API变化
+
+清单格式变化
+
+插件API重新设计
+
+#### 3.1 Vue支持
+
+Vue的支持,也是通过插件实现,和其他框架、库一视同仁.
+
+来看一些关于vite的简单配置
+
+vite的配置,在项目根目录中的vite.config.js中进行配置
+
+```js
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import path from "path"; // 在有关路径设置的时候需要单独引入path模块
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  css:{},
+  esbuild:{},
+  // 配置别名
+  alias:{
+    "@":path.resolve(__dirname,"src"),
+    "views": path.resolve(__dirname,"src/views"),
+    "components": path.resolve(__dirname,"src/components"),
+    "apis": path.resolve(__dirname,"src/apis"),
+    "routes": path.resolve(__dirname,"src/routes")
+  },
+  plugins: [vue()]
+})
+```
+
+常用的配置,我可能会选择关于CSS、别名、esbuild(打包)、预处理器(css.preprocessorOptions)等的一些配置,其他的一些不常用的配置,可以使用默认提供的就可以.
 
 ### 4. 项目基础架构搭建
 
