@@ -61,6 +61,38 @@ pnpm create vite
 
 pnpm是一个新的包管理工具,可以在这里查看关于pnpm的一些介绍:[pnpm介绍及使用](../pnpm/pnpm.md).
 
+**vite支持创建基于内置模版的项目**
+
+到目前为止,vite已经预设的模板有:
+
+vanilla、vanilla-ts
+
+vue、vue-ts
+
+react、react-ts
+
+preact、preact-ts
+
+lit、lit-ts
+
+svelte、svelte-ts
+
+```bash
+# 使用npm6.x创建基于模版的vite项目
+npm init vite projectname --template vue
+
+# 使用npm7.x创建基于模板的vite项目   使用npm7.x,需要额外的双横线
+npm init vite projectname -- --template vue
+
+# 使用yarn创建基于模板的项目
+yarn create vite projectname --template vue
+
+# 使用pnpm创建基于模板的项目  注意有额外的双横线
+pnpm create vite projectname -- --template vue
+```
+
+更多的关于create-vite的技术细节,可以参考:https://github.com/vitejs/vite/tree/main/packages/create-vite
+
 ### 3. vite创建项目的变化
 
 
