@@ -123,5 +123,58 @@ yarn create vite
 pnpm create vite
 ```
 
+vite创建项目,默认没有给安装好npm包,需要项目创建好之后,自己去手动的执行npm install安装npm包.所以在创建项目的时候,感觉是vite更快了.
 
+但是一般情况下,不讨论项目的创建速度,而是去讨论项目创建完成后,服务的启动速度和编译速度.
+
+vite:下一代的前端构建工具
+
+**vite的优势:**
+
+1. 开发环境中,无需打包,可快速冷启动;
+2. 轻量快速的热重载(HMR)
+3. 真正的按需编译,不再等待整个应用编译完成;
+
+vite动态引入,动态分析,先准备好服务器,再去加载需要的模块
+
+webpack:先准备好模块,然后再去准备服务器.
+
+### 3. vue3分析
+
+vue3中,不能再继续使用Vue2的构造函数了.
+
+例如在Vue3中,不能通过导入Vue的方式,然后通过new Vue的方式创建Vue的实例了.
+
+```js
+import Vue from "vue";
+import App from "./App.vue"
+
+new Vue({
+  render:h => h(App)
+}).mount("#app");s
+```
+
+在vue2中,这样的代码应该没啥问题,但是<font color="#f20">到了Vue3中,这样的代码是绝对不允许的.</font>
+
+Vue3中,没有实现Vue的构造函数,而是通过createApp工厂函数去创建Vue实例的.
+
+Vue3中正确的创建Vue实例、挂载组件的方式为:
+
+```js
+import { createApp } from "vue";
+import App from "./App.vue";
+
+createApp(App).mount("#app");
+```
+
+> 工厂函数的特点:不能通过new来实例化对象,只需直接调用就可以了.
+
+**Vue3的特点:**
+
+1. 组件可以没有根标签了,但是加上也没有任何问题
+   1. Vue2中的组件,必须要有一个根组件
+
+#### 3.1 安装vue开发者工具(浏览器上)
+
+现在(2021.11.9)vue3的开发者工具还不完善,还在beta阶段,不过也不要纠结,有了总比没有好.感恩吧.
 
