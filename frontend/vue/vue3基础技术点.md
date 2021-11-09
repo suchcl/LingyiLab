@@ -178,3 +178,70 @@ createApp(App).mount("#app");
 
 现在(2021.11.9)vue3的开发者工具还不完善,还在beta阶段,不过也不要纠结,有了总比没有好.感恩吧.
 
+### 4.常用Composition API  组合式API
+
+什么是组合式api呢?先学习,最后再悟什么是组合式api吧.
+
+#### 4.1 setup
+
+1. vue3中新增的一个配置项,值为一个函数
+2. setup是所有组合式API表演的舞台:没有setup,其他的api没有合适的地方去写
+3. 组件中所用到的:数据、方法、计算属性、生命周期钩子函数等,都要配置在setup中
+4. setup函数的两种返回值:
+   1. 对象:如果返回一个对象,则对象中的属性、方法,在模板中均可以直接使用 ----- 重点关注
+   2. 渲染函数:如果返回一个渲染函数,则可以自定义渲染内容 ------ 了解即可
+5. 注意
+   1. 尽量不与vue2.x配置混用
+      1. Vue2.x配置(data、methods、computed……)可以访问setup中的属性、方法
+      2. setup中不能访问Vue2.x中的配置(data、methods、computed……)
+      3. 如果有重名,setup优先
+   2. setup不能是一个async函数,因为返回值不能再是return的对象,而是promise,模板看不到return对象中的属性
+
+setup中定义的数据、方法,都必须通过return返回,被返回后,可以直接在模板中使用.
+
+return返回的方法,类似vue2中methods部分定义的方法.
+
+```vue
+<template>
+  <!--vue3中,可以没有根标签了,但是也可以写,加根标签没有任何问题-->
+  <!--根标签是否添加,可以根据实际的场景需要,有时为了性能,可以减少标签嵌套层级,就不加了,但是也有一些特别场景必须需要有这么一个层级,加上也不纠结-->
+  <h3>姓名:{{user.name}}</h3>
+  <p>年龄:{{user.age}}</p>
+  <p>身高:{{user.height}}</p>
+  <button @click="sayHello">获取信息</button>
+</template>
+
+<script>
+
+export default {
+  name: 'App',
+  // 先测试一下setup,不考虑响应式
+  setup(){
+    // 定义数据
+    let user = {
+      name: "Nicholas Zakas",
+      age: 18,
+      height: 1.88
+    };
+    let username = "yan";
+    // 定义方法
+    function sayHello(){
+      console.log(`我是${user.name},今年${user.age}岁了,身高是:${user.height}`);
+    }
+
+    // 让setup有返回值,返回值可以在组件中直接使用
+    return {
+      user,
+      username,
+      sayHello // setup返回的方法,类似vue2中methods配置的方法
+    }
+  },
+}
+</script>
+```
+
+#### 4.2 ref函数
+
+作用:定义一个响应式的数据
+
+语法: const xxx = ref(initValue);
