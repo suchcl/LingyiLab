@@ -2,8 +2,18 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-- [1. 组件导入](#1-%E7%BB%84%E4%BB%B6%E5%AF%BC%E5%85%A5)
-  - [1.1 直接导入组件](#11-%E7%9B%B4%E6%8E%A5%E5%AF%BC%E5%85%A5%E7%BB%84%E4%BB%B6)
+- [1. 简介](#1-%E7%AE%80%E4%BB%8B)
+  - [1.1 发布](#11-%E5%8F%91%E5%B8%83)
+  - [1.2 Vue3带来了什么](#12-vue3%E5%B8%A6%E6%9D%A5%E4%BA%86%E4%BB%80%E4%B9%88)
+  - [1.3 源码的升级](#13-%E6%BA%90%E7%A0%81%E7%9A%84%E5%8D%87%E7%BA%A7)
+  - [1.4 友好的兼容Typescript](#14-%E5%8F%8B%E5%A5%BD%E7%9A%84%E5%85%BC%E5%AE%B9typescript)
+  - [1.5 新特性](#15-%E6%96%B0%E7%89%B9%E6%80%A7)
+    - [1.5.1 Composition API(组合式API)](#151-composition-api%E7%BB%84%E5%90%88%E5%BC%8Fapi)
+    - [1.5.2 新的内置组件](#152-%E6%96%B0%E7%9A%84%E5%86%85%E7%BD%AE%E7%BB%84%E4%BB%B6)
+    - [1.5.3 其他改变](#153-%E5%85%B6%E4%BB%96%E6%94%B9%E5%8F%98)
+- [2.创建Vue3项目](#2%E5%88%9B%E5%BB%BAvue3%E9%A1%B9%E7%9B%AE)
+  - [2.1 使用@vue/cli创建vue3项目](#21-%E4%BD%BF%E7%94%A8vuecli%E5%88%9B%E5%BB%BAvue3%E9%A1%B9%E7%9B%AE)
+  - [2.2 使用vite创建vue3项目](#22-%E4%BD%BF%E7%94%A8vite%E5%88%9B%E5%BB%BAvue3%E9%A1%B9%E7%9B%AE)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
