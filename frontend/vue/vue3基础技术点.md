@@ -441,5 +441,40 @@ function changeUserInfo() {
 
 <font color="#f20">对于基本的数据类型，是上面的处理方式。</font>
 
+对于对象类型的响应式处理,最底层上是通过Proxy来实现的,只是在Vue3种,将proxy这部分的实现封装成了一个reactive函数,所以也可以说是通过reactive函数实现的.
 
+对象类型实现响应式,只需要对象的value就可以了,不需要对象属性的value
+
+```js
+function changeObj(){
+  // 修改对象中的数据,只需要取对象的.value属性,而不需要取属性的.value
+  job.value.type="Java开发工程师";
+  job.value.salary = "16k";
+  console.log(job.value);
+}
+```
+
+#### 4.3 reactive
+
+reactive:响应、反应,在Vue中,我们更关注其中的响应数据的含义.
+
+**作用:**<font color="#f20">定义对象类型</font>的响应式数据 ---- 不要定义基本数据类型的响应式数据,基本类型的响应式数据定义,使用ref
+
+**语法**
+
+const 代理对象 = reactive(源对象): 通过这种方式接收一个对象,或者数组,返回一个代理对象(Proxy的实例对象,简称Proxy对象)
+
+reactive:定义的响应式数据是深层次的
+
+reactive内部基于Proxy实现,通过代理对象操作源对象内部的数据进行操作
+
+**和ref的区别**
+
+ref可以定义任何数据类型的响应式数据
+
+> ref也可以处理对象类型数据的响应式,但是ref底层也是调用了reactive函数去实现的
+
+reactive,只能定义对象类型的响应式数据,不能用来定义基本类型的响应式数据
+
+#### 4.4 Vue3中的响应式原理
 
