@@ -184,14 +184,36 @@ createApp(App).mount("#app");
 
 什么是组合式 api 呢?先学习,最后再悟什么是组合式 api 吧.
 
+组合式 api.谁跟谁组合，组合什么呢？什么叫组合式呢？ ---- 刚开始的时候不好理解，学习了 hooks 就会好理解一些了。
+
+组合式 api 有什么优势呢，相比于传统的选项式 api。
+
 #### 4.1 setup
 
 1. vue3 中新增的一个配置项,值为一个函数
+
 2. setup 是所有组合式 API 表演的舞台:没有 setup,其他的 api 没有合适的地方去写
-3. 组件中所用到的:数据、方法、计算属性、生命周期钩子函数等,都要配置在 setup 中
+
+   1. setup 是所有其他 api 学习的起点开始学，因为如果不先学习 setup，其他的 api 内容都没有地方写，就跟演员失去了舞台一样
+
+3. 组件中所用到的:数据、方法、计算属性、生命周期钩子函数、watch 等,都要配置在 setup 中
+
 4. setup 函数的两种返回值:
+
    1. 对象:如果返回一个对象,则对象中的属性、方法,在模板中均可以直接使用 ----- 重点关注
+
    2. 渲染函数:如果返回一个渲染函数,则可以自定义渲染内容 ------ 了解即可
+
+      ```js
+        setup() {
+          // setup函数还可以返回一个渲染函数，可以参考vue2中入口文件的实例化Vue对象的时候的实现
+          // 表示把后面的数据渲染到前面的h3标签
+          return () => h("h3", "我是渲染函数带来的数据");
+        }
+      ```
+
+   > setup 函数一定要有返回值：这个不是 setup 函数特有的，是所有的函数都有的。只是有的函数不需要返回，只在函数执行过程中改变了一些状态、数据，最后返回一个 void，js 中可以忽略这个返回的 void 而已。
+
 5. 注意
    1. 尽量不与 vue2.x 配置混用
       1. Vue2.x 配置(data、methods、computed……)可以访问 setup 中的属性、方法
@@ -240,6 +262,83 @@ export default {
 };
 </script>
 ```
+
+##### 4.1.1 Vue3 中可以使用 Vue2 的配置方式进行组件配置，但是不建议混用
+
+```vue
+<script>
+export default {
+  name: "App",
+  // 使用了选项式的组合方式
+  data() {
+    return {
+      msg: "Hello,Vue3!",
+    };
+  },
+  methods: {
+    getMsg() {
+      console.log(this.msg);
+    },
+  },
+  // 先测试一下setup,不考虑响应式
+  setup() {
+    // 定义数据
+    let user = {
+      name: "Nicholas Zakas",
+      age: 18,
+      height: 1.88,
+    };
+    let username = "yan";
+    // 定义方法
+    function sayHello() {
+      // 注意这里的变量不需要this，如this.user.name，因为是作用域的原因：setup就是一个函数，具有函数的作用域
+      console.log(`我是${user.name},今年${user.age}岁了,身高是:${user.height}`);
+    }
+
+    // 让setup有返回值, 返回值可以在组件中直接使用
+    return {
+      user,
+      username,
+      sayHello, // setup返回的方法,类似vue2中methods配置的方法
+    };
+  },
+};
+</script>
+```
+
+如代码，同时使用了选项式 API 方式和组合式 API 的方式，两种方式也可以并存，也可以只使用其中的任意一种，都没有任何问题，都可以正常使用。
+
+但是<font color="#f20">非常的不建议两种 API 的方式混合使用</font>
+
+##### 4.1.2 Vue2 配置方式中的配置可以读取 Vue3 setup 函数中配置的数据、方法
+
+```js
+  methods: {
+    getMsg() {
+      // 读取Vue3 组合式api配置中setup中的数据、方法
+      // 都正常执行了，说明选项式api方式可以读取到组合式api中setup部分定义的数据、方法
+      console.log(`我是Vue3组合式api配置中setup部分的数据：我叫${this.user.name},几年${this.user.age}岁了，身高${this.user.height}米。`);
+      this.sayHello();
+    }
+  },
+```
+
+看效果：
+
+![Vue2配置方式中的配置可以读取Vue3 setup函数中配置的数据、方法](./images/i4.png)
+
+##### 4.1.3 Vue3 中 setup 函数读取不到 Vue2 配置方式中配置的数据、方法
+
+```js
+// Vue3组合式api访问vue2配置方式选项式api配置的内容、方法
+function getOptions() {
+  console.log(
+    `我是选项式api中配置的内容：${this.msg},这里是vue3组合式api中的内容: ${user.name}`
+  ); // 我是选项式api中配置的内容：undefined,这里是vue3组合式api中的内容: Nicholas Zakas
+}
+```
+
+![Vue3 中 setup 函数读取不到 Vue2 配置方式中配置的数据、方法](./images/i5.png)
 
 #### 4.2 ref 函数
 
