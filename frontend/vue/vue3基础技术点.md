@@ -390,3 +390,43 @@ function getOptions() {
 作用:定义一个响应式的数据
 
 语法: const xxx = ref(initValue);
+
+之前在学习vue2时，也用到过ref，但那会的ref是一个标签属性，是为了标识元素的，类似于元素的ID、class等属性。
+
+现在vue3中学习的ref，是一个函数，主要是处理响应式数据的函数。
+
+vue3中，我们想实现一个数据的响应式，需要把响应式的数据通过ref函数处理
+
+```js
+// 导入ref函数，直接从vue解构了
+import { ref } from "vue";
+export default {
+    setup() {
+        // 要响应式的数据，使用ref函数处理了，
+        let username = ref("Nicholas Zakas");
+        let age = ref(18);
+
+        return {
+            username,
+            age
+        };
+    }
+}
+```
+
+如果要实现数据的响应式，仅仅通过ref函数处理还不行
+
+经过ref函数处理的数据，会返回一个引用实现对象（引用实现的实例对象，简称引用实现对象）。所以在修改数据的时候，不能是直接修改数据，而是通过修改数据的.value属性。
+
+```js
+function changeUserInfo() {
+    username.value = "Kobe";
+    age.value = 26;
+    console.log(username);
+    console.log(age);
+    console.log(`修改后的信息:姓名：${username.value},年龄：${age.value}`);
+}
+```
+
+对于基本的数据类型，是上面的处理方式。
+
