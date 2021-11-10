@@ -248,7 +248,7 @@ createApp(App).mount("#app");
            setup() {
              // 定义数据
              let info = "Vue3";
-      
+         
              // 让setup有返回值, 返回值可以在组件中直接使用
              return {
                info,
@@ -391,6 +391,17 @@ function getOptions() {
 
 语法: const xxx = ref(initValue);
 
+1. 创建一个包含响应式数据的<font color="#f20">引用对象(reference对象,简称ref对象)</font>
+2. JS中操作数据:xxx.value
+3. 模版中绑定数据:直接使用插值语法,不需要value,直接 {{xxx}}
+
+**注意**
+
+1. ref可以接收基本的数据类型,也可以接收对象类型数据;
+2. 基本的数据类型:响应式的实现是通过object.defineProperty()的get和set完成的
+3. 引用的对象类型:内部通过Vue3种的新函数reactive函数来实现的
+   1. ref加工引用的对象类型时,最底层上是通过proxy来实现的,但是vue3将proxy实现的这个部分封装成了一个reactive函数.所以也可以说ref实现对象类型的响应式,是通过reactive函数实现的.
+
 之前在学习vue2时，也用到过ref，但那会的ref是一个标签属性，是为了标识元素的，类似于元素的ID、class等属性。
 
 现在vue3中学习的ref，是一个函数，主要是处理响应式数据的函数。
@@ -418,7 +429,7 @@ export default {
 
 经过ref函数处理的数据，会返回一个引用实现对象（引用实现的实例对象，简称引用实现对象）。所以在修改数据的时候，不能是直接修改数据，而是通过修改数据的.value属性。
 
-```js
+```<js
 function changeUserInfo() {
     username.value = "Kobe";
     age.value = 26;
@@ -428,5 +439,7 @@ function changeUserInfo() {
 }
 ```
 
-对于基本的数据类型，是上面的处理方式。
+<font color="#f20">对于基本的数据类型，是上面的处理方式。</font>
+
+
 
