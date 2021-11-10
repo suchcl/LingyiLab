@@ -215,10 +215,55 @@ createApp(App).mount("#app");
    > setup 函数一定要有返回值：这个不是 setup 函数特有的，是所有的函数都有的。只是有的函数不需要返回，只在函数执行过程中改变了一些状态、数据，最后返回一个 void，js 中可以忽略这个返回的 void 而已。
 
 5. 注意
+
    1. 尽量不与 vue2.x 配置混用
+
       1. Vue2.x 配置(data、methods、computed……)可以访问 setup 中的属性、方法
+
       2. setup 中不能访问 Vue2.x 中的配置(data、methods、computed……)
+
       3. 如果有重名,setup 优先
+
+         vue3 中，可以同时使用 vue2 中使用的选项式 api 配置方式进行配置和 Vue3 组合式 api 方式配置，那么如果两种配置方式都使用了，且配置了相同的数据名，那么以哪个为准呢？以 vue3 中组合式 api 配置方式中的配置为准。
+
+         ```vue
+         <button
+           class="btn"
+           @click="getSameProps"
+         >获取组合式api和选项式api都配置的同一个属性</button>
+         <script>
+         export default {
+           name: "App",
+           data() {
+             return {
+               info: "Vue2",
+             };
+           },
+           methods: {
+             getSameProps() {
+               console.log(this.info);
+             },
+           },
+           // 先测试一下setup,不考虑响应式
+           setup() {
+             // 定义数据
+             let info = "Vue3";
+      
+             // 让setup有返回值, 返回值可以在组件中直接使用
+             return {
+               info,
+             };
+           },
+         };
+         </script>
+         ```
+
+         案例中同时定义了 info 这个属性。
+
+         最终结果返回了：Vue3，说明了如果同时采用两种配置方式的 api，且有了重名的数据，那么最终就会以组合式 Api 中 setup 中的数据为准
+
+         ![如果同时采用两种配置方式的 api，且有了重名的数据，那么最终就会以组合式 Api 中 setup 中的数据为准](./images/i6.png)
+
    2. setup 不能是一个 async 函数,因为返回值不能再是 return 的对象,而是 promise,模板看不到 return 对象中的属性
 
 setup 中定义的数据、方法,都必须通过 return 返回,被返回后,可以直接在模板中使用.
