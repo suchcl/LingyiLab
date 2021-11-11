@@ -478,3 +478,220 @@ reactive,只能定义对象类型的响应式数据,不能用来定义基本类�
 
 #### 4.4 Vue3中的响应式原理
 
+**Vue2中的响应式**
+
+实现原理:
+
+1. 对象类型:通过Object.defineProperty()对属性的读取、修改进行拦截(也叫做数据劫持)
+
+2. 数组类型:通过重写、更新数组的一系列方法来实现拦截(对数组的变更方法进行了包裹)
+
+   ```js
+   Object.defineProperty(data,"count",{
+     set(){},
+     get(){}
+   });
+
+**存在的问题**
+
+1. 新增属性、删除属性,界面不会更新
+
+2. 直接通过下标修改数组,界面不会自动更新
+
+   ```vue
+   <template>
+        <div class="reactive">
+            <h3>用户信息</h3>
+            <ul>
+                <li>姓名: {{person.username}}</li>
+                <li>年龄:{{person.age}}</li>
+                <li>身高:{{person.height}}</li>
+              	<li v-if="person.gender">性别:{{person.gender}}</li>
+            </ul>
+            <ul class="btn-area">
+                <li>
+                    <button class="btn" @click="addGenderAttr">对象新增属性</button>
+                </li>
+            </ul>
+        </div>
+   </template>
+   
+   <script>
+   export default {
+       name: "Reactive",
+       data(){
+           return {
+               person: {
+                   username: "Nicholas Zakas",
+                   age: 18,
+                   height: 1.88
+               }
+           }
+       },
+       methods: {
+           // 为数据person添加一个性别属性
+           addGenderAttr(){
+               console.log(this.person.gender); // undefined
+               this.person.gender = "男"; // 发现这种方式,数据是改了,但是没有响应式的修改界面
+               console.log(this.person.gender); // 男
+           }
+       }
+   }
+   </script>
+   ```
+
+   如图所示:
+
+   ![vue2动态添加属性](./images/i7.jpg)
+
+   那怎么可以动态的添加一个属性并响应式的显示到界面上呢?
+
+   对于动态添加对象的属性,并响应式的显示到界面上,Vue2提供了两种方法(也可以说是一种方法):
+
+   1. 使用Vue.set(target,property/index,value):向响应式对象添加属性,并确保这个属性是响应式的,且触发视图的更新
+
+   2. vm.$set(target,property/index,value): 这个方法是Vue.set()的一个别名,只是不用动态的导入Vue了.
+
+   ```js
+   // 为数据person添加一个性别属性
+   addGenderAttr(){
+     // 通过Vue.set()向响应式对象动态添加属性,并触发视图的更新
+     Vue.set(this.person,"gender","男");
+   }
+   ```
+   
+   这种方式需要注意导入Vue.效果如图:
+   
+   ![通过Vue.set()实现对象的响应式添加属性](./images/i8.jpg)
+   
+   还有另外一种方式,就是使用Vue.set()的别名,v m.$set()
+   
+   ```js
+   // 为数据person添加一个性别属性
+   addGenderAttr(){
+     // console.log(this.person.gender); // undefined
+     // this.person.gender = "男"; // 发现这种方式,数据是改了,但是没有响应式的修改界面
+     // console.log(this.person.gender); // 男
+   
+     // 通过Vue.set()向响应式对象动态添加属性,并触发视图的更新
+     // Vue.set(this.person,"gender","男");
+   
+     // 通过vm.$set()的方式向响应式对象动态添加属性,并触发视图更新
+     this.$set(this.person,"gender","女");
+   }
+   ```
+   
+   通过vm.$set()的方式,不需要导入Vue. 看效果:
+   
+   ![通过vm.$set()动态的向响应式对象添加属性](./images/i9.jpg)
+
+**数组和对象的修改基本相同,只是数组比对象多了一个响应式的方法,splice(),也可以实现数组的响应式变更元素**
+
+```js
+changeFirstFruit(){
+  // 通过vm.$set()和Vue.set()都可以实现数组元素的修改
+  // this.$set(this.fruits,0,"哈密瓜");
+  // Vue.set(this.fruits,0,"哈密瓜");
+
+  // 主要是看通过slice实现数组的响应式
+  this.fruits.splice(0,1,"哈密瓜");
+}
+```
+
+上面的几种方式,都可以实现数组的响应式变化
+
+**Vue3的响应式**
+
+实现原理:
+
+1. 通过Proxy(代理):拦截对象中任意属性的变化,包括:属性值的读写、属性的添加、属性的删除等
+2. 通过Reflect(反射):对被代理对象的属性进行操作
+3. 
+
+Vue3中,只要是通过reactive包裹的对象、数组,都可以直接添加、删除对象属性、数组元素.
+
+```js
+<template>
+    <div class="userinfo">
+        <h4>用户基本信息</h4>
+        <ul class="profile">
+            <li>姓名：{{ user.username }}</li>
+            <li>年龄：{{ user.age }}</li>
+            <li v-if="user.height">身高：{{ user.height }}</li>
+            <li v-if="user.job">工作:{{user.job}}</li>
+        </ul>
+        <ul class="btn-area">
+            <li>
+                <button class="btn" @click="changeProfile">修改用户信息</button>
+            </li>
+            <li>
+                <button class="btn" @click="addJob">给用户添加一个工作的属性</button>
+            </li>
+            <li>
+                <button class="btn" @click="removeHeight">移除掉身高属性</button>
+            </li>
+        </ul>
+        <h4>水果</h4>
+        <ul class="fruits">
+            <li v-for="(item,index) in fruit" :key="index">{{item}}</li>
+        </ul>
+        <ul class="btn-area">
+            <li>
+                <button class="btn" @click="changeFirstFruit">将第一个水果改为桃子</button>
+            </li>
+            <li>
+                <button class="btn" @click="removeLastFruit">将最后一个水果删除掉</button>
+            </li>
+        </ul>
+    </div>
+</template>
+<script>
+import { reactive } from '@vue/reactivity';
+export default {
+    name: "Reactive",
+    setup() {
+        let user = reactive({
+            username: "Nicholas Zakas",
+            age: 18,
+            height: 1.88
+        });
+
+        let fruit = reactive(["苹果","西瓜","哈密瓜"]);
+
+        function changeProfile() {
+            user.username = "Hanmeimei";
+            user.age = 26;
+            user.height = 2.01
+            console.log(user);
+        }
+        function addJob(){
+            user.job = "人民教师";
+        }
+
+        function removeHeight(){
+            delete user.height;
+        }
+
+        function changeFirstFruit(){
+            fruit[0] = "桃子";
+        }
+
+        function removeLastFruit() {
+            fruit.pop();
+        }
+    
+        return {
+            user,
+            changeProfile,
+            addJob,
+            removeHeight,
+            fruit,
+            changeFirstFruit,
+            removeLastFruit
+        };
+    }
+}
+</script>
+```
+
+基本的实现,就是和原生的对象、数组的操作是一致的.简单测试下即可.
