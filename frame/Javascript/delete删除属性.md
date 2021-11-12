@@ -114,6 +114,22 @@ console.log(p.age); // 16
 
 #### 2.3 Object.create()函数创建对象
 
+##### 2.3.1 原型
+
+js中,几乎每个js都有一个与之关联的对象,这个与之关联的对象,被称为原型(prototype).
+
+通过对象字面量创建的对象,都有相同的原型对象:可以通过Object.prototype访问它的原型对象.
+
+通过new关键字和构造函数调用创建的对象,那么可以使用构造函数的prototype属性访问它的原型对象.即通过new Object()创建的对象的原型对象是Object.prototype,通过new Date()创建的对象的原型对象是Date.prototype.
+
+> 几乎所有的js对象都有原型,但是只有少数的对象有prototype属性. ---  没有太理解
+>
+> 但正是因为这些少数有prototype属性的对象,为所有的其他的对象定义了原型
+
+Object.prototype没有原型,因为它不继承任何属性.
+
+##### 2.3.2 使用Object.create()函数创建对象
+
 js中还可以使用Object.create()函数来创建对象,使用该函数创建对象时,第一个参数为新建对象的原型.也可以有第二个可选的参数,用来描述新对象的属性.
 
 ```js
