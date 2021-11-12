@@ -82,4 +82,34 @@ console.log(person[" "]); // e2e
 
 #### 2.2 new关键字创建对象
 
+new操作符后跟构造函数.
+
+构造函数,有语言内置的,也可以是我们自定义创建的.
+
+js内置的、使用较多的构造函数有:
+
+```js
+const o = new Object();
+const arr = new Array();
+const date = new Date();
+const map = new Map();
+```
+
+也可以是自定义的构造函数
+
+```js
+function Person(name, age) {
+    this.name = name;
+    this.age = age;
+}
+
+const p = new Person("Nicholas Zakas", 16);
+console.log(p.name); // Nicholas Zakas
+console.log(p.age); // 16
+```
+
+> 构造函数和普通函数并没有什么区别.主要的区别就是使用的方式不同
+>
+> 就形式上来看,构造函数的函数名首字母大写,标识这是一个构造函数;普通函数的函数名,首字母一般小写 --- 但这种命名规则,不是绝对的,仅仅是我们的一些编码习惯,不具备的技术上的约束.
+
 #### 2.3 Object.create()函数创建对象
