@@ -154,3 +154,50 @@ const obj = {
 lib.fn(Object.create(obj)); // 以这种方式,可以访问到原始对象obj的属性,也可以设置新的属性,但是设置的新属性只是修改继承自obj的新对象的属性,并不会修改obj本身
 ```
 
+#### 2.4 读取、设置属性
+
+#### 2.5 删除属性
+
+js中通过delete操作符删除对象的属性
+
+>  delete删除的是对象的属性本身,不是属性的值,delete不操作属性值.
+
+delete操作符只能删除自有属性,不删除继承属性 --- 如果要删除继承属性,必须从定义属性的原型对象上删除.但是这样做会影响继承自该原型的所有对象.
+
+如果delete删除成功,或者删除一个不存在的属性,或者对原对象没有影响的,操作结果都会返回true
+
+delete删除一个非属性访问表达式,也返回true
+
+```js
+const book = {
+    name: "Javascript高级程序设计",
+    author: "Nicholas Zakas",
+    price: 119
+};
+console.log(delete book.price); // true  删除了price属性
+console.log(delete book.toString); // true 删除了一个继承的属性,它不能删除继承属性,无影响 true
+console.log(delete book.priter); // true  删除了一个不存在的属性
+console.log(delete 18); // true 删除了一个非属性访问表达式
+```
+
+
+
+delete不能删除configurable特性为false的属性
+
+严格模式下,删除不可配置的属性,会报TypeError的异常
+
+在非严格模式下,删除不可配置的属性,返回一个false
+
+```js
+const person = {
+    name: "Nicholas Zakas",
+    age: 18,
+    height: 1.89
+};
+Object.defineProperty(person,"height",{
+    configurable: false
+});
+
+console.log(delete person.height); // false  将height属性设置成了不可配置了
+```
+
