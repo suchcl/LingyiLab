@@ -1,20 +1,28 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-**Table of Contents** _generated with [DocToc](https://github.com/thlorenz/doctoc)_
-
 - [1. 简介](#1-%E7%AE%80%E4%BB%8B)
   - [1.1 发布](#11-%E5%8F%91%E5%B8%83)
-  - [1.2 Vue3 带来了什么](#12-vue3%E5%B8%A6%E6%9D%A5%E4%BA%86%E4%BB%80%E4%B9%88)
+  - [1.2 Vue3 带来了什么](#12-vue3-%E5%B8%A6%E6%9D%A5%E4%BA%86%E4%BB%80%E4%B9%88)
   - [1.3 源码的升级](#13-%E6%BA%90%E7%A0%81%E7%9A%84%E5%8D%87%E7%BA%A7)
-  - [1.4 友好的兼容 Typescript](#14-%E5%8F%8B%E5%A5%BD%E7%9A%84%E5%85%BC%E5%AE%B9typescript)
+  - [1.4 友好的兼容 Typescript](#14-%E5%8F%8B%E5%A5%BD%E7%9A%84%E5%85%BC%E5%AE%B9-typescript)
   - [1.5 新特性](#15-%E6%96%B0%E7%89%B9%E6%80%A7)
-    - [1.5.1 Composition API(组合式 API)](#151-composition-api%E7%BB%84%E5%90%88%E5%BC%8Fapi)
+    - [1.5.1 Composition API(组合式 API)](#151-composition-api%E7%BB%84%E5%90%88%E5%BC%8F-api)
     - [1.5.2 新的内置组件](#152-%E6%96%B0%E7%9A%84%E5%86%85%E7%BD%AE%E7%BB%84%E4%BB%B6)
     - [1.5.3 其他改变](#153-%E5%85%B6%E4%BB%96%E6%94%B9%E5%8F%98)
-- [2.创建 Vue3 项目](#2%E5%88%9B%E5%BB%BAvue3%E9%A1%B9%E7%9B%AE)
-  - [2.1 使用@vue/cli 创建 vue3 项目](#21-%E4%BD%BF%E7%94%A8vuecli%E5%88%9B%E5%BB%BAvue3%E9%A1%B9%E7%9B%AE)
-  - [2.2 使用 vite 创建 vue3 项目](#22-%E4%BD%BF%E7%94%A8vite%E5%88%9B%E5%BB%BAvue3%E9%A1%B9%E7%9B%AE)
+- [2.创建 Vue3 项目](#2%E5%88%9B%E5%BB%BA-vue3-%E9%A1%B9%E7%9B%AE)
+  - [2.1 使用@vue/cli 创建 vue3 项目](#21-%E4%BD%BF%E7%94%A8vuecli-%E5%88%9B%E5%BB%BA-vue3-%E9%A1%B9%E7%9B%AE)
+  - [2.2 使用 vite 创建 vue3 项目](#22-%E4%BD%BF%E7%94%A8-vite-%E5%88%9B%E5%BB%BA-vue3-%E9%A1%B9%E7%9B%AE)
+- [3. vue3 分析](#3-vue3-%E5%88%86%E6%9E%90)
+  - [3.1 安装 vue 开发者工具(浏览器上)](#31-%E5%AE%89%E8%A3%85-vue-%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%8A)
+- [4.常用 Composition API 组合式 API](#4%E5%B8%B8%E7%94%A8-composition-api-%E7%BB%84%E5%90%88%E5%BC%8F-api)
+  - [4.1 setup](#41-setup)
+    - [4.1.1 Vue3 中可以使用 Vue2 的配置方式进行组件配置，但是不建议混用](#411-vue3-%E4%B8%AD%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8-vue2-%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%B9%E5%BC%8F%E8%BF%9B%E8%A1%8C%E7%BB%84%E4%BB%B6%E9%85%8D%E7%BD%AE%E4%BD%86%E6%98%AF%E4%B8%8D%E5%BB%BA%E8%AE%AE%E6%B7%B7%E7%94%A8)
+    - [4.1.2 Vue2 配置方式中的配置可以读取 Vue3 setup 函数中配置的数据、方法](#412-vue2-%E9%85%8D%E7%BD%AE%E6%96%B9%E5%BC%8F%E4%B8%AD%E7%9A%84%E9%85%8D%E7%BD%AE%E5%8F%AF%E4%BB%A5%E8%AF%BB%E5%8F%96-vue3-setup-%E5%87%BD%E6%95%B0%E4%B8%AD%E9%85%8D%E7%BD%AE%E7%9A%84%E6%95%B0%E6%8D%AE%E6%96%B9%E6%B3%95)
+    - [4.1.3 Vue3 中 setup 函数读取不到 Vue2 配置方式中配置的数据、方法](#413-vue3-%E4%B8%AD-setup-%E5%87%BD%E6%95%B0%E8%AF%BB%E5%8F%96%E4%B8%8D%E5%88%B0-vue2-%E9%85%8D%E7%BD%AE%E6%96%B9%E5%BC%8F%E4%B8%AD%E9%85%8D%E7%BD%AE%E7%9A%84%E6%95%B0%E6%8D%AE%E6%96%B9%E6%B3%95)
+  - [4.2 ref 函数](#42-ref-%E5%87%BD%E6%95%B0)
+  - [4.3 reactive](#43-reactive)
+  - [4.4 Vue3 中的响应式原理](#44-vue3%E4%B8%AD%E7%9A%84%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -248,7 +256,7 @@ createApp(App).mount("#app");
            setup() {
              // 定义数据
              let info = "Vue3";
-         
+
              // 让setup有返回值, 返回值可以在组件中直接使用
              return {
                info,
@@ -391,43 +399,43 @@ function getOptions() {
 
 语法: const xxx = ref(initValue);
 
-1. 创建一个包含响应式数据的<font color="#f20">引用对象(reference对象,简称ref对象)</font>
-2. JS中操作数据:xxx.value
-3. 模版中绑定数据:直接使用插值语法,不需要value,直接 {{xxx}}
+1. 创建一个包含响应式数据的<font color="#f20">引用对象(reference 对象,简称 ref 对象)</font>
+2. JS 中操作数据:xxx.value
+3. 模版中绑定数据:直接使用插值语法,不需要 value,直接 {{xxx}}
 
 **注意**
 
-1. ref可以接收基本的数据类型,也可以接收对象类型数据;
-2. 基本的数据类型:响应式的实现是通过object.defineProperty()的get和set完成的
-3. 引用的对象类型:内部通过Vue3种的新函数reactive函数来实现的
-   1. ref加工引用的对象类型时,最底层上是通过proxy来实现的,但是vue3将proxy实现的这个部分封装成了一个reactive函数.所以也可以说ref实现对象类型的响应式,是通过reactive函数实现的.
+1. ref 可以接收基本的数据类型,也可以接收对象类型数据;
+2. 基本的数据类型:响应式的实现是通过 object.defineProperty()的 get 和 set 完成的
+3. 引用的对象类型:内部通过 Vue3 种的新函数 reactive 函数来实现的
+   1. ref 加工引用的对象类型时,最底层上是通过 proxy 来实现的,但是 vue3 将 proxy 实现的这个部分封装成了一个 reactive 函数.所以也可以说 ref 实现对象类型的响应式,是通过 reactive 函数实现的.
 
-之前在学习vue2时，也用到过ref，但那会的ref是一个标签属性，是为了标识元素的，类似于元素的ID、class等属性。
+之前在学习 vue2 时，也用到过 ref，但那会的 ref 是一个标签属性，是为了标识元素的，类似于元素的 ID、class 等属性。
 
-现在vue3中学习的ref，是一个函数，主要是处理响应式数据的函数。
+现在 vue3 中学习的 ref，是一个函数，主要是处理响应式数据的函数。
 
-vue3中，我们想实现一个数据的响应式，需要把响应式的数据通过ref函数处理
+vue3 中，我们想实现一个数据的响应式，需要把响应式的数据通过 ref 函数处理
 
 ```js
 // 导入ref函数，直接从vue解构了
 import { ref } from "vue";
 export default {
-    setup() {
-        // 要响应式的数据，使用ref函数处理了，
-        let username = ref("Nicholas Zakas");
-        let age = ref(18);
+  setup() {
+    // 要响应式的数据，使用ref函数处理了，
+    let username = ref("Nicholas Zakas");
+    let age = ref(18);
 
-        return {
-            username,
-            age
-        };
-    }
-}
+    return {
+      username,
+      age,
+    };
+  },
+};
 ```
 
-如果要实现数据的响应式，仅仅通过ref函数处理还不行
+如果要实现数据的响应式，仅仅通过 ref 函数处理还不行
 
-经过ref函数处理的数据，会返回一个引用实现对象（引用实现的实例对象，简称引用实现对象）。所以在修改数据的时候，不能是直接修改数据，而是通过修改数据的.value属性。
+经过 ref 函数处理的数据，会返回一个引用实现对象（引用实现的实例对象，简称引用实现对象）。所以在修改数据的时候，不能是直接修改数据，而是通过修改数据的.value 属性。
 
 ```<js
 function changeUserInfo() {
@@ -441,14 +449,14 @@ function changeUserInfo() {
 
 <font color="#f20">对于基本的数据类型，是上面的处理方式。</font>
 
-对于对象类型的响应式处理,最底层上是通过Proxy来实现的,只是在Vue3种,将proxy这部分的实现封装成了一个reactive函数,所以也可以说是通过reactive函数实现的.
+对于对象类型的响应式处理,最底层上是通过 Proxy 来实现的,只是在 Vue3 种,将 proxy 这部分的实现封装成了一个 reactive 函数,所以也可以说是通过 reactive 函数实现的.
 
-对象类型实现响应式,只需要对象的value就可以了,不需要对象属性的value
+对象类型实现响应式,只需要对象的 value 就可以了,不需要对象属性的 value
 
 ```js
-function changeObj(){
+function changeObj() {
   // 修改对象中的数据,只需要取对象的.value属性,而不需要取属性的.value
-  job.value.type="Java开发工程师";
+  job.value.type = "Java开发工程师";
   job.value.salary = "16k";
   console.log(job.value);
 }
@@ -456,41 +464,42 @@ function changeObj(){
 
 #### 4.3 reactive
 
-reactive:响应、反应,在Vue中,我们更关注其中的响应数据的含义.
+reactive:响应、反应,在 Vue 中,我们更关注其中的响应数据的含义.
 
-**作用:**<font color="#f20">定义对象类型</font>的响应式数据 ---- 不要定义基本数据类型的响应式数据,基本类型的响应式数据定义,使用ref
+**作用:**<font color="#f20">定义对象类型</font>的响应式数据 ---- 不要定义基本数据类型的响应式数据,基本类型的响应式数据定义,使用 ref
 
 **语法**
 
-const 代理对象 = reactive(源对象): 通过这种方式接收一个对象,或者数组,返回一个代理对象(Proxy的实例对象,简称Proxy对象)
+const 代理对象 = reactive(源对象): 通过这种方式接收一个对象,或者数组,返回一个代理对象(Proxy 的实例对象,简称 Proxy 对象)
 
 reactive:定义的响应式数据是深层次的
 
-reactive内部基于Proxy实现,通过代理对象操作源对象内部的数据进行操作
+reactive 内部基于 Proxy 实现,通过代理对象操作源对象内部的数据进行操作
 
-**和ref的区别**
+**和 ref 的区别**
 
-ref可以定义任何数据类型的响应式数据
+ref 可以定义任何数据类型的响应式数据
 
-> ref也可以处理对象类型数据的响应式,但是ref底层也是调用了reactive函数去实现的
+> ref 也可以处理对象类型数据的响应式,但是 ref 底层也是调用了 reactive 函数去实现的
 
 reactive,只能定义对象类型的响应式数据,不能用来定义基本类型的响应式数据
 
-#### 4.4 Vue3中的响应式原理
+#### 4.4 Vue3 中的响应式原理
 
-**Vue2中的响应式**
+**Vue2 中的响应式**
 
 实现原理:
 
-1. 对象类型:通过Object.defineProperty()对属性的读取、修改进行拦截(也叫做数据劫持)
+1. 对象类型:通过 Object.defineProperty()对属性的读取、修改进行拦截(也叫做数据劫持)
 
 2. 数组类型:通过重写、更新数组的一系列方法来实现拦截(对数组的变更方法进行了包裹)
 
    ```js
-   Object.defineProperty(data,"count",{
-     set(){},
-     get(){}
+   Object.defineProperty(data, "count", {
+     set() {},
+     get() {},
    });
+   ```
 
 **存在的问题**
 
@@ -500,43 +509,43 @@ reactive,只能定义对象类型的响应式数据,不能用来定义基本类�
 
    ```vue
    <template>
-        <div class="reactive">
-            <h3>用户信息</h3>
-            <ul>
-                <li>姓名: {{person.username}}</li>
-                <li>年龄:{{person.age}}</li>
-                <li>身高:{{person.height}}</li>
-              	<li v-if="person.gender">性别:{{person.gender}}</li>
-            </ul>
-            <ul class="btn-area">
-                <li>
-                    <button class="btn" @click="addGenderAttr">对象新增属性</button>
-                </li>
-            </ul>
-        </div>
+     <div class="reactive">
+       <h3>用户信息</h3>
+       <ul>
+         <li>姓名: {{ person.username }}</li>
+         <li>年龄:{{ person.age }}</li>
+         <li>身高:{{ person.height }}</li>
+         <li v-if="person.gender">性别:{{ person.gender }}</li>
+       </ul>
+       <ul class="btn-area">
+         <li>
+           <button class="btn" @click="addGenderAttr">对象新增属性</button>
+         </li>
+       </ul>
+     </div>
    </template>
-   
+
    <script>
    export default {
-       name: "Reactive",
-       data(){
-           return {
-               person: {
-                   username: "Nicholas Zakas",
-                   age: 18,
-                   height: 1.88
-               }
-           }
+     name: "Reactive",
+     data() {
+       return {
+         person: {
+           username: "Nicholas Zakas",
+           age: 18,
+           height: 1.88,
+         },
+       };
+     },
+     methods: {
+       // 为数据person添加一个性别属性
+       addGenderAttr() {
+         console.log(this.person.gender); // undefined
+         this.person.gender = "男"; // 发现这种方式,数据是改了,但是没有响应式的修改界面
+         console.log(this.person.gender); // 男
        },
-       methods: {
-           // 为数据person添加一个性别属性
-           addGenderAttr(){
-               console.log(this.person.gender); // undefined
-               this.person.gender = "男"; // 发现这种方式,数据是改了,但是没有响应式的修改界面
-               console.log(this.person.gender); // 男
-           }
-       }
-   }
+     },
+   };
    </script>
    ```
 
@@ -546,11 +555,11 @@ reactive,只能定义对象类型的响应式数据,不能用来定义基本类�
 
    那怎么可以动态的添加一个属性并响应式的显示到界面上呢?
 
-   对于动态添加对象的属性,并响应式的显示到界面上,Vue2提供了两种方法(也可以说是一种方法):
+   对于动态添加对象的属性,并响应式的显示到界面上,Vue2 提供了两种方法(也可以说是一种方法):
 
-   1. 使用Vue.set(target,property/index,value):向响应式对象添加属性,并确保这个属性是响应式的,且触发视图的更新
+   1. 使用 Vue.set(target,property/index,value):向响应式对象添加属性,并确保这个属性是响应式的,且触发视图的更新
 
-   2. vm.$set(target,property/index,value): 这个方法是Vue.set()的一个别名,只是不用动态的导入Vue了.
+   2. vm.$set(target,property/index,value): 这个方法是 Vue.set()的一个别名,只是不用动态的导入 Vue 了.
 
    ```js
    // 为数据person添加一个性别属性
@@ -559,30 +568,30 @@ reactive,只能定义对象类型的响应式数据,不能用来定义基本类�
      Vue.set(this.person,"gender","男");
    }
    ```
-   
-   这种方式需要注意导入Vue.效果如图:
-   
+
+   这种方式需要注意导入 Vue.效果如图:
+
    ![通过Vue.set()实现对象的响应式添加属性](./images/i8.jpg)
-   
-   还有另外一种方式,就是使用Vue.set()的别名,v m.$set()
-   
+
+   还有另外一种方式,就是使用 Vue.set()的别名,v m.$set()
+
    ```js
    // 为数据person添加一个性别属性
    addGenderAttr(){
      // console.log(this.person.gender); // undefined
      // this.person.gender = "男"; // 发现这种方式,数据是改了,但是没有响应式的修改界面
      // console.log(this.person.gender); // 男
-   
+
      // 通过Vue.set()向响应式对象动态添加属性,并触发视图的更新
      // Vue.set(this.person,"gender","男");
-   
+
      // 通过vm.$set()的方式向响应式对象动态添加属性,并触发视图更新
      this.$set(this.person,"gender","女");
    }
    ```
-   
-   通过vm.$set()的方式,不需要导入Vue. 看效果:
-   
+
+   通过 vm.$set()的方式,不需要导入 Vue. 看效果:
+
    ![通过vm.$set()动态的向响应式对象添加属性](./images/i9.jpg)
 
 **数组和对象的修改基本相同,只是数组比对象多了一个响应式的方法,splice(),也可以实现数组的响应式变更元素**
@@ -600,15 +609,15 @@ changeFirstFruit(){
 
 上面的几种方式,都可以实现数组的响应式变化
 
-**Vue3的响应式**
+**Vue3 的响应式**
 
 实现原理:
 
-1. 通过Proxy(代理):拦截对象中任意属性的变化,包括:属性值的读写、属性的添加、属性的删除等
-2. 通过Reflect(反射):对被代理对象的属性进行操作
-3. 
+1. 通过 Proxy(代理):拦截对象中任意属性的变化,包括:属性值的读写、属性的添加、属性的删除等
+2. 通过 Reflect(反射):对被代理对象的属性进行操作
+3.
 
-Vue3中,只要是通过reactive包裹的对象、数组,都可以直接添加、删除对象属性、数组元素.
+Vue3 中,只要是通过 reactive 包裹的对象、数组,都可以直接添加、删除对象属性、数组元素.
 
 ```js
 <template>
@@ -679,7 +688,7 @@ export default {
         function removeLastFruit() {
             fruit.pop();
         }
-    
+
         return {
             user,
             changeProfile,

@@ -7,10 +7,11 @@
 1. [网络基础](./net/index.md)
 2. [操作系统](./os/index.md)
 3. [软件工程](./frontend/软件工程/index.md)
-   
+
 ### 前端开发技术
-1. [Javascript基础](frame/Javascript/index.md)
-2. [Typescript基础](frame/Typescript/index.md)
+
+1. [Javascript 基础](frame/Javascript/index.md)
+2. [Typescript 基础](frame/Typescript/index.md)
 3. [node.js](frontend/node/index.md)
 4. [deno.js](frontend/deno/index.md)
 5. [Egg.js](frontend/eggjs/index.md)
@@ -28,10 +29,9 @@
 17. [前端开发规范细则](./frontend/软件工程/开发规范.md)
 18. [前端在未来一段时间的发力点](./frontend/软件工程/前端在未来一段时间的发力点.md)
 
-
 ### 服务器知识
 
-1. [nginx知识相关](./server/nginx/index.md)
+1. [nginx 知识相关](./server/nginx/index.md)
 
 ### 常见问题
 
@@ -43,12 +43,12 @@
 
 4. [JSON schema for the JavaScript configuration file](./qa/jsonSchema.md)
 
-5. [nrm选中选择内置的源后不显示*](./qa/nrm选中选择内置的源后不显示.md)
+5. [nrm 选中选择内置的源后不显示\*](./qa/nrm选中选择内置的源后不显示.md)
 
 ### 版本管理
 
 1. [版本管理](VersionControl/index.md)
-2. [github修改默认分支](./VersionControl/github修改默认分支为master.md)
+2. [github 修改默认分支](./VersionControl/github修改默认分支为master.md)
 
 ### 人工智能/机器学习
 
@@ -60,13 +60,13 @@
 
 1. [目录](Hodgepodge/index.md)
 
-2. [markdown相关](Hodgepodge/grammar.md)
+2. [markdown 相关](Hodgepodge/grammar.md)
 
-3. [常用dos命令](Hodgepodge/dos.md)
+3. [常用 dos 命令](Hodgepodge/dos.md)
 
-4. [markdown生成树状目录结构](Hodgepodge/markdown生成树状目录结构.md)
+4. [markdown 生成树状目录结构](Hodgepodge/markdown生成树状目录结构.md)
 
-5. [excel怎么设置下拉选项](Hodgepodge/excel设置下拉选项.md)
+5. [excel 怎么设置下拉选项](Hodgepodge/excel设置下拉选项.md)
 
 6. [亿图软件——一款易用的办公绘图软件](./Hodgepodge/亿图软件.md)
 
@@ -74,61 +74,63 @@
 
 8. [永远不要使用默认的浏览器弹窗](./Hodgepodge/alert.md)
 
-9. [json注释 or json中注释报错](./Hodgepodge/json.md)
+9. [json 注释 or json 中注释报错](./Hodgepodge/json.md)
 
-10. [markdown文件生成目录](./Hodgepodge/markdown生成目录.md)
+10. [markdown 文件生成目录](./Hodgepodge/markdown生成目录.md)
 
-11. [vscode推荐](./Hodgepodge/vscode工具使用秘籍.md)
+11. [vscode 推荐](./Hodgepodge/vscode工具使用秘籍.md)
 
-12. [windows10C盘突然空间不足](./Hodgepodge/widnows10C盘突然空间不足.md)
+12. [windows10C 盘突然空间不足](./Hodgepodge/widnows10C盘突然空间不足.md)
 
 ### 面试
 
 #### Javascript
 
-0. [import、require的区别](./interview/frontend/import和require区别.md)
+0. [import、require 的区别](./interview/frontend/import和require区别.md)
 1. [实现水平、垂直居中效果](./interview/frontend/实现水平、垂直居中效果.md)
-2. [你对vue是怎么理解的](./interview/frontend/vue/vue的理解.md)
-3. [你是怎么理解SSR的？它和传统的服务端渲染有什么区别](./interview/frontend/vue/ssr.md)
-4. [hash模式可以实现浏览器的前进和后退吗](./interview/frontend/vue/vue-router模式.md)
-5. [说说你对CSS选择器的认识以及这些选择器的优先级](./interview/frontend/selctor.md)
+2. [你对 vue 是怎么理解的](./interview/frontend/vue/vue的理解.md)
+3. [你是怎么理解 SSR 的？它和传统的服务端渲染有什么区别](./interview/frontend/vue/ssr.md)
+4. [hash 模式可以实现浏览器的前进和后退吗](./interview/frontend/vue/vue-router模式.md)
+5. [说说你对 CSS 选择器的认识以及这些选择器的优先级](./interview/frontend/selctor.md)
 6. [BFC](./interview/frontend/bfc.md)
 7. [盒模型](./interview/frontend/盒模型.md)
-8. [前端需要注意哪些，使应用利于SEO](./interview/frontend/seo.md)
-9. [cookie、sessionStorage、localStorage的区别](./interview/frontend/storage.md)
+8. [前端需要注意哪些，使应用利于 SEO](./interview/frontend/seo.md)
+9. [cookie、sessionStorage、localStorage 的区别](./interview/frontend/storage.md)
 10. [对象循环引用怎么办](./interview/frontend/对象循环引用.md)
-11. [js中的事件循环机制](./interview/frontend/js事件循环机制.md)
-12. [Http缓存有哪些？](./interview/frontend/Http缓存.md)
+11. [js 中的事件循环机制](./interview/frontend/js事件循环机制.md)
+12. [Http 缓存有哪些？](./interview/frontend/Http缓存.md)
 13. [柯里化](./interview/frontend/柯里化.md)
 14. [防抖和截流](./interview/frontend/防抖和截流.md)
 15. [前端性能优化](./interview/frontend/前端性能优化.md)
 16. [前端技术在未来有哪些可突破的地方](./interview/frontend/前端未来的方向.md)
-17. [js非阻塞是什么意思](./interview/frontend/js非阻塞.md)
-18. [Promise和async/await的区别](./interview/frontend/promise和async、await的区别.md)
-19. [对象字面量生成的对象和Object创建的对象的区别](./interview/frontend/对象字面量生成的对象和Object创建的对象的区别.md)
+17. [js 非阻塞是什么意思](./interview/frontend/js非阻塞.md)
+18. [Promise 和 async/await 的区别](./interview/frontend/promise和async、await的区别.md)
+19. [对象字面量生成的对象和 Object 创建的对象的区别](./interview/frontend/对象字面量生成的对象和Object创建的对象的区别.md)
 20. [进程与线程的区别](./interview/frontend/进程与线程的区别.md)
 21. [浏览器的进程有哪些](./interview/frontend/浏览器的进程.md)
-22. [实现一个sleep函数](./interview/frontend/sleep.md)
-23. [vue组件间的通信方式有哪些](./interview/frontend/vue/vue组件间的通信方式.md)
+22. [实现一个 sleep 函数](./interview/frontend/sleep.md)
+23. [vue 组件间的通信方式有哪些](./interview/frontend/vue/vue组件间的通信方式.md)
+24. [javascript 和 typescript 有什么区别，以及怎么做技术选型](./interview/frontend/jsvsts.md)
 
 #### Vue
-1. [对vue生命周期的理解](./interview/frontend/vue/life.md)
-2. [vue中组件渲染和更新过程的是什么样子的](./interview/frontend/vue/组件渲染和更新过程.md)
-3. [delete和Vue.delete删除数组的区别](./interview/frontend/vue/delete和Vue.delete删除数组的区别.md)
-4. [Vue为什么采用异步渲染](./interview/frontend/vue/vue为什么采用异步渲染.md)
-5. [vuex和provide](./interview/frontend/vue/vuex&provide.md)
-6. [vue的双向绑定远离](./interview/frontend/vue/vue的双向绑定原理.md)
-7. [nextTick原理](./interview/frontend/vue/nextTick原理.md)
-8. [虚拟DOM](./interview/frontend/vue/虚拟DOM.md)
-9. [vue-router异步加载原理](./interview/frontend/vue/vue-router异步加载原理.md)
-10. [双DOM树怎么处理]()
-11. [SPA页面首屏渲染慢怎么办？](./interview/frontend/vue/首屏渲染性能优化.md)
-12. [vue项目部署后刷新出现404问题](./interview/frontend/vue/vue项目部署后刷新404问题.md)
-13. [为什么Vue2中组件只能由1个根节点，Vue3可以有多个根节点](./interview/frontend/vue/vue根节点.md)
+
+1. [对 vue 生命周期的理解](./interview/frontend/vue/life.md)
+2. [vue 中组件渲染和更新过程的是什么样子的](./interview/frontend/vue/组件渲染和更新过程.md)
+3. [delete 和 Vue.delete 删除数组的区别](./interview/frontend/vue/delete和Vue.delete删除数组的区别.md)
+4. [Vue 为什么采用异步渲染](./interview/frontend/vue/vue为什么采用异步渲染.md)
+5. [vuex 和 provide](./interview/frontend/vue/vuex&provide.md)
+6. [vue 的双向绑定远离](./interview/frontend/vue/vue的双向绑定原理.md)
+7. [nextTick 原理](./interview/frontend/vue/nextTick原理.md)
+8. [虚拟 DOM](./interview/frontend/vue/虚拟DOM.md)
+9. [vue-router 异步加载原理](./interview/frontend/vue/vue-router异步加载原理.md)
+10. [双 DOM 树怎么处理]()
+11. [SPA 页面首屏渲染慢怎么办？](./interview/frontend/vue/首屏渲染性能优化.md)
+12. [vue 项目部署后刷新出现 404 问题](./interview/frontend/vue/vue项目部署后刷新404问题.md)
+13. [为什么 Vue2 中组件只能由 1 个根节点，Vue3 可以有多个根节点](./interview/frontend/vue/vue根节点.md)
 
 #### webpack
 
-1. [webpack优化手段](./interview/frontend/webpack/webpack优化.md)
+1. [webpack 优化手段](./interview/frontend/webpack/webpack优化.md)
 
 #### React/React native
 
@@ -136,21 +138,23 @@
 
 #### 网络
 
-1. [http1.0、http1.1、http2.0的区别](./interview/net/http.md)
+1. [http1.0、http1.1、http2.0 的区别](./interview/net/http.md)
 
 1. [观察者模式和发布订阅模式的区别](./interview/pattern/观察者模式&发布订阅模式.md)
 
 #### 综合
 
 1. [为什么要进行项目的重构？](./interview/frontend/为什么要进行项目的重构.md)
-2. [修改CDN]()
-3. [GPU加速]()
-4. [实现一个EventBus](./interview/frontend/EventBus.md)
+2. [修改 CDN]()
+3. [GPU 加速]()
+4. [实现一个 EventBus](./interview/frontend/EventBus.md)
 
 ### 常见效果收集
-1.[ant-vue-design时间控件快捷筛选时间范围，可选择今天、昨天、最近一周、最近2周、最近1个月、3个月、半年](./se/antVueRange.md)
+
+1.[ant-vue-design 时间控件快捷筛选时间范围，可选择今天、昨天、最近一周、最近 2 周、最近 1 个月、3 个月、半年](./se/antVueRange.md)
 
 ### 生活琐碎
+
 1. [生活琐碎](life/index.md)
 
 ### 职场百态
@@ -164,7 +168,6 @@
 ### 管理人生
 
 1. [技术序列的工作能力的评估](./manage/技术人、团队的客观综合评估.md)
-
 
 ### 共勉
 
