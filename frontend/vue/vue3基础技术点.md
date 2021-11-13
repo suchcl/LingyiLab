@@ -256,7 +256,7 @@ createApp(App).mount("#app");
            setup() {
              // 定义数据
              let info = "Vue3";
-      
+         
              // 让setup有返回值, 返回值可以在组件中直接使用
              return {
                info,
@@ -704,4 +704,66 @@ export default {
 ```
 
 基本的实现,就是和原生的对象、数组的操作是一致的.简单测试下即可.
+
+##### 4.3.1 Vue的响应式原理
+
+**vue2的响应式原理**
+
+Vue2中的响应式,主要是通过新建一个对象,然后通过object.defineProperty()来劫持对象属性的方式实现,看过程案例:
+
+```js
+// vue2中响应式的实现
+        let person = {
+            name: "Nicholas Zakas",
+            age: 18
+        };
+
+        
+        // Vue2中的响应式怎么实现呢?
+        // 先建一个空对象,然后再通过Object.defineProperty(),通过getter、setter来拦截数据
+        let p = {};
+        Object.defineProperty(p,"name",{
+            configurable: true,
+            get(){ // 当读取name属性时调用
+                return person.name
+            },
+            set(value){ // 当给name属性赋值的时候使用
+                console.log("响应式name来了,改下代码就可以了");
+                person.name = value;
+            }
+        });
+        Object.defineProperty(p,"age",{
+            configurable: true,
+            get(){
+                return person.age;
+            },
+            set(value){
+                console.log("响应式age来了,改下代码就可以了");
+                person.age = value;
+            }
+        });
+```
+
+当然了这里的案例,只是个简单的模拟,没有做代码的封装,响应式部分其实就是案例中的console.log()打印部分,替换成响应式的实现就可以了.
+
+**vue3的响应式实现**
+
+在学习vue3的响应式之前,先了解下ES6中的Proxy.
+
+Proxy,就按照字面量的意思去理解,就是代理,可以做一个代理.如可以让p代理person.对p的操作,都会映射到person的身上.
+
+```js
+const person = {
+  name: "Nicholas Zakas",
+  age: 26
+};
+
+let p = new Proxy(person,{});
+```
+
+我们把这段代码拿在浏览器中运行一下:
+
+![proxy代理对象](./images/i10.png)
+
+从结果上来看,对p进行了属性值的修改,但结果是p对应的person对象的属性值也发生了改变.
 
