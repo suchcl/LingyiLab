@@ -614,8 +614,11 @@ changeFirstFruit(){
 实现原理:
 
 1. 通过 Proxy(代理):拦截对象中任意属性的变化,包括:属性值的读写、属性的添加、属性的删除等
-2. 通过 Reflect(反射):对被代理对象的属性进行操作
-3.
+2. 通过 Reflect(反射):对被代理对象(源对象)的属性进行操作
+3. Proxy和Reflect的文档:
+  1. Proxy: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy
+  2. Reflect: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect
+
 
 Vue3 中,只要是通过 reactive 包裹的对象、数组,都可以直接添加、删除对象属性、数组元素.
 
@@ -808,3 +811,117 @@ Vue3中的响应式的实现方式,大概就是这样的.
 为了响应式,让数据发生变化的时候,界面也可以同步更新.做后面的实现,就是为了捕获对象属性的变化,在对象属性发生变化的时候,让界面去更新.
 
 代码案例中的console.log()都是应该做响应式界面的操作.
+
+**拦截对象中数据的变化**
+
+我们知道可以通过Object.defineProperty()的方式拦截对象中属性的变化,包括获取属性或者修改属性(包括删除、新增),那我们来看一下Object.defineProperty()的另外一个场景,就是重复修改属性的场景:
+
+```js
+// 通过Object.defineProperty()实现
+Object.defineProperty(obj,"c",{
+  get(){
+    return "Object.defineProperty()";
+  }
+});
+
+Object.defineProperty(obj,"c",{
+  get(){
+    return "再次定义Object.defineProperty()"
+  }
+});
+```
+
+代码中,我们通过Object.defineProperty()重复定义了两个相同的属性,看运行结果:
+
+![Object.defineProperty重复定义属性错误](./images/i11.png)
+
+我们可以得出一个结论,就是Object.defineProperty()不能重复定义同一个属性,如果重复定义了,就会报异常,代码终止运行.
+
+如果是简单的小应用还好,但是如果是庞大、复杂的系统,就会致命了.
+
+ES6中还有另外一种技术方案,也可以实现拦截对象属性的变化:Reflect.
+
+> 现在ECMA组织有计划将Object的API移植到Reflect.什么意思呢?就是说只要是Object有的API、功能,Reflect都有.基于这个事实,我们可以尝试使用Reflect.defineProperty()
+
+我们使用Reflect实现一下定义对象属性的功能:
+
+```js
+// 通过Reflect.defineProperty()实现
+const r1 = Reflect.defineProperty(obj,"c",{
+  get(){
+    return 3;
+  },
+  set(){}
+});
+console.log(`r1: ${r1}`); // r1: true
+const r2 = Reflect.defineProperty(obj,"c",{
+  get(){
+    return 4;
+  }
+});
+console.log(`r2: ${r2}`); // r2: false
+```
+
+来看下运行结果:
+
+![Reflect定义对象属性](./images/i12.png)
+
+Reflect重复定义了同一个属性,但是代码的运行并没有报错,只是返回了一个Boolean值.
+
+那么这种情况不仅会引起疑问:重复定义了都不给报错,那还能行,我怎么知道有没有重复定义很多的属性,我怎么知道哪个定义生效了?
+
+我们应该发现了,通过Reflect.defineProperty()定义属性,都有一个Boolean类型的返回值,正常定义的返回了true,重复定义的地方返回了false,那我们可以通过Reflect.defineProperty()返回值来确认是否正常定义了.
+
+再进一步,我们应该也会想到,Reflect.defineProperty()重复定义了属性,也没有中断代码的运行,且有返回值.其实这种方式在开发中,有着很大的优势:
+
+1. 可以根据代码执行的返回值做不同的逻辑判断
+2. 适合逻辑复杂的、或者框架、工具类型的功能方法中,更加友好
+
+**那么我们在Vue3中的响应式,是不是也可以将通过-Object.defineProperty()实现的响应式替换为Reflect.defineProperty()呢?**
+
+非常的可以.
+
+```js
+// 通过Reflect.defineProperty()拦截对象属性的变化模拟Vue3的响应式
+let person = {
+  name: "Nicholas Zakas",
+  age: 18
+};
+
+// 将响应式实现中的寻找目标的地方都更改为Reflect实现
+let p = new Proxy(person,{
+  get(target,propName){
+    console.log(target,propName);
+    console.log(`我来读取p对象的${propName}属性了.`);
+    // return target[propName];
+    return Reflect.get(target,propName);
+  },
+  set(target,propName,value){
+    console.log(`我来修改p对象的${propName}属性了,值为${value}`);
+    // target[propName] = value;
+    Reflect.set(target,propName,value);
+  },
+  deleteProperty(target,propName){
+    console.log(`我来删除p对象的${propName}属性了`);
+    // return delete target[propName];
+    return Reflect.deleteProperty(target[propName]);
+  }
+});
+```
+
+这样,vue3的响应式的实现的模拟方法又进了一步.
+
+#### 4.5 对比reactive和ref
+
+1. 从定义数据的角度对比
+   1. ref用来定义基本的数据类型
+   2. reactive用来定义引用数据类型数据:对象、数组
+   3. 备注:ref也可以定义引用类型数据(对象、数组),内部会自动通过reactive转换为代理对象
+2. 从原理角度对比
+   1. ref通过Object.defineProperty()的get与set来实现响应式(数据劫持)
+   2. reactive通过Proxy来实现响应式(数据劫持),并通过Reflect草走源对象内部的数据
+3. 从使用角度对比
+   1. ref定义的数据,操作数据需要.value,读取数据模板中不需要.value
+   2. reactive定义的数据:操作数据与读取数据,均不需要.value
+
+#### 4.6 setup的两个注意点
