@@ -767,3 +767,44 @@ let p = new Proxy(person,{});
 
 从结果上来看,对p进行了属性值的修改,但结果是p对应的person对象的属性值也发生了改变.
 
+```js
+// 模拟vue3的响应式实现
+const person = {
+  name: "Nicholas Zakas",
+  age: 26
+};
+
+let p = new Proxy(person,{
+  // 第二个参数,是一个对象
+  // 第一个参数:源对象,即被代理的对象,如案例中是person
+  // 第二个参数:操作的属性,如取name,那么propName就是name;如果取了age,那么propName就是age
+  get(target,propName){
+    console.log(`我读取了${propName}属性`);
+    // 返回当前操作的属性值
+    // 这里取属性值,使用了中括号语法,注意不能使用点语法,因为点语法需要是已经声明的、明确的变量,而这里的变量是不确认的某个具体的变量
+    return target[propName];
+  },
+  // set操作,要比get操作多一个参数,即要赋值的具体值
+  // 前2个参数和get相同
+  // set可以捕获修改和添加属性的变化
+  set(target,propName,value){
+    console.log(`有人修改了p身上的${propName}属性,该去做响应式、更新界面了!`);
+    target[propName] = value;
+  },
+
+  // 删除属性
+  // 删除属性的方法参数,和get方法相同
+  deleteProperty(target,propName){
+    console.log(`有人删除了p身上的${propName}属性,该去做响应式、更新界面了`);
+    return delete target[propName];
+  }
+});
+```
+
+Vue3中的响应式的实现方式,大概就是这样的.
+
+也许会有人有疑惑,其实我不做后面的实现,只用一个对象代理了源对象,对于新对象的操作,都能捕获到,源对象上也会做响应的修改.那位什么还要重复实现呢?
+
+为了响应式,让数据发生变化的时候,界面也可以同步更新.做后面的实现,就是为了捕获对象属性的变化,在对象属性发生变化的时候,让界面去更新.
+
+代码案例中的console.log()都是应该做响应式界面的操作.
