@@ -926,7 +926,7 @@ let p = new Proxy(person,{
 
 #### 4.6 setup的两个注意点
 
-4.6.1 回顾vue2中父子组件传值的一些知识点
+##### 4.6.1 回顾vue2中父子组件传值的一些知识点
 
 **子组件通过定义props来接收从父组件传递过来的数据**
 
@@ -951,3 +951,124 @@ let p = new Proxy(person,{
 因此,在一些对性能有极致要求的时候,可以使用template,或者也可以简单的记住:给slot传值,就只使用template也可以 .
 
 ![slot使用template包裹传递内容和普通HTML标签包裹传递内容的区别](./images/i13.png)
+
+##### 4.6.2 setup函数
+
+setup函数在beforeCreate之前执行,在setup中不要使用this.因为setup是在beforeCreate之前执行,使用this找不到组件实例的.
+
+setup函数,能且只能接收2个参数:分别为props、context.
+
+props:从父组件传递过来的数据
+
+context:上下文
+
+props,是被处理了的Proxy,context,就是一个普通的Object对象.
+
+![props,是被处理了的Proxy,context,就是一个普通的Object对象](./images/i14.png)
+
+props被处理成的Proxy,没有什么好说的,重点来看下context.
+
+![context对象](./images/i15.png)
+
+context对象,重点的会关注这3个属性:attrs、emit、slots.
+
+attrs:相当于Vue2中的$attrs,如果定义了props,就会有props接收数据,如果没有定义props,则会使用框架提供的$attrs来接收数据
+
+emit:提交事件,注意,少了$.
+
+```vue
+<!--setup函数父组件-->
+<template>
+    <div class="user">
+        <h3>Setup函数测试的父组件</h3>
+        <user-profile
+            school="美华大学"
+            job="Teacher"
+            @showUserInfo="showUserInfo"
+        ></user-profile>
+    </div>
+</template>
+
+<script>
+import UserProfile from "./SetupChild.vue";
+export default {
+    components: {
+        UserProfile,
+    },
+    setup() {
+        function showUserInfo(data) {
+            console.log("父组件调用函数了");
+            console.log(data);
+        }
+        return {
+            showUserInfo,
+        };
+    },
+};
+</script>
+
+<!--setup函数子组件-->
+<template>
+    <div class="profile">
+        <h3>用户信息</h3>
+        <h4>姓名:{{person.name}}</h4>
+        <p>年龄:{{person.age}}</p>
+        <p v-if="school">学校:{{school}}</p>
+        <p v-if="job">工作:{{job}}</p>
+        <button @click="commitUserInfo">提交用户信息</button>
+    </div>
+</template>
+
+<script>
+import { reactive } from "vue";
+export default {
+    props: ["school", "job"],
+    setup(props,context) {
+        let person = reactive({
+            name: "Nicholas Zakas",
+            age: 18,
+        });
+
+        function commitUserInfo() {
+            console.log("提交用户信息了");
+            context.emit("showUserInfo", person); // 注意这里是使用了context提交的自定义事件,emit没有$
+        }
+        return {
+            person,
+            commitUserInfo,
+        };
+    },
+};
+</script>
+```
+
+**slot**
+
+Vue3中的插槽的使用方式,和vue2中有点小区别.
+
+Vue2中使用slot:
+
+```vue
+<!--Vue2中使用slot,使用下面的方式,slot属性值是slot的name属性值-->
+<template slot="student">
+	<div class="student">我是一个学生,通过slot传递的数据</div>
+</template>
+```
+
+vue3中使用slot的方式
+
+```vue
+<!--Vue3不再兼容Vue2中 slot=""这种方式了  v-slot属性值,还是子组件中定义的slot的name属性-->
+<template v-slot:student>
+	<div class="student">我是一个学生,通过slot传递的数据</div>
+</template>
+```
+
+slot的使用,是vue3和vue2的一个有区别的地方,建议在vue3中,就直接使用v-slot:name,不要再想着slot=""了.
+
+
+
+> 今天在调试代码时,代码给了一个警告: [Vue warn]: Property "xxx" was accessed during render but is not defined on instance. 
+>
+> 看了半天代码,调试了各种方法,还是给这个警告,最后即将崩溃的时候,突然意识到了父组件给子组件传值的时候,props使用了v-bind,就是:.有时候很简单的一个问题,一下子就蒙圈了.
+
