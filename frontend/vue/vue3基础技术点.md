@@ -1066,9 +1066,217 @@ vue3中使用slot的方式
 
 slot的使用,是vue3和vue2的一个有区别的地方,建议在vue3中,就直接使用v-slot:name,不要再想着slot=""了.
 
-
-
 > 今天在调试代码时,代码给了一个警告: [Vue warn]: Property "xxx" was accessed during render but is not defined on instance. 
 >
 > 看了半天代码,调试了各种方法,还是给这个警告,最后即将崩溃的时候,突然意识到了父组件给子组件传值的时候,props使用了v-bind,就是:.有时候很简单的一个问题,一下子就蒙圈了.
+
+#### 4.7 计算属性
+
+Vue3中的计算属性和Vue2中的计算属性的使用方式,有了点变化.
+
+当然了,Vue2中计算属性的使用方式,在Vue3中还可以继续使用,但是不建议这么用了.
+
+看个案例:还是输入firstname和lastname,显示全名的案例吧.
+
+先看下按照Vue2中计算属性的实现方式来实现
+
+```vue
+<template>
+    <div class="computed">
+        <ul class="user">
+            <li>姓: <input type="text" v-model="person.firstname"></li>
+            <li>名: <input type="text" v-model="person.lastname"></li>
+        </ul>
+        <div class="fullname">全名: {{fullname}}</div>
+    </div>
+</template>
+
+<script>
+import { reactive } from "@vue/reactivity";
+export default {
+    computed: {
+        fullname() {
+            return this.person.firstname + " " + this.person.lastname;
+        },
+    },
+    setup() {
+        let person = reactive({
+            firstname: "Nicholas",
+            lastname: "Zakas",
+        });
+
+        return {
+            person,
+        };
+    },
+};
+</script>
+```
+
+如果在vue3中这么实现,其实在技术上是没有什么问题的,但是不建议这么去做.
+
+因为这种方式混合了Vue2和Vue3两种的编码风格.
+
+Vue3提供了组合式API的计算属性的实现方式,看代码:
+
+```vue
+<template>
+    <div class="computed">
+        <ul class="user">
+            <li>姓: <input type="text" v-model="person.firstname"></li>
+            <li>名: <input type="text" v-model="person.lastname"></li>
+        </ul>
+        <div class="fullname">全名: {{fullname}}</div>
+    </div>
+</template>
+
+<script>
+// 导入计算属性computed模块
+import { reactive,computed } from "@vue/reactivity";
+export default {
+    // Vue2中计算属性的实现方式
+    // computed: {
+    //     fullname() {
+    //         return this.person.firstname + " " + this.person.lastname;
+    //     },
+    // },
+    setup() {
+        let person = reactive({
+            firstname: "Nicholas",
+            lastname: "Zakas",
+        });
+
+        // Vue3中计算属性的实现
+        const fullname = computed(() => {
+            return `${person.firstname} ${person.lastname}`;
+        });
+
+        return {
+            person,
+            fullname
+        };
+    },
+};
+</script>
+```
+
+这种方式,编码风格统一,也更符合了Vue3组合适api的要求.
+
+这种实现,也正是Vue3所倡导的.因为组合式API是需要什么功能模块,你就导入什么功能模块,Vue2的选项式API,是你需要什么功能模块,你配置一个功能模块.
+
+上面的案例,因为全名,就是person的一个属性,可以优化下实现:
+
+```vue
+<template>
+    <div class="computed">
+        <ul class="user">
+            <li>姓: <input type="text" v-model="person.firstname"></li>
+            <li>名: <input type="text" v-model="person.lastname"></li>
+        </ul>
+        <!-- <div class="fullname">全名: {{fullname}}</div> -->
+        <div class="fullname">全名: {{person.fullname}}</div>
+    </div>
+</template>
+
+<script>
+// 导入计算属性computed模块
+import { reactive,computed } from "@vue/reactivity";
+export default {
+    // Vue2中计算属性的实现方式
+    // computed: {
+    //     fullname() {
+    //         return this.person.firstname + " " + this.person.lastname;
+    //     },
+    // },
+    setup() {
+        let person = reactive({
+            firstname: "Nicholas",
+            lastname: "Zakas",
+        });
+
+        // Vue3中计算属性的实现 简单实现,只有读取属性,没有涉及到修改属性,就是只实现了get方法
+        // const fullname = computed(() => {
+        //     return `${person.firstname} ${person.lastname}`;
+        // });
+
+        // 这里的返回全名的计算属性,还可以优化,因为全名也是person的全名,优化如下
+        // 模版种也应该修改一下,然后只导出person就可以了
+        person.fullname = computed(() => {
+            return `${person.firstname} ${person.lastname}`
+        });
+
+        return {
+            person
+            // fullname
+        };
+    },
+};
+</script>
+```
+
+到现在为止,这个案例只实现了get方法,即只能读取数据,不能修改.下面看可以修改的:
+
+```vue
+<template>
+    <div class="computed">
+        <ul class="user">
+            <li>姓: <input type="text" v-model="person.firstname"></li>
+            <li>名: <input type="text" v-model="person.lastname"></li>
+        </ul>
+        <!-- <div class="fullname">全名: {{fullname}}</div> -->
+        <!-- <div class="fullname">全名: {{person.fullname}}</div> -->
+        <h4>可以修改姓名的全名</h4>
+        <div class="fullname">全名: <input type="text" v-model="person.fullname"></div>
+    </div>
+</template>
+
+<script>
+// 导入计算属性computed模块
+import { reactive,computed } from "@vue/reactivity";
+export default {
+    // Vue2中计算属性的实现方式
+    // computed: {
+    //     fullname() {
+    //         return this.person.firstname + " " + this.person.lastname;
+    //     },
+    // },
+    setup() {
+        let person = reactive({
+            firstname: "Nicholas",
+            lastname: "Zakas",
+        });
+
+        // Vue3中计算属性的实现 简单实现,只有读取属性,没有涉及到修改属性,就是只实现了get方法
+        // const fullname = computed(() => {
+        //     return `${person.firstname} ${person.lastname}`;
+        // });
+
+        // 这里的返回全名的计算属性,还可以优化,因为全名也是person的全名,优化如下
+        // 模版种也应该修改一下,然后只导出person就可以了
+        // person.fullname = computed(() => {
+        //     return `${person.firstname} ${person.lastname}`
+        // });
+
+        // 继续优化,既可以读取,也可以修改
+        person.fullname = computed({
+            get(){
+                return `${person.firstname} ${person.lastname}`
+            },
+            set(value){
+                const newArr = value.split(" ");
+                person.firstname = newArr[0];
+                person.lastname = newArr[1];
+            }
+        });
+
+        return {
+            person
+            // fullname
+        };
+    },
+};
+</script>
+```
+
+
 
