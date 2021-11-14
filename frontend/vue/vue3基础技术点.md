@@ -937,3 +937,17 @@ let p = new Proxy(person,{
 
 **slot**
 
+主要再回顾下vue2中的插槽slot,slot其实就是一个占位的作用,别的没有什么实质的行为和功能.
+
+使用slot时,有一点需要注意的就是在给slot传递内容时,我记得以前的vue的版本(具体什么版本不记得了,也可能是记错了)中,只能通过template传递内容,后来的vue版本中去掉了这个限制.
+
+那么现在可以通过什么给slot传递内容呢?普通的HTML标记都可以,也可以使用template.
+
+使用template和普通的HTML标记的区别是:
+
+1. 使用template:template在DOM结构中仅仅是一个标识,不会占用DOM的层级
+2. 使用普通的HTML标记:会增加一层DOM层级.
+
+因此,在一些对性能有极致要求的时候,可以使用template,或者也可以简单的记住:给slot传值,就只使用template也可以 .
+
+![slot使用template包裹传递内容和普通HTML标签包裹传递内容的区别](./images/i13.png)
