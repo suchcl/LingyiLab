@@ -1180,7 +1180,7 @@ export default {
 
 <script>
 // 导入计算属性computed模块
-import { reactive,computed } from "@vue/reactivity";
+import { reactive,computed } from "vue";
 export default {
     // Vue2中计算属性的实现方式
     // computed: {
@@ -1278,5 +1278,78 @@ export default {
 </script>
 ```
 
+#### 4.8 watch
 
+Vue3种的watch,和Vue2中的watch功能一致.
+
+> watch,在Vue3种,也是组合式API去实现的.
+>
+> 其实,Vue3中的组合式API,都是一些内置的函数,如ref、reactive、computed,以及即将要用到的watch,都是一些内置的函数.
+
+Vue3中,因为是组合式的API,watch是一个函数.因此在Vue3中可以执行多个watch监听函数
+
+Vue2中,因为watch是一个配置选项,它只能被配置一次.
+
+因此,在Vue3中,如果想去监听多个响应式数据,可以通过执行多个watch函数的方式去实现,也可以将被监听的响应式数据放到一个数组中
+
+```vue
+<template>
+    <div class="watch">
+        <div class="count">
+            <h2>当前求和: {{sum}}</h2>
+            <button @click="sum++">+1</button>
+        </div>
+        <div class="msg">
+            <h2>当前信息: {{msg}}</h2>
+            <button @click="msg+='!'">msg变了</button>
+        </div>
+    </div>
+</template>
+
+<script>
+import { ref, watch } from "vue";
+export default {
+    name: "Watch",
+    setup() {
+        let sum = ref(0);
+        let msg = ref("Hello Vue3");
+
+        // 通过watch监听sum的变化
+        // 监听ref定义的响应式数据的变化
+        // 情况一:只监听了一个响应式数据的变化
+        // watch(
+        //     sum,
+        //     function (newValue, oldValue) {
+        //         console.log("监听了");
+        //     },
+        //     {
+        //         immediate: true,
+        //     }
+        // );
+
+        // 情况2:定义多个响应式数据
+        // 监听多个响应式数据,可以将监听的数据使用[]括起来
+        // 也可以执行多个watch函数,每个watch函数只监听一个响应式数据
+        // vue2中,只能配置一个watch选项,但是Vue3中是组合式API,可以执行多个watch函数
+        watch(
+            [sum, msg],
+            (newValue, oldValue) => {
+                console.log("两个数被监视了",newValue,oldValue);
+            },
+            {
+                immediate: true,
+            }
+        );
+
+        // 返回对象
+        return {
+            sum,
+            msg,
+        };
+    },
+};
+</script>
+```
+
+> vue3中watch函数的deep配置项好像有点问题,暂时不太清楚具体问题.
 
