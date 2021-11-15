@@ -18,7 +18,12 @@
 6. [react](frontend/react/index.md)
 7. [vue](./frontend/vue/index.md)
 8. [WebGL](frame/WebGL/index.md)
-9. [数据结构与算法](frame/数据结构与算法/index.md)
+9. [数据结构与算法](frontend/数据结构与算法/index.md)
+
+   1. [二分查找法](./frontend/数据结构与算法/二分查找法.md)
+
+   2. [快速排序算法](./frontend/数据结构与算法/快速排序算法.md)
+
 10. [微信小程序](frame/wxmini/index.md)
 11. [taro](frame/taro/index.md)
 12. [CreateReactApp](frame/CreateReactApp/介绍.md)
@@ -119,7 +124,7 @@
 3. [delete 和 Vue.delete 删除数组的区别](./interview/frontend/vue/delete和Vue.delete删除数组的区别.md)
 4. [Vue 为什么采用异步渲染](./interview/frontend/vue/vue为什么采用异步渲染.md)
 5. [vuex 和 provide](./interview/frontend/vue/vuex&provide.md)
-6. [vue 的双向绑定远离](./interview/frontend/vue/vue的双向绑定原理.md)
+6. [vue 的双向绑定原理](./interview/frontend/vue/vue的双向绑定原理.md)
 7. [nextTick 原理](./interview/frontend/vue/nextTick原理.md)
 8. [虚拟 DOM](./interview/frontend/vue/虚拟DOM.md)
 9. [vue-router 异步加载原理](./interview/frontend/vue/vue-router异步加载原理.md)
