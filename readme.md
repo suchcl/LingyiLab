@@ -8,6 +8,8 @@
 2. [操作系统](./os/index.md)
 3. [软件工程](./frontend/软件工程/index.md)
 
+   2.1 [前端架构](./frontend/软件工程/前端架构.md)
+
 ### 前端开发技术
 
 1. [Javascript 基础](frame/Javascript/index.md)
