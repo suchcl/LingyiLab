@@ -26,6 +26,8 @@
 
    2. [快速排序算法](./frontend/数据结构与算法/快速排序算法.md)
 
+   3. [冒泡排序算法](./frontend/数据结构与算法/冒泡排序.md)
+
 10. [微信小程序](frame/wxmini/index.md)
 11. [taro](frame/taro/index.md)
 12. [CreateReactApp](frame/CreateReactApp/介绍.md)
