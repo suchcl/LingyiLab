@@ -66,6 +66,7 @@ function reverse(num) {
 3. 不等于 0，但尾数是 0 的数字，都不是回文数
 
 ```js
+// 实现1
 function isPalindrome(num) {
   if (num < 0 || (num !== 0 && num % 10 === 0)) {
     return false;
@@ -80,5 +81,32 @@ function isPalindrome(num) {
     }
   }
   return true;
+}
+
+// 实现2  通过高阶函数实现
+function isPalindrome(num) {
+  if (num < 0) {
+    return false;
+  }
+  let numStr = num.toString();
+  // return parseInt(Array.from(numStr).reverse().join("")) === num;
+  return Array.from(numStr).reverse().join("") === numStr;
+}
+
+// 实现3  把原数字转换为字符串后反转，然后将反转后的字符串和原字符串做相等性判断
+function isPalindrome(num) {
+  let numToStr = num.toString();
+  let newStr = "";
+  let len = numToStr.length - 1;
+  if (num >= 0 && num <= 9) {
+    return true;
+  } else if (num < 0 || (num !== 0 && num % 10 === 0)) {
+    return false;
+  }
+
+  for (let i = len; i >= 0; i--) {
+    newStr += numToStr[i];
+  }
+  return newStr === numToStr;
 }
 ```
