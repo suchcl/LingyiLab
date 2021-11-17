@@ -50,3 +50,35 @@ function reverse(num) {
   return resultNum;
 }
 ```
+
+### 3. 判断回文数,是回文数返回 true，否则返回 false
+
+回文数：指正序（从左到右）和倒序（从右到左）读，都是一样的整数。
+
+如 121 是回文数，1221 是回文数，-121 不是回文数。
+
+关于回文数的一些特殊情况：
+
+1. 0-9 的数字，都是回文数
+
+2. 负数都不是回文数；
+
+3. 不等于 0，但尾数是 0 的数字，都不是回文数
+
+```js
+function isPalindrome(num) {
+  if (num < 0 || (num !== 0 && num % 10 === 0)) {
+    return false;
+  } else if (num >= 0 && num <= 9) {
+    return true;
+  }
+  num = num.toString();
+  for (let i = 0; i <= num.length / 2; i++) {
+    // 注意这里不能使用num[i] === num[num.length - i - 1]，因为只要有false就要退出循环，而不是只要有1个true就可以
+    if (num[i] !== num[num.length - i - 1]) {
+      return false;
+    }
+  }
+  return true;
+}
+```
