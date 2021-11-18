@@ -1459,4 +1459,52 @@ watchEffect(() => {
 >
 > computed特性:初始化时执行一次,然后所依赖的数据发生变化了,再次执行
 
-​	
+### 5. 生命周期
+
+vue3给出了和Vue2基本相同的生命周期:只是有两个生命周期的钩子函数改了个名字,分别是:
+
+Vue2中的: beforeDestroy、destroyed
+
+Vue3中的: beforeUnmount、unmounted
+
+Vue3中,生命周期可以像Vue2一样,通过配置项的方式使用生命周期钩子函数:
+
+```js
+export default {
+    setup(){},
+    beforeCreate(){},
+    created(){},
+    beforeMount(){},
+    mounted(){},
+    beforeUpdate(){},
+    updated(){},
+    beforeUnmount(){},
+    unmounted(){}
+}
+```
+
+但是Vue3提供了组合式API的生命周期的组合方式,但是Vue3中的这种组合式API中,通过在生命周期钩子函数前面加上“on”来访问组件生命周期的钩子.
+
+> 因为setup函数是围绕beforeCreate和created两个钩子函数运行的,所以在Vue3中,就没有显示的定义这2个钩子函数.
+
+setup函数内部生命周期钩子函数的对应关系如下:
+
+![Vue3中生命周期钩子函数的对应关系](./images/i16.png)
+
+```js
+    setup(){
+        onBeforeMount()
+        onMounted()
+        onBeforeUpdate()
+        onUpdated()
+        onBeforeUnmount()
+        onUnmounted()
+        return {}
+    }
+```
+
+前面有介绍,说是setup函数,要比beforeCreate()执行的要早.
+
+这是在生命周期函数是通过配置项方式使用的时候.
+
+如果混合使用了配置项方式的生命周期钩子函数和组合式api方式的生命周期钩子函数,那么组合式api方式的钩子函数的执行时机要早于配置项方式的生命周期钩子函数.
