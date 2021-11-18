@@ -1359,3 +1359,72 @@ export default {
 
 > vue3中watch函数的deep配置项好像有点问题,暂时不太清楚具体问题.
 
+watch监听由reactive定义的响应式数据时,现在监听不到oldValue,这是reactive实现的问题,暂时还没有很好的解决办法.
+
+watch监听由ref定义的响应式数据时,暂无问题.
+
+那么使用ref定义引用类型的数据,然后让watch去监听变化,可以吗?不可以,因为ref定义的响应式数据,从根上还是由reactive实现的,只不过又包了个壳.
+
+```js
+watch(person,(newValue,oldValue) => {
+  console.log(`watch监听的响应式数据变了: `,newValue,oldValue);
+});
+```
+
+所以一般的情况下,在vue3.0中,能不用oldValue,如果必须要使用到oldValue时,可以尝试把需要获取oldValue的属性值提取出去,当作一个普通的数据去使用,使用ref去定义.
+
+Vue3.0中的watch监听,默认开启了deep监听,可以默认监听多层对象,且配置deep:false无效.
+
+```js
+let person = reactive({
+    name: "Nicholas Zakas",
+    age: 18,
+    job: {
+        j1: {
+            salary: 20    
+        }
+    }
+});
+
+watch(person,(newValue,oldValue) => {
+    console.log(`watch监听的响应式数据变了: `,newValue,oldValue);
+},{
+    deep: false
+});
+```
+
+**Vue3.0监听reactive定义的响应式数据的某个具体属性**
+
+Vue3.0中,watch默认只能监听数组、ref和reactive定义的响应式数据,当需要监听一个由reactive定义的响应式数据的某具体属性时,可以通过函数的方式实现:
+
+```js
+// 情况4:监听reactive定义的响应式对象中的某个具体的属性
+// 通过函数返回值的方式使用,watch正常情况下只能监听数组、ref和reactive定义的响应式数据
+// 比如需要监听年龄的变化
+watch(() => { return person.age },(newValue,oldValue) => {
+    console.log(`年龄变了: `,newValue,oldValue);
+});
+```
+
+Vue3.0监听对象中某些属性的变化
+
+```js
+// 情况5: 监听对象中的某些属性的变化
+watch([() => person.name,() => person.age], (newValue,oldValue) => {
+  console.log(`对象中的姓名或者年龄变了:`, newValue,oldValue);
+})
+```
+
+> Vue3.0中watch的2个坑:
+>
+> 1. 监听reactive定义的响应式数据时,oldValue无法正确获取、强制开启了deep监听,deep配置无效
+> 2. 监听reactive定义的响应式数据中的某个具体的对象属性时,deep监听有效
+>
+> ```js
+> // 特殊情况:监听reactive定义的响应式数据中的对象属性,deep配置生效
+>         watch(() => person.job,(newValue,oldValue) => {
+>             console.log("涨薪了:",newValue,oldValue);
+>         },{
+>             deep: true
+>         });
+> ```
