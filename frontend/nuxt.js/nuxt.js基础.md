@@ -56,7 +56,7 @@ o fsevents 2.
 
 如果使用默认的选项，一路回车就可以了。
 
-1.1.2 通过npx创建项目
+##### 1.1.2 通过npx创建项目
 
 ```bash
 npx create-nuxt-app nuxt2 # 创建一个项目名称为nuxt2的nuxt项目
@@ -64,7 +64,7 @@ npx create-nuxt-app nuxt2 # 创建一个项目名称为nuxt2的nuxt项目
 
 使用npx创建项目，其本质上还是通过create-nuxt-app，只是不需要全局安装一下create-nuxt-app了，项目的创建过程就不再这里描述了。
 
-1.1.3 项目目录结构
+##### 1.1.3 项目目录结构
 
 ```markdown
 ├─.editorconfig
@@ -85,6 +85,38 @@ npx create-nuxt-app nuxt2 # 创建一个项目名称为nuxt2的nuxt项目
 |     ├─NuxtLogo.vue
 |     └Tutorial.vue
 ```
+
+> nuxt会自动监听pages目录中文件的变化，当pages目录中的文件发生变化时，不需要重新启动服务器就可以直接看到效果。
+
+**assets**：资源目录，用来组织未编译的项目的静态资源目录，如less、sass、js、ts等
+
+**components**：组件目录，拥有组织vue组件。nuxt不会扩展增强该目录下的vue组件，也就是说components目录下的vue组件不会像页面组件那样拥有asyncData方法的特性
+
+layouts：布局目录。通过create-nuxt-app创建的项目，默认没有layouts目录，如果架构需要，可以自己创建，按照和这个规范去创建。该目录下的是应用的布局组件，如果没有额外的配置，该目录名不能被重命名
+
+**middleWare**：中间件目录
+
+**pages**：页面目录。nuxt.js框架读取该目录下的所有.vue文件并自动生成对应的路由配置
+
+**plugins**：插件目录。
+
+**static**：静态文件目录，该目录下存放不需要nuxt.js调用webpack进行构建、编译的处理的静态文件。服务器启动的时候，该目录下的文件会自动被映射到应用的根目录/下。如/static/index.html会被映射到/index.html。
+
+**store**：用于组织项目的状态文件。Nuxt.js集成了Vuex状态树的相关功能配置，在store目录下创建一个index.js自动激活vuex相关配置。
+
+如果没有必要的配置，store目录不可修改路径名
+
+**nuxt.config.js**：用于组织Nuxt应用的个性化配置，以覆盖默认的配置。
+
+如果没有必要的配置，该目录名不可修改
+
+**package.json**：用于描述应用的依赖关系和对外暴露的脚本接口； 该文件不可被重命名
+
+
+
+
+
+
 
 
 
