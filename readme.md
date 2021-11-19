@@ -19,56 +19,57 @@
 5. [Egg.js](frontend/eggjs/index.md)
 6. [react](frontend/react/index.md)
 7. [vue](./frontend/vue/index.md)
-8. [WebGL](frame/WebGL/index.md)
-9. [数据结构与算法](frontend/数据结构与算法/index.md)
+8. [nuxt.js](./frontend/nuxt.js/index.md)
+9. [WebGL](frame/WebGL/index.md)
+10. [数据结构与算法](frontend/数据结构与算法/index.md)
 
-   1. [对算法的理解&看法](./frontend/数据结构与算法/算法.md)
+    1. [对算法的理解&看法](./frontend/数据结构与算法/算法.md)
 
-   2. [对算法中时间复杂度和空间复杂度的理解，怎么计算](./frontend/数据结构与算法/算法时间复杂度和空间复杂度的计算.md)
+    2. [对算法中时间复杂度和空间复杂度的理解，怎么计算](./frontend/数据结构与算法/算法时间复杂度和空间复杂度的计算.md)
 
-   3. [常见的数据结构，都有哪些，有什么区别](./frontend/数据结构与算法/常见的数据结构及区别.md)
+    3. [常见的数据结构，都有哪些，有什么区别](./frontend/数据结构与算法/常见的数据结构及区别.md)
 
-   4. [栈、队列数据结构](./frontend/数据结构与算法/栈队列数据结构.md)
+    4. [栈、队列数据结构](./frontend/数据结构与算法/栈队列数据结构.md)
 
-   5. [链表](./frontend/数据结构与算法/链表.md)
+    5. [链表](./frontend/数据结构与算法/链表.md)
 
-   6. [集合](./frontend/数据结构与算法/集合.md)
+    6. [集合](./frontend/数据结构与算法/集合.md)
 
-   7. [树](./frontend/数据结构与算法/树.md)
+    7. [树](./frontend/数据结构与算法/树.md)
 
-   8. [堆](./frontend/数据结构与算法/堆.md)
+    8. [堆](./frontend/数据结构与算法/堆.md)
 
-   9. [图](./frontend/数据结构与算法/图.md)
+    9. [图](./frontend/数据结构与算法/图.md)
 
-   10. [二分查找法](./frontend/数据结构与算法/二分查找法.md)
+    10. [二分查找法](./frontend/数据结构与算法/二分查找法.md)
 
-   11. [常见的排序算法有哪些，以及区别](./frontend/数据结构与算法/常见的排序算法.md)
+    11. [常见的排序算法有哪些，以及区别](./frontend/数据结构与算法/常见的排序算法.md)
 
-   12. [冒泡排序算法](./frontend/数据结构与算法/冒泡排序.md)
+    12. [冒泡排序算法](./frontend/数据结构与算法/冒泡排序.md)
 
-   13. [选择排序的算法及实现](./frontend/数据结构与算法/选择排序的算法及实现.md)
+    13. [选择排序的算法及实现](./frontend/数据结构与算法/选择排序的算法及实现.md)
 
-   14. [插入排序算法](./frontend/数据结构与算法/插入排序算法.md)
+    14. [插入排序算法](./frontend/数据结构与算法/插入排序算法.md)
 
-   15. [归并排序算法](./frontend/数据结构与算法/归并排序算法.md)
+    15. [归并排序算法](./frontend/数据结构与算法/归并排序算法.md)
 
-   16. [快速排序算法](./frontend/数据结构与算法/快速排序算法.md)
+    16. [快速排序算法](./frontend/数据结构与算法/快速排序算法.md)
 
-   17. [递归算法](./frontend/数据结构与算法/递归算法.md)
+    17. [递归算法](./frontend/数据结构与算法/递归算法.md)
 
-   18. [分而治之、动态规划](./frontend/数据结构与算法/分而治之-动态规划.md)
+    18. [分而治之、动态规划](./frontend/数据结构与算法/分而治之-动态规划.md)
 
-   19. [贪心算法、回溯算法](./frontend/数据结构与算法/贪心算法-回溯算法.md)
+    19. [贪心算法、回溯算法](./frontend/数据结构与算法/贪心算法-回溯算法.md)
 
-10. [微信小程序](frame/wxmini/index.md)
-11. [taro](frame/taro/index.md)
-12. [CreateReactApp](frame/CreateReactApp/介绍.md)
-13. [next.js](frontend/next.js/index.md)
-14. [软件工程](./frontend/软件工程/软件工程.md)
-15. [webpack](./fontend/../frontend/webpack/index.md)
-16. [性能优化](./frontend/performance/index.md)
-17. [前端开发规范细则](./frontend/软件工程/开发规范.md)
-18. [前端在未来一段时间的发力点](./frontend/软件工程/前端在未来一段时间的发力点.md)
+11. [微信小程序](frame/wxmini/index.md)
+12. [taro](frame/taro/index.md)
+13. [CreateReactApp](frame/CreateReactApp/介绍.md)
+14. [next.js](frontend/next.js/index.md)
+15. [软件工程](./frontend/软件工程/软件工程.md)
+16. [webpack](./fontend/../frontend/webpack/index.md)
+17. [性能优化](./frontend/performance/index.md)
+18. [前端开发规范细则](./frontend/软件工程/开发规范.md)
+19. [前端在未来一段时间的发力点](./frontend/软件工程/前端在未来一段时间的发力点.md)
 
 ### 服务器知识
 
@@ -89,7 +90,7 @@
 ### 版本管理
 
 1. [版本管理](VersionControl/index.md)
-2. [github 修改默认分支](./VersionControl/github修改默认分支为master.md)
+2. [github修改默认分支](./VersionControl/github修改默认分支为master.md)
 
 ### 人工智能/机器学习
 
@@ -101,11 +102,11 @@
 
 1. [目录](Hodgepodge/index.md)
 
-2. [markdown 相关](Hodgepodge/grammar.md)
+2. [markdown相关](Hodgepodge/grammar.md)
 
-3. [常用 dos 命令](Hodgepodge/dos.md)
+3. [常用dos命令](Hodgepodge/dos.md)
 
-4. [markdown 生成树状目录结构](Hodgepodge/markdown生成树状目录结构.md)
+4. [markdown通过treer生成树状目录结构](Hodgepodge/markdown生成树状目录结构.md)
 
 5. [excel 怎么设置下拉选项](Hodgepodge/excel设置下拉选项.md)
 
@@ -212,23 +213,3 @@
 ### 管理人生
 
 1. [技术序列的工作能力的评估](./manage/技术人、团队的客观综合评估.md)
-
-### 共勉
-
-| URL                              | 提交次数 | 日期       |
-| -------------------------------- | -------- | ---------- |
-| https://github.com/WindrunnerMax | 740      | 2021.10.17 |
-| https://github.com/suchcl        | 458      | 2021.10.17 |
-|                                  |          |            |
-
-| URL                              | 提交次数 | 日期       |
-| -------------------------------- | -------- | ---------- |
-| https://github.com/WindrunnerMax | 721      | 2021.10.18 |
-| https://github.com/suchcl        | 476      | 2021.10.18 |
-|                                  |          |            |
-
-| URL                              | 提交次数 | 日期       |
-| -------------------------------- | -------- | ---------- |
-| https://github.com/WindrunnerMax | 725      | 2021.10.22 |
-| https://github.com/suchcl        | 519      | 2021.10.22 |
-|                                  |          |            |
