@@ -123,6 +123,8 @@
 
 12. [windows10C 盘突然空间不足](./Hodgepodge/widnows10C盘突然空间不足.md)
 
+13. [BeyondCompare4 延长试用期](./Hodgepodge/BeyondCompare4延长试用期.md)
+
 ### 面试
 
 #### Javascript
