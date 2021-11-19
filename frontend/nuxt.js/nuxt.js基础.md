@@ -112,7 +112,54 @@ layouts：布局目录。通过create-nuxt-app创建的项目，默认没有layo
 
 **package.json**：用于描述应用的依赖关系和对外暴露的脚本接口； 该文件不可被重命名
 
+### 2. 配置
 
+Nuxt.js项目的默认配置覆盖了大部分的使用场景，但在个性化场景下，可以通过nuxt.config.js来覆盖默认配置。
+
+### 3. 路由
+
+Nuxt.js根据pages目录结构自动生成vue-router模块的路由配置。
+
+在页面之间跳转，建议使用<nuxt-link>标签，当然了，也可以使用a标签。
+
+```vue
+<!--index.vue-->
+<ul class="link">
+    <li>
+        <a href="/list/list">新闻列表</a>
+    </li>
+    <li>
+        <nuxt-link to="/list/list">列表</nuxt-link>
+    </li>
+</ul>
+```
+
+pages目录结构如下：
+
+```markdown
+├─index.vue
+├─list
+|  └list.vue
+```
+
+经过转换成vue-router后的路由配置如下：
+
+```json
+router = {
+  routes: [
+    {
+      name: "index",
+      path: "/",
+      component: "pages/index.vue"
+    },
+    {
+      name: "list",
+      path: "/list/list",
+      component: "pages/list/list.vue"
+    }
+  ]
+};
+```
 
 
 
