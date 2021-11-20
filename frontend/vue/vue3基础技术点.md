@@ -1765,5 +1765,80 @@ export default {
 </script>
 ```
 
+### 8.其他常用composition api
 
+1. shallowReactive和shallowRef
+
+   1. shallowReact:只处理对象类型的最外层属性的响应式,也被称为浅响应式
+   2. shallowRef:只处理基本数据类型的响应式,不处理对象类型的数据响应式
+
+   使用场景(什么时候使用)
+
+   1. 如果有一个对象数据,结构比较深,但变化时只有最外层属性变化,使用shallowReactive
+   2. 如果有一个对象数据,后续功能不会修改对象中的属性,而是生成的新的对象来替换属性,使用shallowRef
+
+![shallowReactive只能处理浅响应](./images/i19.png)
+
+
+
+```vue
+<template>
+    <div>
+        <div class="user">
+            <h3>用户信息</h3>
+            <h4>{{person}}</h4>
+            <h4>姓名: {{name}}</h4>
+            <p>年龄: {{age}}</p>
+            <p>薪资: {{job.j1.salary}}</p>
+            <ul class="btn-area">
+                <li>
+                    <button @click="name+='~'">修改姓名</button>
+                </li>
+                <li>
+                    <button @click="age++">修改年龄</button>
+                </li>
+                <li>
+                    <button @click="job.j1.salary++">涨薪</button>
+                </li>
+            </ul>
+        </div>
+        <div class="count">
+            <h4>数字: {{counter.x}}</h4>
+            <button class="btn" @click="counter.x++">数字自增</button>
+          <!--实现不了对象counter的响应式-->
+            <button class="btn" @click="counter={x:999}">数字替换</button>
+        </div>
+    </div>
+</template>
+
+<script>
+import { toRefs, reactive,ref,shallowRef } from "vue";
+import { shallowReactive } from "@vue/reactivity";
+export default {
+    name: "ShallowReactive&ShallowRef",
+    setup() {
+        let person = shallowReactive({
+            name: "Nicholas Zakas",
+            age: 18,
+            job: {
+                j1: {
+                    salary: 20,
+                },
+            },
+        });
+ 
+       // shallowRef实现的仅仅是counter对象的响应式,但是并没有实现counter对象中x属性的响应式
+        let counter = shallowRef({
+            x: 0,
+        });
+
+        return {
+            person,
+            counter,
+            ...toRefs(person),
+        };
+    },
+};
+</script>
+```
 
