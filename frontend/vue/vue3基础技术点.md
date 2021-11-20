@@ -1592,3 +1592,178 @@ export default {
 应用:要将响应式对象中的某个属性单独供给外部使用时
 
 扩展:toRefs与toRef功能一致,但可以批量创建多个ref对象,语法:toRefs(person);
+
+看案例:
+
+```vue
+<template>
+    <div class="ref">
+        <h2>姓名: {{person.name}}</h2>
+        <h2>年龄: {{person.age}}</h2>
+        <h2>工资: {{person.job.j1.salary}}k</h2>
+        <ul class="btn-area">
+            <li>
+                <button @click="person.name+='~'">修改姓名</button>
+            </li>
+            <li>
+                <button @click="person.age++">修改年龄</button>
+            </li>
+            <li>
+                <button @click="person.job.j1.salary++">涨薪</button>
+            </li>
+        </ul>
+    </div>
+</template>
+<script>
+import { reactive } from "vue";
+export default {
+    setup() {
+        let person = reactive({
+            name: "Nicholas Zakas",
+            age: 18,
+            job: {
+                j1: {
+                    salary: 20,
+                },
+            },
+        });
+        return {
+            person,
+        };
+    },
+};
+</script>
+```
+
+案例中,模板读取数据,读取数据的层级比较深,如person.name、person.age,这2个属性还好,只有2层,但是下面的工资字段就比较深了.那么有没有办法直接就使用一层的字段读取数据呢?Vue3给我们提供了toRef函数,帮我们去实现这样的诉求.
+
+```vue
+<h2>姓名: {{name}}</h2>
+<h2>年龄: {{age}}</h2>
+<h2>工资: {{salary}}k</h2>
+<ul class="btn-area">
+  <li>
+    <button @click="name+='~'">修改姓名</button>
+  </li>
+  <li>
+    <button @click="age++">修改年龄</button>
+  </li>
+  <li>
+    <button @click="salary++">涨薪</button>
+  </li>
+</ul>
+<script>
+import { reactive } from "vue";
+export default {
+    setup() {
+        let person = reactive({
+            name: "Nicholas Zakas",
+            age: 18,
+            job: {
+                j1: {
+                    salary: 20,
+                },
+            },
+        });
+
+        return {
+            // 我们通过在return数据的时候,直接返回需要的字段,来解决模板中使用字段层级过深的问题
+            name: person.name,
+            age: person.age,
+            salary: person.job.j1.salary
+        }
+    },
+};
+</script>
+```
+
+发现经过优化之后,模板中读取数据的层级确实变浅了,且数据也正常的渲染了出来 .
+
+![读取数据层级变浅](./images/i17.png)
+
+看来没问题,但随后为我一点按钮,发现姓名不能改、薪资也不能调整,说明了按钮的动作没有生效,其实也就是数据的响应式没有了
+
+去使用toRef:它可以创建一个ref响应式对象,其value值指向另一个对象的某个属性
+
+toRef()函数,接收2个参数,第一个参数为要志向的对象,第2个参数为要指向的对象的具体的属性
+
+```js
+return {
+  // 我们通过在return数据的时候,直接返回需要的字段,来解决模板中使用字段层级过深的问题
+  // 通过使用toRef()函数创建指向另一个对象中的某个属性
+  name: toRef(person,"name"),
+  age: toRef(person,"age"),
+  salary: toRef(person.job.j1,"salary")
+}
+```
+
+这样,就可以实现模板中只使用一个层级读取数据的效果了
+
+<font color="#f20">既然toRef()是定义ref对象,那么是否可以直接使用ref函数创建响应式对象,而不使用toRef()呢,如name:ref(person.name)</font>,参考下面代码:
+
+```js
+return {
+  person,
+  name: ref(person.name),
+  age: ref(person.age),
+  salary: ref(person.job.j1.salary),
+};
+```
+
+是不可以的.
+
+直接通过ref定义响应式对象,在初次读取数据的时候是没有问题的,但是这是通过ref创建了一个基于person数据的新的响应式对象,并没有和源数据person关联起来.虽然这种方式在进行操作的时候,看起来数据变了,但是变的数据是ref新创建的对象,不是源数据person.
+
+![ref新创建的对象,并没有和源数据关联起来](./images/i18.png)
+
+从运行结果上看,确实没有关联上.
+
+<font color="#f20">所以,还是得使用toRef()创建和源数据的关联</font>
+
+**toRefs**
+
+toRefs()和toRef功能和目标一样,只是toRef()只能创建单个数据的关联,二toRefs()可以创建所有数据的关联
+
+但是toRefs()现在来看有一点不好的,就是不能做到深层次的关联,所以我们在使用toRefs()的时候,就关联到最属性最多的那一层,至于再深层次的对象,就继续点式调用吧
+
+```vue
+<h3>person: {{person}}</h3>
+<h2>姓名: {{name}}</h2>
+<h2>年龄: {{age}}</h2>
+<h2>工资: {{job.j1.salary}}k</h2>
+<ul class="btn-area">
+  <li>
+    <button @click="name+='~'">修改姓名</button>
+  </li>
+  <li>
+    <button @click="age++">修改年龄</button>
+  </li>
+  <li>
+    <button @click="job.j1.salary++">涨薪</button>
+  </li>
+</ul>
+<script>
+import { ref, reactive, toRef, toRefs } from "vue";
+export default {
+    setup() {
+        let person = reactive({
+            name: "Nicholas Zakas",
+            age: 18,
+            job: {
+                j1: {
+                    salary: 20,
+                },
+            },
+        });
+
+        return {
+            person,
+            ...toRefs(person) // 对象中不能返回对象,就扩展一下返回对象来实现了
+        }
+    },
+};
+</script>
+```
+
+
+
