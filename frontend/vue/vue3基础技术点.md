@@ -1519,6 +1519,70 @@ setup函数内部生命周期钩子函数的对应关系如下:
 
 hook函数的文件名,通常都以useXXX为文件名,如useState、useStudent等等,但是并不是必须以此为文件名.
 
+```js
+// src/hooks/usePoint.js 定义一个hook函数
+/**
+ * 这是一个hook函数
+ * hook函数记得要有返回数,否则没有办法使用,因为没有返回,函数默认的返回是undefined
+ */
+import { reactive, onMounted, onUnmounted } from "vue";
+function savePoint() {
+    // 实现鼠标打点相关数据
+    let point = reactive({
+        x: 0,
+        y: 0
+    });
+
+
+    // 实现鼠标打点的相关方法
+    function getPosition(event) {
+        point.x = event.pageX;
+        point.y = event.pageY;
+    }
+
+    // 实现鼠标打点的生命周期钩子函数
+    onMounted(() => {
+        window.addEventListener("click", getPosition);
+    })
+
+    onUnmounted(() => {
+        window.removeEventListener("click", getPosition);
+    })
+
+    // 记得return
+    return point;
+}
+
+export default savePoint;
+```
+
+```vue
+<template>
+    <div class="point-wrap">
+        <div class="pos">
+            <h3>点击位置: x: {{point.x}}, y: {{point.y}}</h3>
+        </div>
+    </div>
+</template>
+
+<script>
+// 导入一个hook函数
+import usePoint from "../../hooks/usePoint";
+export default {
+    setup() {
+        // 使用hook
+        // 调用的地方干净、利落
+        let point = usePoint();
+        return {
+            point
+        };
+    },
+};
+</script>
+```
+
+
+
 ### 7.toRef
 
 作用:创建一个ref对象,其value值指向另一个对象中的某个属性的值
