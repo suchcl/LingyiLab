@@ -1905,3 +1905,86 @@ export default {
 ![readonly和shallowReadonly](./images/i20.png)
 
 在数据不希望被修改的时候,可以使用到readonly和shallowReadonly.
+
+9.toRaw()与markRaw()
+
+* toRaw
+  1. 作用:将一个由reactive生成的响应式对象转为普通对象 ---- <font color="#f20">不能转化由ref定义的响应式对象</font>
+  2. 使用场景:用于读取响应式对象对应的普通对象,对这个对象的所有操作,不会引起页面的更新
+
+* markRaw
+
+  1. 作用:标记一个对象,使其永远不会再称为响应式对象
+  2. 使用场景
+     1. 有些值不应该被设置为响应式的,例如复杂的第三方类库
+     2. 当渲染具有不可变数据源的大列表时,跳过响应式转换可以提高性能
+
+  > toRaw和markRaw都是在一些极端特殊的情况下才会使用,目光短浅的看一下,可能在一些考虑性能的时候会使用到,至于说非常规的数据结构,比如深度几十层的json数据,应该大概率的不会出现.
+  > markRaw的使用场景,比toRaw的使用场景,要多很多
+
+  ```vue
+  <template>
+      <div class="raw">
+          <div class="user">
+              <h3>用户信息</h3>
+              <h4>姓名: {{name}}</h4>
+              <p>年龄: {{age}}</p>
+              <p>薪资: {{job.j1.salary}}</p>
+              <p v-if="person.car">车辆信息: {{person.car}}</p>
+              <ul class="btn-area">
+                  <li>
+                      <button class="btn" @click="name+='~'">修改姓名</button>
+                  </li>
+                  <li>
+                      <button class="btn" @click="age++">修改年龄</button>
+                  </li>
+                  <li>
+                      <button class="btn" @click="job.j1.salary++">涨薪</button>
+                  </li>
+                  <li>
+                      <button class="btn" @click="addCar">购买一辆车</button>
+                  </li>
+                  <li>
+                      <button class="btn" @click="person.car.name='凯迪拉克'">修改品牌</button>
+                  </li>
+                  <li>
+                      <button class="btn" @click="person.car.price++">修改价格</button>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </template>
+  
+  <script>
+  import { markRaw, reactive, toRefs } from '@vue/reactivity'
+      export default {
+          setup(){
+              let person = reactive({
+                  name: "Nicholas Zakas",
+                  age: 18,
+                  job: {
+                      j1: {
+                          salary: 20
+                      }
+                  }
+              });
+  
+              function addCar(){
+                  let car = {
+                      name: "奥迪",
+                      price: 38
+                  };
+                  // person.car = car; // 这种方式,可以修改车的品牌和车价格
+                  person.car = markRaw(car); //车辆的信息不能修改了,品牌和价格都不能修改了,这已经时一个原始对象了
+              }
+              return {
+                  person, // 由于有动态添加的car属性,所以需要将源对象也返回去
+                  ...toRefs(person),
+                  addCar
+              }
+          }
+      }
+  </script>
+  ```
+
+### 9.customRef
