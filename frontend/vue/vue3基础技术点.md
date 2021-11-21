@@ -1842,3 +1842,66 @@ export default {
 </script>
 ```
 
+2. readonly()、shallowReadonly()
+
+   这2个响应式函数,都是接收一个响应式的数据,就是使用ref和reactive定义的数据,将接收的响应式数据修改为只读状态,不可再被修改
+
+   readonly():将接收的响应式数据,包括深层次对象,都修改为只读状态,不可修改
+
+   shallowReadonly():只将深层次对象的第一层属性修改为只读状态的;如果对象有深层次属性,那么深层次属性还是响应式的.
+
+   ```vue
+   <template>
+       <div class="readonly">
+           <div class="sum-wrap">
+               <div class="sum">求和: {{sum}}</div>
+               <button @click="sum++">求和</button>
+           </div>
+           <div class="user">
+               <h3>用户信息</h3>
+               <h4>姓名: {{name}}</h4>
+               <p>年龄: {{age}}</p>
+               <p>薪资: {{job.j1.salary}}</p>
+               <ul class="btn-area">
+                   <li>
+                       <button class="btn" @click="name+='~'">修改姓名</button>
+                   </li>
+                   <li>
+                       <button class="btn" @click="age++">修改年龄</button>
+                   </li>
+                   <li>
+                       <button class="btn" @click="job.j1.salary++">涨薪</button>
+                   </li>
+               </ul>
+           </div>
+       </div>
+   </template>
+   
+   <script>
+   import {ref,reactive,readonly,toRefs, shallowReadonly} from "vue";
+   export default {
+       setup() {
+           let sum = ref(0);
+           let person = reactive({
+               name: "Nicholas Zakas",
+               age: 18,
+               job: {
+                   j1: {
+                       salary: 20,
+                   },
+               },
+           });
+           sum = readonly(sum); // 经过readonly劫持后,就已经不能再对sum进行修改了,界面上的自增操作就不能再有响应式操作了,会有警告信息
+           person = shallowReadonly(person); // 只监听对象的第一层属性是只读的,深层次的属性还是响应式的
+           return {
+               sum,
+               ...toRefs(person),
+           };
+       },
+   };
+   </script>
+   ```
+
+![readonly和shallowReadonly](./images/i20.png)
+
+在数据不希望被修改的时候,可以使用到readonly和shallowReadonly.
