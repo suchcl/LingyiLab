@@ -1517,6 +1517,72 @@ setup函数内部生命周期钩子函数的对应关系如下:
 
 自定义hook的优势:复用代码,让setup中的逻辑更清晰易懂
 
+hook函数的文件名,通常都以useXXX为文件名,如useState、useStudent等等,但是并不是必须以此为文件名.
+
+```js
+// src/hooks/usePoint.js 定义一个hook函数
+/**
+ * 这是一个hook函数
+ * hook函数记得要有返回数,否则没有办法使用,因为没有返回,函数默认的返回是undefined
+ */
+import { reactive, onMounted, onUnmounted } from "vue";
+function savePoint() {
+    // 实现鼠标打点相关数据
+    let point = reactive({
+        x: 0,
+        y: 0
+    });
+
+
+    // 实现鼠标打点的相关方法
+    function getPosition(event) {
+        point.x = event.pageX;
+        point.y = event.pageY;
+    }
+
+    // 实现鼠标打点的生命周期钩子函数
+    onMounted(() => {
+        window.addEventListener("click", getPosition);
+    })
+
+    onUnmounted(() => {
+        window.removeEventListener("click", getPosition);
+    })
+
+    // 记得return
+    return point;
+}
+
+export default savePoint;
+```
+
+```vue
+<template>
+    <div class="point-wrap">
+        <div class="pos">
+            <h3>点击位置: x: {{point.x}}, y: {{point.y}}</h3>
+        </div>
+    </div>
+</template>
+
+<script>
+// 导入一个hook函数
+import usePoint from "../../hooks/usePoint";
+export default {
+    setup() {
+        // 使用hook
+        // 调用的地方干净、利落
+        let point = usePoint();
+        return {
+            point
+        };
+    },
+};
+</script>
+```
+
+
+
 ### 7.toRef
 
 作用:创建一个ref对象,其value值指向另一个对象中的某个属性的值
@@ -1526,3 +1592,408 @@ setup函数内部生命周期钩子函数的对应关系如下:
 应用:要将响应式对象中的某个属性单独供给外部使用时
 
 扩展:toRefs与toRef功能一致,但可以批量创建多个ref对象,语法:toRefs(person);
+
+看案例:
+
+```vue
+<template>
+    <div class="ref">
+        <h2>姓名: {{person.name}}</h2>
+        <h2>年龄: {{person.age}}</h2>
+        <h2>工资: {{person.job.j1.salary}}k</h2>
+        <ul class="btn-area">
+            <li>
+                <button @click="person.name+='~'">修改姓名</button>
+            </li>
+            <li>
+                <button @click="person.age++">修改年龄</button>
+            </li>
+            <li>
+                <button @click="person.job.j1.salary++">涨薪</button>
+            </li>
+        </ul>
+    </div>
+</template>
+<script>
+import { reactive } from "vue";
+export default {
+    setup() {
+        let person = reactive({
+            name: "Nicholas Zakas",
+            age: 18,
+            job: {
+                j1: {
+                    salary: 20,
+                },
+            },
+        });
+        return {
+            person,
+        };
+    },
+};
+</script>
+```
+
+案例中,模板读取数据,读取数据的层级比较深,如person.name、person.age,这2个属性还好,只有2层,但是下面的工资字段就比较深了.那么有没有办法直接就使用一层的字段读取数据呢?Vue3给我们提供了toRef函数,帮我们去实现这样的诉求.
+
+```vue
+<h2>姓名: {{name}}</h2>
+<h2>年龄: {{age}}</h2>
+<h2>工资: {{salary}}k</h2>
+<ul class="btn-area">
+  <li>
+    <button @click="name+='~'">修改姓名</button>
+  </li>
+  <li>
+    <button @click="age++">修改年龄</button>
+  </li>
+  <li>
+    <button @click="salary++">涨薪</button>
+  </li>
+</ul>
+<script>
+import { reactive } from "vue";
+export default {
+    setup() {
+        let person = reactive({
+            name: "Nicholas Zakas",
+            age: 18,
+            job: {
+                j1: {
+                    salary: 20,
+                },
+            },
+        });
+
+        return {
+            // 我们通过在return数据的时候,直接返回需要的字段,来解决模板中使用字段层级过深的问题
+            name: person.name,
+            age: person.age,
+            salary: person.job.j1.salary
+        }
+    },
+};
+</script>
+```
+
+发现经过优化之后,模板中读取数据的层级确实变浅了,且数据也正常的渲染了出来 .
+
+![读取数据层级变浅](./images/i17.png)
+
+看来没问题,但随后为我一点按钮,发现姓名不能改、薪资也不能调整,说明了按钮的动作没有生效,其实也就是数据的响应式没有了
+
+去使用toRef:它可以创建一个ref响应式对象,其value值指向另一个对象的某个属性
+
+toRef()函数,接收2个参数,第一个参数为要志向的对象,第2个参数为要指向的对象的具体的属性
+
+```js
+return {
+  // 我们通过在return数据的时候,直接返回需要的字段,来解决模板中使用字段层级过深的问题
+  // 通过使用toRef()函数创建指向另一个对象中的某个属性
+  name: toRef(person,"name"),
+  age: toRef(person,"age"),
+  salary: toRef(person.job.j1,"salary")
+}
+```
+
+这样,就可以实现模板中只使用一个层级读取数据的效果了
+
+<font color="#f20">既然toRef()是定义ref对象,那么是否可以直接使用ref函数创建响应式对象,而不使用toRef()呢,如name:ref(person.name)</font>,参考下面代码:
+
+```js
+return {
+  person,
+  name: ref(person.name),
+  age: ref(person.age),
+  salary: ref(person.job.j1.salary),
+};
+```
+
+是不可以的.
+
+直接通过ref定义响应式对象,在初次读取数据的时候是没有问题的,但是这是通过ref创建了一个基于person数据的新的响应式对象,并没有和源数据person关联起来.虽然这种方式在进行操作的时候,看起来数据变了,但是变的数据是ref新创建的对象,不是源数据person.
+
+![ref新创建的对象,并没有和源数据关联起来](./images/i18.png)
+
+从运行结果上看,确实没有关联上.
+
+<font color="#f20">所以,还是得使用toRef()创建和源数据的关联</font>
+
+**toRefs**
+
+toRefs()和toRef功能和目标一样,只是toRef()只能创建单个数据的关联,二toRefs()可以创建所有数据的关联
+
+但是toRefs()现在来看有一点不好的,就是不能做到深层次的关联,所以我们在使用toRefs()的时候,就关联到最属性最多的那一层,至于再深层次的对象,就继续点式调用吧
+
+```vue
+<h3>person: {{person}}</h3>
+<h2>姓名: {{name}}</h2>
+<h2>年龄: {{age}}</h2>
+<h2>工资: {{job.j1.salary}}k</h2>
+<ul class="btn-area">
+  <li>
+    <button @click="name+='~'">修改姓名</button>
+  </li>
+  <li>
+    <button @click="age++">修改年龄</button>
+  </li>
+  <li>
+    <button @click="job.j1.salary++">涨薪</button>
+  </li>
+</ul>
+<script>
+import { ref, reactive, toRef, toRefs } from "vue";
+export default {
+    setup() {
+        let person = reactive({
+            name: "Nicholas Zakas",
+            age: 18,
+            job: {
+                j1: {
+                    salary: 20,
+                },
+            },
+        });
+
+        return {
+            person,
+            ...toRefs(person) // 对象中不能返回对象,就扩展一下返回对象来实现了
+        }
+    },
+};
+</script>
+```
+
+### 8.其他常用composition api
+
+1. shallowReactive和shallowRef
+
+   1. shallowReact:只处理对象类型的最外层属性的响应式,也被称为浅响应式
+   2. shallowRef:只处理基本数据类型的响应式,不处理对象类型的数据响应式
+
+   使用场景(什么时候使用)
+
+   1. 如果有一个对象数据,结构比较深,但变化时只有最外层属性变化,使用shallowReactive
+   2. 如果有一个对象数据,后续功能不会修改对象中的属性,而是生成的新的对象来替换属性,使用shallowRef
+
+![shallowReactive只能处理浅响应](./images/i19.png)
+
+
+
+```vue
+<template>
+    <div>
+        <div class="user">
+            <h3>用户信息</h3>
+            <h4>{{person}}</h4>
+            <h4>姓名: {{name}}</h4>
+            <p>年龄: {{age}}</p>
+            <p>薪资: {{job.j1.salary}}</p>
+            <ul class="btn-area">
+                <li>
+                    <button @click="name+='~'">修改姓名</button>
+                </li>
+                <li>
+                    <button @click="age++">修改年龄</button>
+                </li>
+                <li>
+                    <button @click="job.j1.salary++">涨薪</button>
+                </li>
+            </ul>
+        </div>
+        <div class="count">
+            <h4>数字: {{counter.x}}</h4>
+            <button class="btn" @click="counter.x++">数字自增</button>
+          <!--实现不了对象counter的响应式-->
+            <button class="btn" @click="counter={x:999}">数字替换</button>
+        </div>
+    </div>
+</template>
+
+<script>
+import { toRefs, reactive,ref,shallowRef } from "vue";
+import { shallowReactive } from "@vue/reactivity";
+export default {
+    name: "ShallowReactive&ShallowRef",
+    setup() {
+        let person = shallowReactive({
+            name: "Nicholas Zakas",
+            age: 18,
+            job: {
+                j1: {
+                    salary: 20,
+                },
+            },
+        });
+ 
+       // shallowRef实现的仅仅是counter对象的响应式,但是并没有实现counter对象中x属性的响应式
+        let counter = shallowRef({
+            x: 0,
+        });
+
+        return {
+            person,
+            counter,
+            ...toRefs(person),
+        };
+    },
+};
+</script>
+```
+
+2. readonly()、shallowReadonly()
+
+   这2个响应式函数,都是接收一个响应式的数据,就是使用ref和reactive定义的数据,将接收的响应式数据修改为只读状态,不可再被修改
+
+   readonly():将接收的响应式数据,包括深层次对象,都修改为只读状态,不可修改
+
+   shallowReadonly():只将深层次对象的第一层属性修改为只读状态的;如果对象有深层次属性,那么深层次属性还是响应式的.
+
+   ```vue
+   <template>
+       <div class="readonly">
+           <div class="sum-wrap">
+               <div class="sum">求和: {{sum}}</div>
+               <button @click="sum++">求和</button>
+           </div>
+           <div class="user">
+               <h3>用户信息</h3>
+               <h4>姓名: {{name}}</h4>
+               <p>年龄: {{age}}</p>
+               <p>薪资: {{job.j1.salary}}</p>
+               <ul class="btn-area">
+                   <li>
+                       <button class="btn" @click="name+='~'">修改姓名</button>
+                   </li>
+                   <li>
+                       <button class="btn" @click="age++">修改年龄</button>
+                   </li>
+                   <li>
+                       <button class="btn" @click="job.j1.salary++">涨薪</button>
+                   </li>
+               </ul>
+           </div>
+       </div>
+   </template>
+   
+   <script>
+   import {ref,reactive,readonly,toRefs, shallowReadonly} from "vue";
+   export default {
+       setup() {
+           let sum = ref(0);
+           let person = reactive({
+               name: "Nicholas Zakas",
+               age: 18,
+               job: {
+                   j1: {
+                       salary: 20,
+                   },
+               },
+           });
+           sum = readonly(sum); // 经过readonly劫持后,就已经不能再对sum进行修改了,界面上的自增操作就不能再有响应式操作了,会有警告信息
+           person = shallowReadonly(person); // 只监听对象的第一层属性是只读的,深层次的属性还是响应式的
+           return {
+               sum,
+               ...toRefs(person),
+           };
+       },
+   };
+   </script>
+   ```
+
+![readonly和shallowReadonly](./images/i20.png)
+
+在数据不希望被修改的时候,可以使用到readonly和shallowReadonly.
+
+9.toRaw()与markRaw()
+
+* toRaw
+  1. 作用:将一个由reactive生成的响应式对象转为普通对象 ---- <font color="#f20">不能转化由ref定义的响应式对象</font>
+  2. 使用场景:用于读取响应式对象对应的普通对象,对这个对象的所有操作,不会引起页面的更新
+
+* markRaw
+
+  1. 作用:标记一个对象,使其永远不会再称为响应式对象
+  2. 使用场景
+     1. 有些值不应该被设置为响应式的,例如复杂的第三方类库
+     2. 当渲染具有不可变数据源的大列表时,跳过响应式转换可以提高性能
+
+  > toRaw和markRaw都是在一些极端特殊的情况下才会使用,目光短浅的看一下,可能在一些考虑性能的时候会使用到,至于说非常规的数据结构,比如深度几十层的json数据,应该大概率的不会出现.
+  > markRaw的使用场景,比toRaw的使用场景,要多很多
+
+  ```vue
+  <template>
+      <div class="raw">
+          <div class="user">
+              <h3>用户信息</h3>
+              <h4>姓名: {{name}}</h4>
+              <p>年龄: {{age}}</p>
+              <p>薪资: {{job.j1.salary}}</p>
+              <p v-if="person.car">车辆信息: {{person.car}}</p>
+              <ul class="btn-area">
+                  <li>
+                      <button class="btn" @click="name+='~'">修改姓名</button>
+                  </li>
+                  <li>
+                      <button class="btn" @click="age++">修改年龄</button>
+                  </li>
+                  <li>
+                      <button class="btn" @click="job.j1.salary++">涨薪</button>
+                  </li>
+                  <li>
+                      <button class="btn" @click="addCar">购买一辆车</button>
+                  </li>
+                  <li>
+                      <button class="btn" @click="person.car.name='凯迪拉克'">修改品牌</button>
+                  </li>
+                  <li>
+                      <button class="btn" @click="person.car.price++">修改价格</button>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </template>
+  
+  <script>
+  import { markRaw, reactive, toRefs } from '@vue/reactivity'
+      export default {
+          setup(){
+              let person = reactive({
+                  name: "Nicholas Zakas",
+                  age: 18,
+                  job: {
+                      j1: {
+                          salary: 20
+                      }
+                  }
+              });
+  
+              function addCar(){
+                  let car = {
+                      name: "奥迪",
+                      price: 38
+                  };
+                  // person.car = car; // 这种方式,可以修改车的品牌和车价格
+                  person.car = markRaw(car); //车辆的信息不能修改了,品牌和价格都不能修改了,这已经时一个原始对象了
+              }
+              return {
+                  person, // 由于有动态添加的car属性,所以需要将源对象也返回去
+                  ...toRefs(person),
+                  addCar
+              }
+          }
+      }
+  </script>
+  ```
+
+### 9.customRef
+
+* 作用:创建一个自定义的ref,并对其依赖项跟踪和更新触发进行显示控制
+
+* 使用场景:防抖效果案例
+
+  ```vue
+  ```
+
+  
