@@ -32,7 +32,7 @@ brew install deno
 
 ### 3. 入门
 
-deno通过deno run filename指令运行js或者ts文件
+deno 通过 deno run filename 指令运行 js 或者 ts 文件
 
 ```bash
 # 运行js文件
@@ -45,5 +45,4 @@ Check file:///D:/WebStudy/deno/index.ts
 Ts deno
 ```
 
-从示例中可以看到，deno运行js和ts文件时，运行ts文件比运行js文件多了一步check的动作。
-
+从示例中可以看到，deno 运行 js 和 ts 文件时，运行 ts 文件比运行 js 文件多了一步 check 的动作。
