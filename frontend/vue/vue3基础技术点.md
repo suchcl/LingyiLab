@@ -1996,4 +1996,75 @@ export default {
   ```vue
   ```
 
-  
+
+### 10. provide与inject
+
+* 作用:实现祖孙组件之间的数据通信
+
+* 套路:父组件有一个provide选项来提供数据,子组件有一个inject选项来使用这些数据
+
+* 具体写法
+
+  1. 祖组件:
+
+     ```vue
+     <template>
+         <div class="provide">
+             <h3>祖先组件: 汽车信息</h3>
+             <h4>品牌:{{name}}</h4>
+             <p>价格: {{price}}</p>
+             <Child />
+         </div>
+     </template>
+     
+     <script>
+     import Child from "./Child.vue";
+     import { reactive, toRefs } from '@vue/reactivity'
+     import { provide } from '@vue/runtime-core';
+         export default {
+             components: {
+                 Child
+             },
+             setup(){
+                 let car = reactive({
+                     name: "奔驰",
+                     price: 40
+                 });
+     
+                 provide("car",car);
+     
+                 return {
+                     ...toRefs(car)
+                 };
+             }
+         }
+     </script>
+     ```
+
+  2. 孙组件中
+
+     ```vue
+     <template>
+         <div class="son">
+             <h3>后代组件</h3>
+             <h4>品牌: {{name}}</h4>
+             <p>价格: {{price}}</p>
+         </div>
+     </template>
+     
+     <script>
+     import { inject } from "@vue/runtime-core";
+     export default {
+         setup() {
+             let car = inject("car");
+             return {
+                 ...car,
+             };
+         },
+     };
+     </script>
+     ```
+
+     >  provide/inject不光是可以用在祖先组件和隔代的后代组件之间,父子组件之间也可以使用provide/inject,只是一般情况下父子组件之间不使用provide/inject,而是使用props.
+
+     
