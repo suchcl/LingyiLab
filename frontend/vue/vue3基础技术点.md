@@ -2121,8 +2121,104 @@ export default {
 ### 13. Vue3中的新组件
 
 * Fragment
+
   * Vue2中,必须要有一个根标签
   * Vue3中,组件可以没有根标签,内部会将多个标签包含在一个Fragment的虚拟元素中:Fragment是不参与浏览器的DOM渲染的
   * 好处:减少了DOM层级,减小内存占用
+
 * Teleport
+
   * Teleport是一种能够将我们的组件HTML结构移动到指定位置的技术
+
+    ```vue
+    <!--Parent.vue-->
+    <template>
+        <div class="parent">
+            <h3>父组件</h3>
+            <Child />
+        </div>
+    </template>
+    
+    <script>
+        import Child from "./Child.vue";
+        export default {
+            components: {
+                Child
+            }
+        }
+    </script>
+    ```
+
+    ```vue
+    <!--Child.vue-->
+    <template>
+        <div class="child">
+            <h3>子组件</h3>
+            <Son />
+        </div>
+    </template>
+    <script>
+        import Son from "./Son.vue";
+        export default {
+            components: {
+                Son
+            }
+        }
+    </script>
+    ```
+
+    ```vue
+    <!--Son.vue-->
+    <template>
+        <div class="son">
+            <h3>后代组件</h3>
+            <Dialog />
+        </div>
+    </template>
+    <script>
+        import Dialog from "./Dialog.vue";
+        export default {
+            components: {
+                Dialog
+            }
+        }
+    </script>
+    ```
+
+    ```vue
+    <!--Dialog.vue-->
+    <template>
+        <button @click="isShow=true">弹出弹窗</button>
+        <teleport to="body">
+            <div class="mask" v-if="isShow">
+                <div class="dialog">
+                    <h3>车辆信息</h3>
+                    <h4>品牌: {{name}}</h4>
+                    <p>价格: {{price}}</p>
+                    <button @click="isShow=false">关闭弹窗</button>
+                </div>
+            </div>
+        </teleport>
+    </template>
+    
+    <script>
+    import { reactive, ref, toRefs } from "@vue/reactivity";
+    export default {
+        setup() {
+            let isShow = ref(false);
+    
+            let car = reactive({
+                name: "奔驰",
+                price: 40,
+            });
+            return {
+                isShow,
+                ...toRefs(car),
+            };
+        },
+    };
+    </script>
+    ```
+
+    ![看弹窗弹出后的位置](./images/i21.png)
+    
