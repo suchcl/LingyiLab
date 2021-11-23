@@ -2067,4 +2067,41 @@ export default {
 
      >  provide/inject不光是可以用在祖先组件和隔代的后代组件之间,父子组件之间也可以使用provide/inject,只是一般情况下父子组件之间不使用provide/inject,而是使用props.
 
-     
+  ### 11. 响应式数据的判断
+
+  几个常用的函数,用于判断是否是响应式数据
+
+  * isRef():检查值是否是一个ref对象
+  * isReactive():检查一个对象是否是由reactive创建的响应式代理
+  * isReadonly():检查一个对象是否是由readonly创建的只读代理
+  * isProxy():检查一个对象是否是由reactive或者readonly方法创建的代理
+
+  ```vue
+  <script>
+  import { ref,reactive, toRefs, readonly,isRef,isReactive,isReadonly,isProxy} from '@vue/reactivity'
+      export default {
+          setup(){
+              let car = reactive({
+                  name: "奔驰",
+                  price: 40
+              });
+  
+              let num = ref(0);
+  
+              let car2 = readonly(car);
+  
+              console.log(isReactive(car)); // true
+              console.log(isRef(num)); // true
+              console.log(isReadonly(car2)); // true
+              console.log(isProxy(car)); // true
+  
+              return {
+                  num,
+                  ...toRefs(car)
+              }
+          }
+      }
+  </script>
+  ```
+
+  
