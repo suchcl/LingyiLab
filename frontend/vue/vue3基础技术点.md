@@ -2130,6 +2130,8 @@ export default {
 
   * Teleport是一种能够将我们的组件HTML结构移动到指定位置的技术
 
+    * teleport组件的to属性值,可以是任何合法的CSS选择器,如标签选择器、ID选择器等
+    
     ```vue
     <!--Parent.vue-->
     <template>
@@ -2148,7 +2150,7 @@ export default {
         }
     </script>
     ```
-
+    
     ```vue
     <!--Child.vue-->
     <template>
@@ -2166,7 +2168,7 @@ export default {
         }
     </script>
     ```
-
+    
     ```vue
     <!--Son.vue-->
     <template>
@@ -2184,7 +2186,7 @@ export default {
         }
     </script>
     ```
-
+    
     ```vue
     <!--Dialog.vue-->
     <template>
@@ -2219,6 +2221,5 @@ export default {
     };
     </script>
     ```
-
-    ![看弹窗弹出后的位置](./images/i21.png)
     
+    ![看弹窗弹出后的位置](./images/i21.png)
