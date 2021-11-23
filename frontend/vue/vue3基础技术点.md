@@ -2104,4 +2104,17 @@ export default {
   </script>
   ```
 
-  
+### 12. Composition API的优势
+
+* Options API中存在的问题  选项式API
+
+  选项式API,同一个数据、功能,但是对于数据、功能的实现,分散到了不同的配置中,如对一个数据的操作,数据的管理在data中,计算属性在computed中,方法在methods中,监听在watch中.对一个数据的变动,需要涉及到data、computed、methods、watch等多个配置项,不利于维护
+
+* Composition API的优势  组合式API
+
+  可以更加优雅的组织代码、函数,让相关的功能的代码组织在一起,便于维护和阅读.
+
+  如果有些功能独立的模块,可以抽象封装,即hooks,使用更加方便,服用行更高
+
+> 如果想发挥组合式API的威力,hooks起着非常重要的作用
+
