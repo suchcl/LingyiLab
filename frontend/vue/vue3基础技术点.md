@@ -2223,3 +2223,29 @@ export default {
     ```
     
     ![看弹窗弹出后的位置](./images/i21.png)
+  
+* Suspense: 现在处于实验阶段,还没有成为正是的标准
+
+  * 作用:等待异步组件时渲染一些额外内容,让应用有更好的使用体验
+
+  * 使用步骤:
+
+    * 异步引入组件
+
+      * 静态引入:就是直接通过import引入
+
+        ```js
+        // 静态引入
+        import Hello from "../components/HelloWorld.vue";
+        ```
+
+      * 动态引入:通过函数调用的方式引入
+
+        ```js
+        // 动态引入: 在使用的时候才去引入
+        const ReactTive = () => import("../components/Reactive.vue");
+        ```
+
+        
+
+    * 使用suspense包裹组件,并配置好default与fallback
