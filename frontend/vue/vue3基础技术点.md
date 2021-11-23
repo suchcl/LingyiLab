@@ -2118,3 +2118,11 @@ export default {
 
 > 如果想发挥组合式API的威力,hooks起着非常重要的作用
 
+### 13. Vue3中的新组件
+
+* Fragment
+  * Vue2中,必须要有一个根标签
+  * Vue3中,组件可以没有根标签,内部会将多个标签包含在一个Fragment的虚拟元素中:Fragment是不参与浏览器的DOM渲染的
+  * 好处:减少了DOM层级,减小内存占用
+* Teleport
+  * Teleport是一种能够将我们的组件HTML结构移动到指定位置的技术
