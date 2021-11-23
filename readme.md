@@ -63,6 +63,8 @@
 
     20. [微前端](./frontend/架构与设计/微前端.md)
 
+    21. [micro-app](./frontend/架构与设计/micro-app.md)
+
 11. [微信小程序](frame/wxmini/index.md)
 12. [taro](frame/taro/index.md)
 13. [CreateReactApp](frame/CreateReactApp/介绍.md)
@@ -92,7 +94,7 @@
 ### 版本管理
 
 1. [版本管理](VersionControl/index.md)
-2. [github修改默认分支](./VersionControl/github修改默认分支为master.md)
+2. [github 修改默认分支](./VersionControl/github修改默认分支为master.md)
 
 ### 人工智能/机器学习
 
@@ -104,11 +106,11 @@
 
 1. [目录](Hodgepodge/index.md)
 
-2. [markdown相关](Hodgepodge/grammar.md)
+2. [markdown 相关](Hodgepodge/grammar.md)
 
-3. [常用dos命令](Hodgepodge/dos.md)
+3. [常用 dos 命令](Hodgepodge/dos.md)
 
-4. [markdown通过treer生成树状目录结构](Hodgepodge/markdown生成树状目录结构.md)
+4. [markdown 通过 treer 生成树状目录结构](Hodgepodge/markdown生成树状目录结构.md)
 
 5. [excel 怎么设置下拉选项](Hodgepodge/excel设置下拉选项.md)
 
