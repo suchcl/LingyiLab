@@ -290,6 +290,66 @@ createApp(App).mount("#app");
          ![如果同时采用两种配置方式的 api，且有了重名的数据，那么最终就会以组合式 Api 中 setup 中的数据为准](./images/i6.png)
 
    2. setup 不能是一个 async 函数,因为返回值不能再是 return 的对象,而是 promise,模板看不到 return 对象中的属性
+   
+      > 正常静态引入组件且没有使用Suspense的情况下，上面的结论是没有任何问题的。
+      >
+      > 但是如果是通过动态方式导入的异步组件时，就可以return promise了，就是说需要和异步组件、Suspense配合使用
+      >
+      > ```vue
+      > <!--Parent.vue-->
+      > <template>
+      >   <div class="parent">
+      >     <h3>父组件</h3>
+      >     <Suspense>
+      >       <template v-slot:default>
+      >         <Child />
+      >       </template>
+      >       <template v-slot:fallback>
+      >         正在努力加载，请稍等~~~~
+      >       </template>
+      >     </Suspense>
+      >   </div>
+      > </template>
+      > 
+      > <script>
+      > // 静态引入
+      > // import Child from "./Child.vue";
+      > import { defineAsyncComponent } from "@vue/runtime-core";
+      > let Child = defineAsyncComponent(() => import("./Child.vue"));
+      > export default {
+      >   components: {
+      >     Child,
+      >   },
+      >   setup() {},
+      > };
+      > </script>
+      > 
+      > <!--Child.vue-->
+      > <template>
+      >   <div class="child">
+      >     <h3>子组件</h3>
+      >     <p>求和：{{sum}}</p>
+      >   </div>
+      > </template>
+      > 
+      > <script>
+      > import { ref } from 'vue';
+      > export default {
+      >     // setup定义成了async了
+      >     async setup(){
+      >         let sum = ref(0);
+      >         let promise = new Promise((resolve) => {
+      >             setTimeout(() => {
+      >                 resolve({sum});
+      >             },1000);
+      >         });
+      >         return await promise; // 返回了promise
+      >     }
+      > }
+      > </script>
+      > ```
+      >
+      > 
 
 setup 中定义的数据、方法,都必须通过 return 返回,被返回后,可以直接在模板中使用.
 
@@ -2241,7 +2301,9 @@ export default {
     
     ![看弹窗弹出后的位置](./images/i21.png)
   
-* Suspense: 现在处于实验阶段,还没有成为正是的标准
+* Suspense: 现在处于实验阶段,还没有成为正是的标准，API以后可能会变
+
+    ![Suspense还处于实验阶段，以后API可能会变](./images/i22.png)
 
   * 作用:等待异步组件时渲染一些额外内容,让应用有更好的使用体验
 
@@ -2263,6 +2325,32 @@ export default {
         const ReactTive = () => import("../components/Reactive.vue");
         ```
 
-        
-
     * 使用suspense包裹组件,并配置好default与fallback
+
+      ```vue
+      <Suspense>
+          <!--v-slot:default固定，不可变-->
+          <template v-slot:default>
+      		<Child />
+          </template>
+          <!--v-slot:fallback固定，不可变-->
+          <template v-slot:fallback>
+      		正在努力加载，请稍等~~~~
+          </template>
+      </Suspense>
+      ```
+    
+      default是正常应该显示的元素，当default部分不能正常、快速的展示时，就显示fallback部分，fallback部分，需要能够快速加载、渲染的，所以注意不要使用异步处理、有数据请求的动作
+    
+  * 小知识点
+  
+    * suspense本身是Vue的一个组件，使用的时候不需要额外的导入；
+    
+    * suspense底层是使用slot实现的
+    
+    * 现在网速正常的时候，或者网络较快的时候，Suspense的效果看不出来，我们可以通过在子组件添加一些逻辑处理，让子组件的加载更慢一些
+    
+      ```vue
+      ```
+    
+      
