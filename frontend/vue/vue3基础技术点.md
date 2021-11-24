@@ -1,6 +1,7 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [1. 简介](#1-%E7%AE%80%E4%BB%8B)
   - [1.1 发布](#11-%E5%8F%91%E5%B8%83)
   - [1.2 Vue3 带来了什么](#12-vue3-%E5%B8%A6%E6%9D%A5%E4%BA%86%E4%BB%80%E4%B9%88)
@@ -22,7 +23,23 @@
     - [4.1.3 Vue3 中 setup 函数读取不到 Vue2 配置方式中配置的数据、方法](#413-vue3-%E4%B8%AD-setup-%E5%87%BD%E6%95%B0%E8%AF%BB%E5%8F%96%E4%B8%8D%E5%88%B0-vue2-%E9%85%8D%E7%BD%AE%E6%96%B9%E5%BC%8F%E4%B8%AD%E9%85%8D%E7%BD%AE%E7%9A%84%E6%95%B0%E6%8D%AE%E6%96%B9%E6%B3%95)
   - [4.2 ref 函数](#42-ref-%E5%87%BD%E6%95%B0)
   - [4.3 reactive](#43-reactive)
-  - [4.4 Vue3 中的响应式原理](#44-vue3%E4%B8%AD%E7%9A%84%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86)
+  - [4.4 Vue3 中的响应式原理](#44-vue3-%E4%B8%AD%E7%9A%84%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86)
+    - [4.3.1 Vue的响应式原理](#431-vue%E7%9A%84%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86)
+  - [4.5 对比reactive和ref](#45-%E5%AF%B9%E6%AF%94reactive%E5%92%8Cref)
+  - [4.6 setup的两个注意点](#46-setup%E7%9A%84%E4%B8%A4%E4%B8%AA%E6%B3%A8%E6%84%8F%E7%82%B9)
+    - [4.6.1 回顾vue2中父子组件传值的一些知识点](#461-%E5%9B%9E%E9%A1%BEvue2%E4%B8%AD%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E4%BC%A0%E5%80%BC%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86%E7%82%B9)
+    - [4.6.2 setup函数](#462-setup%E5%87%BD%E6%95%B0)
+  - [4.7 计算属性](#47-%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7)
+  - [4.8 watch](#48-watch)
+  - [4.9 watchEffect](#49-watcheffect)
+- [5. 生命周期](#5-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F)
+- [6.自定义hook函数](#6%E8%87%AA%E5%AE%9A%E4%B9%89hook%E5%87%BD%E6%95%B0)
+- [7.toRef](#7toref)
+- [8.其他常用composition api](#8%E5%85%B6%E4%BB%96%E5%B8%B8%E7%94%A8composition-api)
+- [9.customRef](#9customref)
+- [10. provide与inject](#10-provide%E4%B8%8Einject)
+- [12. Composition API的优势](#12-composition-api%E7%9A%84%E4%BC%98%E5%8A%BF)
+- [13. Vue3中的新组件](#13-vue3%E4%B8%AD%E7%9A%84%E6%96%B0%E7%BB%84%E4%BB%B6)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
