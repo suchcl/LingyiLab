@@ -2351,6 +2351,100 @@ export default {
     * 现在网速正常的时候，或者网络较快的时候，Suspense的效果看不出来，我们可以通过在子组件添加一些逻辑处理，让子组件的加载更慢一些
     
       ```vue
-      ```
-    
+      <template>
+        <div class="child">
+          <h3>子组件</h3>
+          <p>求和：{{sum}}</p>
+        </div>
+      </template>
       
+      <script>
+      import { ref } from 'vue';
+      export default {
+          async setup(){
+              let sum = ref(0);
+              let promise = new Promise((resolve) => {
+                  setTimeout(() => {
+                      resolve({sum});
+                  },1000);
+              });
+              return await promise;
+          }
+      }
+      </script>
+      ```
+  
+  ### 14. Vue3中的其他变化
+  
+  #### 14.1 全局API的转移
+  
+  1. Vue2中有许多全局组件和配置，如注册全局组件、注册全局指令等
+  
+     ```js
+     // 注册全局组件
+     Vue.component("MyButton",{
+         data: () => ({
+             count: 0
+         }),
+         template: '<button @click="count++">Clicked{{count}} times.</button>'
+     });
+     
+     // 注册全局指令
+     Vue.directive("focus",{
+         inserted: el => el.focus;
+     })
+     ```
+  
+  2. Vue3中对这些API做了部分调整
+  
+     将全局的API，即Vue.xxx调整到了应用实例(app)上了
+  
+     | Vue2 全局API（Vue）      | Vue3实例API(app)            |
+     | ------------------------ | --------------------------- |
+     | Vue.config.xxx           | app.config.xxx              |
+     | Vue.config.productionTip | 移除掉了                    |
+     | Vue.component            | app.component               |
+     | Vue.directive            | app.directive               |
+     | Vue.mixin                | app.mixin                   |
+     | Vue.use                  | app.use                     |
+     | Vue.prototype            | app.config.globalProperties |
+
+#### 	14.2 其他改变
+
+1. data选项应该始终被声明为一个函数
+
+2. 过渡类名的更改
+
+   Vue2中的写法
+
+   ```css
+   .v-enter,
+   .v-leave-to {
+       opacity: 0;
+   }
+   .v-leave,
+   .v-enter-to {
+       opacity: 1;
+   }
+   ```
+
+   Vue3的写法
+
+   ```css
+   .v-enter-from,
+   .v-leave-to {
+       opacity: 0;
+   }
+   .v-leave-from,
+   .v-enter-to {
+       opacity: 1;
+   }
+   ```
+
+3. 移除了keyCode作为v-on的修饰符，同时也不再支持config.keyCode： 主要是因为兼容性不太好
+
+4. 移除v-on.native修饰符
+
+5. 移除掉了过滤器（filter）
+
+   过滤器看起来很方便，但是它需要一个自定义语法，打破大括号内表达式只是js的假设。这不仅有学习成本，也有实现成本。建议使用方法调用或者计算属性替换过滤器。
