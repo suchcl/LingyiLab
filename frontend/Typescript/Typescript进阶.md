@@ -112,7 +112,7 @@ Ts环境，依赖nodejs，需要全局安装typescript
 
 <font color="#f20">ts中的数据类型，都写小写，如number、string、boolean等</font>
 
-#### 3.1 类型声明方式
+#### 3.1 字面量类型声明方式
 
 可以直接通过基本的数据类型去赋值
 
@@ -154,4 +154,121 @@ flag = false; // 赋值boolean类型有问题了  这里看不出来，截个图
 ```
 
 ![typescript联合类型赋值](./images/i3.png)
+
+#### 3.2 any类型
+
+any表示任意类型，一个变量设置为any类型，则表示ts对该变量关闭了类型校验
+
+ts中不建议使用any类型
+
+ts中，声明一个变量，如果没有显示的指定类型，则该变量则自动被指定为any类型，即ts中默认的类型为any类型
+
+```typescript
+// 下面两种方式都不建议使用
+let d: any;
+let e;
+```
+
+#### 3.3 unknown
+
+unknown类型，表示未知类型
+
+一个unknonw类型的变量，可以被赋值成任何类型的值
+
+```typescript
+// unknown类型的变量可以被赋值任何类型的值
+let n:unknown;
+n = 12;
+n = "Hello";
+n = false;
+```
+
+那是不是unknown和any是一样的？
+
+不一样。
+
+any类型的变量可以赋值给任何类型的变量，而unknown类型的变量，只是本身可以赋值任何类型的值，但是不能将unknown类型的变量赋值给其他类型的变量
+
+```typescript
+// unknown类型的变量可以被赋值任何类型的值
+let n:unknown;
+n = 12;
+n = "Hello";
+n = false;
+
+let ay:any;
+ay = "Hello";
+
+let s:string;
+s = ay; // any类型的变量可以赋值给string类型的变量
+s = n; // unknown类型的变量不能赋值给其他类型的变量
+n = 26; // unknown类型的变量，值可以是其他类型的值，如别赋了一个number类型的值
+```
+
+![unknown类型变量不能赋值赋值给其他类型的变量](./images/i4.png)
+
+所以说，unknown是一个类型安全的any；unknown类型的变量，不能赋值给其他类型的变量。
+
+**那么有些场景可能确实需要进行类型转换，那么有没有办法呢？有的。**
+
+我们对unknown类型的变量值进行一个类型判断，然后再进行赋值，就可以了
+
+```typescript
+let un:unknown;
+un = "Hello world!";
+
+let s:string;
+if(typeof un === "string"){
+    s = un; // 先进行un变量的类型判断，当un的值是string类型时，再将un赋值给一个string类型的变量，就没问题了
+}
+```
+
+还有一种方法：类型断言,可以通过类型断言的方式告诉ts解析器该变量的实际类型，也可以简单理解为重新指定、明确下unknown类型变量的当前实际类型。两种具体的语法：
+
+语法1： 变量 as 类型
+
+语法2：<类型>变量
+
+```typescript
+let un:unknown;
+un = 18;
+
+let str:string;
+str = un as string; // 这样也是可以的，哪怕un当前虽然不是string类型，但是显示的把它指定成了string类型，就可以把它赋值给string类型的变量了
+
+let num:number;
+num = <number>un;
+```
+
+#### 3.4 void
+
+void使用变量的情况不多，大部分用在修饰函数，表示没有返回值
+
+ts中，函数没有返回值的时候，默认返回值类型为void；如果有返回值，ts编译器会根据返回值类型自动设置函数的返回值类型
+
+使用void修饰的函数，可以直接return，也可以return null或者undefined,但不能返回一个具有其他类型的值
+
+```typescript
+function fn():void{
+    // 这3种返回都是可以的
+    // return;
+    // return null;
+    return undefined;
+}
+```
+
+#### 3.5 never
+
+never表示永远都不会返回，也是更多的使用在函数中
+
+- never 是其他类型的子类型，代表不会出现的值
+- 返回“从不”的函数不能具有可访问的终结点
+- 在函数内部永远会抛出错误，导致函数无法正常结束
+- console.log('end point')永远执行不到
+
+```typescript
+function f():never{
+    throw new Error();
+}
+```
 
