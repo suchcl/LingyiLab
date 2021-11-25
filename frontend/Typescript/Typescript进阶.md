@@ -343,8 +343,89 @@ let arr:string[];
 let ar:Array<number>
 ```
 
-
-
 #### 3.8 tuple
 
+tuple，叫做元祖，表示固定长度的数组，即数组的长度要固定，元素个数多了不行，少了也不行
+
+使用场景：当数组中元素个数是固定的时候，就使用元祖
+
+元祖中元素，可以是不同的数据类型，也可以是相同的数据类型
+
+元祖的元素个数，一般不会很多，如果数组元素多了，就直接使用数组了
+
+```typescript
+/**
+ * 元祖：表示长度固定的数组
+ * 当元素个数固定的时候，就可以使用元祖，比数组的性能会好一些
+ * 元祖中元素，可以是不同的数据类型
+ */
+let tp:[string,number];
+tp = ["hello",789];
+```
+
 #### 3.9 enum
+
+枚举，js中没有，ts新增的一种数据类型
+
+信息在数据库中存储的时候，应该尽量存储较小的数据，如性别信息，我们可以存储男、女、不详这3个字符串，但是也可以存0、1、2，相比起来，存数字比字符串应该会占用更小的存储空间。
+
+语法：enum 变量{值，值}
+
+也可以为枚举指定索引值
+
+enum 变量{值 = 索引值，值=索引值}
+
+```typescript
+/**
+ * enum  枚举
+ * 语法：enum 变量{值，值}
+ */
+
+enum Gender{
+    男,
+    女
+}
+let person:{name:string,age:number,gender:Gender};
+person = {
+    name: "Nicholas",
+    age: 18,
+    gender: Gender.男
+};
+
+console.log(person.gender);
+```
+
+#### 3.10 声明变量为多个类型：可以用或 | ，也可以使用且 &。
+
+```typescript
+// 都是表示变量既可以是string类型，也可以是number类型
+let p:string & number;
+let p2:string | number;
+```
+
+但是在实际中，为一个变量同时声明为两个类型，是没有实际意义的，因为一个变量不可能即是string类型，又是number类型的。那怎么用且&关键字呢？
+
+```typescript
+let p3: {name: string} & {age: number};
+p3={
+    name: "Nicholas Zakas",
+    age: 18
+}
+```
+
+更像是声明对象。
+
+#### 3.11 类型别名
+
+```typescript
+/**
+ * 类型别名
+ * type type类型名 = 值
+ */
+type K = 1 | 2 | 3 | 4;
+let k:K;
+let m:K;
+k = 3;
+m = 4;
+```
+
