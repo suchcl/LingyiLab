@@ -272,3 +272,58 @@ function f():never{
 }
 ```
 
+#### 3.6 object
+
+object在ts中是一个不太实用的类型。
+
+实际写代码是，我们更加关注的是对象中属性的类型，而不是关心当前的值是否是对象 。
+
+声明类型对象的变量，可以使用{}，{}中指定对象中包含的属性
+
+语法：{属性名：类型值，属性名：类型值}：在为变量赋值的时候，对象的属性名和属性值必须要和对象声明时的结构完全一直
+
+在属性名的后面添加？，表示该属性可选
+
+```typescript
+// 声明一个结构为{name:string,age:number}的对象
+let obj:{name:string,age:number};
+obj = {
+    name: "Nicholas Zakas",
+    age: 18
+};
+
+
+let obj2:{name:string,age?:number};
+obj2 = {
+    name: "Nicholas Zakas" // 结束了，不加age属性了，也是正常
+};
+
+// 我想添加任意类型的属性
+// propName自定义，可以是任何其他的变量名，表示对象中的属性名是一个string类型的，如age、job；后面的any表示属性的值是任意类型的，如age：18，job:"Programmer"
+let obj3:{name:string,[propName:string]:any};
+obj3 = {
+    name: "Nicholas Zakas",
+    age: 18,
+    job: "Programmer"
+};
+```
+
+还可以定义函数的类型结构：
+
+```typescript
+// 表示定义一个函数类型结构，函数有2个参数，都是number类型的，且函数的返回值是number类型
+let ff:(n1:number,n2:number) => number;
+
+// 这里实例化上面定义的结构的函数
+// 实例化的这个函数中的参数的类型，可以写也可以不写，不是必须的，以及函数的返回值类型，都是可选的
+ff = function(p1:number,p2:number){
+    return p1 + p2;
+}
+console.log(ff(2,3)); // 5
+```
+
+#### 3.7 array
+
+#### 3.8 tuple
+
+#### 3.9 enum
