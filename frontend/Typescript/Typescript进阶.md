@@ -629,7 +629,7 @@ m = 4;
           * 只能合并module配置项为amd或者system的模块化方案，其他的模块化方案不支持
         
             ```bash
-            PS D:\WebStudy\Ts> tsc
+            PS D:\Ts> tsc
             tsconfig.json:27:9 - error TS6082: Only 'amd' and 'system' modules are supported alongside --outFile.
             
             27         "module": "es2015",
@@ -644,6 +644,82 @@ m = 4;
             Found 2 errors.
             ```
         
-            
+        * allowJs
+        
+          * 指定是否对js文件进行编译
+            * 有的时候项目除了有ts文件，也会有js文件allowJs用来指定是否对项目中的js进行编译
+          * 默认值为false
+        
+        * checkJs
+        
+          * 指定是否检查js语法，默认为false
+        
+        * removeComments
+        
+          * 指定编译后的文件是否移除注释
+        
+        * noEmit
+        
+          * 指定是否生成编译后的文件，true不生成，false生成,默认为false
+          * 很少使用该选项，如果设置为true的话，可能就是为了检查下语法，并不希望生成最终文件
+        
+        * noEmitOnError
+        
+          * 当发生错误时不生成编译文件，true有错误时不生成编译文件，false都会生成编译文件  
+          * 默认为false
+        
+        * alwaysStrict
+        
+          * 指定编译后文件是否使用严格模式
+          * 默认false，不使用严格模式
+          * 布尔值：true  false
+        
+        * noImplicitAny
+        
+          * 是否允许显示的使用any类型
+        
+          * 值为布尔值：true   false
+        
+            * true：不能有显示的使用any类型
+        
+            * false：可以显示的使用any类型
+        
+            * 默认为false
+        
+              ```json
+              "noImplicitAny": true
+              ```
+        
+              看效果
+        
+              ![设置为ture，不允许显示使用any类型时效果](./images/i7.png)
+        
+        * noImplicitThis
+        
+          * 不允许不明确类型的this
+        
+          * 值为布尔值：true、false，默认为false
+        
+            * true：不允许不明确类型的this
+        
+            * false：不做类型的检查，可以使用this
+        
+              ```json
+              // 不允许不明确类型的this
+              "noImplicitThis": true
+              ```
+        
+              ![不允许不明确类型的this](./images/i8.png)
+        
+          * strictNullChecks
+        
+            * 严格检查空值
+        
+          * strict
+        
+            * 所有严格检查的总开关，如果设置为true，所有的严格检查都将打开，默认为false
+        
+          * 
 
 ​	
+
