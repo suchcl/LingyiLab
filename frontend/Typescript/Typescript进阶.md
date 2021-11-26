@@ -512,4 +512,138 @@ m = 4;
 
         所以files不适合大量文件的使用
 
+    * compilerOptions
+
+      * compilerOptions是tsconfig.json中最重要的一个配置项，它是ts编译器的选项，本身的配置比较复杂，包含了很多的子选项
+
+      * compilerOptions有很多的子选项，学习compilerOptions主要就是学习它的子选项
+
+      * 子选项配置
+
+        * target
+
+          * 用来指定ts被编译为es的目标版本，默认为ES3
+
+          * target的属性值，就是ES的版本号，如es3，es5，es6，es2018等
+
+          * 那如果不知道具体有哪些es的版本的时候，怎么去查呢？有文档可以查，这里给一个简单的方案：就是给target一个错误的值，去执行tsc指令，ts编译器会把正确的值列表给提示出来
+
+            ```bash
+            PS D:\Ts> tsc
+            tsconfig.json:25:19 - error TS6046: Argument for '--target' option must be: 'es3', 'es5', 'es6', 'es2015', 'es2016', 'es2017', 'es2018', 'es2019', 
+            'es2020', 'es2021', 'esnext'.
+            
+            25         "target": "爱的色放"
+                                 ~~~~~~
+            
+            
+            Found 1 error.
+            ```
+            
+            如案例所示，ts编译器直接将所有的值列表都给列了出来，根据自己的需要选择一个就可以了
+          
+        * module
         
+          * 指定选用的模块化规范，常用的有如：es6、commonjs、amd等
+        
+          * 那我怎么知道都有哪些规范可以去使用呢？和target一样，不知道的时候就随便给module赋值，ts编译器会在异常信息中告诉我们
+        
+            ```bash
+            PS D:\Ts> tsc
+            tsconfig.json:27:19 - error TS6046: Argument for '--module' option must be: 'none', 'commonjs', 'amd', 'system', 'umd', 'es6', 'es2015', 'es2020', 'es2022', 'esnext', 'node12', 'nodenext'.
+            
+            27         "module": "es2016"
+                                 ~~~~~~~~
+            
+            
+            Found 1 error.
+            ```
+        
+            如案例中，我随便给module选项赋值es2016，结果不对，但是ts编译器告诉了我正确的值列表，然后根据需要去选一个就可以了
+        
+            至于每个值的区别，我们可以尝试的去运行下看下效果
+        
+        * lib
+        
+          * 用来指定项目会用到的库
+          
+          * 一般情况下，在做基于浏览器的项目时，这个配置项不需要改
+          
+          * 如果在写node项目时，可能会根据需要去改成相应的值
+    
+          * 具体体现
+            * 比如浏览器项目中，我给这个配置项配置为空，那么就表示不适用任何库，那么我们在写代码的时候就不会给我们任何的代码提示
+          
+                <img src="./images/i5.png" alt="默认不配置lib时，会有dom操作的提示" style="zoom:60%;" />
+            
+                但是如果给lib配置为空，再写代码时，就不会有任何的代码提示：
+            
+                ![如果把lib配置为空，再写DOM操作的代码时就没有了任何的提示](./images/i6.png)
+            
+          * 配置项的值
+          
+            * 和target、module一样，如果不知道都有哪些值可选，就随便写个，ts编译器会告诉我们
+          
+              ```bash
+              PS D:\WebStudy\Ts> tsc
+              error TS2318: Cannot find global type 'Array'.
+              
+              error TS2318: Cannot find global type 'Boolean'.   
+              
+              error TS2318: Cannot find global type 'Function'.  
+              
+              error TS2318: Cannot find global type 'IArguments'.
+              
+              error TS2318: Cannot find global type 'Number'.    
+              
+              error TS2318: Cannot find global type 'Object'.
+              
+              
+              error TS2318: Cannot find global type 'String'.
+              
+              tsconfig.json:29:17 - error TS6046: Argument for '--lib' option must be: 'es5', 'es6', 'es2015', 'es7', 'es2016', 'es2017', 'es2018', 'es2019', 'es2020', 'es2021', 
+              'esnext', 'dom', 'dom.iterable', 'webworker', 'webworker.importscripts', 'webworker.iterable', 'scripthost', 'es2015.core', 'es2015.collection', 'es2015.generator', 'es2015.iterable', 'es2015.promise', 'es2015.proxy', 'es2015.reflect', 'es2015.symbol', 'es2015.symbol.wellknown', 'es2016.array.include', 'es2017.object', 'es2017.sharedmemory', 'es2017.string', 'es2017.intl', 'es2017.typedarrays', 'es2018.asyncgenerator', 'es2018.asynciterable', 'es2018.intl', 'es2018.promise', 'es2018.regexp', 'es2019.array', 'es2019.object', 'es2019.string', 'es2019.symbol', 'es2020.bigint', 'es2020.promise', 'es2020.sharedmemory', 'es2020.string', 'es2020.symbol.wellknown', 'es2020.intl', 'es2021.promise', 'es2021.string', 'es2021.weakref', 'es2021.intl', 'esnext.array', 'esnext.symbol', 'esnext.asynciterable', 'esnext.intl', 'esnext.bigint', 'esnext.string', 'esnext.promise', 'esnext.weakref'.
+              
+              29         "lib": ["abcd"]
+                                 ~~~~~~
+              
+              
+              Found 9 errors.
+              ```
+          
+              这个配置选项多，谨慎修改
+          
+            * 默认值
+          
+              * 默认值为浏览器的运行环境
+              * 一般情况下，不需要修改lib的配置
+          
+        * outDir
+        
+          * 指定编译后的文件的输出目录
+        
+        * outFile
+        
+          * 指定将输出文件合并为一个文件
+        
+          * 只能合并module配置项为amd或者system的模块化方案，其他的模块化方案不支持
+        
+            ```bash
+            PS D:\WebStudy\Ts> tsc
+            tsconfig.json:27:9 - error TS6082: Only 'amd' and 'system' modules are supported alongside --outFile.
+            
+            27         "module": "es2015",
+                       ~~~~~~~~
+            
+            tsconfig.json:33:9 - error TS6082: Only 'amd' and 'system' modules are supported alongside --outFile.
+            
+            33         "outFile": "./dist/app.js"
+                       ~~~~~~~~~
+            
+            
+            Found 2 errors.
+            ```
+        
+            
+
+​	
