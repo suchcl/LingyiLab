@@ -429,3 +429,87 @@ k = 3;
 m = 4;
 ```
 
+### 4. 编译选项
+
+* 自动编译文件
+
+  * 编译文件时，使用-w指令后，Ts编译器会自动监听文件的变化，并在文件发生变化时对文件进行编译
+
+    ```bash
+    tsc index.ts -w
+    ```
+
+    使用webstorm编辑器的时候，使用-w参数，会有个时间间隔，并不是实时更新的，使用vscode也有时间间隔，但是比webstorm间隔小了很多
+
+    -w 参数只能监听一个ts文件的变化
+
+* 自动编译整个项目
+
+  * 如果直接使用tsc指令，则可以自动将当前项目下的所有ts文件编译为js文件
+
+  * 但是能直接使用tsc指令的前提是，先在当前项目的根目录下创建一个ts的配置文件:tsconfig.json
+
+    * tsconfig.json是ts编译器的配置文件
+    * 一般的json文件中不可以注释，但是tsconfig.json中可以注释
+
+  * tsconfig.json是一个json文件，添加配置文件后，只需要tsc指令就可以完成对整个项目的编译
+
+    * tsconfig.json文件为空的时候，tsc也可以编译项目下的所有ts文件，同理，tsc -w也可以监听项目下的所有ts文件的变化
+
+  * 配置选项
+
+    * include
+
+      * 定义希望被编译文件所在的目录
+
+      * 默认值：["** / *"]
+
+        ```json
+        {
+            // 表示src和test目录下的所有ts文件都会被ts编译器编译
+            "include": [
+                "src/**/*",
+                "test/**/*"
+            ]
+        }
+        ```
+
+        > json中做路径通配的时候，*表示所有文件，**表示所有目录
+        >
+        > ** / *表示所有目录下的所有文件
+
+    * exclude
+
+      * 定义需要排除在外的目录
+
+      * 默认值：["node_modules","bower_components","jspm_packages"]
+
+        ```typescript
+        "exclude": ["src/dataType/**/*"] // src中dataType目录下的所有ts文件都不会被编译、监听变化
+        ```
+
+    * extends
+
+      * 定义被继承的配置文件
+
+        ```typescript
+        "extends": "./config/baseConfig.json" // 该配置文件会继承config/baseConfig.json中的所有配置信息
+        ```
+
+    * files
+
+      * 指定被编译文件的列表，只有需要编译的文件少时才会用到
+
+        ```typescript
+        "files": [
+            "index.ts",
+            "file.ts",
+            "user.ts"
+        ]
+        ```
+
+        files配置项和include的主要功能基本类似，只是include使用的是通配的方式，files使用的具体的文件名的方式
+
+        所以files不适合大量文件的使用
+
+        
