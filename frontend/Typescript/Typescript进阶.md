@@ -721,6 +721,8 @@ m = 4;
 
 ### 5. webpack整合TS
 
+#### 5.1 基本配置
+
 初始化项目
 
 ```bash
@@ -779,15 +781,37 @@ module.exports = {
 npm run build #看是否生成了dist目录以及dist目录下是否有bundle.js文件
 ```
 
+#### 5.2 配置HTML中自动引入js、css文件
 
+​	使用html-webpack-plugin插件
 
-​	
+```bash
+npm install html-webpack-plugin --save-dev
+```
 
+配置html-webpack-plugin插件：从webpack.config.js中配置，webpack的配置文件
 
+1. 导入插件
 
+```js
+// 导入html-webpack-plugin插件
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+```
 
+html-webpack-plugin可以自动生成一个html文件，并在该文件中自动引入模块化文件，即js和css文件
 
+2. 配置插件:还是在webpack.config.js
 
+   > 记住所有关于webpack的配置都是在webpack的配置文件中，默认都是在webpack.config.js中
+
+```js
+// 配置插件
+plugins:[
+    new HtmlWebpackPlugin()
+]
+```
+
+这样就可以了
 
 
 
