@@ -541,13 +541,13 @@ m = 4;
             ```
             
             如案例所示，ts编译器直接将所有的值列表都给列了出来，根据自己的需要选择一个就可以了
-          
+
         * module
-        
+
           * 指定选用的模块化规范，常用的有如：es6、commonjs、amd等
-        
+
           * 那我怎么知道都有哪些规范可以去使用呢？和target一样，不知道的时候就随便给module赋值，ts编译器会在异常信息中告诉我们
-        
+
             ```bash
             PS D:\Ts> tsc
             tsconfig.json:27:19 - error TS6046: Argument for '--module' option must be: 'none', 'commonjs', 'amd', 'system', 'umd', 'es6', 'es2015', 'es2020', 'es2022', 'esnext', 'node12', 'nodenext'.
@@ -558,22 +558,22 @@ m = 4;
             
             Found 1 error.
             ```
-        
+
             如案例中，我随便给module选项赋值es2016，结果不对，但是ts编译器告诉了我正确的值列表，然后根据需要去选一个就可以了
-        
+
             至于每个值的区别，我们可以尝试的去运行下看下效果
-        
+
         * lib
-        
+
           * 用来指定项目会用到的库
-          
+
           * 一般情况下，在做基于浏览器的项目时，这个配置项不需要改
-          
+
           * 如果在写node项目时，可能会根据需要去改成相应的值
-    
+
           * 具体体现
             * 比如浏览器项目中，我给这个配置项配置为空，那么就表示不适用任何库，那么我们在写代码的时候就不会给我们任何的代码提示
-          
+
                 <img src="./images/i5.png" alt="默认不配置lib时，会有dom操作的提示" style="zoom:60%;" />
             
                 但是如果给lib配置为空，再写代码时，就不会有任何的代码提示：
@@ -581,9 +581,9 @@ m = 4;
                 ![如果把lib配置为空，再写DOM操作的代码时就没有了任何的提示](./images/i6.png)
             
           * 配置项的值
-          
+
             * 和target、module一样，如果不知道都有哪些值可选，就随便写个，ts编译器会告诉我们
-          
+
               ```bash
               PS D:\WebStudy\Ts> tsc
               error TS2318: Cannot find global type 'Array'.
@@ -610,24 +610,24 @@ m = 4;
               
               Found 9 errors.
               ```
-          
+
               这个配置选项多，谨慎修改
-          
+
             * 默认值
-          
+
               * 默认值为浏览器的运行环境
               * 一般情况下，不需要修改lib的配置
-          
+
         * outDir
-        
+
           * 指定编译后的文件的输出目录
-        
+
         * outFile
-        
+
           * 指定将输出文件合并为一个文件
-        
+
           * 只能合并module配置项为amd或者system的模块化方案，其他的模块化方案不支持
-        
+
             ```bash
             PS D:\Ts> tsc
             tsconfig.json:27:9 - error TS6082: Only 'amd' and 'system' modules are supported alongside --outFile.
@@ -643,83 +643,165 @@ m = 4;
             
             Found 2 errors.
             ```
-        
+
         * allowJs
-        
+
           * 指定是否对js文件进行编译
             * 有的时候项目除了有ts文件，也会有js文件allowJs用来指定是否对项目中的js进行编译
           * 默认值为false
-        
+
         * checkJs
-        
+
           * 指定是否检查js语法，默认为false
-        
+
         * removeComments
-        
+
           * 指定编译后的文件是否移除注释
-        
+
         * noEmit
-        
+
           * 指定是否生成编译后的文件，true不生成，false生成,默认为false
           * 很少使用该选项，如果设置为true的话，可能就是为了检查下语法，并不希望生成最终文件
-        
+
         * noEmitOnError
-        
+
           * 当发生错误时不生成编译文件，true有错误时不生成编译文件，false都会生成编译文件  
           * 默认为false
-        
+
         * alwaysStrict
-        
+
           * 指定编译后文件是否使用严格模式
           * 默认false，不使用严格模式
           * 布尔值：true  false
-        
+
         * noImplicitAny
-        
+
           * 是否允许显示的使用any类型
-        
+
           * 值为布尔值：true   false
-        
+
             * true：不能有显示的使用any类型
-        
+
             * false：可以显示的使用any类型
-        
+
             * 默认为false
-        
+
               ```json
               "noImplicitAny": true
               ```
-        
+
               看效果
-        
+
               ![设置为ture，不允许显示使用any类型时效果](./images/i7.png)
-        
+
         * noImplicitThis
-        
+
           * 不允许不明确类型的this
-        
+
           * 值为布尔值：true、false，默认为false
-        
+
             * true：不允许不明确类型的this
-        
+
             * false：不做类型的检查，可以使用this
-        
+
               ```json
               // 不允许不明确类型的this
               "noImplicitThis": true
               ```
-        
+
               ![不允许不明确类型的this](./images/i8.png)
+
+        * strictNullChecks
+
+          * 严格检查空值
+
+        * strict
+
+          * 所有严格检查的总开关，如果设置为true，所有的严格检查都将打开，默认为false
+
+### 5. webpack整合TS
+
+初始化项目
+
+```bash
+npm init -y # 为了生成package.json来管理项目
+```
+
+安装依赖
+
+```bash
+npm install webpack webpack-cli typescript ts-loader --save-d
+```
+
+配置webpack.config.js
+
+```javascript
+const path = require("path");
+
+module.exports = {
+    entry: "./src/index.ts",
+    output: {
+        path: path.resolve(__dirname, "dist"),
+        filename: "bundle.js"
+    },
+
+    // 指定webpack打包时用到的模块
+    module: {
+        // 指定加载规则
+        rules: [
+            {
+                // test指定规则生效的文件
+                test: /\.ts$/,
+                use: "ts-loader",
+                // 要排除的文件
+                exclude: "/node_modules/"
+            }
+        ]
+    }
+};
+```
+
+配置tsconfig.json
+
+```json
+{
+    "compilerOptions": {
         
-          * strictNullChecks
-        
-            * 严格检查空值
-        
-          * strict
-        
-            * 所有严格检查的总开关，如果设置为true，所有的严格检查都将打开，默认为false
-        
-          * 
+    }
+}
+```
+
+我没有配置，直接使用的默认配置项
+
+检查结果：
+
+```bash
+npm run build #看是否生成了dist目录以及dist目录下是否有bundle.js文件
+```
+
+
 
 ​	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
