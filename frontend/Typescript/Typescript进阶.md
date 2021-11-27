@@ -926,7 +926,63 @@ resolve:{
 }
 ```
 
+### 6. babel配置
 
+#### 6.1 安装babel相关
+
+```bash
+npm install @babel/core @babel/preset-env babel-loader core-js --save-dev
+```
+
+@babel/core，babel的核心内容
+
+@babel/preset-env 预设环境
+
+babel-loader 转义器
+
+core-js js的运行环境，也可以说是js的模拟环境，这个插件里面的内容比较多，也可以配置按需加载
+
+#### 6.2  babel相关配置
+
+```js
+// webpack.config.js
+use: [
+    // 指定加载器有两种形式，一种是字符串，一种是对象，都可以
+    // 加载器的执行顺序，从后往前执行，配置在最后面的最先执行
+    // 配置babel加载器
+    {
+        // 指定加载器
+        loader: "babel-loader",
+        // 设置babel
+        options: {
+            // 设置预定义环境
+            presets:[
+                [
+                    // 指定环境插件
+                    "@babel/preset-env",
+                    // 配置信息
+                    {
+                        // 设置要兼容的目标浏览器
+                        targets: {
+                            "chrome": "88", //兼容chrome的88版本
+                            "ie": "9"
+                        },
+                        // 指定core-js版本
+                        "corejs": "3",
+                        // 使用core-js的方式，usage表示按需加载
+                        "useBuiltIns": "usage"
+                    }
+                ]
+            ]
+        }
+    },
+    "ts-loader"
+],
+```
+
+core-js：js的运行环境。比如在使用一些特殊实现的时候，有的浏览器可能不支持，这个时候core可能对这些浏览器做了一些自己的实现，这个时候就会将使用的这些功能core来替不支持这个功能的浏览器去实现。比如promise，chrome实现了，但是IE就没有实现。这个时候core-js可能会有自己的实现。当然了，也可能没有实现这个功能。
+
+> babel只能转移我们自己开发的代码，可以将高版本标准的代码转为低版本的代码，但是webpack自己生成的代码，是不经过babel转义的，只能通过webpack自己的配置去调整。
 
 
 
