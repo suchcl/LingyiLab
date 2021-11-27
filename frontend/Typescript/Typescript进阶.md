@@ -813,6 +813,119 @@ plugins:[
 
 这样就可以了
 
+最后执行npm  run  build就可以了，执行后会在dist目录下生成一个bundle.js和一个html文件，且html中会自动引入js等模块化文件。
+
+3. html文件的自定义配置
+
+   执行npm run build生成的html文件，都是默认的信息，比如页面的title是Webpack App,那么我想改成其他的信息，怎么改呢，只要改一些html-webpack-plugin的一些配置就可以了
+
+   ```js
+   // 配置插件
+   plugins:[
+       new HtmlWebpackPlugin({
+           title: "自定义页面title", // 定义生成页面的title
+           filename: "main.html" // 定义生成的html页面的文件名
+       })
+   ]
+   ```
+
+   看效果：
+
+   ![自定义配置html-webpack-plugin生成的html文件](./images/i9.png)
+
+   更加详细的配置，可以参考：https://github.com/jantimon/html-webpack-plugin
+
+   一些简单的HTML的配置，可以通过选项配置的方式，那么如果项目的HTML信息个性化的比较多，那仅仅通过自定义的配置可能满足不了需求，怎么办呢？
+
+   可以在项目的目录下新建一个自定义的HTML文件，然后通过webpack配置，以这个html文件为模板就可以了。
+
+   比如我在项目根目录中的public目录下新建了一个index.html，并以此文件作为模板文件：
+
+   ```js
+   // webpack.config.js对html-webpack-plugin的配置
+   // 配置插件
+   plugins:[
+       new HtmlWebpackPlugin({
+           // title: "自定义页面title", // 定义生成页面的title
+           // filename: "main.html" // 定义生成的html页面的文件名
+           template: "./public/index.html" // 指定模板文件
+       })
+   ]
+   ```
+
+   看效果：
+
+   模板文件
+
+   ![新建的模板文件](./images/i10.png)
+
+   生成的编译文件
+
+   ![html-webpack-plugin指定html模板文件](./images/i11.png)
+
+#### 5.3 配置webpack-dev-server
+
+经过前面html-webpack-plugin的配置，我们可以自定义模板文件，指定生成文件的名称了。但是代码有了变化之后想要看效果的是好，都需要重新build一下，在开发过程中影响开发效率，也有点麻烦，怎么办呢。
+
+webpack-dev-serve可以帮我们启动一个web服务，能够实时监听项目文件的变动，在文件有了变动之后，能够自动进行项目的编译。
+
+1. 安装webpack-dev-serve
+
+   ```bash
+   npm run webpack-dev-serve --save-dev # 开发时依赖，生产环境是用不到的
+   ```
+
+2. 启动脚本配置
+
+   ```json
+   // package.json中scripts部分配置启动脚本
+   "start": "webpack serve --open --mode=development" //表示通过webpack启动serve指令，且会自动打开默认浏览器，模式为development，其实就是开发环境
+   // webpack5中需要明确的告诉webpack mode选项，告知webpack当前是生产环境还是开发环境，我习惯通过cli脚本中指定，如本案例
+   ```
+
+   > webpack5.x中需要配置mode选项，我项目中webpack版本是5.64.4，如果不配置mode，执行脚本的时候会报提示信息，浏览网页信息，会有错误信息提示。
+
+#### 5.4 clean-webpack-plugin生成文件之前清空output（生成文件）目录
+
+webpack5中已经没有介绍clean-webpack-plugin插件了，但是仍旧可以使用；webpack5中推荐在output配置项配置clean属性
+
+清空原来的文件，主要是为了保证dist是最新的文件
+
+**clean-webpack-plugin配置**
+
+```js
+// webpack.config.js中
+// 注意导入是通过结构的方式导入，直接导入在使用的时候会提示CleanWebpackPlugin没有构造函数
+const {CleanWebpackPlugin} = require("clean-webpack-plugin");
+
+// 配置插件
+// 配置清理插件，在build之前先清空output目录,直接实例化一下即可，不需要额外的配置项
+new CleanWebpackPlugin(),
+```
+
+**webpack5中推荐的outpub配置clean属性配置方法**
+
+```js
+// webpack.config.js
+output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "bundle.js",
+    clean: true // 配置这一个选项即可
+},
+```
+
+#### 5.5 模块配置
+
+主要就是配置webpack支持将哪些类型的文件打包成模块，常见的类型文件有js、ts、css、less、scss、png、jpg等静态资源类型。
+
+webpack中，通过resolve配置项来配置模块类型：
+
+```js
+resolve:{
+    extensions:[".ts",".js",".css"]
+}
+```
+
 
 
 
