@@ -1086,7 +1086,57 @@ const p = new Person();
    Person.isStudent();
    ```
 
-   
+##### 7.1.3 构造函数
+
+ts中，通过关键字constructor声明构造函数，声明构造函数不需要函数名
+
+构造函数会在对象创建时被调用：即只要通过new操作符创建实例对象时就会调用构造函数
+
+构造函数中，this就表示当前对象，当前对象就是当前新创建的对象，如通过const dog = new Dog();创建的实例对象dog，那么当前对象就是dog，this也指向dog
+
+在类（class）中，无论有没有使用构造函数，属性和方法，都要根据需要正常声明、定义；如果使用了构造函数，那么构造函数就会调用属性去初始化值
+
+类中，属性的声明，是在类中声明，不是在构造函数中声明，需要注意这个细节。
+
+在方法中，也可以通过使用this调用当前实例对象：前提是实例方法。如果是静态方法，就不去讨论了，没有实际意义，静态方法中的this指向当前类。
+
+```typescript
+class Dog {
+    // 类中声明该类会用到的属性
+    name: string;
+    age: number;
+
+    /**
+     * 构造函数
+     * 通过constructor声明构造函数，不需要函数名
+     * 构造函数会在实例对象创建时被调用：即通过new操作符实例化对象的时候，就都会调用构造函数来生成实例对象
+     */
+    constructor(name: string, age: number) {
+        /**
+         * 构造函数中，this表示当前的实例
+         * 如通过const dog = new Dog()，那么this就指向当前的实例dog；
+         * 构造函数中的当前对象，就是当前创建的那个对象，如const dog2 = new Dog();那么当前对象以及this都指向dog2
+         */
+        this.name = name;
+        this.age = age;
+    }
+
+    play(){
+        console.log(`我是${this.name},今年${this.age}岁了！`);
+    }
+}
+
+// 通过new操作符调用构造函数，创建对象实例
+const luma = new Dog("路马",4);
+luma.play(); // 我是路马,今年4岁了！
+
+const tiantian = new Dog("天天",6);
+tiantian.play(); // 我是天天,今年6岁了！ 
+```
+
+
+
+### 7.2 项目实践
 
 
 
