@@ -984,15 +984,109 @@ core-js：js的运行环境。比如在使用一些特殊实现的时候，有�
 
 > babel只能转移我们自己开发的代码，可以将高版本标准的代码转为低版本的代码，但是webpack自己生成的代码，是不经过babel转义的，只能通过webpack自己的配置去调整。
 
+### 7. 面向对象
 
+面向对象，就是通过对象进行操作。
 
+抽象：对应了具体。
 
+学习编程，思想类的东西，先不用着急去理解，先学会写代码，写的多了，慢慢就领会到思想的东西了。
 
+#### 7.1 类
 
+类是对象的模型，某类对象的共有的属性和功能。
 
+定义类：通过class关键字定义类。
 
+```typescript
+class Person {
+    
+}
+const p = new Person();
+```
 
+类中主要包含两个部分内容：
 
+1. 数据：属性
+2. 功能：方法
+
+##### 7.1.1 属性
+
+属性，分为实例属性和类属性（也称为静态属性）。
+
+1. 实例属性：只能通过类的实例访问的属性
+
+   直接定义声明的实例属性，可读、可写，即这个属性的值可以被读取也可以被修改
+
+   也可以定义只读属性：通过readonly关键字定义只读属性，只读属性只能被读取调用值，不能被重新赋值，相当于const关键字声明的变量吧。
+
+   ```typescript
+   name:string = "Nicholas Zakas";
+   // 通过readonly定义只读属性，不能被修改（重新赋值）
+   readonly gender:string = "male";
+   ```
+
+   ![readonly只读属性不能被重新赋值](./images/i12.png)
+
+2. 类属性（静态属性）：通过static关键字声明的属性，只能通过类来访问的属性，称为类属性，或者静态属性。
+
+   声明属性时，在属性前面使用static关键字。
+
+   类属性只能通过类去访问，类的实例对象是访问不了的。
+
+   ```typescript
+   class Person {
+       // 实例属性，需要通过类的实例化对象去访问
+       name:string = "Nicholas Zakas";
+   
+       // 类属性，通过static关键词声明定义，只能通过类访问
+       static age: number = 18;
+   }
+   const p = new Person();
+   console.log(p.name); // Nicholas Zakas  实例属性调用
+   console.log(Person.name); // Person，这个是类本身，打印类名称
+   console.log(Person.age); // 18 类属性，只能通过类来调用
+   ```
+
+   也可以定义静态的只读属性，只是需要注意的是readonly需要在static关键字后面，不能调换顺序
+
+   ```typescript
+   // 定义静态的只读属性，static和readonly不能换顺序，只能按照static readonly的顺序依次标明
+   static readonly age:number = 18;
+   ```
+
+##### 7.1.2 方法
+
+方法和属性一样，也可以区分为实例方法和类方法。
+
+1. 实例方法
+
+   通过类的实例对象去访问
+
+   ```typescript
+   // 实例方法，打印基本信息
+   printBaseInfo(){
+       console.log(`我是${this.name},性别${this.gender}`);
+   
+   }
+   
+   // 通过类的实例对象去调用实例方法
+   p.printBaseInfo();
+   ```
+
+2. 类方法（静态方法）：通过static关键字定义，只能通过类本身去调用
+
+   ```typescript
+   // 通过static定义类方法
+   static isStudent(){
+       console.log(`我今年${this.age}岁，还是一个学生！`);
+   }
+   
+   // 类本身调用类方法
+   Person.isStudent();
+   ```
+
+   
 
 
 
