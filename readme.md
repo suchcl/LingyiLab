@@ -132,6 +132,10 @@
 
 ### 面试
 
+#### 综合题目
+
+1. [综合题目](./interview/all/index.md)
+
 #### Javascript
 
 0. [import、require 的区别](./interview/frontend/import和require区别.md)
