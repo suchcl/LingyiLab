@@ -1574,7 +1574,68 @@ class A{
 }
 ```
 
+#### 7.1.8 泛型
 
+在定义函数或者类时，如果遇到类型不明确的时候就可以使用泛型
+
+泛型：不确定的类型，不知道具体是什么类型，根据调用情况去决定具体类型
+
+```typescript
+/**
+ * fn<T> 定义泛型，T可以自定义，可以是任意的
+ * @param a 类型为泛型T
+ * @returns 返回泛型类型T类型
+ */
+function fn<T>(a: T): T {
+    return a;
+}
+
+// 调用
+console.log(fn(10));
+// 指定string类型的泛型
+console.log(fn<string>("Hello，泛型"));
+```
+
+泛型可以指定多个。
+
+```typescript
+// 定义了2个泛型：T和K
+function fn2<T, K>(a: T, b: K): number {
+    return 0;
+}
+
+fn2(12,"hello");
+```
+
+泛型还可以通过extends关键字继承、实现接口
+
+```typescript
+interface AA {
+    name: string;
+    length: number;
+}
+
+// 无论是实现的接口还是继承的抽象类，统统使用extends关键字
+function fn3<T extends AA>(a: T): number {
+    return A.length;
+}
+fn3({ name: "Nicholas", length: 90 });
+```
+
+类也可以使用泛型
+
+```typescript
+class BB<T>{
+    name: T;
+    constructor(name: T) {
+        this.name = name;
+    }
+}
+```
+
+泛型就是在类型不明确的时候，定义一个变量，起到个类型限制的作用。
+
+> 抽象类、泛型、接口，js中没有这些概念。
 
 ### 7.2 项目实践
 
