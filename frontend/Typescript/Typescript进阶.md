@@ -1281,7 +1281,7 @@ abstract class Animal {
 }
 ```
 
-抽象类和其他的普通类没有什么区别，只是不能用来创建对象，抽象类就是专门用来被继承的类。
+抽象t类和其他的普通类没有什么区别，只是不能用来创建对象，抽象类就是专门用来被继承的类。
 
 抽象类中可以添加抽象方法
 
@@ -1299,6 +1299,119 @@ abstract introBySelf():void;
 ```
 
 #### 7.1.6 接口
+
+type：描述一个对象的类型
+
+interface：用来定义一个类结构，交对象结构也可以。
+
+- 用来定义一个类中应该包含的属性和方法
+
+- 同时接口也可以当做类型声明去使用
+
+  ```typescript
+  interface User {
+      name: string;
+      age: number;
+  }
+  
+  interface User {
+      gender: string;
+      play():void;
+  }
+  
+  const u: User = {
+      name: "Nicholas Zakas",
+      age: 18,
+      gender: "male",
+      play(){
+          console.log("playing basketball");
+      }
+  };
+  ```
+
+**interface和type的区别：**
+
+1. type不能重复声明，interface可以重复声明
+
+   ```typescript
+   // 声明了两个同名的type，ts是不允许的
+   type Student = {
+       name: string,
+       age: number,
+       gender: string
+   }
+   
+   type Student = {
+       
+   }
+   ```
+
+   ![type不能重复声明](./images/i13.png)
+
+   ```typescript
+   // interface是可以声明两个同名的interface的
+   interface User {
+       name: string,
+       age: number
+   }
+   
+   interface User{
+       gender: string
+   }
+   ```
+
+2. 
+
+**接口和抽象类**
+
+1. 接口中，只定义属性而不能有实际值；
+
+2. 接口只定义对象的接口，而不考虑实际值
+
+   1. 接口中的所有方法都只能是抽象方法（不需要通过absctract定义），只能定义方法名和方法返回值，但是不能有方法体；
+
+      ```typescript
+      interface User {
+          name: string;
+          age: number;
+      }
+      
+      interface User {
+          gender: string;
+          // 接口中定义方法，但是不能有方法体
+          play():void;
+      }
+      
+      class User implements User {
+          name: string;
+          age: number;
+          gender: string;
+          constructor(name: string, age: number, gender: string) { 
+              this.name = name;
+              this.age = age;
+              this.gender = gender;
+          }
+      
+          play(){
+              console.log("playing football");
+          }
+      }
+      
+      
+      const p1 = new User("Hanmeimei",16,"female");
+      p1.play();
+      ```
+
+3. 抽象类中，可以有抽象方法，也可以有实例方法，即可以有方法的实现，且抽象方法需要通过关键字abstract去定义；
+
+   <font color="#f20">接口就是对类的限制</font>
+
+   接口实际上是定义了类的标准，它和抽象类的区别，主要有2个：
+
+   1. 抽象类中既可以有抽象方法，也可以有普通方法，接口中只能有抽象方法；
+   2. 抽象类通过extends关键字实现；接口通过implements关键字实现；
+
+   > 接口、抽象类概念只有在ts中有，js中是没有这个概念的，所以ts被编译成js后不要去找抽象来、接口的实现啥的。
 
 ### 7.2 项目实践
 
