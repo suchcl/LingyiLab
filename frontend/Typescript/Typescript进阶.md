@@ -1413,6 +1413,169 @@ interface：用来定义一个类结构，交对象结构也可以。
 
    > 接口、抽象类概念只有在ts中有，js中是没有这个概念的，所以ts被编译成js后不要去找抽象来、接口的实现啥的。
 
+#### 7.1.7 属性封装
+
+ts中，可以在属性前面添加访问修饰符
+
+1. public：public修饰的属性可以在任意位置访问（修改）默认值
+
+2. private：private修饰的属性称为私有属性，私有属性只能在类内部进行访问、修改，子类中也不能访问
+
+3. protected:受保护属性，只能在当前类或者当前类的子类中访问
+
+   ```typescript
+   class Teacher {
+       /**
+        * 属性前可以添加访问修饰符：public、private
+        *  - public：在任意位置都可以访问和修改属性值
+        *  - private：私有属性，私有属性只能在类的内部访问和修改
+        */
+       private _name: string;
+       private _age: number;
+   
+       constructor(name: string, age: number) {
+           this._name = name;
+           this._age = age;
+       }
+   
+       lecture(){
+           console.log(`我正在讲课！`);
+       }
+   }
+   
+   const t = new Teacher("Nicholas Zakas",26);
+   t._age = 18;
+   ```
+
+   ![通过属性修饰符限制属性的访问和修改](./images/i14.png)
+
+那确实需要在对象实例中修改或访问属性时，怎么办呢？
+
+通过在类中暴露方法的方式，通过方法去访问和修改数据。即常说的getter和setter方法。
+
+```typescript
+class Teacher {
+    /**
+     * 属性前可以添加访问修饰符：public、private
+     *  - public：在任意位置都可以访问和修改属性值
+     *  - private：私有属性，私有属性只能在类的内部访问和修改
+     */
+    private _name: string;
+    private _age: number;
+
+    constructor(name: string, age: number) {
+        this._name = name;
+        this._age = age;
+    }
+
+    // 定义getter方法来获取属性值
+    getName() {
+        return this._name;
+    }
+
+    // 定义setter方法，来修改属性值
+    setName(name: string) {
+        this._name = name;
+    }
+
+
+    lecture() {
+        console.log(`我正在讲课！`);
+    }
+}
+
+const t = new Teacher("Nicholas Zakas", 26);
+console.log(t.getName());
+t.setName("猪八戒"); // 通过setter修改属性值
+console.log(t);
+```
+
+现在通过setter虽然也可以修改属性值，但是对属性的控制权全部控制在了类中了，外部不能随意修改了。
+
+当通过setter修改值时，可以在setter方法中做一系列的业务处理，不让它外部随意修改，或者有条件的去修改。数据安全上也有了更大的保障。如设置年龄不能小于0
+
+```typescript
+// 读取age
+getAge() {
+    return this._age;
+}
+
+// 设置age，但是需要age >= 0
+setAge(age: number) {
+    if (age >= 0) {
+        this._age = age;
+    }
+}
+
+const t = new Teacher("Nicholas Zakas", 26);
+t.setAge(-10); 
+console.log(`新年龄${t.getAge()}`); // 26,因为-10不符合条件，对age的修改失败
+```
+
+因为getter、setter分别可以读取和设置属性，所以在一些编程语言中，也把getter和setter称为存取器。
+
+ts中，对于getter和setter存取器的使用，有一些简单的使用方式
+
+```typescript
+class Frutes {
+    private _name: string;
+    private _price: number;
+
+    constructor(name: string, price: number) {
+        this._name = name;
+        this._price = price;
+    }
+
+    // ts中读取属性的另一种方式
+    get name() {
+        return this._name;
+    }
+
+    // ts中设置属性的另一种方式
+    set name(name: string) {
+        this._name = name;
+    }
+}
+
+console.log("水果类开始");
+const f = new Frutes("国光", 3.99);
+// 通过get、set方式的存取器，在读取、设置属性的时候，就不需要通过方法的调用了，可以直接通过点语法读取属性
+// 直接通过点语法读取属性: f.name,直接通过点语法，代码不是去找的属性name，而是方法get
+console.log(`修改品牌前：${f.name}`); // 修改品牌前：国光
+// 直接通过点语法设置属性:f.name
+f.name = "富士";
+console.log(`修改品牌后：${f.name}`); // 修改品牌后：富士
+console.log("水果类结束");
+```
+
+直接使用get 属性(){}、set 属性(){}的方式，可以不改变我们原来读取属性的方式，但是底层的属性调用发生了改变，是调用的存取器方法，而不是表面上的直接存取属性值。
+
+**类的创建、构造函数、属性定义的简写形式**
+
+```typescript
+class A {
+    // 属性定义、属性初始化值，一步做完了
+    // 构造函数中通过访问修饰符定义属性，函数体中可以省略显示的属性赋值
+    constructor(public a:string,private b:number){}
+}
+```
+
+这种方式等价于：
+
+```typescript
+class A{
+    public a:string
+    private b:number;
+
+    constructor(a:string,b:number){
+        this.a = a;
+        this.b = b;
+    }
+}
+```
+
+
+
 ### 7.2 项目实践
 
 
