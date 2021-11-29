@@ -1637,9 +1637,21 @@ class BB<T>{
 
 > 抽象类、泛型、接口，js中没有这些概念。
 
-### 7.2 项目实践
+### 7.2 项目实践-贪食蛇
 
+1. 安装项目依赖：主要是处理样式的npm包，以less为例
 
+   ```bash
+   npm install less less-loader css-loader style-loader --save-dev
+   ```
+
+2. 处理样式的浏览器兼容
+
+   使用postcss，为css样式添加前缀，安装依赖：
+
+   
+
+3. 
 
 
 
