@@ -129,5 +129,60 @@ JSX：开源像写js一样写jsx。jsx本身就是js的一写扩展，多了一�
 
 <img src="./images/i3.png" alt="react初" style="zoom:50%;" />
 
-2.2.2
+#### 2.2.2 相关js库
 
+react.development.js  react核心库
+
+react-dom.development.js react扩展库，让react具备操作DOM的能力
+
+babel.min.js react的转换工具，可以从https://www.babeljs.cn/setup这里获取
+
+#### 2.2.3 创建虚拟DOM的两种方式
+
+1. 纯js的方式：一般不会用
+
+   ```html
+   <!--创建react应用的容器-->
+   <div id="app"></div>
+   
+   <!--引入react库，注意先后顺序：核心库、扩展库-->
+   <script src="../js/react.development.js"></script>
+   <script src="../js/react-dom.development.js"></script>
+   <!--不需要引入转换工具了，因为babel的目标是把jsx转换成js，而现在我们直接使用js，所以不需要转换了-->
+   <!-- <script src="../js/babel.min.js"></script> -->
+   
+   <!--type可以省略了，或者显示设置成text/javascript-->
+   <script type="text/javascript">
+       // 1. 以js的方式创建虚拟DOM
+   
+       /**
+          * React.createElement()接收3各参数，分别为：
+          * 标签名  string
+          * 标签属性 object
+          * 标签内容 any
+          */
+       const vd = React.createElement("h1",{id: "js"},"以js的方式创建虚拟DOM");
+       // 2. 渲染虚拟DOM到页面
+       ReactDOM.render(vd,document.querySelector("#app"));
+   </script>
+   ```
+
+   <img src="./images/i4.png" alt="以js的方式创建虚拟DOM不建议使用" style="zoom:50%;" />
+
+2. JSX方式，推荐使用
+
+   ```html
+   <!--创建react应用的容器-->
+   <div id="app"></div>
+   
+   <!--引入react库，注意引入顺序：核心库、扩展库、转换工具-->
+   <script src="../js/react.development.js"></script>
+   <script src="../js/react-dom.development.js"></script>
+   <script src="../js/babel.min.js"></script>
+   <script type="text/babel">
+         const vd = <h1 id="jsx">使用JSX方式创建虚拟DOM</h1>;
+         ReactDOM.render(vd, document.querySelector("#app"));
+   </script>
+   ```
+
+   <img src="./images/i5.png" alt="以jsx的方式创建虚拟DOM，推荐使用" style="zoom:50%;" />
