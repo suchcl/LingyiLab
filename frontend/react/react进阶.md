@@ -89,9 +89,9 @@ React CDN：https://unpkg.com/
 * 使用虚拟DOM，不总是直接操作页面的真实DOM
 * DOM的diff算法，最小化的页面重绘
 
-### 2.2 React基本使用
+#### 2.2 React基本使用
 
-#### 2.2.1 效果
+##### 2.2.1 效果
 
 JSX：开源像写js一样写jsx。jsx本身就是js的一写扩展，多了一些规则而已，可以像写js一样写jsx。
 
@@ -129,7 +129,7 @@ JSX：开源像写js一样写jsx。jsx本身就是js的一写扩展，多了一�
 
 <img src="./images/i3.png" alt="react初" style="zoom:50%;" />
 
-#### 2.2.2 相关js库
+##### 2.2.2 相关js库
 
 react.development.js  react核心库
 
@@ -137,7 +137,7 @@ react-dom.development.js react扩展库，让react具备操作DOM的能力
 
 babel.min.js react的转换工具，可以从https://www.babeljs.cn/setup这里获取
 
-#### 2.2.3 创建虚拟DOM的两种方式
+##### 2.2.3 创建虚拟DOM的两种方式
 
 1. 纯js的方式：一般不会用
 
@@ -186,3 +186,32 @@ babel.min.js react的转换工具，可以从https://www.babeljs.cn/setup这里�
    ```
 
    <img src="./images/i5.png" alt="以jsx的方式创建虚拟DOM，推荐使用" style="zoom:50%;" />
+
+实际代码中，推荐jsx的方式，因为如果有多层标签嵌套的时候，jsx可以直接按照真实的结构去写代码，简单；而js创建虚拟DOM就不一样了，需要多层都通过React.createElement()方法去创建标签。
+
+JSX的主要作用，就是为了创建虚拟DOM，让我们开发代码更简单。
+
+jsx在写的代码片段较长时，可以像写HTML一样进行折行书写，只是这个时候需要把jsx使用()包裹起来.
+
+```html
+<!--创建react应用的容器-->
+<div id="app"></div>
+
+<!--引入react库，注意引入顺序：核心库、扩展库、转换工具-->
+<script src="../js/react.development.js"></script>
+<script src="../js/react-dom.development.js"></script>
+<script src="../js/babel.min.js"></script>
+<script type="text/babel">
+      const vd = (
+        <h1 id="jsx">
+          <span className="text">使用JSX方式创建虚拟DOM</span>
+    </h1>
+      );
+      ReactDOM.render(vd, document.querySelector("#app"));
+</script>
+```
+
+<img src="./images/i6.png" alt="jsx较长时使用()包裹换行书写" style="zoom:50%;" />
+
+#### 2.3 React JSX
+
