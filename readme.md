@@ -206,6 +206,10 @@
 
 1.[ant-vue-design 时间控件快捷筛选时间范围，可选择今天、昨天、最近一周、最近 2 周、最近 1 个月、3 个月、半年](./se/antVueRange.md)
 
+### 开发工具
+
+1. [vscode使用小技巧](./devTools/vscode.md)
+
 ### 生活琐碎
 
 1. [生活琐碎](life/index.md)

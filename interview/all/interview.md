@@ -41,7 +41,9 @@
 
 ### Vue
 
-1. 
+1. Vue中为什么不使用index作为key？
+
+2. 
 
 ### nodejs
 
