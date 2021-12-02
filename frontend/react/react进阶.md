@@ -221,3 +221,119 @@ jsx在写的代码片段较长时，可以像写HTML一样进行折行书写，�
 
 #### 2.3 React JSX
 
+1. 全称：Javascript XML
+2. 是react定义的一种类似xml的js扩展语法：Js + XML
+3. 本质是React.createElement(component,props,...children)方法的语法糖
+4. 作用：用来简化创建虚拟DOM
+   1. 写法：var element = <h1>Hello React JSX</h1>
+   2. 注意：
+      1. 它不是字符串，也不是HTML、XML标签
+      2. 它最终产生的就是一个普通的Object对象
+5. 标签名任意：可以是HTML标签或者其他标签
+
+##### 2.3.1 效果
+
+##### 2.3.2 JSX
+
+jsx语法规则
+
+1. 定义jsx时不要使用引号，因为它不是字符串
+
+2. jsx如果需要混用js变量，那么js变量需要使用{}包裹起来，{}内也可以使用js表达式
+
+   1. 标签中混入js表达式时使用{}包裹
+
+3. 通过类来指定样式时，使用className，不要使用class，且属性值不需要使用{}包裹，正常使用引号即可
+
+4. 内联样式，要用style={{key:value}}的形式去写：外层的{}表示要使用js表达式了，内层的{}表示js对象，css的属性本身是key：value的形式
+
+5. 虚拟DOM必须只能有1个根标签
+
+6. 标签必须闭合
+
+7. 标签首字母：
+
+   1. 如果首字母是小写字母，则将标签转换为HTML中的同名元素；如果HTML没有对应的同名元素，则浏览器会报错
+
+      1. 也就是说，jsx中，如果首字母是小写，那么只能使用html中有的元素，html中没有的标签元素，jsx中不要随便使用
+
+   2. 如果大写字母开头，就去渲染对应的组件
+
+      1. 如果组件没有定义，则报错
+
+         ```react
+             <style>
+               .title {
+                 color: #f20;
+                 font-size: 32px;
+               }
+             </style>
+           </head>
+           <body>
+             <!--react应用容器-->
+             <div id="app"></div>
+         
+             <!--导入react库-->
+             <script src="../js/react.development.js"></script>
+             <script src="../js/react-dom.development.js"></script>
+             <script src="../js/babel.min.js"></script>
+         
+             <script type="text/babel">
+               const propId = "msg";
+               const data = "Hello React!";
+               // 创建虚拟DOM
+               const VDOM = (
+                 // 只能有1个根元素
+                 <div>
+                   {/*使用js变量时，要使用{}包裹*/}
+                   <h2 id={msg}>
+                     {/*
+                         内联属性，使用双层的{},外层的{}表示要使用js表达式了，内层的{}表示这是一个对象
+                         内联属性如果是多个单词组成，则使用小驼峰的命名规则
+                         如果希望通过类（class）来控制样式，需要使用className作为属性名，而不能直接使用class
+                     */}
+                     <span style={{ padding: "10px", fontStyle: "italic" }}>{data}</span>
+                   </h2>
+                   {/*标签要闭合，可以自闭和，也可以使用闭合标签*/}
+                   <input type="text" />
+                   {/*
+                         jsx中标签
+                             如果首字母小写，则只能使用HTML中有的标签，然后react会将这些jsx标签转换为同名的HTML标签
+                             如果首字母大写，react会去渲染对应的组件：如果组件不存在则会报错
+                     */}
+                   <Card></Card>
+                 </div>
+               );
+         
+               // 渲染VDOM到页面
+               ReactDOM.render(VDOM, document.querySelector("#app"));
+             </script>
+         ```
+
+         
+
+##### 2.3.3 渲染虚拟DOM（元素）
+
+##### 2.3.4 JSX demo
+
+#### 2.4 模块与组件和模块化与组件化的理解
+
+##### 2.4.1 模块
+
+##### 2.4.2 组件
+
+##### 2.4.3 模块化
+
+##### 2.4.4 组件化
+
+### 3. React面向组件编程
+
+### 4. React应用：基于React脚手架
+
+### 5. React Ajax
+
+### 6. react-router
+
+### 7. React组件库
+
+### 8. redux
