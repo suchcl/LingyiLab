@@ -210,7 +210,7 @@
 
 1. [vscode使用小技巧](./devTools/vscode.md)
 
-2. [vscode编辑器中：类型注释只能在 TypeScript 文件中使用](./devTools/类型注释只能在 TypeScript 文件中使用.md)
+2. [vscode编辑器中：类型注释只能在TypeScript文件中使用](./devTools/类型注释只能在TypeScript文件中使用.md)
 
 ### 生活琐碎
 
