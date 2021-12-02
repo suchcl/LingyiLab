@@ -10,6 +10,8 @@
 
    2.1 [前端架构](./frontend/软件工程/前端架构.md)
 
+   2.2 [前端开发规范](./frontend/架构与设计/前端开发规范.md)
+
 ### 前端开发技术
 
 1. [Javascript基础](./frontend/Javascript/index.md)
@@ -172,6 +174,7 @@
 3. [delete 和 Vue.delete 删除数组的区别](./interview/frontend/vue/delete和Vue.delete删除数组的区别.md)
 4. [Vue 为什么采用异步渲染](./interview/frontend/vue/vue为什么采用异步渲染.md)
 5. [vuex 和 provide](./interview/frontend/vue/vuex&provide.md)
+6. [vue中为什么不要使用index作为key]()
 6. [vue 的双向绑定原理](./interview/frontend/vue/vue的双向绑定原理.md)
 7. [nextTick 原理](./interview/frontend/vue/nextTick原理.md)
 8. [虚拟 DOM](./interview/frontend/vue/虚拟DOM.md)
