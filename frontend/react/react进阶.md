@@ -310,11 +310,46 @@ jsx语法规则
              </script>
          ```
 
-         
-
 ##### 2.3.3 渲染虚拟DOM（元素）
 
 ##### 2.3.4 JSX demo
+
+在写jsx时，需要明确js中表达式和语句的概念。
+
+表达式：可以被求值的并产生一个值的js短语，如：a、a+b、fn(2)、arr.map()、function fn(){}等，从案例中可以看到，一个变量、算术运算、函数调用、数组访问、函数定义等，都是表达式；
+
+语句：控制程序走向的语句，如if、for、switch等，都是js语句
+
+<font color="#f20">jsx中，只能使用表达式，不能使用语句。</font>
+
+```react
+    <!--react应用容器-->
+    <div id="app"></div>
+
+    <!--导入react库-->
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.min.js"></script>
+
+    <script type="text/babel">
+      const data = ["Angular", "React", "Vue"];
+
+      const VDOM = (
+        <div>
+          <h2>前端框架</h2>
+          <ul>
+            {data.map((item,index) => {
+            {/*实际项目中，不要使用index和随机数作为key值，这里仅仅是小的demo演示，可以先不细究这个问题*/}
+              return <li key={index}>{item}</li>;
+            })}
+          </ul>
+        </div>
+      );
+
+      // 渲染DOM
+      ReactDOM.render(VDOM, document.querySelector("#app"));
+    </script>
+```
 
 #### 2.4 模块与组件和模块化与组件化的理解
 
