@@ -456,9 +456,9 @@ react中有两种定义组件的方式：
          ReactDOM.render(<MyComponent />, document.querySelector("#app"));
          /**
           * 执行ReactDOM.render(<MyComponent />, document.querySelector("#app"));之后，发生了什么？
-          *    1. React解析组件标签，找到了MyComponent组件；
-          *    2. 发现组件是用类定义的，随后new出来该实例对象，并通过该实例调用原型上的render方法
-          *    3. 将render返回的虚拟DOM转换为真实DOM，随后呈现在页面中
+          * 1. React解析组件标签，找到了MyComponent组件；
+          * 2. 发现组件是用类定义的，随后new出来该实例对象，并通过该实例调用原型上的render方法
+          * 3. 将render返回的虚拟DOM转换为真实DOM，随后呈现在页面中
           */
        </script>
    ```
