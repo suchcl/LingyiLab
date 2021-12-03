@@ -1,10 +1,10 @@
-### 简单认识flow
+### 1. 简单认识flow
 
 flow是facebook推出的一款javascript静态类型检查器。
 
 flow通过静态类型注释的方式去检查代码，这些静态的类型注释告诉flow，让flow保证我们的代码以我们期望的方式去运行。
 
-### 环境搭建
+### 2. 环境搭建
 
 使用flow静态类型检查，需要先安装编译器去编译我们的js代码，有两种编译器可以选择：Babel和flow-remove-types，我们以Babel为例。
 
@@ -117,7 +117,7 @@ npm run flow
 
 ![异常情况下的信息提示](./images/i3.png)
 
-### 使用
+### 3. 使用
 
 flow，可以全局安装，有可以项目内布局安装，我个人建议最好是项目内局部安装。局部安装，每个项目都可以根据自己的需要安装适合自己的版本，全局安装，就显得不那么灵活了。有的时候还会混淆全局和局部的命令调用，给新手造成一定的困扰。
 
@@ -180,7 +180,9 @@ console.log(split("Hello flow!")); // 这里调用的时候不会报错，因为
 split(12); // 这里会进行报错，因为这里flow进行了类型推断，应该传入一个string，但是实际调用时传入了一个number，所以报错了
 ```
 
-### 类型注释只能在TypeScript文件中使用
+### 4. 类型注释
+
+#### 4.1 类型推断
 
 flow可以进行类型推断，去判断变量、参数使用的类型是否争取。
 
@@ -204,3 +206,48 @@ function fn(a, b) {
 let arr = [1, 2];
 fn(arr, false); // flow进行类型检查时报错了，因为数组类型和布尔类型不能进行+操作，哪怕是进行了js内部的类型转换之后都不可以，所以flow做类型检查时报出了异常
 ```
+
+#### 4.2 原始类型
+
+Javascript中有7中原始数据类型，分别是：
+
+Boolean  布尔类型
+
+String 字符串类型
+
+Number 数字类型
+
+Null
+
+Undefined
+
+BigInt
+
+Symbol
+
+原始类型的对象类型是首字母大写的，但是字面量值的首字母是小写的，如string、number、boolean等。
+
+原始类型的类型注释，类型使用小写
+
+```javascript
+// @flow
+
+function fn(x: number, y: number):number {
+    return x + y;
+}
+
+fn(2, 3);
+```
+
+包装器对象的类型使用大写，和它们的构造函数的类型相同
+
+```javascript
+function fn2(x: Number, y: Number) {
+    // 实现
+}
+
+fn2(new Number(12), new Number(18));
+```
+
+
+关于flow类型检查的知识点，就介绍到这里了，主要是梳理下入门的过程，剩下的具体的使用，官方的文档写的很清楚，再就是现在也基本不会使用了，当然了，如果看vue源码的话，还是需要了解一些。现在类型检查更好的方式是使用ts，我非常建议我们的项目使用ts作为开发预言。如果还有项继续多了解一些flow的，可以参考：https://flow.org/en/docs/types/。
