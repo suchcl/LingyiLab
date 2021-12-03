@@ -37,3 +37,9 @@ Prettier是一个代码格式化插件，它只关注格式化，但不具备校
 3. Beautify 代码格式化工具
 
 Beautify和Prettier相同，都是代码格式化工具，但是在相比之下，Prettier的使用量更大。更推荐使用Prettier
+
+4. live-server 轻量级服务器
+
+live-server是一个具有实时重载功能的小型开发服务器，可以用来热加载html文件，但是不能用来部署线上服务。
+
+![live-server,vscode中轻量级web服务器](./images/i3.png)

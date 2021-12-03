@@ -384,6 +384,56 @@ jsx语法规则
 
 ### 3. React面向组件编程
 
+#### 3.1 基本理解和使用
+
+react中有两种定义组件的方式：
+
+1. 函数式组件
+
+   就是通过function定义的组件
+
+   定义函数式组件时，函数名的首字母一定要大写，且函数一定要有返回值
+
+   另外在注册组件时，组件的首字母也使用大写，标签要闭合
+
+   ```react
+       <!--定义react应用容器-->
+       <div id="app"></div>
+   
+       <!--引入react库-->
+       <script src="../js/react.development.js"></script>
+       <script src="../js/react-dom.development.js"></script>
+       <script src="../js/babel.min.js"></script>
+   
+       <script type="text/babel">
+         // 1. 创建函数式组件
+         // 函数名要使用大写
+         function Demo() {
+           return <h2>Hello React</h2>;
+         }
+   
+         // 2. 渲染组件到页面
+         // 组件渲染时，首字母也要使用大写
+         ReactDOM.render(<Demo />, document.querySelector("#app"));
+       </script>
+   ```
+
+2. 类式组件
+
+   通过class定义的组件
+
+#### 3.2 组件三大核心属性之一：state
+
+#### 3.3 组件三大核心属性之二：props
+
+#### 3.4 组件三大核心属性之三：refs与事件处理
+
+#### 3.5 收集表单数据
+
+#### 3.6 组件声明周期
+
+#### 3.7 虚拟DOM与DOM diff算法
+
 ### 4. React应用：基于React脚手架
 
 ### 5. React Ajax
