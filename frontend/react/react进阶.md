@@ -422,7 +422,46 @@ react中有两种定义组件的方式：
 
    通过class定义的组件
    
+   React中，如果使用类式组件，需要满足几个条件：
    
+   * 那么类需要继承React.Component
+   * 必须要实现render函数
+   * 必须要有返回值
+   
+   ```react
+      <!--定义react应用的容器-->
+       <div id="app"></div>
+   
+       <!--导入react库-->
+       <script src="../js/react.development.js"></script>
+       <script src="../js/react-dom.development.js"></script>
+       <script src="../js/babel.min.js"></script>
+   
+       <script type="text/babel">
+         // 类式组件必要是继承React.Component
+         // 类名，也就是组件名，首字母需要大写
+         // react中的组件明明，直接使用大驼峰的命名方式就可以了
+         class MyComponent extends React.Component {
+           // 必须要实现render函数
+           render() {
+               /**
+                * render是放在哪里的？ ---- 类MyComponent的原型对象上，供实例使用
+                * render中的this是谁？ ---- 类MyComponent的实例对象，MyComponent组件实例对象
+                */
+             // render函数必须要有返回值，返回值其实是jsx
+             return <h2>Hello,React的类式组件</h2>;
+           }
+         }
+   
+         ReactDOM.render(<MyComponent />, document.querySelector("#app"));
+         /**
+          * 执行ReactDOM.render(<MyComponent />, document.querySelector("#app"));之后，发生了什么？
+          *    1. React解析组件标签，找到了MyComponent组件；
+          *    2. 发现组件是用类定义的，随后new出来该实例对象，并通过该实例调用原型上的render方法
+          *    3. 将render返回的虚拟DOM转换为真实DOM，随后呈现在页面中
+          */
+       </script>
+   ```
 
 #### 3.2 组件三大核心属性之一：state
 
