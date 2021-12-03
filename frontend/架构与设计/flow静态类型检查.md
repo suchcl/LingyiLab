@@ -180,3 +180,27 @@ console.log(split("Hello flow!")); // 这里调用的时候不会报错，因为
 split(12); // 这里会进行报错，因为这里flow进行了类型推断，应该传入一个string，但是实际调用时传入了一个number，所以报错了
 ```
 
+### 类型注释只能在TypeScript文件中使用
+
+flow可以进行类型推断，去判断变量、参数使用的类型是否争取。
+
+```javascript
+function fn(a, b) {
+    return a + b;
+}
+
+fn(2,3);
+fn("hello",8);
+fn("hello","flow");
+```
+
+函数fn的参数，没有显示的给参数a、b指定类型，那么flow就会推断，只要是可以进行+操作的，flow都会认为是合法的，所以案例中的3种场景，都通过了flow的类型检查，因为number可以进行+操作，string可以进行+操作，表示字符串的拼接，number和string的+操作先进行类型转换后再进行后续操作，都是可以正常进行的，所以flow进行了类型推断，表示都是合法的数据类型。
+
+```javascript
+function fn(a, b) {
+    return a + b;
+}
+
+let arr = [1, 2];
+fn(arr, false); // flow进行类型检查时报错了，因为数组类型和布尔类型不能进行+操作，哪怕是进行了js内部的类型转换之后都不可以，所以flow做类型检查时报出了异常
+```
