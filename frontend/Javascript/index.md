@@ -11,3 +11,4 @@
 11. [js 中 clientHeight、scrollHeight、scrollTop 等各种高度](./js中的各种高度.md)
 12. [Math 对象的常用方法](./Math对象的常用方法.md)
 13. [delete删除属性](./delete删除属性.md)
+14. [ES6中的类](./ES6中的类.md)
