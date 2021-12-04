@@ -477,7 +477,105 @@ react中组件又可以分为简单组件和复杂组件。
 
 **那么什么是状态呢？-state**
 
+状态，就是数据，如name、age、gender、grade等等，
 
+**复习下js中常用的绑定事件的方法**
+
+​    原生js绑定事件常用的3种方法：
+
+​    1. 通过addEventListener()方法绑定
+
+​    2. 通过绑定onclick响应函数绑定
+
+   3. 直接在HTML元素上绑定响应事件
+
+      ```html
+      <button id="btn1">按钮1</button>
+      <button id="btn2">按钮2</button>
+      <button onclick="fn3()">按钮3</button>
+      <script>
+          /**
+           * 原生js绑定事件常用的3种方法：
+           * 1. 通过addEventListener()方法绑定
+           * 2. 通过绑定onclick响应函数绑定
+           * 3. 直接在HTML元素上绑定响应事件
+           */
+          const btn1 = document.getElementById("btn1");
+          btn1.addEventListener("click", () => {
+              console.log("按钮1的点击事件执行了");
+          });
+      
+          const btn2 = document.getElementById("btn2");
+          btn2.onclick = function () {
+              console.log("按钮2的点击事件执行了");
+          };
+      
+          function fn3() {
+              console.log("按钮3的事件执行了");
+          }
+      </script>
+      ```
+
+我们知道，react其实就是js，就几乎是完全遵循js的规则做事情。那么react中怎么给元素绑定事件呢？
+
+上面的3种绑定事件的方式，都可以在react中实现，只是react更加推荐的是第三种，就是直接给DOM元素绑定事件。
+
+```react
+    <!--定义react应用的容器-->
+    <div id="app"></div>
+
+    <!--导入react核心库-->
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.min.js"></script>
+
+    <script type="text/babel">
+      // 创建组件
+      class Weather extends React.Component {
+        constructor(props) {
+          super(props);
+          // 初始化状态
+          this.state = {
+            isHot: true,
+          };
+        }
+        render() {
+          // return <h2>今天天气{this.state.isHot ? "炎热" : "凉爽"}</h2>;
+          // 读取状态
+          const isHot = this.state;
+          return (
+            <h2 id="title" onClick={fnTitle}>今天天气{isHot ? "炎热" : "凉爽"}!</h2>
+          );
+        }
+      }
+
+      // 渲染页面
+      ReactDOM.render(<Weather />, document.querySelector("#app"));
+
+      // 测试下react中给元素绑定事件的方法
+      // 1. 通过addEventLisnter()给元素绑定事件
+      // const title = document.getElementById("title");
+      // title.addEventListener("click", function () {
+      //   console.log("标题1被点击了");
+      // });
+
+      // 2. 尝试通过onclick的方式给元素绑定事件
+      // title.onclick = function () {
+      //   console.log("标题2被点击了");
+      // };
+
+      // 3. 尝试通过直接给DOM元素绑定事件的方式，只需要定义一个函数就可以了
+      function fnTitle() {
+        console.log("标题3被点击了");
+      }
+    </script>
+```
+
+通过实验，我们可以证明，确实可以通过原生js常用的绑定事件的方法给react元素绑定事件，只是在通过给react元素直接绑定事件的是，需要使用{}包裹事件名，且不带()外的区别。
+
+通过给react元素绑定事件使用onClick={fnTitle}这种方式的原因，是因为在react中，本质上这个表达式是一个赋值语句，那么在赋值的时候把fnTitle函数的返回值赋值给了onClick了，如果给回调函数fnTitle加了()后的fnTitle()的形式，那么就是把函数执行的结果赋值给onClick了，所以在还没有触发点击事件的时候，就已经执行了。
+
+那为什么react中的事件名称和DOM中的事件名称不一样了，把on后面的事件名称改成了大写了呢？因为react对DOM的原生事件都做了一层处理，把DOM中的事件的事件名称都改成了小驼峰的明明方式了
 
 #### 3.3 组件实例的三大核心属性之二：props
 
