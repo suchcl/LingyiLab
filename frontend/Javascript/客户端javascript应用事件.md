@@ -6,8 +6,10 @@
   - [1.1 事件类型](#11-%E4%BA%8B%E4%BB%B6%E7%B1%BB%E5%9E%8B)
   - [1.2 事件目标](#12-%E4%BA%8B%E4%BB%B6%E7%9B%AE%E6%A0%87)
   - [1.3 事件处理程序或事件监听器](#13-%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E6%88%96%E4%BA%8B%E4%BB%B6%E7%9B%91%E5%90%AC%E5%99%A8)
+  - [1.4 事件对象](#14-%E4%BA%8B%E4%BB%B6%E5%AF%B9%E8%B1%A1)
+  - [1.5 事件传播](#15-%E4%BA%8B%E4%BB%B6%E4%BC%A0%E6%92%AD)
 - [2. 事件类别](#2-%E4%BA%8B%E4%BB%B6%E7%B1%BB%E5%88%AB)
-- [3. <a name="注册事件处理程序">注册事件处理程序</a>](#3-a-name%E6%B3%A8%E5%86%8C%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E6%B3%A8%E5%86%8C%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8Fa)
+- [3. 注册事件处理程序](#3-%E6%B3%A8%E5%86%8C%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
