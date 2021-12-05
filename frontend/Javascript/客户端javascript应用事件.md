@@ -214,3 +214,41 @@ function(event){
 严格模式下禁止使用with语句，但是在HTML属性中的Javascript没有严格模式。这样定义的事件处理程序将在一个可能会存在意外变量的环境中执行，因此可能会带来一些意外的bug或者安全隐患。这也是避免在HTML中编写事件处理程序的一个充分的理由。
 
 #### 3.2 把处理程序传给这个对象或元素的addEventlistender()方法
+
+任何可以作为事件目标的对象，包括Window、Document、Element对象以及所有的文档元素，都定义了一个名为addEventListener()的方法，可以用它来为目标对象绑定、注册事件处理程序。
+
+addEventListener()接收3个参数：
+
+第一个参数为事件类型，即事件名称。这个事件名称不包含作为HTML属性时的前缀on，仅仅就是事件名称，如click、change、keyup等
+
+第二个参数为回调函数，即指定类型的事件发生时的处理函数。
+
+第三个参数为一个布尔值或者对象：一般情况都是使用布尔值。默认是false，表示在事件冒泡阶段调用事件处理程序；true表示在事件捕获阶段调用事件处理程序。
+
+```html
+    <button id="btn">按钮1</button>
+    <button id="btn2">按钮2</button>
+    <script>
+      const btn = document.querySelector("#btn");
+      btn.addEventListener(
+        "click",
+        () => {
+          console.log(this); // window
+        },
+        false
+      );
+
+      const btn2 = document.querySelector("#btn2");
+      btn2.addEventListener(
+        "click",
+        function () {
+          console.log(this); // <button id="btn2">按钮2</button>
+        },
+        false
+      );
+    </script>
+```
+
+一般情况下，不推荐使用设置事件处理程序属性的方式注册、绑定事件，因为使用事件处理程序属性有一个缺点，这种注册事件的方式只能绑定一个处理程序。
+
+但是使用addEventListener()注册事件，可以绑定多个事件处理程序，且多个事件处理程序不会重写、覆盖之前的事件处理程序，更加灵活。
