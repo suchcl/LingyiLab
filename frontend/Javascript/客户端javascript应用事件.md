@@ -149,4 +149,68 @@ popstate：浏览器的历史管理机制在浏览器做“后退”动作时触
 >
 > 这里理解了，在学习或应用react时，就会很顺利，否则会感觉很蹩脚。
 
+**设置事件处理程序：javascript**
+
+```html
+<button id="btn1">按钮1</button>
+<script>
+    window.onload = function () {
+        console.log("文档已经全部加载完了");
+    };
+
+    const btn1 = document.querySelector("#btn1");
+    btn1.onclick = function () {
+        console.log("btn1触发了点击事件");
+    };
+</script>
+```
+
+设置事件处理程序属性，获取到DOM元素后，再给元素设置事件属性onclick，这种方式属于设置事件处理程序属性；
+
+当事件目标是Window、Document、Element时，不用显示的获取DOM元素就可以直接给这些元素设置事件处理程序属性，这也是设置事件处理程序属性的一种方式。
+
+**设置事件处理程序：HTML**
+
+为文档元素的事件处理程序设置属性，就是直接在HTML文档中为对应的HTML标签设置事件属性，如：
+
+```html
+<button id="btn2" onclick="btn2Click()">按钮2</button>
+```
+
+现在的前端工程中，不推荐这样的事件处理技术，但是在一些场景中，仍然会使用，典型的代表是React。
+
+在使用文档元素处理程序时，属性的值应该是一段js代码字符串。这段js代码应该是事件处理程序函数的函数体，不是完整的函数声明。也就是说这个事件处理程序函数代码，函数体没有外面的{}，也没有函数声明的关键字function。
+
+```html
+<button id="btn2" onclick="console.log('Hello,javascript!');">按钮2</button>
+```
+
+如果一个HTML事件处理程序属性包含多条js语句，则必须使用分号分隔这些语句，或者使用回车把这个属性值分成多行
+
+```html
+<button id="btn2" onclick="var name='Nicholas Zakas';console.log(name);">
+    按钮2
+</button>
+<button
+        onclick="var name='Hanmeimei';
+                 var age=18;
+                 console.log(name);
+                 console.log(age);"
+        >
+    按钮3
+</button>
+```
+
+在给HTML事件处理程序属性指定js代码字符串时，浏览器默认会把这个字符串转换为一个函数，大概的结构如下：
+
+```javascript
+function(event){
+    // 函数体
+}
+```
+
+这个event就是你的事件处理程序代码可以通过它去引用它去调用当前的事件对象。
+
+严格模式下禁止使用with语句，但是在HTML属性中的Javascript没有严格模式。这样定义的事件处理程序将在一个可能会存在意外变量的环境中执行，因此可能会带来一些意外的bug或者安全隐患。这也是避免在HTML中编写事件处理程序的一个充分的理由。
+
 #### 3.2 把处理程序传给这个对象或元素的addEventlistender()方法
