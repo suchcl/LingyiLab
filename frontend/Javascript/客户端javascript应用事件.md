@@ -1,3 +1,16 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [1. 事件介绍](#1-%E4%BA%8B%E4%BB%B6%E4%BB%8B%E7%BB%8D)
+  - [1.1 事件类型](#11-%E4%BA%8B%E4%BB%B6%E7%B1%BB%E5%9E%8B)
+  - [1.2 事件目标](#12-%E4%BA%8B%E4%BB%B6%E7%9B%AE%E6%A0%87)
+  - [1.3 事件处理程序或事件监听器](#13-%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E6%88%96%E4%BA%8B%E4%BB%B6%E7%9B%91%E5%90%AC%E5%99%A8)
+- [2. 事件类别](#2-%E4%BA%8B%E4%BB%B6%E7%B1%BB%E5%88%AB)
+- [3. <a name="注册事件处理程序">注册事件处理程序</a>](#3-a-name%E6%B3%A8%E5%86%8C%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E6%B3%A8%E5%86%8C%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8Fa)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ### 1. 事件介绍
 
 客户端 javascript 应用程序使用异步事件驱动的编程模型。在这种编程风格下，浏览器会在文档、浏览器或者某些元素或与之关联的对象发生的某些值得关注的事情时生成事件。
@@ -12,3 +25,16 @@
 
 #### 1.2 事件目标
 
+事件目标是一个对象，而事件就是发生在该对象上或者事件与该对象有关联。
+
+说到某个事件，必须明确它的类型和目标，比如window对象上发生了加载(load)事件，按钮(button)上发生了点击(click)事件。
+
+Window、Document、Element对象是客户端Javascript应用中最常见的事件目标，不过也有一些事件会发生在其他对象身上，如Worker对象是message事件的目标，这种事件在工作线程向主线程发送消息时会发生。
+
+#### 1.3 事件处理程序或事件监听器
+
+事件处理程序或事件监听器是一个函数，负责处理或响应事件。应用通过浏览器注册自己的事件处理程序，指定事件类型和事件目标。当事件目标上发生指定类型的事件时，浏览器会调用这个事件处理程序。当事件处理程序在某个对象上被调用时，我们说浏览器“触发”、“派发”或者“分配”了该事件。注册事件处理程序有不同的方式，具体注册事件处理程序的方式请看<a href="#注册事件处理程序">注册事件处理程序</a>
+
+### 2. 事件类别
+
+### 3. <a name="注册事件处理程序">注册事件处理程序</a>
