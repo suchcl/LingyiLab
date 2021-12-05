@@ -579,6 +579,44 @@ react中组件又可以分为简单组件和复杂组件。
 
 **react中类式组件中的this**
 
+react中状态（state）里的数据，不接受、不能直接修改。
+
+```javascript
+changeWeather() {
+    this.state.isHot = !this.state.isHot;
+    console.log(this.state.isHot);
+}
+```
+
+如demo中，isHot是存储在状态中的一个数据，但是在原型方法上修改了：this.state.isHot = !this.state.isHot;react是不认可这种修改方式的，所以这里的修改对于react来说是无效的。
+
+react中如果要修改状态，需要借助react的内置API：setState
+
+```javascript
+changeWeather() {
+    // 状态不能直接修改，所以这里的修改是无效的
+    // this.state.isHot = !this.state.isHot;  // 这行代码，是修改不了状态的
+
+    // 要修改状态，需要借助一个react内置的API：setState,且更新是一种合并动作，不是替换
+    // 比如这里我只修改了isHot的状态，那么wind的状态是不会被改变的
+    const isHot = this.state.isHot;
+    this.setState({
+        isHot: !isHot,
+    });
+}
+```
+
+react中，构造函数永远只执行一次
+
+render是被执行了1+n次，1是react组件初始化的那次，n是状态更新的次数
+
+react中，只要是合法的更新了状态，就会执行一次render。不执行render，页面不更新
+
+看看精简的代码实现：
+
+```react
+```
+
 
 
 #### 3.3 组件实例的三大核心属性之二：props
