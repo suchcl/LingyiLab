@@ -63,6 +63,74 @@ Window、Document、Element对象是客户端Javascript应用中最常见的事�
 
 ### 2. 事件类别
 
+客户端Javascript支持的事件类别非常多，我们可以从常用的几种类别有重点的去学习
 
+#### 2.1 设备相关输入事件
+
+这类事件直接与特定的输入设备如鼠标或键盘相关，这类事件主要包括：
+
+mousedown
+
+mousemove
+
+mouseup
+
+touchstart
+
+touchmove
+
+touchend
+
+keydown
+
+keyup
+
+……
+
+#### 2.2 设备无关输入事件
+
+这类事件并不与特定的输入设备直接相关：
+
+click：一般来说是通过鼠标点击触发，但是也可能是通过键盘或轻击（移动设备）触发
+
+input：是对keydown事件的设备无关的替代，既支持键盘输入，也支持剪切粘贴和文字的输入法等
+
+pointerdown
+
+pointermove
+
+pointerup
+
+#### 2.3 用户界面事件
+
+UI事件的高级事件，通常在定义应用界面的HTML表单上触发。
+
+focus：当文本域获得键盘焦点时触发
+
+change：当修改了表单元素的显示的值时触发
+
+submit：点击表单中的提交按钮时触发
+
+#### 2.4 状态变化事件
+
+这类事件不是直接由用户活动触发，而是由网络或者浏览器活动触发，这类事件表示某种声明周期或状态相关的变化。常用的事件有：
+
+load
+
+DOMContentLoaded
+
+上面两个事件是Window和Document对象在文档加载结束时触发的。
+
+online
+
+offline
+
+上述两个事件是在浏览器的网络连接变化时触发
+
+popstate：浏览器的历史管理机制在浏览器做“后退”动作时触发
+
+#### 2.5 API特定事件
+
+有一些HTML及相关规范定义的Web API包含自己的事件类型。如HTML的<video>、<audio>元素定义了自己的一系列事件，waiting、playing、seeking、volumechange等，可以使用这些事件自定义媒体播放。
 
 ### 3. 注册事件处理程序
