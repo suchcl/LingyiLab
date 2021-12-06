@@ -615,9 +615,66 @@ react中，只要是合法的更新了状态，就会执行一次render。不执
 看看精简的代码实现：
 
 ```react
+    <!--定义react应用的容器-->
+    <div id="app"></div>
+
+    <!--导入react核心库-->
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.min.js"></script>
+
+    <script type="text/babel">
+      // 创建组件
+      class Weather extends React.Component {
+        // 初始化状态，直接给属性赋值
+        state = {
+          isHot: true,
+        };
+
+        render() {
+          const { isHot } = this.state;
+          return (
+            <h2 onClick={this.changeWeather}>
+              今天天气 {isHot ? "炎热" : "凉爽"}
+            </h2>
+          );
+        }
+
+        // 自定义方法
+        /**
+         * 主要需要注意changeWeather方法的上下文，即this的指向问题
+         * 期望是可以直接将this指向到类的实例对象，如果这里使用了箭头函数，则内部的this会直接找外部作用域
+         * 如果没有使用箭头函数，那么就需要在调用时重新绑定下this
+         */
+        changeWeather = () => {
+          const isHot = this.state.isHot;
+          this.setState({
+            isHot: !isHot,
+          });
+        };
+      }
+
+      // 渲染页面
+      ReactDOM.render(<Weather />, document.querySelector("#app"));
+    </script>
 ```
 
+说是简写形式，其实就是利用好js的基础知识，关键是类，以及类中方法的上下文、属性赋值的问题实现。
 
+类中的方法，默认是开启了严格模式
+
+类中的实例属性，可以直接赋值，而不是必须得通过构造方法
+
+一个简单的实践，在react应用中，类式组件中的自定义方法，就都通过赋值语句的形式+箭头函数来实现
+
+```javascript
+changeWeather = () => {
+    const isHot = this.state.isHot;
+    this.setState({
+        isHot: !isHot,
+    });
+};
+```
 
 #### 3.3 组件实例的三大核心属性之二：props
 
