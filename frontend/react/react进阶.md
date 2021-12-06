@@ -718,7 +718,69 @@ ReactDOM.render(
 );
 ```
 
+在给组件传递props的时候，需要注意：
 
+1. 传递数据类型的合理性
+
+2. 必要字段的必要传递，即必要性
+
+3. 传递默认值
+
+   ```html
+      <!--react应用容器-->
+       <div id="app"></div>
+   
+       <!--导入react库-->
+       <script src="../js/react.development.js"></script>
+       <script src="../js/react-dom.development.js"></script>
+       <script src="../js/babel.min.js"></script>
+   
+       <!--导入prop-types.js，负责对react元素标签属性的类型限定-->
+       <script src="../js/prop-types.js"></script>
+   
+       <script type="text/babel">
+         // 创建组件
+         class User extends React.Component {
+           render() {
+             const { name, age, gender } = this.props;
+             return (
+               <div className="user">
+                 <ul className="list">
+                   <li>姓名：{name}</li>
+                   <li>年龄：{age}</li>
+                   <li>性别：{gender}</li>
+                 </ul>
+               </div>
+             );
+           }
+         }
+   
+         // 对标签属性进行类型、必要性限制
+         User.propTypes = {
+           name: PropTypes.string.isRequired,
+           gender: PropTypes.string,
+           age: PropTypes.number,
+         };
+   
+         // 指定标签默认的属性值
+         User.defaultProps = {
+           gender: "不详",
+           age: 16,
+         };
+         // 渲染组件到页面
+         const user = {
+           name: "Hanmeimei",
+           age: 18,
+           gender: "女",
+         };
+         ReactDOM.render(
+           <User name="Nicholas Zakas" age={20} gender="男" />,
+           document.querySelector("#app")
+         );
+       </script>
+   ```
+
+   
 
 #### 3.4 组件实例的三大核心属性之三：refs与事件处理
 
