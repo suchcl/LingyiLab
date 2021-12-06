@@ -467,6 +467,21 @@ react中有两种定义组件的方式：
 
 **组件实例的三大属性，指的是类组件实例的三大属性：state、refs、props**
 
+**state**
+
+理解：
+
+1. state是组件对象中最重要的属性，值是对象：可以是包含多个key-value的组合
+2. 组件被称为“状态机”，通过更新组件的state来更新对应页面的显示：执行render方法，重新渲染组件
+
+注意：
+
+1. 组件中render()方法中的this为组件的实例对象；
+2. 组件自定义方法中的this为undefined，如何解决？
+   1. 强制绑定this，通过函数对象的bind()方法
+   2. 箭头函数：建议使用这种方式，简单
+3. 状态数据，不能直接修改或者更新，需要通过react提供的API setState来修改
+
 函数式组件，通过hooks也实现了state、refs和props。
 
 react中组件又可以分为简单组件和复杂组件。
@@ -677,6 +692,33 @@ changeWeather = () => {
 ```
 
 #### 3.3 组件实例的三大核心属性之二：props
+
+props，就是从外部传递给react组件的属性,也就是数据。来看个简单的应用：
+
+```javascript
+// 创建组件
+class User extends React.Component {
+    render() {
+        const { name, age, gender } = this.props;
+        return (
+            <div className="user">
+                <ul className="list">
+                    <li>姓名：{name}</li>
+                    <li>年龄：{age}</li>
+                    <li>性别：{gender}</li>
+                </ul>
+			</div>
+		);
+	}
+}
+// 渲染组件到页面
+ReactDOM.render(
+    <User name="Nicholas Zakas" age="18" gender="男" />,
+    document.querySelector("#app")
+);
+```
+
+
 
 #### 3.4 组件实例的三大核心属性之三：refs与事件处理
 
