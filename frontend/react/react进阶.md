@@ -883,6 +883,175 @@ ReactDOM.render(
    ```
    
    这也算是props属性的一点点的简写形式吧。
+   
+   **类式组件中的构造器**
+   
+   类式组件中的构造器，可以省略。
+   
+   类式组件中的构造器，主要用于两种情况：
+   
+   1. 给this.state初始化值；
+   
+   2. 为事件处理函数绑定实例；
+   
+      ```javascript
+      class User extends React.Component{
+          constructor(props) {
+              this.state = {
+                  isHot: true,
+                  isLogin: true,
+              };
+              this.login = this.login.bind(this);
+          }
+      
+          login(){
+      		console.log("这是一个自定义方法，登录了");
+          }
+          
+          render(){
+              return (
+              	// react元素
+              );
+          }
+      }
+      ```
+   
+      但是在构造器中定义的状态，我可以从构造器中拿出来，构造器中定义的实例方法，也可以通过定义赋值语句加箭头函数的方式去实现：
+   
+      ```javascript
+      class User extends React.Component {
+          	// state可以从构造器函数中提取出来
+              state = {
+                isHot: true,
+                isLogin: false,
+              };
+              // 对属性、类型进行必要性限制
+              static propTypes = {
+                name: PropTypes.string.isRequired,
+                age: PropTypes.number,
+                gender: PropTypes.string,
+              };
+      
+              static defaultProps = {
+                name: "Hanmeimei",
+                age: 16,
+                gender: "保密",
+              };
+      		
+          	//不写构造器了，通过赋值语句加箭头函数，实现this的绑定 
+              login = () => {
+                console.log("登录了");
+              };
+              
+              render() {
+                const { name, age, gender } = this.props;
+                return (
+                  // react元素
+                );
+              }
+            }
+      ```
+   
+      如果在类式组件中想要使用构造器，那么就必须要接收props参数，且在构造器中调用super()方法，且super()方法要传递props参数
+   
+      ```javascript
+      constructor(props) {
+          super(props);
+          this.state = {
+              isHot: true,
+              isLogin: true,
+          };
+          this.login = this.login.bind(this);
+      }
+      ```
+   
+      构造器中是否接收props，是否传递给super方法，取决于是否希望在构造器中通过this访问props
+   
+      <font color="#f20">类式组件中的构造器，能省略就省略</font>
+   
+      只要说到了实例组件，就和函数式组件没有关系了，因为函数没有实例。
+   
+      一般说的react的三大实例属性：state、props和refs，都是指类式组件，因为函数式组件没有实例，所以函数式组件中不存在state和refs，但是函数式组件中有props，因为函数可以接收参数，所以它可以接收props。
+   
+      ```html
+          <!--定义react应用容器-->
+          <div id="app"></div>
+          <!--导入react核心库-->
+          <script src="../js/react.development.js"></script>
+          <script src="../js/react-dom.development.js"></script>
+          <script src="../js/babel.min.js"></script>
+          <script src="../js/prop-types.js"></script>
+      
+          <script type="text/babel">
+            function User(props) {
+              const { name, age, gender } = props;
+              return (
+                <div className="user">
+                  <ul className="profile">
+                    <li>姓名：{props.name}</li>
+                    <li>年龄：{props.age}</li>
+                    <li>性别：{props.gender}</li>
+                  </ul>
+                </div>
+              );
+            }
+      
+            ReactDOM.render(
+              <User name="Nicholas Zakas" age="18" gender="男" />,
+              document.querySelector("#app")
+            );
+          </script>
+      ```
+   
+      函数式组件中是不能使用state、以及类中的static定义的属性的，那么函数式组件怎么实现标签属性和类型的校验呢？给函数式组件的原型扩充属性吧：
+   
+      ```html
+      <!--定义react应用容器-->
+          <div id="app"></div>
+          <!--导入react核心库-->
+          <script src="../js/react.development.js"></script>
+          <script src="../js/react-dom.development.js"></script>
+          <script src="../js/babel.min.js"></script>
+          <script src="../js/prop-types.js"></script>
+      
+          <script type="text/babel">
+            function User(props) {
+              const { name, age, gender } = props;
+              return (
+                <div className="user">
+                  <ul className="profile">
+                    <li>姓名：{props.name}</li>
+                    <li>年龄：{props.age}</li>
+                    <li>性别：{props.gender}</li>
+                  </ul>
+                </div>
+              );
+            }
+      
+            User.propTypes = {
+              name: PropTypes.string.isRequired,
+              age: PropTypes.number,
+              gender: PropTypes.string,
+            };
+      
+            User.defaultProps = {
+              name: "Hanmeimei",
+              age: 16,
+              gender: "保密",
+            };
+      
+            const { name, age, gender } = {
+              name: "Nicholas Zakas",
+              age: 16,
+              gender: "男",
+            };
+      
+            ReactDOM.render(
+              <User name={name} age={age} />,
+              document.querySelector("#app")
+            );
+          </script>
+      ```
 
 #### 3.4 组件实例的三大核心属性之三：refs与事件处理
 
