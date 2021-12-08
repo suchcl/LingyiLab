@@ -61,10 +61,6 @@
 
 #### 2.7 webassembly
 
-#### 2.8 webpack
-
-1. [webpack](./frontend/webpack/index.md)
-
 ### 3. 框架/库
 
 #### 3.1 vue.js
@@ -76,6 +72,8 @@
 1. [react](frontend/react/index.md)
 
 #### 3.3 next.js
+
+1. [next.js](frontend/next.js/index.md)
 
 #### 3.4 nuxt.js
 
@@ -168,12 +166,10 @@
 ### 9. 设计模式
 
 13. [CreateReactApp](./frontend/CreateReactApp/介绍.md)
-14. [next.js](frontend/next.js/index.md)
-15. [软件工程](./frontend/软件工程/软件工程.md)
-16.
-17. [性能优化](./frontend/performance/index.md)
-18. [前端开发规范细则](./frontend/软件工程/开发规范.md)
-19. [前端在未来一段时间的发力点](./frontend/软件工程/前端在未来一段时间的发力点.md)
+14. [软件工程](./frontend/软件工程/软件工程.md)
+15. [性能优化](./frontend/performance/index.md)
+16. [前端开发规范细则](./frontend/软件工程/开发规范.md)
+17. [前端在未来一段时间的发力点](./frontend/软件工程/前端在未来一段时间的发力点.md)
 
 ### 10. 服务器知识
 
@@ -185,19 +181,27 @@
 
 ### 12. 前端工程(化)
 
-#### 12.1 开发规范
+#### 12.1 webpack
 
-#### 12.2 版本控制(git)
+1. [webpack](./frontend/webpack/index.md)
 
-#### 12.3 脚手架(搭建、开发)
+#### 12.2 vite
 
-#### 12.4 组件系统建设(npm 包管理、npm 服务器)
+1. [vite]
 
-#### 12.5 开发工具
+#### 12.3 开发规范
 
-#### 12.6 工程自动化(CICD)
+#### 12.4 版本控制(git)
 
-#### 12.7 测试(单元测试、自动化测试)
+#### 12.5 脚手架(搭建、开发)
+
+#### 12.6 组件系统建设(npm 包管理、npm 服务器)
+
+#### 12.7 开发工具
+
+#### 12.8 工程自动化(CICD)
+
+#### 12.9 测试(单元测试、自动化测试)
 
 ### 常见问题
 
