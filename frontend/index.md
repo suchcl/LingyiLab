@@ -26,8 +26,8 @@
 ### Typescript
 
 1. [快速上手 Typescript](./Typescript/快速上手Typescript.md)
-2. [Ts 基础知识](./Typescript/Typescript2021.10.md)
-3. [Typescript 进阶](./Typescript/Typescript进阶)
+2. [Ts基础知识](./Typescript/Typescript2021.10.md)
+3. [Typescript 进阶](./Typescript/Typescript进阶.md)
 
 ### development
 
