@@ -1,3 +1,49 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [1. React全家桶](#1-react%E5%85%A8%E5%AE%B6%E6%A1%B6)
+  - [1.1 React是什么？](#11-react%E6%98%AF%E4%BB%80%E4%B9%88)
+  - [1.2 起源](#12-%E8%B5%B7%E6%BA%90)
+  - [1.3 价值](#13-%E4%BB%B7%E5%80%BC)
+  - [1.4 React特点](#14-react%E7%89%B9%E7%82%B9)
+  - [1.5 学习React的需要准备的JS基础知识](#15-%E5%AD%A6%E4%B9%A0react%E7%9A%84%E9%9C%80%E8%A6%81%E5%87%86%E5%A4%87%E7%9A%84js%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86)
+- [2.React基础](#2react%E5%9F%BA%E7%A1%80)
+  - [2.1 基本介绍](#21-%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D)
+    - [2.1.1 官网](#211-%E5%AE%98%E7%BD%91)
+    - [2.1.2 介绍](#212-%E4%BB%8B%E7%BB%8D)
+    - [2.1.3 React特点](#213-react%E7%89%B9%E7%82%B9)
+    - [2.1.4 React高效的原因](#214-react%E9%AB%98%E6%95%88%E7%9A%84%E5%8E%9F%E5%9B%A0)
+  - [2.2 React基本使用](#22-react%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8)
+    - [2.2.1 效果](#221-%E6%95%88%E6%9E%9C)
+    - [2.2.2 相关js库](#222-%E7%9B%B8%E5%85%B3js%E5%BA%93)
+    - [2.2.3 创建虚拟DOM的两种方式](#223-%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9Fdom%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F)
+  - [2.3 React JSX](#23-react-jsx)
+    - [2.3.1 效果](#231-%E6%95%88%E6%9E%9C)
+    - [2.3.2 JSX](#232-jsx)
+    - [2.3.3 渲染虚拟DOM（元素）](#233-%E6%B8%B2%E6%9F%93%E8%99%9A%E6%8B%9Fdom%E5%85%83%E7%B4%A0)
+    - [2.3.4 JSX demo](#234-jsx-demo)
+  - [2.4 模块与组件和模块化与组件化的理解](#24-%E6%A8%A1%E5%9D%97%E4%B8%8E%E7%BB%84%E4%BB%B6%E5%92%8C%E6%A8%A1%E5%9D%97%E5%8C%96%E4%B8%8E%E7%BB%84%E4%BB%B6%E5%8C%96%E7%9A%84%E7%90%86%E8%A7%A3)
+    - [2.4.1 模块](#241-%E6%A8%A1%E5%9D%97)
+    - [2.4.2 组件](#242-%E7%BB%84%E4%BB%B6)
+    - [2.4.3 模块化](#243-%E6%A8%A1%E5%9D%97%E5%8C%96)
+    - [2.4.4 组件化](#244-%E7%BB%84%E4%BB%B6%E5%8C%96)
+- [3. React面向组件编程](#3-react%E9%9D%A2%E5%90%91%E7%BB%84%E4%BB%B6%E7%BC%96%E7%A8%8B)
+  - [3.1 基本理解和使用](#31-%E5%9F%BA%E6%9C%AC%E7%90%86%E8%A7%A3%E5%92%8C%E4%BD%BF%E7%94%A8)
+  - [3.2 组件实例的三大核心属性之一：state](#32-%E7%BB%84%E4%BB%B6%E5%AE%9E%E4%BE%8B%E7%9A%84%E4%B8%89%E5%A4%A7%E6%A0%B8%E5%BF%83%E5%B1%9E%E6%80%A7%E4%B9%8B%E4%B8%80state)
+  - [3.3 组件实例的三大核心属性之二：props](#33-%E7%BB%84%E4%BB%B6%E5%AE%9E%E4%BE%8B%E7%9A%84%E4%B8%89%E5%A4%A7%E6%A0%B8%E5%BF%83%E5%B1%9E%E6%80%A7%E4%B9%8B%E4%BA%8Cprops)
+  - [3.4 组件实例的三大核心属性之三：refs与事件处理](#34-%E7%BB%84%E4%BB%B6%E5%AE%9E%E4%BE%8B%E7%9A%84%E4%B8%89%E5%A4%A7%E6%A0%B8%E5%BF%83%E5%B1%9E%E6%80%A7%E4%B9%8B%E4%B8%89refs%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86)
+  - [3.5 收集表单数据](#35-%E6%94%B6%E9%9B%86%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE)
+  - [3.6 组件声明周期](#36-%E7%BB%84%E4%BB%B6%E5%A3%B0%E6%98%8E%E5%91%A8%E6%9C%9F)
+  - [3.7 虚拟DOM与DOM diff算法](#37-%E8%99%9A%E6%8B%9Fdom%E4%B8%8Edom-diff%E7%AE%97%E6%B3%95)
+- [4. React应用：基于React脚手架](#4-react%E5%BA%94%E7%94%A8%E5%9F%BA%E4%BA%8Ereact%E8%84%9A%E6%89%8B%E6%9E%B6)
+- [5. React Ajax](#5-react-ajax)
+- [6. react-router](#6-react-router)
+- [7. React组件库](#7-react%E7%BB%84%E4%BB%B6%E5%BA%93)
+- [8. redux](#8-redux)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ### 1. React全家桶
 
 React基础
@@ -780,7 +826,63 @@ ReactDOM.render(
        </script>
    ```
 
+   props是只读的
    
+   上面的demo中，我们通过在类组件User的外部，给类User定义属性的方式限制了组件标签属性、类型进行了一些必要性的限制，功能上是实现了，但是在类组件的外部实现了一些对类组件的一些修饰，不太符合类封装的本意，就是对于类的修饰，就放在类的内部，那我们可以通过使用static关键字，将在类组件外部定义在类身上的属性挪到类组件的内部，定义类属性，其功能还是和原来一样
+   
+   ```html
+     <!--react应用的容器-->
+       <div id="app"></div>
+   
+       <!--导入react核心库-->
+       <script src="../js/react.development.js"></script>
+       <script src="../js/react-dom.development.js"></script>
+       <script src="../js/babel.min.js"></script>
+       <script src="../js/prop-types.js"></script>
+   
+       <script type="text/babel">
+         class User extends React.Component {
+           // 对标签属性、类型进行必要性限制
+           // 实现原理：就是将类外部定义在类身上的属性，挪到类的内部，通过static关键字声明成类属性
+           static propTypes = {
+             name: PropTypes.string.isRequired,
+             age: PropTypes.number,
+             gender: PropTypes.string,
+           };
+   
+           static defaultProps = {
+             name: "Hanmeimei",
+             age: 16,
+             gender: "不详",
+           };
+           render() {
+             const { name, age, gender } = this.props;
+             return (
+               <div className="user">
+                 <ul className="profile">
+                   <li>姓名：{name}</li>
+                   <li>年龄：{age}</li>
+                   <li>性别：{gender}</li>
+                 </ul>
+               </div>
+             );
+           }
+         }
+   
+         const user = {
+           name: "Nicholas Zakas",
+           age: 18,
+           gender: "男",
+         };
+         ReactDOM.render(
+           <User name={user.name} age={user.age} gender={user.gender} />,
+           // <User {...user} />,
+           document.querySelector("#app")
+         );
+       </script>
+   ```
+   
+   这也算是props属性的一点点的简写形式吧。
 
 #### 3.4 组件实例的三大核心属性之三：refs与事件处理
 
