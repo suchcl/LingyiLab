@@ -2,7 +2,7 @@
 
 技术是谋生的，我们学习了很多的技术、知识，但是我们还有缺失的一些东西，就是文化。文化和知识、技术，是两种完全不同的东西，我们在技能提升的同时，也要关注自身的修养。
 
-### 计算机科学
+### 1. 计算机科学
 
 1. [网络基础](./net/index.md)
 2. [操作系统](./os/index.md)
@@ -12,12 +12,39 @@
 
    2.2 [前端开发规范](./frontend/架构与设计/前端开发规范.md)
 
-   2.3 [flow静态类型检查](./frontend/架构与设计/flow静态类型检查.md)
+   2.3 [flow 静态类型检查](./frontend/架构与设计/flow静态类型检查.md)
 
-### 前端开发技术
-0. [前端基础](./frontend/index.md)
-1. [Javascript基础](./frontend/Javascript/index.md)
-2. [Typescript基础](./frontend/Typescript/index.md)
+### 2. 前端开发技术
+
+#### 2.1 前端基础
+
+1. [SEO](./frontend/前端基础/seo.md)
+
+2. [CSS盒模型](./frontend/前端基础/css盒模型.md)
+
+#### 2.2 Javascript
+
+1. [迭代器](./frontend/javascript/iterator.md)
+2. [js 的数据类型](./frontend/javascript/数据类型.md)
+3. [终止 forEach 循环](./frontend/javascript/foreach.md)
+4. [json](./frontend/javascript/json.md)
+5. [console](./frontend/javascript/console.md)
+6. [javascript 的 arguments](./frontend/javascript/js的arguments.md)
+7. [文件、代码注释方式](./frontend/javascript/文件注释.md)
+8. [类型限定：flow](./frontend/javascript/flow.md)
+9. [js 对象](./frontend/javascript/js对象.md)
+10. [class](./frontend/javascript/class.md)
+11. [js 中 clientHeight、scrollHeight、scrollTop 等各种高度](./frontend/javascript/js中的各种高度.md)
+12. [Math 对象的常用方法](./frontend/javascript/Math对象的常用方法.md)
+13. [delete 删除属性](./frontend/javascript/delete删除属性.md)
+14. [ES6 中的类](./frontend/javascript/ES6中的类.md)
+15. [客户端 Javascript 应用事件](./frontend/javascript/客户端javascript应用事件.md)
+16. [展开运算符](./frontend/javascript/展开运算符.md)
+
+#### 2.3 Typescript
+
+1. [Javascript 基础](./frontend/Javascript/index.md)
+2. [Typescript 基础](./frontend/Typescript/index.md)
 3. [node.js](./frontend/node/index.md)
 4. [deno.js](./frontend/deno/index.md)
 5. [Egg.js](./frontend/eggjs/index.md)
@@ -176,15 +203,15 @@
 3. [delete 和 Vue.delete 删除数组的区别](./interview/frontend/vue/delete和Vue.delete删除数组的区别.md)
 4. [Vue 为什么采用异步渲染](./interview/frontend/vue/vue为什么采用异步渲染.md)
 5. [vuex 和 provide](./interview/frontend/vue/vuex&provide.md)
-6. [vue中为什么不要使用index作为key]()
-6. [vue 的双向绑定原理](./interview/frontend/vue/vue的双向绑定原理.md)
-7. [nextTick 原理](./interview/frontend/vue/nextTick原理.md)
-8. [虚拟 DOM](./interview/frontend/vue/虚拟DOM.md)
-9. [vue-router 异步加载原理](./interview/frontend/vue/vue-router异步加载原理.md)
-10. [双 DOM 树怎么处理]()
-11. [SPA 页面首屏渲染慢怎么办？](./interview/frontend/vue/首屏渲染性能优化.md)
-12. [vue 项目部署后刷新出现 404 问题](./interview/frontend/vue/vue项目部署后刷新404问题.md)
-13. [为什么 Vue2 中组件只能由 1 个根节点，Vue3 可以有多个根节点](./interview/frontend/vue/vue根节点.md)
+6. [vue 中为什么不要使用 index 作为 key]()
+7. [vue 的双向绑定原理](./interview/frontend/vue/vue的双向绑定原理.md)
+8. [nextTick 原理](./interview/frontend/vue/nextTick原理.md)
+9. [虚拟 DOM](./interview/frontend/vue/虚拟DOM.md)
+10. [vue-router 异步加载原理](./interview/frontend/vue/vue-router异步加载原理.md)
+11. [双 DOM 树怎么处理]()
+12. [SPA 页面首屏渲染慢怎么办？](./interview/frontend/vue/首屏渲染性能优化.md)
+13. [vue 项目部署后刷新出现 404 问题](./interview/frontend/vue/vue项目部署后刷新404问题.md)
+14. [为什么 Vue2 中组件只能由 1 个根节点，Vue3 可以有多个根节点](./interview/frontend/vue/vue根节点.md)
 
 #### webpack
 
@@ -213,9 +240,9 @@
 
 ### 开发工具
 
-1. [vscode使用小技巧](./devTools/vscode.md)
+1. [vscode 使用小技巧](./devTools/vscode.md)
 
-2. [vscode编辑器中：类型注释只能在TypeScript文件中使用](./devTools/类型注释只能在TypeScript文件中使用.md)
+2. [vscode 编辑器中：类型注释只能在 TypeScript 文件中使用](./devTools/类型注释只能在TypeScript文件中使用.md)
 
 ### 生活琐碎
 
