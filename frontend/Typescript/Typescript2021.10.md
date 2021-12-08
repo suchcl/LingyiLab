@@ -2,6 +2,7 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
+  - [概要](#%E6%A6%82%E8%A6%81)
     - [Typescript简单认识](#typescript%E7%AE%80%E5%8D%95%E8%AE%A4%E8%AF%86)
     - [Javascript自有类型的问题](#javascript%E8%87%AA%E6%9C%89%E7%B1%BB%E5%9E%8B%E7%9A%84%E9%97%AE%E9%A2%98)
 - [类型系统](#%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F)
