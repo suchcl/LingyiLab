@@ -39,7 +39,7 @@
 13. [delete 删除属性](./frontend/javascript/delete删除属性.md)
 14. [ES6 中的类](./frontend/javascript/ES6中的类.md)
 15. [客户端Javascript应用事件](./frontend/javascript/客户端javascript应用事件.md)
-16. [展开运算符](frontend/javascript/展开运算符.md)
+16. [展开运算符](./frontend/javascript/展开运算符.md)
 
 #### 2.3 Typescript
 
