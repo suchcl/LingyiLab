@@ -1068,6 +1068,155 @@ ReactDOM.render(
 
 #### 3.4 组件实例的三大核心属性之三：refs与事件处理
 
+##### 3.4.1 理解
+
+组件内的标签可以定义ref属性来标识自己
+
+##### 3.4.2 使用
+
+1. 字符串形式的ref
+
+   ```react
+   <!--字符串形式的ref-->
+   <input type="text" ref="username" />
+   
+    <input ref="umsg" onBlur={this.showMsg} type="text" placeholder="失去焦点提示数据" />
+   ```
+
+   那么在react中怎么获取string形式的refs呢？
+
+   因为refs是定义在react实例上的属性，所以在类式组件中，可以直接通过this获取refs
+
+   ```react
+   let udata = this.refs.udata.value;
+   let umsg = this.refs.umsg.value;
+   ```
+
+   来看下完整的案例：
+
+   ```html
+       <!--创建react应用的容器-->
+       <div id="app"></div>
+       <!--导入react核心库-->
+       <script src="../js/react.development.js"></script>
+       <script src="../js/react-dom.development.js"></script>
+       <script src="../js/babel.min.js"></script>
+       <script src="../js/prop-types.js"></script>
+       <script type="text/babel">
+         class User extends React.Component {
+           showData = () => {
+             // refs拿到的是真实的DOM，所以获取真实DOM中input的值的时候，还是通过value属性
+             console.log(this.refs.udata.value);
+           };
+   
+           showMsg = () => {
+             // 解构拿到真实DOM umsg，然后获取umsg的value
+             const { umsg } = this.refs;
+             console.log(umsg.value);
+           };
+           render() {
+             return (
+               <div>
+                 <div className="ipt">
+                   <input ref="udata" type="text" placeholder="点击按钮提示数据" />
+                 </div>
+                 <div className="btn-area">
+                   <button onClick={this.showData}>
+                     点击我提示左侧输入框的数据
+                   </button>
+                 </div>
+                 <div className="ipt">
+                   <input ref="umsg" onBlur={this.showMsg} type="text" placeholder="失去焦点提示数据" />
+                 </div>
+               </div>
+             );
+           }
+         }
+   
+         ReactDOM.render(<User />, document.querySelector("#app"));
+       </script>
+   ```
+
+   string形式的refs，官方已经不再建议使用了，因为string实行的ref存在一些效率问题，可参考：
+
+   <img src="./images/i7.png" alt="string形式的ref可能存在一些问题，官方已经不再建议使用了" style="zoom:60%;" />
+
+   具体问题可参考：https://github.com/facebook/react/pull/8333#issuecomment-271648615
+
+2. 回调形式的ref
+
+   ```react
+   <!--回调形式的ref-->
+   <input type="text" ref={(c) => {this.input1 = c}}>
+   ```
+
+   回调形式的refs，在回调中定义一个实例属性，将当前元素赋值给实例属性，然后就可以通过js去操作当前元素了
+
+   因为在回调的时候，是将当前元素直接定义在了this上（也就是实例对象上），在react中接收ref的时候，就可以直接在实例对象上接收就可以了，如
+
+   ```javascript
+   const { udata } = this;
+   ```
+
+   来看完整的实例：
+
+   ```html
+   <!--创建react应用容器-->
+       <div id="app"></div>
+   
+       <!--导入react核心库-->
+       <script src="../js/react.development.js"></script>
+       <script src="../js/react-dom.development.js"></script>
+       <script src="../js/babel.min.js"></script>
+       <script src="../js/prop-types.js"></script>
+   
+       <script type="text/babel">
+         class User extends React.Component {
+           showData = () => {
+             // 因为udata实例属性，是在jsx中直接定义在this上的，所以这里接收的时候直接从this接收就可以了
+             // 这里的this指向组件实例
+             const { udata } = this;
+             console.log(udata.value);
+           };
+   
+           showMsg = () => {
+             const { umsg } = this;
+             console.log(umsg.value);
+           };
+           render() {
+             return (
+               <div>
+                 <input
+                   // 定义一个箭头函数，箭头函数会获取当前元素作为默认参数传递给箭头函数的处理程序
+                   // 箭头函数中，会声明一个实例属性，去接收当前元素
+                   // 如本案例中，定义了一个udata的实例属性，去接收了当前的input元素
+                   // 回调函数的参数名称，我们可以自定义，但是最好的实践是见名知义，这里的c表示current
+                   ref={(c) => (this.udata = c)}
+                   type="text"
+                   placeholder="点击按钮提示数据"
+                 />
+                 <button onClick={this.showData}>
+                   点击按钮提示左侧输入框的数据
+                 </button>
+                 <input
+                   onBlur={this.showMsg}
+                   ref={(c) => (this.umsg = c)}
+                   type="text"
+                   placeholder="失去焦点提示数据"
+                 />
+               </div>
+             );
+           }
+         }
+   
+         ReactDOM.render(<User />, document.querySelector("#app"));
+       </script>
+   ```
+
+3. createRef创建ref容器
+
+通过refs拿到的节点，是真实的DOM，是已经被React处理完、已经被被转换为真实的DOM。
+
 #### 3.5 收集表单数据
 
 #### 3.6 组件声明周期
