@@ -42,9 +42,9 @@
 
 #### 2.3 Typescript
 
-1. [快速上手 Typescript](./frontend/Typescript/快速上手Typescript.md)
+1. [快速上手Typescript](./frontend/Typescript/快速上手Typescript.md)
 2. [Ts 基础知识](./frontend/Typescript/Typescript2021.10.md)
-3. [Typescript 进阶](./frontend/Typescript/Typescript进阶.md)
+3. [Typescript进阶](./frontend/Typescript/Typescript进阶.md)
 
 #### 2.4 nodejs
 

@@ -1,3 +1,12 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [数组](#%E6%95%B0%E7%BB%84)
+- [数组中另外5个常用的迭代(遍历)方法](#%E6%95%B0%E7%BB%84%E4%B8%AD%E5%8F%A6%E5%A4%965%E4%B8%AA%E5%B8%B8%E7%94%A8%E7%9A%84%E8%BF%AD%E4%BB%A3%E9%81%8D%E5%8E%86%E6%96%B9%E6%B3%95)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ### 数组
 
 ECMAScript中数组常用的方法：
