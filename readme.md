@@ -23,7 +23,6 @@
 2. [CSS 盒模型](./frontend/前端基础/css盒模型.md)
 
 #### 2.2 Javascript
-
 1. [迭代器](./frontend/javascript/iterator.md)
 2. [js 的数据类型](./frontend/javascript/数据类型.md)
 3. [终止 forEach 循环](./frontend/javascript/foreach.md)
@@ -39,7 +38,7 @@
 13. [delete 删除属性](./frontend/javascript/delete删除属性.md)
 14. [ES6 中的类](./frontend/javascript/ES6中的类.md)
 15. [客户端Javascript应用事件](./frontend/javascript/客户端javascript应用事件.md)
-16. [展开运算符](./frontend/javascript/展开运算符.md)
+16. [展开运算符](./frontend/js/展开运算符.md)
 
 #### 2.3 Typescript
 
