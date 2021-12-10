@@ -1213,6 +1213,140 @@ ReactDOM.render(
        </script>
    ```
 
+   **react中回调形式的ref中回调函数执行次数的问题**
+
+   如果是内联回调形式的ref，那么在界面更新（注意是更新，不是初次渲染）的过程中，即有状态变化render方法重新执行的时候，那么ref的回调函数将被执行两次，第一次传入一个null，第二次才会传入当前的节点DOM。这是因为每次渲染时会创建一个新的函数实例，react清空旧的ref并且设置新的导致的。
+
+   通过将ref的回调函数定义成class的绑定函数的方式可以避免这个内联回调函数被重复调用的问题。
+
+   ref的内联回调函数被重复调用在功能上没有什么问题，只是看起来有点别扭而已。
+
+   看效果，页面初次渲染的时候，ref的内联函数被执行了一次：
+
+   <img src="./images/i8.png" alt="ref的内联函数在组件初始化的时候被执行了一次" style="zoom:67%;" />
+
+   只看下render函数吧：
+
+   ```js
+   render() {
+     const { isHot } = this.state;
+     return (
+       <div>
+         <h2>今天天气{isHot ? "炎热" : "凉爽"}</h2>
+   	  {/*内联形式的ref回调函数，组件初始化时执行一次，有状态改变，即render再次执行时会被执行两次，第一次传入null，第二次会传入当前节点*/}
+         <input
+           type="text"
+           ref={(c) => {
+             this.udata = c;
+             console.log("###", c);
+           }}
+         />
+         <button onClick={this.showData}>点我显示输入的数据</button>
+         <button onClick={this.changeWeather}>点我改变天气</button>
+       </div>
+     );
+   }
+   ```
+
+   再来看下点击改变天气按钮时的操作：
+
+   <img src="./images/i9.png" alt="状态改变时，即状态在更新过程中，ref的内联回调函数执行了两次" style="zoom:67%;" />
+
+   ref的内联函数执行2次，在功能上说是没有任何问题的，那么有办法解决，不让它执行两次吗？
+
+   办法是有的，前面已经提到了，将ref的回调函数定义成class的绑定函数就可以了。
+
+   ```js
+   {/*定义实例对象对象上的函数，就是react文档所说的鼎城class的绑定函数*/}
+   saveUdata = (c) => {
+       console.log(c);
+   };
+   
+   render() {
+     const { isHot } = this.state;
+     return (
+       <div>
+         <h2>今天天气{isHot ? "炎热" : "凉爽"}</h2>
+         {/*
+         <input
+           type="text"
+           ref={(c) => {
+             this.udata = c;
+             console.log("###", c);
+           }}
+         />*/}
+   	  {/*给ref定义一个回调函数，但是函数式定义在了实例对象上的，并不是内联的*/}
+         <input type="text" ref={this.saveUdata} />
+         <button onClick={this.showData}>点我显示输入的数据</button>
+         <button onClick={this.changeWeather}>点我改变天气</button>
+       </div>
+     );
+   }
+   ```
+
+   然后再看效果的时候，无论怎么点击改变天气的按钮，ref的回调函数都是只在页面初始化的时候执行了一次，没有多次被执行
+
+   <img src="./images/i10.png" alt="定义成class绑定函数方式的ref回调函数只会被执行一次" style="zoom:67%;" />
+
+   贴一下整个案例的代码：
+
+   ```html
+       <!--react应用容器-->
+       <div id="app"></div>
+   
+       <!--导入react核心库-->
+       <script src="../js/react.development.js"></script>
+       <script src="../js/react-dom.development.js"></script>
+       <script src="../js/babel.min.js"></script>
+       <script src="../js/prop-types.js"></script>
+   
+       <script type="text/babel">
+         class User extends React.Component {
+           state = {
+             isHot: true,
+           };
+   
+           showData = () => {
+             const { udata } = this;
+             console.log(udata.value);
+           };
+   
+           changeWeather = () => {
+             const { isHot } = this.state;
+             this.setState({
+               isHot: !isHot,
+             });
+           };
+   
+           saveUdata = (c) => {
+             console.log(c);
+           };
+   
+           render() {
+             const { isHot } = this.state;
+             return (
+               <div>
+                 <h2>今天天气{isHot ? "炎热" : "凉爽"}</h2>
+                 {/*
+                 <input
+                   type="text"
+                   ref={(c) => {
+                     this.udata = c;
+                     console.log("###", c);
+                   }}
+                 />*/}
+                 <input type="text" ref={this.saveUdata} />
+                 <button onClick={this.showData}>点我显示输入的数据</button>
+                 <button onClick={this.changeWeather}>点我改变天气</button>
+               </div>
+             );
+           }
+         }
+   
+         ReactDOM.render(<User />, document.querySelector("#app"));
+       </script>
+   ```
+
 3. createRef创建ref容器
 
 通过refs拿到的节点，是真实的DOM，是已经被React处理完、已经被被转换为真实的DOM。
