@@ -1602,6 +1602,53 @@ ReactDOM.render(
 
 **定义：**通过函数调用继续返回函数的方式，实现多次接收参数最后统一处理的函数编码形式 
 
+```js
+      class Login extends React.Component {
+        state = {
+          username: "",
+          password: "",
+        };
+
+        saveFormData = (dataType, value) => {
+          this.setState({
+            [dataType]: value,
+          });
+        };
+        handleLogin = (event) => {
+          event.preventDefault();
+          const { username, password } = this.state;
+          console.log(`用户名：${username},密码：${password}`);
+        };
+        render() {
+          return (
+            <form onSubmit={this.handleLogin}>
+              用户名：
+              <input
+                type="text"
+                name="username"
+                // 这里的重点是onChange事件属性，一定要给它传递一个函数，无论是属性值直接是一个函数，还是调用一个函数的返回值（函数的返回值也要是返回一个函数）
+                onChange={(event) => {
+                  this.saveFormData("username", event.target.value);
+                }}
+              />
+              密码：
+              <input
+                type="password"
+                name="password"
+                onChange={(event) => {
+                  this.saveFormData("password", event.target.value);
+                }}
+              />
+              <button>登录</button>
+            </form>
+          );
+        }
+      }
+      ReactDOM.render(<Login />, document.querySelector("#app"));
+```
+
+
+
 #### 3.7 虚拟DOM与DOM diff算法
 
 ### 4. React应用：基于React脚手架
