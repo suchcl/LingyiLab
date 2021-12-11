@@ -1425,7 +1425,68 @@ ReactDOM.render(
 
 所以，我们在日常开发中，尽可能的使用React.createRef()函数创建ref容器的方式去使用ref，但是如果接手了老项目，或者自己不留心使用了字符串或者内联回调函数的ref，也不用纠结。
 
+##### 3.4.4 React中的事件处理
+
+1. 通过onXxx属性指定事件处理函数 --- 注意大小写
+
+   1. react使用的是自定义（合成）事件，而不是原生的DOM事件
+      1. react对DOM的原生事件都做了一次重新的封装处理，主要是为了兼容性处理
+   2. react中的事件是通过事件委托方式处理的-委托给组件最外层元素
+      1. 利用了DOM事件处理的冒泡流程，主要是为了事件高效处理的目标
+
+2. 事件通过event.target得到发生事件的DOM对象
+
+   1. 学习ref的时候，ref的官方的文档告诉我们，不要过渡的使用ref，那么什么时候可以省略ref呢？
+
+      1. 发生事件的元素，正好是我们要操作获取值的元素，则可以省略ref
+
+         ```html
+         render() {
+           return (
+             <div>
+               <input
+                 type="text"
+                 ref={this.umsg}
+                 onBlur={this.showMsg}
+                 placeholder="失去焦点提示数据"
+               />
+             </div>
+           );
+         }
+         ```
+
+         如这个案例中，我们期望获取input空间的值，同时也是期望在input空间发生onblur事件时做一些事情，那么这个时候input空间的ref就可以省略，可以通过event.target的方式获取到input控件属性
+
+         ```javascript
+           class User extends React.Component {
+             showMsg = (event) => {
+               //   console.log(this.umsg.current.value);
+               console.log(event.target.value);
+             };
+         
+             render() {
+               return (
+                 <div>
+                   <input
+                     type="text"
+                     // ref={this.umsg}
+                     onBlur={this.showMsg}
+                     placeholder="失去焦点提示数据"
+                   />
+                 </div>
+               );
+             }
+           }
+         ```
+
 #### 3.5 收集表单数据
+
+表单中的组件分类
+
+1. 受控组件
+2. 非受控组件
+
+
 
 #### 3.6 组件声明周期
 
