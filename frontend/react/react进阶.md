@@ -1361,6 +1361,8 @@ ReactDOM.render(
    this.myRef.current.value
    ```
 
+   由于React.createRef()只能存放一个元素节点，所以有多少个节点使用了ref，就需要定义几个容器，所以会有点感觉不太灵活。
+
    完整的案例：
 
    ```html
