@@ -1484,7 +1484,46 @@ ReactDOM.render(
 表单中的组件分类
 
 1. 受控组件
+
+   1. 
+
 2. 非受控组件
+
+   1. react中，所有的输入类空间，如input、checkbox、radio等，这些控件的值是现用现取，就是非受控组件。
+
+      ```javascript
+        class Login extends React.Component {
+          handleLogin = (event) => {
+            // 阻止表单默认的跳转行为
+            event.preventDefault();
+            const { username, password } = this;
+            console.log(`用户名是: ${username.value}，密码是：${password.value}`);
+          };
+          render() {
+            return (
+              <form onSubmit={this.handleLogin}>
+                用户名：
+                <input
+                  type="text"
+                  ref={(c) => (this.username = c)}
+                  name="username"
+                />
+                密码：
+                <input
+                  type="password"
+                  ref={(c) => (this.password = c)}
+                  name="password"
+                />
+                <button>登录</button>
+              </form>
+            );
+          }
+        }
+      
+        ReactDOM.render(<Login />, document.querySelector("#app"));
+      ```
+
+      案例中是一个登录的小表单，在需要使用input组件来获取用户名和密码的时候，这2个组件的值都是现用现取，所以这里的input就是非受控组件。
 
 
 
