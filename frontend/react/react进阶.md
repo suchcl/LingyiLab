@@ -1349,6 +1349,62 @@ ReactDOM.render(
 
 3. createRef创建ref容器
 
+   React可以通过createRef()函数创建存放ref标识节点的容器，每个容器只能存放一个节点元素，如果同一个容器被标识在了多个元素节点，那后面标识的元素会覆盖掉前面标识。
+
+   React.createRef()容器返回的容器，是一个名为current的对象。如：
+
+   ![React.createRef()容器返回的容器，是一个名为current的对象](./images/i11.png)
+
+   current对象名称不可改，使用的时候直接使用current。获取容器的元素属性方式如下：
+
+   ```js
+   this.myRef.current.value
+   ```
+
+   完整的案例：
+
+   ```html
+   <!--创建react应用容器-->
+   <div id="app"></div>
+   <!--导入react核心库-->
+   <script src="../js/react.development.js"></script>
+   <script src="../js/react-dom.development.js"></script>
+   <script src="../js/babel.min.js"></script>
+   <script type="text/babel">
+     class User extends React.Component {
+       /**
+        * React.createRef()执行后返回一个容器，该容器可以存储被ref所标识的节点
+        * createRef()函数创建的容器，只能给一个元素使用，专人专用，也就是说createRef()容器不能同时给2个或以上的元素使用
+        * 否则先定义的ref会被下面的ref给覆盖
+        */
+       myRef = React.createRef();
+       myRef2 = React.createRef();
+       showData = () => {
+         console.log(this.myRef);
+         console.log(this.myRef.current.value);
+       };
+   
+       showMsg = () => {
+         console.log(this.myRef2.current.value);
+       };
+       render() {
+         return (
+           <div>
+             <input
+               type="text"
+               ref={this.myRef}
+               placeholder="点击按钮提示数据"
+             />
+             <button onClick={this.showData}>点击按钮提示数据</button>
+             <input type="text" ref={this.myRef2} onBlur={this.showMsg} />
+           </div>
+         );
+       }
+     }
+     ReactDOM.render(<User />, document.querySelector("#app"));
+   </script>
+   ```
+
 通过refs拿到的节点，是真实的DOM，是已经被React处理完、已经被被转换为真实的DOM。
 
 #### 3.5 收集表单数据
