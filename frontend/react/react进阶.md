@@ -1485,7 +1485,60 @@ ReactDOM.render(
 
 1. 受控组件
 
-   1. 
+   1. 在页面的所有输入类组件中，如input、checkbox、radio等，随着数据的输入就可以将数据保存在状态中，等到用到这些数据的时候，就从状态中获取数据，这就是受控组件。
+
+      受控组件，类似vue中的双向绑定，react没有实现双向绑定
+
+      ```javascript
+        class Login extends React.Component {
+          state = {
+            username: "",
+            password: "",
+          };
+      
+          // 保存用户名到状态中
+          saveUsername = (event) => {
+            this.setState({
+              username: event.target.value,
+            });
+          };
+      
+          // 保存密码到状态中
+          savePassword = (event) => {
+            this.setState({
+              password: event.target.value,
+            });
+          };
+      
+          // 表单提交
+          handleLogin = (event) => {
+            event.preventDefault();
+            console.log(
+              `用户名：${this.state.username}，密码：${this.state.password}`
+            );
+            console.log(this);
+          };
+          render() {
+            return (
+              <form onSubmit={this.handleLogin}>
+                用户名：
+                <input type="text" onChange={this.saveUsername} name="username" />
+                密码：
+                <input
+                  type="password"
+                  onChange={this.savePassword}
+                  name="password"
+                />
+                <button>登录</button>
+              </form>
+            );
+          }
+        }
+      
+        ReactDOM.render(<Login />, document.querySelector("#app"));
+      ```
+
+      案例中，输入组件input用户名和密码的值都保存在了状态(state)中了，在用到这些值的时候，是去状态中获取的，而不是直接从input组件中获取的，这时的input组件就是受控组件。
 
 2. 非受控组件
 
@@ -1525,7 +1578,11 @@ ReactDOM.render(
 
       案例中是一个登录的小表单，在需要使用input组件来获取用户名和密码的时候，这2个组件的值都是现用现取，所以这里的input就是非受控组件。
 
+3. 表单组件的使用
 
+   表单组件分为了受控组件和非受控组件，在日常的开发中，推荐使用受控组件。
+
+   因为受控组件中，基本可以不使用ref，而非受控组件中，大概的情况是有多少个输入项就要使用多少个的ref，而react并不希望我们在项目中过度的使用ref，所以建议受控组件。
 
 #### 3.6 组件声明周期
 
