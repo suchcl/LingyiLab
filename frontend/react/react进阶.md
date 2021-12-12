@@ -1661,11 +1661,39 @@ react中，组件绑定到页面上显示出来，称为挂载(mount)，组件�
 
 **声明周期函数执行顺序：**
 
+下面是一个主流程
+
 1. constructor 构造器：状态初始化，一般情况下，都可以省略
 
 2. componentWillMount 组件即将要挂载的时候的钩子
-3. componentDidMount 组件挂载完成之后
-4. componentWillUnmount  组件即将卸载的时候，即组件卸载之前
+3. render 渲染、挂载组件
+4. componentDidMount 组件挂载完成之后
+5. componentWillUnmount  组件即将卸载的时候，即组件卸载之前
+
+除了主线之外，还有两个流程：
+
+1. 有state修改的时候，流程如下：
+
+   1. shouldComponentUpdate  是否可以让组件更新，默认返回true
+   2. componentWillUpdate 组件即将更新
+   3. render
+   4. componentDidUpdate 组件更新完成
+   5. componentWillUnmount 组件即将卸载
+
+2. 强制state修改的时候，流程如下：
+
+   强制更新，指在不更新状态中数据的情况下，强制更新，应该强制更新组件吧，调用的时候使用this.forceUpdate()
+
+   1. componentWillUpdate 组件即将更新
+   2. render
+   3. componentDidUpdate 组件更新完成
+   4. componentWillUnmount 组件即将卸载
+
+   看图示：
+
+   <img src="./images/i12.png" alt="react组件生命周期" style="zoom:67%;" />
+
+   
 
 #### 3.7 虚拟DOM与DOM diff算法
 
