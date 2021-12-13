@@ -76,6 +76,8 @@
 
 1. [next.js](frontend/next.js/index.md)
 
+2. [next.js进阶](./frontend/next.js/nextjs进阶.md)
+
 #### 3.4 nuxt.js
 
 1. [nuxt.js](./frontend/nuxt.js/index.md)
