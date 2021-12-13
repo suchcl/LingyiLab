@@ -1855,6 +1855,68 @@ react中，组件绑定到页面上显示出来，称为挂载(mount)，组件�
 
 <img src="./images/i13.png" alt="新的生命周期图" style="zoom:67%;" />
 
+**getDerivedStateFromProps():从props中获取派生状态**
+
+这个声明周期很少使用，只有在及特殊的情况下才会使用，即state的值在任何时候都取决于props。且派生状态会导致代码荣誉，使组件难以维护。了解即可
+
+getDerivedStateFromProps()需要定义成静态的类方法，方法需要返回一个状态对象或者null。正常定义之后，初始状态和修改状态时都不会生效，都会以props为准。
+
+```html
+    <!--react应用容器-->
+    <div id="app"></div>
+    <!--导入react核心库-->
+    <script src="../js/v17.0.2/react.development.js"></script>
+    <script src="../js/v17.0.2//react-dom.development.js"></script>
+    <script src="../js/v17.0.2/babel.min.js"></script>
+    <script type="text/babel">
+      class Counter extends React.Component {
+        constructor(props) {
+          console.log("Counter---constructor");
+          super(props);
+          this.state = {
+            count: 0,
+          };
+        }
+
+        add = () => {
+          let { count } = this.state;
+          this.setState({
+            count: count + 1,
+          });
+        };
+
+        unMountComponent = () => {
+          ReactDOM.unmountComponentAtNode(document.querySelector("#app"));
+        };
+
+        static getDerivedStateFromProps(props) {
+          console.log(props);
+          // return {count: 203};
+          return props;
+        }
+        render() {
+          let { count } = this.state;
+          return (
+            <div>
+              <h2>当前求和为：{count}</h2>
+              <button onClick={this.add}>加1</button>
+              <button onClick={this.unMountComponent}>卸载组件</button>
+            </div>
+          );
+        }
+      }
+      ReactDOM.render(<Counter count={200} />, document.querySelector("#app"));
+    </script>
+```
+
+<img src="./images/i14.png" alt="getDerivedStateFromProps()" style="zoom:67%;" />
+
+**getSnapshotBeforeUpdate()**:在更新前获取快照值
+
+任何值都可以做为快照值，使用的并不多
+
+
+
 #### 3.7 虚拟DOM与DOM diff算法
 
 ### 4. React应用：基于React脚手架
