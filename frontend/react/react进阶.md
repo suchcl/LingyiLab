@@ -65,6 +65,8 @@ Ant-Design UI库
 
 #### 1.1 React是什么？
 
+学习react之前，推荐一个前端资源库的CDN：https://www.bootcdn.cn/
+
 用户构建用户界面的Js库
 
 React只关注视图、只关注页面
@@ -1842,6 +1844,16 @@ react中，组件绑定到页面上显示出来，称为挂载(mount)，组件�
 3. 卸载组件：由ReactDOM.unmountComponentAtNode()触发
    1. componentWillUnmount()
       1. 常用，经常用来做一些收尾的事情，如关闭定时器、取消订阅消息等
+
+##### 3.6.4 react新版本的生命周期（v17.0.2）
+
+在之前的v16.14.0版本那种的componentWillMount()、componentWillUpdate()、componentWillReceiveProps()三个钩子函数，需要加上前缀：UNSAFE_，之前的生命周期钩子函数就都还可以用。
+
+即v16.14.0及以前版本中带有will的钩子函数都加上UNSAFE_，除了componentWillUnmount钩子函数。
+
+新的生命周期图：
+
+<img src="./images/i13.png" alt="新的生命周期图" style="zoom:67%;" />
 
 #### 3.7 虚拟DOM与DOM diff算法
 
