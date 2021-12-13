@@ -33,8 +33,15 @@
   - [3.2 组件实例的三大核心属性之一：state](#32-%E7%BB%84%E4%BB%B6%E5%AE%9E%E4%BE%8B%E7%9A%84%E4%B8%89%E5%A4%A7%E6%A0%B8%E5%BF%83%E5%B1%9E%E6%80%A7%E4%B9%8B%E4%B8%80state)
   - [3.3 组件实例的三大核心属性之二：props](#33-%E7%BB%84%E4%BB%B6%E5%AE%9E%E4%BE%8B%E7%9A%84%E4%B8%89%E5%A4%A7%E6%A0%B8%E5%BF%83%E5%B1%9E%E6%80%A7%E4%B9%8B%E4%BA%8Cprops)
   - [3.4 组件实例的三大核心属性之三：refs与事件处理](#34-%E7%BB%84%E4%BB%B6%E5%AE%9E%E4%BE%8B%E7%9A%84%E4%B8%89%E5%A4%A7%E6%A0%B8%E5%BF%83%E5%B1%9E%E6%80%A7%E4%B9%8B%E4%B8%89refs%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86)
+    - [3.4.1 理解](#341-%E7%90%86%E8%A7%A3)
+    - [3.4.2 使用](#342-%E4%BD%BF%E7%94%A8)
+    - [3.4.3 使用ref时注意](#343-%E4%BD%BF%E7%94%A8ref%E6%97%B6%E6%B3%A8%E6%84%8F)
+    - [3.4.4 React中的事件处理](#344-react%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86)
   - [3.5 收集表单数据](#35-%E6%94%B6%E9%9B%86%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE)
-  - [3.6 组件声明周期](#36-%E7%BB%84%E4%BB%B6%E5%A3%B0%E6%98%8E%E5%91%A8%E6%9C%9F)
+  - [3.6 组件生命周期](#36-%E7%BB%84%E4%BB%B6%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F)
+    - [3.6.1 高阶函数](#361-%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0)
+    - [3.6.2 函数柯里化](#362-%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96)
+    - [3.6.3 生命周期](#363-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F)
   - [3.7 虚拟DOM与DOM diff算法](#37-%E8%99%9A%E6%8B%9Fdom%E4%B8%8Edom-diff%E7%AE%97%E6%B3%95)
 - [4. React应用：基于React脚手架](#4-react%E5%BA%94%E7%94%A8%E5%9F%BA%E4%BA%8Ereact%E8%84%9A%E6%89%8B%E6%9E%B6)
 - [5. React Ajax](#5-react-ajax)
@@ -1584,7 +1591,7 @@ ReactDOM.render(
 
    因为受控组件中，基本可以不使用ref，而非受控组件中，大概的情况是有多少个输入项就要使用多少个的ref，而react并不希望我们在项目中过度的使用ref，所以建议受控组件。
 
-#### 3.6 组件声明周期
+#### 3.6 组件生命周期
 
 ##### 3.6.1 高阶函数
 
@@ -1647,11 +1654,11 @@ ReactDOM.render(
       ReactDOM.render(<Login />, document.querySelector("#app"));
 ```
 
-##### 3.6.3 声明周期
+##### 3.6.3 生命周期
 
 react中，组件绑定到页面上显示出来，称为挂载(mount)，组件从页面中解除绑定，从页面中消失，称为卸载组件(unmount).
 
-声明周期，本质上就是一些在react组件特定阶段自动执行的一些函数，因此生命周期也有其他的一些叫法，如生命周期函数、生命周期钩子函数、生命周期钩子等，但是说的都是一回事，不要被不同的人的不同叫法给迷惑了。
+生命周期，本质上就是一些在react组件特定阶段自动执行的一些函数，因此生命周期也有其他的一些叫法，如生命周期函数、生命周期钩子函数、生命周期钩子等，但是说的都是一回事，不要被不同的人的不同叫法给迷惑了。
 
 **简单的理解**
 
@@ -1659,7 +1666,7 @@ react中，组件绑定到页面上显示出来，称为挂载(mount)，组件�
 2. react组件中包含一些列钩子函数（生命周期的回调函数），会在特定的时刻调用；
 3. 在定义组件时，会在特定的生命周期回调函数，做特定的事情；
 
-**声明周期函数执行顺序：**
+**生命周期函数执行顺序：**
 
 下面是一个主流程
 
@@ -1670,7 +1677,7 @@ react中，组件绑定到页面上显示出来，称为挂载(mount)，组件�
 4. componentDidMount 组件挂载完成之后
 5. componentWillUnmount  组件即将卸载的时候，即组件卸载之前
 
-除了主线之外，还有两个流程：
+除了主线之外，还有三个流程：
 
 1. 有state修改的时候，流程如下：
 
@@ -1689,11 +1696,152 @@ react中，组件绑定到页面上显示出来，称为挂载(mount)，组件�
    3. componentDidUpdate 组件更新完成
    4. componentWillUnmount 组件即将卸载
 
-   看图示：
+2. 父组件render、更新时
 
-   <img src="./images/i12.png" alt="react组件生命周期" style="zoom:67%;" />
-
+   1. componentWillReceiveProps  父组件发生变化时，子组件发生 ---- 组件初次渲染不算
+      1. 第一次接收的不算，要是第二次及以上次数的接收到props时才算，社区也有讨论说把这个钩子函数更改为componentWillReceiveNewProps更加合适
+   2. shouldComponentUpdate
+   3. componentWillUpdate
+   4. render
+   5. componentDidUpdate
+   6. componentWillUnmount
    
+   看图示：
+   
+   <img src="./images/i12.png" alt="react组件生命周期" style="zoom:67%;" />
+   
+   ```html
+       <!--react应用容器-->
+       <div id="app"></div>
+   
+       <!--导入react核心库-->
+       <script src="../js/react.development.js"></script>
+       <script src="../js/react-dom.development.js"></script>
+       <script src="../js/babel.min.js"></script>
+       <script type="text/babel">
+         class Counter extends React.Component {
+           constructor(props) {
+             console.log("constructor");
+             super(props);
+             this.state = {
+               count: 0,
+             };
+           }
+           // state = {
+           //   count: 0,
+           // };
+   
+           add = () => {
+             let { count } = this.state;
+             this.setState({
+               count: count + 1,
+             });
+           };
+   
+           forceUpdateComponent = () => {
+             this.forceUpdate();
+           };
+   
+           unmountComponent = () => {
+             ReactDOM.unmountComponentAtNode(document.querySelector("#app"));
+           };
+   
+           componentWillMount() {
+             console.log("componentWillMount");
+           }
+   
+           componentDidMount() {
+             console.log("componentDidMount");
+           }
+   
+           componentWillUnmount() {
+             console.log("componentWillUnmount");
+           }
+   
+           shouldComponentUpdate() {
+             // shouldComponentUpdate 钩子默认返回true，在不显示声明shouldComponentUpdate函数的情况下，都统一、默认返回true
+             // 但是只要显示的声明了shouldComponentUpdate，就必须显示的声明返回值，true or false，如果没有返回，则默认返回undefined
+             console.log("shoudeComponentUpdate");
+             return true;
+           }
+   
+           componentWillUpdate() {
+             console.log("componentWillUpdate");
+           }
+   
+           componentDidUpdate() {
+             console.log("componentDidUpdate");
+           }
+           render() {
+             console.log("render");
+             let { count } = this.state;
+             return (
+               <div>
+                 <h2>当前求和为: {count}</h2>
+                 <button onClick={this.add}>加1</button>
+                 <button onClick={this.unmountComponent}>卸载组件</button>
+                 <button onClick={this.forceUpdateComponent}>强制更新</button>
+               </div>
+             );
+           }
+         }
+   
+         class A extends React.Component {
+           // 初始化状态
+           state = {
+             carName: "奔驰",
+           };
+   
+           changeCar = () => {
+             this.setState({
+               carName: "奥拓",
+             });
+           };
+           render() {
+             return (
+               <div>
+                 <h3>我是A组件</h3>
+                 <button onClick={this.changeCar}>换车</button>
+                 <B carName={this.state.carName} />
+               </div>
+             );
+           }
+         }
+   
+         class B extends React.Component {
+           componentWillReceiveProps(){
+             console.log("B---componentWillReceiveProps");
+           }
+           render() {
+             return (
+               <div>
+                 <h3>我是B组件</h3>
+                 <p>我接收到的车是: {this.props.carName}</p>
+               </div>
+             );
+           }
+         }
+         ReactDOM.render(<A />, document.querySelector("#app"));
+       </script>
+   ```
+
+组件的生命周期，也可以从另一个角度来区分，可以从三个方面去看：
+
+1. 初始化阶段：由ReactDOM.render()触发，初次渲染
+   1. constructor()
+   2. componentWillMount()
+   3. render()
+   4. componentDidMount()
+      1. 常用，经常做一些初始化数据的动作，如发送网络请求、订阅消息、开启定时器等
+2. 更新阶段：由组件内部this.setState()或父组件重新render()的时候触发
+   1. shouldComponentUpdate()
+   2. componentWillUpdate()
+   3. render()
+      1. 这是个必须要用的周期、钩子，没的选
+   4. componentDidUpdate()
+3. 卸载组件：由ReactDOM.unmountComponentAtNode()触发
+   1. componentWillUnmount()
+      1. 常用，经常用来做一些收尾的事情，如关闭定时器、取消订阅消息等
 
 #### 3.7 虚拟DOM与DOM diff算法
 
