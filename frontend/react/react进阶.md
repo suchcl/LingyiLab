@@ -2103,13 +2103,33 @@ componentWillUpdate
     </script>
 ```
 
-
-
 看案例：
 
 ![使用index作为key和使用唯一标识作为key的区别](./images/i15.png)
 
 ### 4. React应用：基于React脚手架
+
+#### 4.1 使用create-react-app创建react应用
+
+##### 4.1.1 react脚手架
+
+1. xxx脚手架：帮助程序员快速创建一个基于某技术的模板项目
+   1. 包含了所有必要的配置信息：语法检查、jsx编译、devServer等
+   2. 下载好了所有需要的依赖
+   3. 可以直接运行一个简单效果
+2. react提供了一个用于创建react项目的脚手架：create-react-app
+3. 项目的整体技术架构为：react+webpack+es6+eslint
+4. 使用脚手架开发项目的特点：模块化、工程化、组件化
+
+4.1.2 创建并启动项目
+
+ 	1. 全局安装：npm install create-react-app -g
+     	1. 也可以不全局安装，直接使用npx create-react-app创建项目
+ 	2. 切换到希望创建项目的目录，使用命令：create-react-app 项目名称
+ 	3. 进入到项目目录: cd 项目名称
+ 	4. 启动项目: npm start
+
+> 创建一个基于react脚手架的模板项目
 
 ### 5. React Ajax
 
