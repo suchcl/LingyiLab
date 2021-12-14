@@ -1,3 +1,16 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [1. 环境要求](#1-%E7%8E%AF%E5%A2%83%E8%A6%81%E6%B1%82)
+- [2. next.js 应用编译指令](#2-nextjs-%E5%BA%94%E7%94%A8%E7%BC%96%E8%AF%91%E6%8C%87%E4%BB%A4)
+- [3. next.js 应用的页面](#3-nextjs-%E5%BA%94%E7%94%A8%E7%9A%84%E9%A1%B5%E9%9D%A2)
+- [4. 路由与跳转](#4-%E8%B7%AF%E7%94%B1%E4%B8%8E%E8%B7%B3%E8%BD%AC)
+  - [4.1 文件之间的跳转](#41-%E6%96%87%E4%BB%B6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%B3%E8%BD%AC)
+- [13. 部署](#13-%E9%83%A8%E7%BD%B2)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ### 1. 环境要求
 
 要求 nodejs 版本在 10.13 以上
@@ -68,6 +81,8 @@ export default Nav;
 
 1. Link组件内的连接文字，使用a包裹，但是<font color="#f20">href属性要加载Link组件上，不能加在a标记上面</font>
 
+   连接文字的包裹标签，仅仅指定了连接文字用什么标签去渲染，即便不是使用的a标签，也能够实现路由的跳转功能
+
 2. Link组件内，默认使用a标签渲染
 
    即Link组件内可以直接写连接内容，而不用a包裹，在被解析完渲染完成的时候，效果是使用a包裹的
@@ -117,6 +132,20 @@ export default Nav;
 <img src="./images/i2.png" alt="next.js应用中的客户端路由跳转" style="zoom:67%;" />
 
 Next.js应用中客户端路由的跳转，是通过next/link组件实现的，而不是DOM中的a标签：next.js应用中的组件，是经过react和next两重处理的元素，已经不是原生的DOM组件了，这点需要特别注意。
+
+### 12. next.config.js/next.config.mjs
+
+**关于.mjs文件的一些说明**
+
+.mjs是一种类似.js的文件扩展名，只不过常用来标识这是一个javascript模块，而不是常规的javascript脚本。
+
+关于.mjs的更多说明，可以参考：
+
+https://v8.dev/features/modules#mjs
+
+https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Modules#.mjs_%E4%B8%8E_.js
+
+
 
 ### 13. 部署
 
