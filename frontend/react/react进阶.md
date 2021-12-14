@@ -1915,9 +1915,199 @@ getDerivedStateFromProps()需要定义成静态的类方法，方法需要返回
 
 任何值都可以做为快照值，使用的并不多
 
+```javascript
+// getSnapshotBeforeUpdate的返回值，会传递给componentDidUpdate钩子函数
+getSnapshotBeforeUpdate() {
+    return this.refs.list.scrollHeight;
+}
+componentDidUpdate(preProps, preState, height) {
+    this.refs.list.scrollTop += this.refs.list.scrollHeight - height;
+}
+```
 
+看全部的demo吧：
+
+```html
+   <!--react应用容器-->
+    <div id="app"></div>
+
+    <!--导入react核心库-->
+    <script src="../js/v17.0.2/react.development.js"></script>
+    <script src="../js/v17.0.2/react-dom.development.js"></script>
+    <script src="../js/v17.0.2/babel.min.js"></script>
+
+    <script type="text/babel">
+      class NewsList extends React.Component {
+        // 初始化状态
+        state = {
+          newsArr: [],
+        };
+
+        // 在组件初始化好之后，每1s钟滚动一条新闻
+        componentDidMount() {
+          setInterval(() => {
+            // 获取原始状态
+            const { newsArr } = this.state;
+            // 模拟一条新闻，正常情况下应该发送一条请求,或者服务端下发一条数据
+            const NewsItem = `新闻${newsArr.length + 1}`;
+
+            // 更新状态
+            this.setState({
+              newsArr: [NewsItem, ...newsArr],
+            });
+          }, 1000);
+        }
+
+        // getSnapshotBeforeUpdate的返回值，会传递给componentDidUpdate钩子函数
+        getSnapshotBeforeUpdate() {
+          return this.refs.list.scrollHeight;
+        }
+        componentDidUpdate(preProps, preState, height) {
+          this.refs.list.scrollTop += this.refs.list.scrollHeight - height;
+        }
+        render() {
+          let { newsArr } = this.state;
+          return (
+            <ul className="list" ref="list">
+              {newsArr.map((item, index) => {
+                return (
+                  <li key={index} className="item">
+                    {item}
+                  </li>
+                );
+              })}
+            </ul>
+          );
+        }
+      }
+
+      ReactDOM.render(<NewsList />, document.querySelector("#app"));
+    </script>
+```
+
+**生命周期的众多钩子函数中，常用的有：**
+
+render 初始化渲染或更新渲染使用
+
+componentDidMount  开启监听，发送ajax请求
+
+componentWillUnmount 收尾工作，如监听器的移除等
+
+**即将被废弃的钩子函数**
+
+componentWillMount
+
+componentWillReceiveProps
+
+componentWillUpdate
+
+现在使用这几个钩子函数的时候，浏览器中会出现一些警告，但是不确定在未来的某个版本中会移除掉这几个钩子函数。
 
 #### 3.7 虚拟DOM与DOM diff算法
+
+思考下面2个问题：
+
+1. react/vue中的key有什么作用，key的内部实现原理是什么？
+
+2. 为什么遍历列表时，key最好不要用index
+
+虚拟DOM中，key的作用：
+
+1. 简单来说，key是虚拟DOM对象的标识，在更新显示时，key有着非常重要的作用
+2. 详细说，当状态中的数据发生变化时，react会根据“新数据”生成新的虚拟DOM,随后新的虚拟DOM和旧的虚拟DOM进行diff比较，其规则如下：
+   1. 旧虚拟DOM中找到了与新虚拟DOM相同的key，
+      1. 若虚拟DOM中内容没有变，则直接使用之前的真实DOM
+      2. 若虚拟DOM中内容变了，则生成新的真实DOM，随后替换掉页面中之前的真实DOM
+   2. 旧的虚拟DOM中没有找到与新的虚拟DOM中相同的key
+      1. 根据数据创建新的真实DOM，然后渲染到页面
+
+用index作为key，可能会引发一些问题，具体如下：
+
+1. 若对数据进行：逆序添加、逆序删除等破坏顺序的操作时：
+   1. 会产生不必要的真实DOM更新->页面效果数据没有任何问题，但是会带来渲染性能的降低
+2. 如果结构中还包含输入类的DOM：
+   1. 会产生错误的DOM更新，界面会产生一些问题
+3. 注意：如果不存在对数据的逆序添加、逆序删除等破坏顺序操作：
+   1. 仅仅用于渲染列表展示数据，使用index作为key是没有问题的
+
+在项目中如何正确的使用key呢？
+
+1. 最好是使用每条数据的唯一标识作为key，如id
+2. 如果确定仅仅是简单的数据展示，不会发生破坏数据顺序的操作，使用index作为key也没啥问题
+
+```html
+    <!--react应用容器-->
+    <div id="app"></div>
+    <!--导入react核心库-->
+    <script src="../js/v17.0.2/react.development.js"></script>
+    <script src="../js/v17.0.2/react-dom.development.js"></script>
+    <script src="../js/v17.0.2/babel.min.js"></script>
+    <script type="text/babel">
+      class Person extends React.Component {
+        state = {
+          person: [
+            {
+              id: 1,
+              name: "张三",
+              age: 18,
+            },
+            {
+              id: 2,
+              name: "李四",
+              age: 19,
+            },
+          ],
+        };
+
+        addPerson = () => {
+          const { person } = this.state;
+          const p = { id: person.length + 1, name: "王五", age: 20 };
+          this.setState({
+            person: [p, ...person],
+          });
+        };
+
+        render() {
+          const { person } = this.state;
+          return (
+            <div>
+              <h2>展示人员信息</h2>
+              <button onClick={this.addPerson}>新增人员</button>
+              <h4>使用index（索引值）作为key的</h4>
+              <ul className="person">
+                {person.map((person, index) => {
+                  return (
+                    <li key={index}>
+                      {person.name} ---- {person.age} <input type="text" />
+                    </li>
+                  );
+                })}
+              </ul>
+
+              <h4>使用id（唯一标识）作为key的</h4>
+              <ul className="person">
+                {person.map((person, index) => {
+                  return (
+                    <li key={person.id}>
+                      {person.name} ---- {person.age} <input type="text" />
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          );
+        }
+      }
+
+      ReactDOM.render(<Person />, document.querySelector("#app"));
+    </script>
+```
+
+
+
+看案例：
+
+![使用index作为key和使用唯一标识作为key的区别](./images/i15.png)
 
 ### 4. React应用：基于React脚手架
 
