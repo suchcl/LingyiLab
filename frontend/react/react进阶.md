@@ -2275,7 +2275,94 @@ css文件的命名，不要直接以简单的文件意义.css的方式命名，�
    }
    ```
 
+> 在使用vscode作为react的开发工具时，推荐一个插件：ES7 React/Redux/GraphQL/React-Native snippets，有一些快捷键，挺好用
+>
+> 安装了这个插件，其他的基本上就可以不装了
 
+##### 4.1.5 react应用中样式应用
+
+react应用中引用样式的方式：
+
+1. 内联方式
+
+   ```jsx
+   export default class App extends Component {
+       render() {
+           return (
+               <div>
+                   {/* 设置内联样式 */}
+                   <h2 style={{fontSize: "32px",height: 46,lineHeight: "46px", color: "#fff", backgroundColor: "#369"}}>app……</h2>
+               </div>
+           )
+       }
+   }
+   ```
+
+   内联样式
+
+   1. 使用两对{{}}包裹，第一层是react语法中要求的，第二层表示css样式表为对象，需要使用{}包裹
+   2. css属性名使用小驼峰命名规则，属性值中有数字的，有的可以直接使用数字如字号，有的不能直接使用数字如行高。为了记忆方便，可以统一记为属性值为字符串值，使用引号包裹
+   3. 属性之间使用逗号分隔；
+
+2. 导入外部样式
+
+   ```jsx
+   import React, { Component } from "react";
+   // 常规方式引入css
+   import "./Hello.css";
+   
+   export default class Hello extends Component {
+     render() {
+       const { info } = this.props;
+       return (
+         // 常规方式设置样式
+         <div className="hello">
+           <h2 className="title">Hello,React!</h2>
+           <p className="text">{info}</p>
+         </div>
+       );
+     }
+   }
+   ```
+
+3. 模块化样式
+
+   css文件名必须是模块名称.module.css的命名规则，如home.module.css,<font color="#f20">中间的module不可省，也不可变更其他名称</font>
+
+   ```jsx
+   import React, { Component } from "react";
+   // 导入模块化的css
+   import WelcomeStyle from "./Welcome.module.css";
+   
+   export default class Welcome extends Component {
+     render() {
+       return (
+         // 模块化的css设置样式的方式,点语法
+         <div className={WelcomeStyle.welcome}>
+           <h2 className={WelcomeStyle.tit}>Welcome React!</h2>
+           <p className={WelcomeStyle.desc}>模块化css的方式使用样式</p>
+         </div>
+       );
+     }
+   }
+   ```
+
+4. css-in-js
+
+   有一个插件叫：styled-components
+
+   之后找时间把这个插件的使用方式给补上吧
+
+##### 4.1.6 功能界面的组件化编程流程
+
+1. 拆分组件：拆分界面，抽取组件
+2. 实现静态组件，使用组件实现静态页面效果
+3. 实现动态组件
+   1. 动态显示初始化效果
+      1. 数据类型
+      2. 数据名称
+      3. 组件的数据绑定
+   2. 交互：绑定事件、事件监听
 
 ### 5. React Ajax
 
