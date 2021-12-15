@@ -22,9 +22,10 @@
 
 2. [CSS 盒模型](./frontend/前端基础/css盒模型.md)
 
-3. [less等css预处理器和css比较](./frontend/前端基础/less等CSS预处理器相比css的优势.md)
+3. [less 等 css 预处理器和 css 比较](./frontend/前端基础/less等CSS预处理器相比css的优势.md)
 
 #### 2.2 Javascript
+
 1. [迭代器](./frontend/javascript/iterator.md)
 2. [js 的数据类型](./frontend/javascript/数据类型.md)
 3. [终止 forEach 循环](./frontend/javascript/foreach.md)
@@ -39,14 +40,14 @@
 12. [Math 对象的常用方法](./frontend/javascript/Math对象的常用方法.md)
 13. [delete 删除属性](./frontend/javascript/delete删除属性.md)
 14. [ES6 中的类](./frontend/javascript/ES6中的类.md)
-15. [客户端Javascript应用事件](./frontend/javascript/客户端javascript应用事件.md)
+15. [客户端 Javascript 应用事件](./frontend/javascript/客户端javascript应用事件.md)
 16. [展开运算符](./frontend/javascript/展开运算符.md)
 
 #### 2.3 Typescript
 
-1. [快速上手Typescript](./frontend/Typescript/快速上手Typescript.md)
+1. [快速上手 Typescript](./frontend/Typescript/快速上手Typescript.md)
 2. [Ts 基础知识](./frontend/Typescript/Typescript2021.10.md)
-3. [Typescript进阶](./frontend/Typescript/Typescript进阶.md)
+3. [Typescript 进阶](./frontend/Typescript/Typescript进阶.md)
 
 #### 2.4 nodejs
 
@@ -76,7 +77,7 @@
 
 1. [next.js](frontend/next.js/index.md)
 
-2. [next.js进阶](./frontend/next.js/nextjs进阶.md)
+2. [next.js 进阶](./frontend/next.js/nextjs进阶.md)
 
 #### 3.4 nuxt.js
 
@@ -205,6 +206,18 @@
 #### 12.8 工程自动化(CICD)
 
 #### 12.9 测试(单元测试、自动化测试)
+
+### 13. 人工智能
+
+#### 13.1 数学
+
+1. [高数]
+
+2. [线性代数]
+
+3. [概率论]
+
+4. [统计分析]
 
 ### 常见问题
 
