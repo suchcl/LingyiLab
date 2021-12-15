@@ -2184,6 +2184,99 @@ reportWebVitals可以实现对react应用的性能监控，那么这些性能数
 
 src/index.js ->app.js->public/index.html
 
+app.js
+
+```jsx
+// 这里的{Component}不是解构，这点需要注意，不要理解错了
+import React, { Component } from "react";
+import Hello from "./Hello";
+
+// Component直接从react导入了，这里就不需要从React派生了
+class App extends Component {
+    render() {
+        return (
+            <Hello />
+        );
+    }
+}
+
+export default App;
+```
+
+##### 4.1.4 样式的模块化
+
+页面中有多个组件的时候，如果多个组件之间拥有共同的class，那么我们在定义class的时候，就会产生重名的情况，样式就会被覆盖。
+
+这个时候，css的模块化就格外重要。
+
+**那么css的模块化怎么去做呢？**
+
+1. css文件命名
+
+css文件的命名，不要直接以简单的文件意义.css的方式命名，如index.css、list.css等，不要使用这样的命名方式。
+
+模块化css文件的命名，格式如下：文件意义.module.css，如index.module.css、list.module.css、detail.module.css等
+
+2. 模板文件的导入使用变量接收
+
+   ```jsx
+   // 通过变量接收模块化的css
+   import HelloStyle from "./Hello.module.css";
+   ```
+
+3. 为class设置属性的时候，通过对象.属性的方式
+
+   ```jsx
+     // 通过点语法为class赋值，设置样式
+     <div className={HelloStyle.hello}>
+       <h2 className={HelloStyle.title}>Hello,React!我在Hello中</h2>
+     </div>
+   ```
+
+   下面来看下完整的代码：
+
+   ```jsx
+   import React, { Component } from "react";
+   // 通过变量接收模块化的css
+   import HelloStyle from "./Hello.module.css";
+   
+   export default class Hello extends Component {
+     render() {
+       return (
+         // 通过点语法为class赋值，设置样式
+         <div className={HelloStyle.hello}>
+           <h2 className={HelloStyle.title}>Hello,React!我在Hello中</h2>
+         </div>
+       );
+     }
+   }
+   ```
+
+   <img src="./images/i16.png" alt="模块化的css效果" style="zoom:67%;" />
+
+   css模块化之后，各个模块内的css样式，都只在自己的模块内生效，不会影响到其他的模块。
+
+   我们也来看下非模块化css的情况下样式的使用：
+
+   ```jsx
+   import React, { Component } from "react";
+   // 常规的非模块化的方式引入css
+   import "./Style.css";
+   
+   export default class Style extends Component {
+     render() {
+       return (
+         // 常规模式下，非模块化的使用css选择器为class设置样式
+         <div className="style">
+           <h2 className="style-title">普通的方式使用非模块化的css</h2>
+         </div>
+       );
+     }
+   }
+   ```
+
+
+
 ### 5. React Ajax
 
 ### 6. react-router
