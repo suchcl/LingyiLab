@@ -42,8 +42,12 @@
     - [3.6.1 高阶函数](#361-%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0)
     - [3.6.2 函数柯里化](#362-%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96)
     - [3.6.3 生命周期](#363-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F)
+    - [3.6.4 react新版本的生命周期（v17.0.2）](#364-react%E6%96%B0%E7%89%88%E6%9C%AC%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9Fv1702)
   - [3.7 虚拟DOM与DOM diff算法](#37-%E8%99%9A%E6%8B%9Fdom%E4%B8%8Edom-diff%E7%AE%97%E6%B3%95)
 - [4. React应用：基于React脚手架](#4-react%E5%BA%94%E7%94%A8%E5%9F%BA%E4%BA%8Ereact%E8%84%9A%E6%89%8B%E6%9E%B6)
+  - [4.1 使用create-react-app创建react应用](#41-%E4%BD%BF%E7%94%A8create-react-app%E5%88%9B%E5%BB%BAreact%E5%BA%94%E7%94%A8)
+    - [4.1.1 react脚手架](#411-react%E8%84%9A%E6%89%8B%E6%9E%B6)
+    - [4.1.2 创建并启动项目](#412-%E5%88%9B%E5%BB%BA%E5%B9%B6%E5%90%AF%E5%8A%A8%E9%A1%B9%E7%9B%AE)
 - [5. React Ajax](#5-react-ajax)
 - [6. react-router](#6-react-router)
 - [7. React组件库](#7-react%E7%BB%84%E4%BB%B6%E5%BA%93)
@@ -2121,15 +2125,64 @@ componentWillUpdate
 3. 项目的整体技术架构为：react+webpack+es6+eslint
 4. 使用脚手架开发项目的特点：模块化、工程化、组件化
 
-4.1.2 创建并启动项目
+##### 4.1.2 创建并启动项目
 
  	1. 全局安装：npm install create-react-app -g
-     	1. 也可以不全局安装，直接使用npx create-react-app创建项目
+ 	 	1. 也可以不全局安装，直接使用npx create-react-app创建项目
  	2. 切换到希望创建项目的目录，使用命令：create-react-app 项目名称
  	3. 进入到项目目录: cd 项目名称
  	4. 启动项目: npm start
 
 > 创建一个基于react脚手架的模板项目
+
+##### 4.1.3 react项目文件分析
+
+public：静态源目录，如公共图片、css样式文件等
+
+​	index.html react应用的页面文件，也可以简单的入口文件，但是不严谨，它仅仅包含了一个容器，业务逻辑不在这里
+
+src/index.js 入口文件
+
+```jsx
+ReactDOM.render(
+  // React.StrictMode，开启react的严格模式，用来检查App组件及App组件的子组件的实现是否合理，和js中的严格模式没有任何关系
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+```
+
+React.StrictMode开启了react的严格模式，主要用来检查App组件及App组件的子组件的实现是否合理，如react组件中是否使用了react不推荐使用的语法、即将被废弃的api等，如字符串形式的ref，react都会给出一些提示信息
+
+```jsx
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+
+ReactDOM.render(
+  // React.StrictMode，开启react的严格模式，用来检查App组件及App组件的子组件的实现是否合理，和js中的严格模式没有任何关系
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+// 用于记录页面性能的，监测性能
+// 框架帮我们记录了性能，那么这些性能怎么利用起来呢，需要再去研究、调研一下
+reportWebVitals();
+```
+
+reportWebVitals可以实现对react应用的性能监控，那么这些性能数据怎么利用起来呢？还需要再继续学习、研究
+
+**react的执行顺序：**
+
+src/index.js ->app.js->public/index.html
 
 ### 5. React Ajax
 
