@@ -2518,7 +2518,11 @@ checked：初次渲染状态和修改的时候都可用，但是需要和onChang
 
 #### 5.2 axios库
 
+#### 5.3 配置代理
+
 我们知道，异步的ajax请求，存在跨域问题，那么react应用怎么处理跨域问题呢？非常常见的一种做法是使用代理的方式。
+
+**方法一：**
 
 react应用中配置代理的方式，在package.json中配置proxy字段：
 
@@ -2529,6 +2533,50 @@ react应用中配置代理的方式，在package.json中配置proxy字段：
 代理的意思是，代为搭理，比如react应用本地启动开发服务器启动后，默认端口号是3000，那么开发环境发送请求的时候，正常情况下是通过3000端口发送请求的，但是这里配置了代理后，那么本地开发环境的网络请求，就都被代理到了5000端口去发送请求了。正式通过这种方式，可以规避掉跨域问题。
 
 但是配置了代理服务器后，开发环境的网络请求，就不能直接给5000端口发请求了，而应该给3000端口发请求，然后代理服务器转发到5000端口去向服务器请求数据。实际上，客户端的数据是从本地的代理服务器请求的数据，数据也是从代理服务器给的客户端的。只是中间的代理服务器又做了一些工作，从服务器端拿了次数据。
+
+该方法简单，但是只能配置一个代理
+
+**方法二：**
+
+配置方法复杂，但是使用起来灵活，在src目录下新建setupProxy.js文件，该文件名不可改：
+
+```javascript
+const { createProxyMiddleware } = require('http-proxy-middleware');
+
+module.exports = function (app) {
+    app.use(
+        '/api', // 请求地址中有/api的请求就会触发该转发配置
+        createProxyMiddleware({
+            target: 'http://localhost:5000', // 请求转发的目标服务器
+            /**
+             * 控制服务器中收到的请求头中的Host字段的值，该属性加和不加，一般情况下不会影响到服务器下发数据
+             * 默认为false
+             * 如果设置为true，则服务器中收到的请求头中Host字段值为代理服务器的地址
+             * 如果设置为false，则服务器中收到的请求头中的Host为客户端服务器的地址
+             * 一般情况下，都会显示设置为true
+             */
+            changeOrigin: true,
+            // 该项必须配置，要将前面通配的/api重置为空，否则服务器中匹配不到响应的服务端路由
+            // 重写下请求url
+            pathRewrite: {
+                '^/api': '' // 将/api 变为 ''
+            }
+        })
+    );
+    app.use(
+        '/api2',
+        createProxyMiddleware({
+            target: 'http://localhost:5001',
+            changeOrigin: true,
+            pathRewrite: {
+                '^/api2': '' // 将/api2 变为 ''
+            }
+        })
+    );
+};
+```
+
+更加详细的信息请参考：https://create-react-app.dev/docs/proxying-api-requests-in-development
 
 ### 6. react-router
 
