@@ -2368,7 +2368,97 @@ react应用中引用样式的方式：
 
 react组件在引入组件的时候，良好的实践是先引入第三方库的组件，再引入自己开发的组件、模块。
 
+##### 4.2.1 父子组件之间的通信
 
+组件之间的通信，具体就是指不同组件之间的数据传值。
+
+**父组件传值给子组件**
+
+父组件传值给子组件，通过props的方式
+
+```jsx
+  render() {
+    const { todos } = this.state;
+    return (
+      <div className="todo-container">
+        <div className="todo-wrap">
+          <Header />
+          {/* 父组件将todos传递给子组件List，父组件向子组件传值 */}
+          <List todos={todos} />
+          <Footer />
+        </div>
+      </div>
+    );
+  }
+```
+
+**子组件向父组件传值**
+
+子组件向父组件传值，通过自定义方法的方式。
+
+父组件可以向子组件通过props的方式传递一个自定义函数，然后子组件中在某种状态的时候调用这个从父组件中传递过来的自定义函数。
+
+```jsx
+{/* 父组件 */}
+{/* 父组件向子组件传递自定义函数 */}
+<Header addTodoTask={this.addTodo} />
+
+{/* 子组件 */}
+// 解构赋值，从props中拿到addTodoTask自定义事件
+const { addTodoTask } = this.props;
+
+// 为addTodo事件准备参数，对象类型
+const todoObj = {
+    id: nanoid(),
+    name: target.value,
+    done: false,
+};
+
+// 执行从父组件通过props方式传递过来的自定义函数，触发父组件对该自定义函数的响应事件
+addTodoTask(todoObj);
+```
+
+
+
+##### 4.2.2 生成唯一值
+
+生成唯一值，常用的有以下几种方式：
+
+1. 使用当前时间戳
+2. Math.random()生成一个随机数
+3. 使用一些工具库，生成一个随机字符串，如uuid、nanoid
+
+使用时间戳的方式，如果在系统中是小范围的使用，应该也不会有什么太大的问题，但是人如果使用量大了，也难免会有两个同时间的操作，那么时间戳就相同了
+
+Math.random()是生成的是0-1之间的随机数，全是小数，感觉有那么点难以满足需求
+
+一些工具库如uuid，nanoid，现在来看是不错的，说是可以生成全球唯一的一个字符串，不会重复。但是具体的实现还是要继续研究、学习，它是怎么保证唯一的。
+
+uuid和nanoid，都有npm包，在前端项目中可以通过npm或者yarn来装使用。nanoid库更小，也是生成的uuid；uuid库相对较大，所以在具体使用的时候，可以选择nanoid库
+
+**使用方式**
+
+以nanoid库为例，先要安装
+
+```bash
+npm install nanoid;
+```
+
+nanoid对外暴露了nanoid函数，在项目中使用的时候，可以通过直接调用nanoid函数的方式使用
+
+安装之后，在需要使用的文件中先导入nanoid工具库，然后直接调用nanoid函数就可以了
+
+```jsx
+// 导入nanoid工具库，可以生成随机、唯一的字符串
+import { nanoid } from "nanoid";
+
+const n1 = nanoid();
+const n2 = nanoid();
+const n3 = nanoid();
+console.log(`n1: ${n1}`);
+console.log(`n2: ${n2}`);
+console.log(`n3: ${n3}`);
+```
 
 ### 5. React Ajax
 
