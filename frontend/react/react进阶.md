@@ -2481,7 +2481,22 @@ handleMouse = () => {
 </li>
 ```
 
+##### 4.2.4 checkbox控件的defaultChecked和checked属性
 
+react元素的checkbox控件，在初次渲染的时候，既可以使用defaultChecked属性设置初始值，也可以使用checked属性设置控件的初始状态。
+
+defaultChecked：只有在第一次渲染的时候有用，在控件修改状态的时候它不会生效
+
+checked：初次渲染状态和修改的时候都可用，但是需要和onChange事件配合使用
+
+```jsx
+<input
+    type="checkbox"
+    // checkbox控件的初始状态，可以使用checked，也可以使用defaultChecked，但是使用checked的时候需要配合onChange一起使用
+    checked={doneCount === total ? true : false}
+    onChange={this.checkAllTodo}
+    />
+```
 
 ### 5. React Ajax
 
