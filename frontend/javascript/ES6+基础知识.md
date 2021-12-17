@@ -645,6 +645,55 @@ function decAssign() {
 console.log(decAssign()); // {uname: "Nicholas", age: 16, gender: "Male"}
 ```
 
+**连续解构赋值**
+
+```javascript
+      let obj = {
+        a: {
+          b: {
+            c: 12,
+          },
+        },
+      };
+```
+
+一个对象中又包裹了多层对象，如果需要解构最内层的值，可以使用连续解构的方式。如案例中我想解构c的值：
+
+```javascript
+      const {
+        a: {
+          b: { c },
+        },
+      } = obj;
+      console.log(c); // 12
+```
+
+连续解构的时候，只能使用解构的最终的值c，而解构过程中出现的a和b是不可以使用的,会提示没有定义
+
+```javascript
+      const {
+        a: {
+          b: { c },
+        },
+      } = obj;
+      console.log(b); // Uncaught ReferenceError: b is not defined
+```
+
+如效果：
+
+![连续解构过程中的变量是不可使用的](./images/i4.png)
+
+解构变量过程中，还可以给变量重命名：如案例中最终需要使用c属性，但是c属性可读性又不高，我就希望重命名一下为data吧：
+
+```javascript
+      const {
+        a: {
+          b: { c: data }, // 将c重命名为data
+        },
+      } = obj;
+      console.log(data); // 12
+```
+
 ### 对象的增强写法（对象字面量的增强写法）
 
 对象字面量，很多开发语言中都有类似的概念。
