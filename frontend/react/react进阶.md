@@ -2578,8 +2578,128 @@ module.exports = function (app) {
 
 更加详细的信息请参考：https://create-react-app.dev/docs/proxying-api-requests-in-development
 
-### 6. react-router
+#### 5.4 消息订阅-发布机制
+
+1. 工具库：PubSubJs
+2. 下载：npm install pubsub-js --save
+3. 使用
+   1. import PubSub from "pubsub-js"
+   2. PubSub.subcribe("delete",function(data){}); // 订阅消息
+   3. PubSub.publish("delete",data); // 发布消息
+
+### 6. react-router   路由
+
+#### 6.1 相关理解
+
+##### 6.1.1 SPA的理解
+
+1. 单页web应用
+2. 整个应用只有一个完整的页面
+3. 点击页面中的连接不会刷新页面，只会做页面的局部刷新
+4. 数据都需要通过ajax请求获取，并在前端异步渲染
+
+##### 6.1.2 路由的理解
+
+1. 什么是路由
+
+   一个路由就是一个映射关系 key:value
+
+   key为路径，value可能是function或者component
+
+2. 路由分类
+
+   1. 后端路由
+      1. 理解:value是function，用来处理客户端提交的请求
+      2. 注册路由：router.get(path,function(req,res))
+      3. 工作过程：当node接收到一个客户端的请求时，根据请求路径找到匹配的路由，调用路由中的函数来处理请求，返回响应函数
+   2. 前端路由
+      1. 浏览器端的路由：value是一个component，用于展示页面内容
+      2. 注册路由：<Router path="/test" component={Test}
+      3. 工作过程：当浏览器的path变为test时，当前路由组件就会变为Test组件
+
+##### 6.1.3 react-router的理解
+
+1. react的一个路由插件库
+2. 专门用来实现一个SPA应用
+3. 基于React的应用，基本都会用到这个库
+
+#### 6.2 react-router相关API
+
+react-router有三种实现，web应用、react native应用和any（任何形式的应用）。
+
+web开发中，更好的实践是使用react-router-dom实现
+
+##### 6.2.1 内置组件
+
+<BrowserRouter>
+
+<HashRouter>
+
+<Route>
+
+<Redirect>
+
+<Link>
+
+<NavLink>
+
+<Switch>
+
+##### 6.2.2 其他
+
+1. history对象
+2. match对象
+3. withRouter对象
+
+#### 6.3 基本的路由使用
+
+HTML中靠a实现不同页面之间的跳转
+
+React中靠路由实现不同组件之间的切换、映射
+
+react-router-dom，暴露了多个组件，按需引用，使用哪个就导入哪个
+
+```jsx
+import { Link, Route, Routes } from "react-router-dom";
+{/* 编写路由连接 */}
+<Link className="list-group-item" to="/about">
+    关于
+</Link>
+<Link className="list-group-item" to="/home">
+    Home
+</Link>
+{/* 注册路由 */}
+<Routes>
+    <Route path="/about" element={<About />} />
+    <Route path="/home" element={<Home/>} />
+</Routes>
+```
+
+在同一个react应用中，所有的路由都要在一个集中的路由器管理下，所以我们可以把这个集中的路由器包裹在最外层
+
+```jsx
+// index.js
+import { BrowserRouter } from 'react-router-dom';
+ReactDOM.render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+```
+
+react应用中的所有路由都已经被集中的路由器的管理下了。
+
+#### 6.4 嵌套路由使用
+
+#### 6.5 向路由组件传递参数数据
+
+#### 6.6 多种路由跳转方式
 
 ### 7. React组件库
+
+
 
 ### 8. redux
