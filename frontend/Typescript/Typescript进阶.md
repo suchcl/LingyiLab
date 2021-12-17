@@ -1,3 +1,47 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [1. JS情况](#1-js%E6%83%85%E5%86%B5)
+  - [1.1 Ts究竟是什么？](#11-ts%E7%A9%B6%E7%AB%9F%E6%98%AF%E4%BB%80%E4%B9%88)
+  - [1.2 Ts相比较Js增加了什么？](#12-ts%E7%9B%B8%E6%AF%94%E8%BE%83js%E5%A2%9E%E5%8A%A0%E4%BA%86%E4%BB%80%E4%B9%88)
+- [2. Ts开发环境搭建](#2-ts%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA)
+- [3. 基本数据类型](#3-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B)
+  - [3.1 字面量类型声明方式](#31-%E5%AD%97%E9%9D%A2%E9%87%8F%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E%E6%96%B9%E5%BC%8F)
+  - [3.2 any类型](#32-any%E7%B1%BB%E5%9E%8B)
+  - [3.3 unknown](#33-unknown)
+  - [3.4 void](#34-void)
+  - [3.5 never](#35-never)
+  - [3.6 object](#36-object)
+  - [3.7 array](#37-array)
+  - [3.8 tuple](#38-tuple)
+  - [3.9 enum](#39-enum)
+  - [3.10 声明变量为多个类型：可以用或 | ，也可以使用且 &。](#310-%E5%A3%B0%E6%98%8E%E5%8F%98%E9%87%8F%E4%B8%BA%E5%A4%9A%E4%B8%AA%E7%B1%BB%E5%9E%8B%E5%8F%AF%E4%BB%A5%E7%94%A8%E6%88%96--%E4%B9%9F%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8%E4%B8%94-)
+  - [3.11 类型别名](#311-%E7%B1%BB%E5%9E%8B%E5%88%AB%E5%90%8D)
+- [4. 编译选项](#4-%E7%BC%96%E8%AF%91%E9%80%89%E9%A1%B9)
+- [5. webpack整合TS](#5-webpack%E6%95%B4%E5%90%88ts)
+  - [5.1 基本配置](#51-%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE)
+  - [5.2 配置HTML中自动引入js、css文件](#52-%E9%85%8D%E7%BD%AEhtml%E4%B8%AD%E8%87%AA%E5%8A%A8%E5%BC%95%E5%85%A5jscss%E6%96%87%E4%BB%B6)
+  - [5.3 配置webpack-dev-server](#53-%E9%85%8D%E7%BD%AEwebpack-dev-server)
+  - [5.4 clean-webpack-plugin生成文件之前清空output（生成文件）目录](#54-clean-webpack-plugin%E7%94%9F%E6%88%90%E6%96%87%E4%BB%B6%E4%B9%8B%E5%89%8D%E6%B8%85%E7%A9%BAoutput%E7%94%9F%E6%88%90%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95)
+  - [5.5 模块配置](#55-%E6%A8%A1%E5%9D%97%E9%85%8D%E7%BD%AE)
+- [6. babel配置](#6-babel%E9%85%8D%E7%BD%AE)
+  - [6.1 安装babel相关](#61-%E5%AE%89%E8%A3%85babel%E7%9B%B8%E5%85%B3)
+  - [6.2  babel相关配置](#62--babel%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE)
+- [7. 面向对象](#7-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1)
+  - [7.1 类](#71-%E7%B1%BB)
+    - [7.1.1 属性](#711-%E5%B1%9E%E6%80%A7)
+    - [7.1.2 方法](#712-%E6%96%B9%E6%B3%95)
+    - [7.1.3 构造函数](#713-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0)
+  - [7.1.4 继承](#714-%E7%BB%A7%E6%89%BF)
+  - [7.1.5 抽象类](#715-%E6%8A%BD%E8%B1%A1%E7%B1%BB)
+  - [7.1.6 接口](#716-%E6%8E%A5%E5%8F%A3)
+  - [7.1.7 属性封装](#717-%E5%B1%9E%E6%80%A7%E5%B0%81%E8%A3%85)
+  - [7.1.8 泛型](#718-%E6%B3%9B%E5%9E%8B)
+- [7.2 项目实践-贪食蛇](#72-%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B5-%E8%B4%AA%E9%A3%9F%E8%9B%87)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ### 1. JS情况
 
 JS易学易用，但是由于本身的特性，可能会有一些隐藏的隐患
