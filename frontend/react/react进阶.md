@@ -2701,8 +2701,6 @@ import { HashRouter } from 'react-router-dom'; // hash模式，url中会出现#�
 import { BrowserRouter } from 'react-router-dom'; // history模式，url中较美观，不会出现#，但是代码部署的时候需要web服务器做一些处理
 ```
 
-#### 6.4 嵌套路由使用
-
 使用react-router，就会涉及到路由router。
 
 做react开发，一般情况下会将组件分为一般组件和路由组件。
@@ -2734,6 +2732,120 @@ import { BrowserRouter } from 'react-router-dom'; // history模式，url中较�
 这2个组件，分别表示在路由指向的时候渲染的这个组件，它们在react-router中习惯被称为路由组件。
 
 路由组件，在前端工程中，一般会被放置在pages目录下。
+
+**路由组件和一般组件的主要区别**
+
+1. 路由组件和一般组件的区别，除了前面说的可能存放的目录不同
+
+2. 使用方式不同：一般组件的使用方式：
+
+   ```jsx
+   {/* 一般组件：Header */}
+   <Header age={16} />
+   ```
+
+   一般组件，除了命名以外，其他的就和一个普通的DOM标签几乎相同
+
+   路由组件的使用方式：
+
+   ```jsx
+   <Routes>
+       {/* 路由组件：About、Home */}
+       <Route path="/about" element={<About />} />
+       <Route path="/home" element={<Home/>} />
+   </Routes>
+   ```
+
+   路由组件都是作为路由空间Route的属性值来使用的
+
+3. 最大的区别：
+
+   1. 一般组件默认不会接收参数，在组件使用的地方有传递了，才会通过props接收
+
+   2. 路由组件默认会接收到许多路由参数，对于我们的日常开发最关注的可能就是是history、location、match
+
+      ```jsx
+      {/* 一般组件：Header */}
+      <Header age={16} />
+      {/* 注册路由 */}
+      <Routes>
+          {/* 路由组件：About、Home */}
+          <Route path="/about" element={<About />} />
+          <Route path="/home" element={<Home/>} />
+      </Routes>
+      ```
+
+      查看组件默认接收参数情况：
+
+      ```jsx
+      // Header.jsx
+      import React, { Component } from "react";
+      
+      export default class Header extends Component {
+        render() {
+          console.log("Header组件默认接收到的参数：",this.props);
+          return (
+            <div className="page-header">
+              <h2>React Router Demo</h2>
+            </div>
+          );
+        }
+      }
+      
+      // Home.jsx
+      import React, { Component } from "react";
+      
+      export default class Home extends Component {
+        render() {
+          console.log("Home组件默认接收到的参数：", this.props);
+          return <div>Home</div>;
+        }
+      }
+      ```
+
+      看效果：
+
+      ![一般组件默认接收的参数情况](./images/i17.png)
+
+      默认情况是没有接收到任何参数，因为使用的时候没有传递参数
+
+      路由组件（react-router-dom@6.1.1），现在路由组件默认也接收不到参数了，今天查一下，再更新文档
+
+   **react路由的基本使用**
+
+   1. 划分好页面模块、组件：导航区、展示区
+
+   2. 导航部分的a使用Link组件实现
+
+      ```jsx
+      <Link className="list-group-item" to="/about">
+          关于
+      </Link>
+      ```
+
+   3. 展示区使用Route标签进行路径和组件匹配
+
+      ```jsx
+      <Routes>
+          {/* 路由组件：About、Home */}
+          <Route path="/about" element={<About />} />
+          <Route path="/home" element={<Home />} />
+      </Routes>
+      ```
+
+   4. <App />最外层使用<BrowserRouter>或者<HashRouter>包裹，让路由统一管理
+
+      ```jsx
+      <BrowserRouter>
+          <App />
+      </BrowserRouter>
+      ```
+
+#### 6.4 嵌套路由使用
+
+1. 1. 
+
+      
 
 #### 6.5 向路由组件传递参数数据
 
