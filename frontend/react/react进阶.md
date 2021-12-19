@@ -2655,7 +2655,7 @@ web开发中，更好的实践是使用react-router-dom实现
 
 HTML中靠a实现不同页面之间的跳转
 
-React中靠路由实现不同组件之间的切换、映射
+React中靠路由实现不同组件之间的切换、映射，依赖react-router库
 
 react-router-dom，暴露了多个组件，按需引用，使用哪个就导入哪个
 
@@ -2675,6 +2675,8 @@ import { Link, Route, Routes } from "react-router-dom";
 </Routes>
 ```
 
+这里的<Route>标签中的element属性，我记得文档中说的是应该使用component，我但是这里不能使用component属性，而得使用element属性，我没有具体确认是否是react-router的文档没有更新，详情可参考：https://react-router.docschina.org/web/api/Route/component。
+
 在同一个react应用中，所有的路由都要在一个集中的路由器管理下，所以我们可以把这个集中的路由器包裹在最外层
 
 ```jsx
@@ -2692,7 +2694,46 @@ ReactDOM.render(
 
 react应用中的所有路由都已经被集中的路由器的管理下了。
 
+react-router和vue-router一样，也分为hash模式的router和history模式的router
+
+```jsx
+import { HashRouter } from 'react-router-dom'; // hash模式，url中会出现#，#后面的内容是hash值，在有http请求的时候，不会向服务器发送
+import { BrowserRouter } from 'react-router-dom'; // history模式，url中较美观，不会出现#，但是代码部署的时候需要web服务器做一些处理
+```
+
 #### 6.4 嵌套路由使用
+
+使用react-router，就会涉及到路由router。
+
+做react开发，一般情况下会将组件分为一般组件和路由组件。
+
+**一般组件**
+
+一般组件，类似
+
+```jsx
+<Index />
+```
+
+这样的组件，就是一个模块的展示，表示一部分单独功能、样式的集合，就是一个普通的组件。
+
+一般组件，一般情况下会被放置在components目录下，或者当前模块中的componens目录下。
+
+**路由组件**
+
+类似
+
+```jsx
+{/* 注册路由 */}
+<Routes>
+    <Route path="/about" element={<About />} />
+    <Route path="/home" element={<Home/>} />
+</Routes>
+```
+
+这2个组件，分别表示在路由指向的时候渲染的这个组件，它们在react-router中习惯被称为路由组件。
+
+路由组件，在前端工程中，一般会被放置在pages目录下。
 
 #### 6.5 向路由组件传递参数数据
 
