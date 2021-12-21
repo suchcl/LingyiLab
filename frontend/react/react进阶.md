@@ -77,6 +77,14 @@ React只关注视图、只关注页面
 
 React是一个将数据渲染为HTML视图的开源Javascript库
 
+> 几个重点网站：
+>
+> React-router文档：https://reactrouter.com/docs/en/v6
+>
+> React：https://reactjs.org/
+>
+> 建议大家尽量看英文文档，穿一手鞋，不穿二手鞋。
+
 #### 1.2 起源
 
 facebook公司推出的。
@@ -2589,6 +2597,10 @@ module.exports = function (app) {
 
 ### 6. react-router   路由
 
+路由相关的资料，https://reactrouter.com/docs/en/v6，看这个文档吧，最新的文档
+
+另外：https://react-router.docschina.org/ 这个也可以看，但是文档没有跟上api的最新版本，看起来，有的时候对不上
+
 #### 6.1 相关理解
 
 ##### 6.1.1 SPA的理解
@@ -2945,6 +2957,47 @@ export default class MyNavlink extends Component {
 这样使用自定义封装的导航组件，简写了一部分重复的代码，还是按照常规的写法，好了很多。
 
 这个组件的封装的实际意义不大，但是这种组件封装的意识很重要，因为一般情况下，导航应该从后台配置的。
+
+**Switch组件**
+
+在react-router最新的版本(我现在看的react-router-dom@6.2.0)中，已经没有这个组件了。
+
+在react-router-dom@5.3.0之前的版本中，如果出现了这样的代码：
+
+```jsx
+<Route path="/about" component={About} />
+<Route path="/home" component={Home} />
+<Route path="/home" component={Test} />
+```
+
+那么当路由跳转到home的时候，会同时渲染Home和Test两个组件内容的,但是如果在路由组件的外面使用<Switch>组件包裹了，那么当匹配到"/home"路由时，就只会匹配到第一个节点的组件，本案例中也就是只会渲染Home组件，不会再渲染Test组件了，对性能来说很有帮助：因为不使用<Switch>组件，当有了匹配路由的组件时，代码还会继续匹配，匹配到了几个组件，就会渲染几个组件的内容，但是使用了<Switch>组件后就只会渲染匹配到的第一个组件。正常情况下，一个路由也就是只会匹配一个组件。
+
+```jsx
+<Switch>
+    <Route path="/about" component={About} />
+    <Route path="/home" component={Home} />
+    <Route path="/home" component={Test} />
+</Switch>
+```
+
+<Switch>组件使用很简单，一般情况下当有2个或以上的路由组件时才去使用，不要滥用。
+
+新版本的react-router(react-router@6.0.0及以上)中，已经没有了这个组件了。因为新版本的react-router的使用方式，已经给去了重了，每个路由组件只会渲染第一个组件
+
+```jsx
+<Routes>
+    {/* 路由组件：About、Home */}
+    <Route path="/about" element={<About />} />
+    <Route path="/home" element={<Home />} />
+    <Route path="/home" element={<Test />} />
+</Routes>
+```
+
+案例中为"/home"路由映射了2个组件，我们看页面效果：
+
+![react-router6.0.0以上的版本为路由映射组件去重了](./images/i20.png)
+
+直接不会渲染第一个以下的组件了
 
 #### 6.4 嵌套路由使用
 
