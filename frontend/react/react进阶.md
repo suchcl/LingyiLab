@@ -2860,7 +2860,91 @@ NavLink升级了Link组件，那么它升级了什么呢？它升级了与当前
 
 isActive，可以直接使用，不需要单独声明，nav-item是默认的class名称，on表示高亮的class名称
 
+**封装一个自定义的NavLink组件**
 
+案例中，有多个NavLink组件，我们看到了每个NavLink组件都设置了className属性，代码还有些冗余，那么能不能通过NavLink封装一个自定义的组件呢，以达到减少冗余代码的目标？
+
+```jsx
+// MyNavlink.jsx
+import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
+
+export default class MyNavlink extends Component {
+  render() {
+    const { to, title } = this.props;
+    console.log(this.props);
+    return (
+      <NavLink className={({ isActive }) => (isActive ? "nav-item on" : "nav-item")} {...this.props} />
+    );
+  }
+}
+
+// App.jsx
+ {/* 编写路由连接 */}
+<MyNavlink to="/about" title="About" a="1" b="2" c="3">About</MyNavlink>
+<MyNavlink to="/home" title="Home">Home</MyNavlink>
+```
+
+通过NavLink封装一个自定义的导航组件不那么复杂，但是这里有一个小的知识点，就是标签内容，也可以通过props去传递。
+
+不是自闭和的导航组件：
+
+```jsx
+<MyNavlink to="/about" title="About" a="1" b="2" c="3">About</MyNavlink>
+```
+
+我们观察一下非自闭和形式的自定义标签
+
+```jsx
+import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
+
+export default class MyNavlink extends Component {
+  render() {
+    const { to, title } = this.props;
+    // 打印从组件传递过来的props
+    console.log(this.props);
+    return (
+      <NavLink className={({ isActive }) => (isActive ? "nav-item on" : "nav-item")} {...this.props} />
+    );
+  }
+}
+```
+
+<img src="./images/i18.png" alt="非自闭和形式的自定义组件" style="zoom:67%;" />
+
+可以看出来，组件传递过来了一个children属性，属性内容是标签内容。
+
+所以，正常情况下，封装自定义导航组件应该是:
+
+```jsx
+<NavLink className={({ isActive }) => (isActive ? "nav-item on" : "nav-item")} {...this.props}>{this.props.children}</NavLink>
+```
+
+但是我们可以让自定义组件自闭和，然后将children属性赋值给自定义标签属性看下效果：
+
+```jsx
+<NavLink className={({ isActive }) => (isActive ? "nav-item on" : "nav-item")} {...this.props} children={this.props.children} />
+```
+
+<img src="./images/i19.png" alt="标签自闭和，为自定义标签设置children属性" style="zoom:67%;" />
+
+虽然没有显示设置标签内容，给自定义标签设置了一个children属性，组件渲染的时候，直接将children属性值渲染为了标签内容，那么我们根据{...this.props}，children属性也可以省略，最终就是：
+
+```jsx
+<NavLink className={({ isActive }) => (isActive ? "nav-item on" : "nav-item")} {...this.props} />
+```
+
+然后按照常规的组件调用方式调用就可以了：
+
+```jsx
+<MyNavlink to="/about" title="About" a="1" b="2" c="3">About</MyNavlink>
+<MyNavlink to="/home" title="Home">Home</MyNavlink>
+```
+
+这样使用自定义封装的导航组件，简写了一部分重复的代码，还是按照常规的写法，好了很多。
+
+这个组件的封装的实际意义不大，但是这种组件封装的意识很重要，因为一般情况下，导航应该从后台配置的。
 
 #### 6.4 嵌套路由使用
 
