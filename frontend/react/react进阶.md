@@ -2737,6 +2737,9 @@ import { BrowserRouter } from 'react-router-dom'; // history模式，url中较�
 
 1. 路由组件和一般组件的区别，除了前面说的可能存放的目录不同
 
+   1. 一般组件：components目录下
+   2. 路由组件：pages目录下
+
 2. 使用方式不同：一般组件的使用方式：
 
    ```jsx
@@ -2841,11 +2844,27 @@ import { BrowserRouter } from 'react-router-dom'; // history模式，url中较�
       </BrowserRouter>
       ```
 
+**NavLink**
+
+可以简单理解NavLink为Link的升级版，Link默认可以将路由渲染为a标签,就是一个普通的导航跳转。
+
+NavLink升级了Link组件，那么它升级了什么呢？它升级了与当前导航URL相匹配时可以为当前的导航添加特殊的样式，可以通过设置activeClassName来实现，activeClassName默认的属性值为active。如果项目中使用了bootstrap的时候，需要注意，bootstrap中的当前选中样式也使用了active这个class名。
+
+当前导航高亮效果，可以使用NavLink组件
+
+```jsx
+{/* 编写路由连接 */}
+<NavLink className={({ isActive }) => isActive ? "nav-item on" : "nav-item" } to="/about">关于 </NavLink>
+<NavLink className={({ isActive }) => isActive ? "nav-item on" : "nav-item" } to="/home">Home </NavLink>
+```
+
+isActive，可以直接使用，不需要单独声明，nav-item是默认的class名称，on表示高亮的class名称
+
+
+
 #### 6.4 嵌套路由使用
 
-1. 1. 
 
-      
 
 #### 6.5 向路由组件传递参数数据
 
