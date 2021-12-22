@@ -2999,6 +2999,65 @@ export default class MyNavlink extends Component {
 
 直接不会渲染第一个以下的组件了
 
+**react中样式丢失的问题**
+
+看案例：
+
+```jsx
+{/* 编写路由连接 */}
+<MyNavlink to="/about">About</MyNavlink>
+<MyNavlink to="/home">Home</MyNavlink>
+
+{/* 注册路由 */}
+<Routes>
+    {/* 路由组件：About、Home */}
+    <Route path="/about" element={<About />} />
+    <Route path="/home" element={<Home />} />
+</Routes>
+```
+
+有路由连接，且也注册了路由，在渲染页面的时候，无论是怎么跳转、刷新，都没有任何问题。
+
+现在我们修改下路由：就是在路由前统一加一层公共的path，如/test/about
+
+```jsx
+{/* 编写路由连接 */}
+<MyNavlink to="/test/about">About</MyNavlink>
+<MyNavlink to="/test/home">Home</MyNavlink>
+{/* 注册路由 */}
+<Routes>
+    {/* 路由组件：About、Home */}
+    <Route path="/test/about" element={<About />} />
+    <Route path="/test/home" element={<Home />} />
+</Routes>
+```
+
+修改后，页面、组件初次渲染的时候，没有任何问题
+
+![路由添加公共的一层path后初次渲染效果](./images/i21.png)
+
+但是我们刷新一下：样式丢了
+
+![路由添加公共的一层path后刷新，样式丢了](./images/i22.png)
+
+这是什么原因呢？我们看下开发者工具，追踪下资源情况：
+
+<img src="./images/i23.png" alt="路由添加公共一层的path后刷新，样式的请求路径发生了变化" style="zoom:67%;" />
+
+原来请求的css已经不是在根目录下的css了，而是请求到了路由中添加的那层path下了。但是我们的项目目录，是没有path这一层的，所以就请求不到这个资源了。
+
+细心的同学可能会发现，请求的状态码是200，是请求成功了的，那么为什么在没有资源存在的情况下却请求成功了呢？
+
+这是因为react给做的处理，在请求的静态资源不存在的时候，它就默认给返回项目的首页index.html了，所以在请求不存在的css文件时，它实际上返回的是index.html，而不是真正的css，所以状态码的请求状态是200.这个结果也可以从开发者工具中得到验证：
+
+<img src="./images/i24.png" alt="react在多层路由中刷新时，请求到了不存在的静态资源默认返回index.html" style="zoom:67%;" />
+
+解决办法：
+
+因为是路径带来的问题，所以解决问题的方法上，还是要从解决文件的路径上去着手。
+
+1. 
+
 #### 6.4 嵌套路由使用
 
 
