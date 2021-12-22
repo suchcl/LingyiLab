@@ -3109,6 +3109,16 @@ export default class MyNavlink extends Component {
    <Route exact path="/test/home" element={<Home />} />
    ```
 
+**路由重定向**
+
+下面的案例都是以react-router-dom@5.3.0版本为准，因为react-router-dom的6.x版本中，很多元素、控件都有了很大的变化
+
+```jsx
+<Redirect to="/about" />
+```
+
+页面、组件会重定向到这个Redirect控件指定的路由，类似于服务器端路由的3xx重定向。
+
 #### 6.4 嵌套路由使用
 
 
