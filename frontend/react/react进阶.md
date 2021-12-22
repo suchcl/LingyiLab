@@ -3097,6 +3097,18 @@ export default class MyNavlink extends Component {
 
    虽然有这三种方式可以解决多层路径时的样式丢失问题的方案，但是一般的情况下是使用第二种方案，其他的方案了解即可。
 
+   还有就是会存在在入口文件引用样式的问题。
+
+   **路由的严格精准匹配和模糊匹配**
+
+   一般情况下，没有特殊要求，就不使用严格的精准匹配。
+
+   使用严格的精准匹配，也很简单，只需要一个exact属性，boolean值。
+
+   ```jsx
+   <Route exact path="/test/home" element={<Home />} />
+   ```
+
 #### 6.4 嵌套路由使用
 
 
