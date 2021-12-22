@@ -3119,9 +3119,32 @@ export default class MyNavlink extends Component {
 
 页面、组件会重定向到这个Redirect控件指定的路由，类似于服务器端路由的3xx重定向。
 
+更多的情况下，<Redirect>会放在所有路由的最下方，当没有匹配到路由时，去重定向到指定的路由。
+
 #### 6.4 嵌套路由使用
 
+嵌套路由，也称为二级路由。但是如果叫二级路由的话，就会有些人问三级路由、四级路由等。
 
+```jsx
+<div>
+    {/* 导航区域 */}
+    <ul className="nav nav-tabs">
+        <li>
+            {/* 子组件导航区域指定to属性时，需要同时带上父组件的路由，如/home/news */}
+            <MyNavlink to="/home/news">News</MyNavlink>
+        </li>
+        <li>
+            <MyNavlink to="/home/message">Message</MyNavlink>
+        </li>
+    </ul>
+    {/* 注册路由，路由的匹配顺序从父组件开始模糊匹配 */}
+    <Switch>
+        <Route path="/home/news" component={News} />
+        <Route path="/home/message" component={Message} />
+        <Redirect to="/home/news" />
+    </Switch>
+</div>
+```
 
 #### 6.5 向路由组件传递参数数据
 
