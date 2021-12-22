@@ -3056,7 +3056,46 @@ export default class MyNavlink extends Component {
 
 因为是路径带来的问题，所以解决问题的方法上，还是要从解决文件的路径上去着手。
 
-1. 
+1. 入口文件引用静态资源文件的时候，使用绝对路径
+
+   ```html
+       <!-- link标签导入css文件的时候，使用相对路径是一种很不好的实践 -->
+       <!-- <link rel="stylesheet" href="./bootstrap.min.css"> -->
+   
+       <!-- link标签导入css文件的时候，可以使用绝对路径 -->
+       <!-- <link rel="stylesheet" href="/bootstrap.min.css"> -->
+   ```
+
+2. 使用变量动态匹配
+
+   ```html
+   <!-- link标签导入css文件的时候，推荐使用变量匹配 -->
+   <link rel="stylesheet" href="%PUBLIC_URL%/bootstrap.min.css">
+   ```
+
+   第一种使用绝对路径的方式，在样式丢失的问题上会比使用相对路径好一些，但也不是推荐的实践方式，因为写死了、固定了，不灵活了。
+
+   第二种方式是比较推荐的方式，把路径的匹配交给工具去动态匹配，不会存在由于某些路径、url的变化导致资源文件找不到的问题了
+
+3. 使用Hash路由模式
+
+   前端项目，我比较推荐的是使用history的路由模式，虽然初次配置的时候稍微麻烦了一点，但是url更美观，但是在针对这个样式、静态资源丢失的问题时，使用hash的路由模式也也解决问题。
+
+   因为我们知道hash的路由模式，url中多了一个#，#之后的内容被认为是hash值，在页面刷新的时候是不会带给服务端的，所以无论页面怎么刷新，提交给服务器的资源永远是#之前的部分，其实也就是根目录了，所以也就不存在路径变化的问题了
+
+   ```js
+   import { HashRouter } from 'react-router-dom';
+   ReactDOM.render(
+       <HashRouter>
+         <App />
+       </HashRouter>,
+     document.getElementById('root')
+   );
+   ```
+
+   <img src="./images/i25.png" alt="hash模式下请求静态资源" style="zoom:67%;" />
+
+   虽然有这三种方式可以解决多层路径时的样式丢失问题的方案，但是一般的情况下是使用第二种方案，其他的方案了解即可。
 
 #### 6.4 嵌套路由使用
 
