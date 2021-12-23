@@ -3260,7 +3260,7 @@ const result = this.props.location.search;
 const { id, title } = qs.parse(result.slice(1));
 ```
 
-
+向路由传递search参数，传递过程和注册路由的过程都比较省心，但是在组件中接收search参数的时候需要处理一下接收到的参数，相比params参数稍微麻烦了一点。
 
 **路由之间传递参数，无论哪种方式的传参方式，都要注意以下3个方面：**
 
