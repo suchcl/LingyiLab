@@ -3390,6 +3390,15 @@ const detail = DetailData.find((detailObj) => {
 
 #### 6.6 多种路由跳转方式
 
+react-router-dom客户端路由，支持两种路由模式：push模式和replace模式，默认开启的是push模式，一种压栈操作，所有操作都会留下历史痕迹，当点击浏览器的上一步、下一步时，都可以精确的回到上一步、下一步。
+
+也可以通过replace属性指定replace模式，这样就不会记录每一步的操作步骤了，点击上一步、下一步的时候，直接返回到使用push模式、有记录的位置。
+
+```jsx
+{/* 指定replace的路由模式，replace属性值是布尔值，值可省略，当出现replace属性时表示为true，没有该属性时则表示为false */}
+<Link replace to={`/home/message/detail/${msg.id}/${msg.title}`}>{msg.title}</Link>
+```
+
 ### 7. React组件库
 
 
