@@ -3184,7 +3184,7 @@ export default class MyNavlink extends Component {
 
 #### 6.5 向路由组件传递参数数据
 
-**通过params方式传递参数**
+##### 6.5.1 通过params方式传递参数
 
 ```jsx
 {/* 通过params方式传递参数 */}
@@ -3225,7 +3225,48 @@ Detail组件中接收params参数的方式：
   }
 ```
 
+##### 6.5.2 search参数
 
+search参数的方式比params方式传递的时候省心，但是接收的时候麻烦些
+
+node中，有一个叫做：querystring的库，可以用来序列化参数。
+
+```jsx
+import qs from "querystring";
+
+const obj = {
+  name: "Nicholas Zakas",
+  age: 18,
+};
+// stringify方法将对象数据转换成urlencoded编码字符串
+console.log(qs.stringify(obj)); // name=Nicholas%20Zakas&age=18
+
+const car = "car='奥拓'&price=9.9";
+// parse方法将urlencoded字符串转换成对象
+console.log(qs.parse(car)); // {car: "'奥拓'", price: '9.9'}
+```
+
+向路由传递search参数以及组件接收search参数方式
+
+```jsx
+{/* 向路由组件传递search参数 */}
+<Link to={`/home/message/detail/?id=${msg.id}&title=${msg.title}`}>{msg.title}</Link>
+{/* 声明接收search参数:search参数无需声明接收,正常注册路由即可 */}
+<Route path="/home/message/detail" component={Detail} />
+
+{/* 组件中接收search参数的方式 */}
+// 接收search参数
+const result = this.props.location.search;
+const { id, title } = qs.parse(result.slice(1));
+```
+
+
+
+**路由之间传递参数，无论哪种方式的传参方式，都要注意以下3个方面：**
+
+1. 传递参数，也叫携带参数
+2. 路由声明时的接收方式
+3. 组件接收参数
 
 #### 6.6 多种路由跳转方式
 
