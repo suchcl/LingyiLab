@@ -3146,7 +3146,86 @@ export default class MyNavlink extends Component {
 </div>
 ```
 
+**嵌套路由**
+
+1. 注册子路由，也要带上父路由的path值
+
+   ```jsx
+   <Switch>
+       <Route path="/home/news" component={News} />
+       <Route path="/home/message" component={Message} />
+       <Redirect to="/home/news" />
+   </Switch>
+   ```
+
+   demo中，/home就是父路由的path值，/news、/message是子路由值
+
+2. 路由的匹配是按照路由的注册顺序进行的
+
+   ```jsx
+   {/* 父组件：App.jsx */}
+   {/* 注册路由 */}
+   <Switch>
+       <Route path="/about" component={About} />
+       <Route path="/home" component={Home} />
+       <Redirect to="/about" />
+   </Switch>
+   
+   {/* 子组件Home.jsx */}
+   {/* 注册路由，路由的匹配顺序从父组件开始模糊匹配 */}
+   <Switch>
+       <Route path="/home/news" component={News} />
+       <Route path="/home/message" component={Message} />
+       <Redirect to="/home/news" />
+   </Switch>
+   ```
+
+   demo中，路由的匹配顺序先从父组件中注册的路由开始匹配，然后再匹配到子组件中注册的路由。
+
 #### 6.5 向路由组件传递参数数据
+
+**通过params方式传递参数**
+
+```jsx
+{/* 通过params方式传递参数 */}
+<ul>
+    {message.map((msg) => {
+        return (
+            <li key={msg.id}>
+                {/* 向路由组件通过params传递参数 */}
+                <Link to={`/home/message/detail/${msg.id}/${msg.title}`}>{msg.title}</Link>
+            </li>
+        );
+    })}
+</ul>
+{/* 接收params参数 */}
+<Route path="/home/message/detail/:id/:title" component={Detail} />
+```
+
+Detail组件中接收params参数的方式：
+
+```jsx
+  render() {
+    // 通过props方式接收params参数
+    // 组件之间传值，基本上就是依赖props
+    const { id, title } = this.props.match.params;
+    // demo中是几条模拟的数据，实际开发中应该是从服务端下发的动态数据
+    const detail = DetailData.find((detailObj) => {
+      return detailObj.id === id;
+    });
+    return (
+      <div>
+        <ul>
+          <li>Id: {id}</li>
+          <li>title: {title}</li>
+          <li>content：{detail.content}</li>
+        </ul>
+      </div>
+    );
+  }
+```
+
+
 
 #### 6.6 多种路由跳转方式
 
