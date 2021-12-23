@@ -3225,6 +3225,8 @@ Detail组件中接收params参数的方式：
   }
 ```
 
+params传参方式，清空浏览器缓存刷新，或者重新打开浏览器，页面数据都会保存，不会丢失
+
 ##### 6.5.2 search参数
 
 search参数的方式比params方式传递的时候省心，但是接收的时候麻烦些
@@ -3262,11 +3264,129 @@ const { id, title } = qs.parse(result.slice(1));
 
 向路由传递search参数，传递过程和注册路由的过程都比较省心，但是在组件中接收search参数的时候需要处理一下接收到的参数，相比params参数稍微麻烦了一点。
 
+search传参方式，无论是清空缓存，还是重新打开浏览器，页面数据都不会丢失；
+
+##### 6.5.3 state参数
+
+state参数，是路由参数中的一个参数，不是状态中的state。
+
+state参数的优势，传递的参数不会在浏览器的地址栏中显示，正常情况下的页面刷新，页面数据不会丢失，原因：
+
+1. 使用了BrowserRouter，BrowserRouter实际上操作的是浏览器的history对象，维护的是history对象的API，history对象记录了一些浏览器的操作；
+
+在通过state正常传递了参数后，页面数据表现正常时，如果这个时候清空了缓存，那么再刷新页面，页面数据就会丢失，因为BrowserRouter维护的history对象的数据被清空了，所以在使用state参数的时候需要注意下参数为空时情况的处理。
+
+state方式参数，不光是清空缓存，实际上在浏览器关闭之后重新打开连接，state参数也会丢失，也需要重新获取。原因还是因为BrowserRouter维护的是浏览器的history对象。
+
+```jsx
+{/* 向路由传递state参数：state参数需要是对象 */}
+<Link to={{ pathname: "/home/message/detail", state: { id: msg.id, title: msg.title }}}>{msg.title}</Link>
+
+{/* 声明接收state参数路由：state参数无需声明接收，正常注册路由即可 */}
+<Route path="/home/message/detail" component={Detail} />
+
+{/* 组件中接收state参数 */}
+// 接收state参数  由于state参数的特殊性，可能会存在重新打开浏览器或者清空缓存的情况导致参数丢失的问题，所以在处理业务逻辑时需要考虑到参数为空特殊场景的代码处理
+const {id,title} = this.props.location.state || {};
+
+// demo中是几条模拟的数据，实际开发中应该是从服务端下发的动态数据
+const detail = DetailData.find((detailObj) => {
+    return detailObj.id === id;
+}) || {};
+```
+
 **路由之间传递参数，无论哪种方式的传参方式，都要注意以下3个方面：**
 
 1. 传递参数，也叫携带参数
 2. 路由声明时的接收方式
 3. 组件接收参数
+
+##### 6.5.4 向路由传递参数总结
+
+1. param参数
+
+   1. 路由连接-携带参数
+
+      ```jsx
+      <Link to={`/home/message/detail/${msg.id}/${msg.title}`}>{msg.title}</Link>
+      ```
+
+   2. 注册路由-声明接收方式
+
+      ```jsx
+      {/* 声明接收params参数 */}
+      <Route path="/home/message/detail/:id/:title" component={Detail} />
+      ```
+
+   3. 组件接收参数
+
+      ```jsx
+      // 通过props方式接收params参数
+      const { id, title } = this.props.match.params;
+      ```
+
+2. search参数
+
+   1. 路由连接-携带参数
+
+      ```jsx
+      {/* 向路由组件传递search参数 */}
+      <Link to={`/home/message/detail/?id=${msg.id}&title=${msg.title}`}>{msg.title}</Link>
+      ```
+
+   2. 注册路由-无需声明，正常注册路由即可
+
+      ```jsx
+      {/* 声明接收search参数:search参数无需声明接收,正常注册路由即可 */}
+      <Route path="/home/message/detail" component={Detail} />
+      ```
+
+   3. 组件接收参数
+
+      ```jsx
+      import qs from "querystring"; // 需要使用qs库序列化参数
+      // 接收search参数
+      const result = this.props.location.search;
+      const { id, title } = qs.parse(result.slice(1));
+      ```
+
+   4. 备注：获取到的参数时urlencoded编码字符串，需要使用qs库序列化参数
+
+3. state参数
+
+   1. 路由连接-携带参数
+
+      ```jsx
+      {/* 向路由传递state参数：state参数需要是对象 */}
+      <Link to={{ pathname: "/home/message/detail", state: { id: msg.id, title: msg.title }}}>{msg.title}</Link>
+      ```
+
+   2. 注册路由-无需声明，正常注册路由即可
+
+      ```jsx
+      {/* 声明接收state参数路由：state参数无需声明接收，正常注册路由即可 */}
+      <Route path="/home/message/detail" component={Detail} />
+      ```
+
+   3. 组件接收参数
+
+      ```jsx
+      // 接收state参数
+      const {id,title} = this.props.location.state || {};
+      
+      // 接收state参数时数据处理，demo中是几条模拟的数据，实际开发中应该是从服务端下发的动态数据
+      const detail = DetailData.find((detailObj) => {
+          return detailObj.id === id;
+      }) || {};
+      ```
+
+   4. 备注：页面刷新也可以保留数据，但是关闭了浏览器之后再次打开，数据丢失，所以需要注意参数丢失时的数据处理
+
+   使用范围多少，大概的是params方式最多、state方式最少吧。
+
+   一般情况下，当需要传递一些比较敏感的数据如手机号等用户信息时，可以使用state的方式传递，保护数据。
+
+   除了state传参方式之外的另外两种方式，路由和参数也可以写为对象形式，但是有点麻烦了，不如我们前面介绍的方式简单，实际使用中就可以直接使用我们前面学习的代码组织形式。
 
 #### 6.6 多种路由跳转方式
 
