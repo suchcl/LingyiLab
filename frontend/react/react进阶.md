@@ -3399,6 +3399,30 @@ react-router-dom客户端路由，支持两种路由模式：push模式和replac
 <Link replace to={`/home/message/detail/${msg.id}/${msg.title}`}>{msg.title}</Link>
 ```
 
+##### 6.6.1 编程式导航
+
+在代码业务逻辑中实现路由跳转，就是编程式导航
+
+```jsx
+replaceShowMsg = (id,title) => {
+    // 这就是编程式导航
+    this.props.history.replace(`/home/message/detail/${id}/${title}`);
+}
+```
+
+编程式导航state方式传参
+
+```jsx
+  replaceShowMsg = (id,title) => {
+    // 编程式导航，state方式传参
+    this.props.history.replace(`/home/message/detail/`,{id,title});
+  }
+```
+
+编程式导航中的state传参，其实就是传递一个对象参数
+
+##### 6.6.2 withRouter的使用
+
 ### 7. React组件库
 
 
