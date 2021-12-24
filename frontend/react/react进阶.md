@@ -3508,8 +3508,93 @@ withRouter函数，返回一个组件，返回一个经过withRouter加工的、
 
 BrowserRouter和HashRouter相比，HashRouter的兼容性更友好一些，但是url不美观。但凡是使用了React、Vue或者Angular做的前端项目，正常情况下也不会要求兼容到IE6或者IE7吧现在。所以，大多数做C端项目来说，我是比较推荐BrowserRouter的，我要把我项目美好的一面呈现给用户。
 
-### 7. React组件库
+### 7. redux
+
+#### 7.1 redux理解
+
+##### 7.1.1 学习文档
+
+1. 英文文档   https://redux.js.org/
+2. 中文文档  https://www.redux.org.cn/
+3. Github  https://github.com/reduxjs/redux
+
+##### 7.1.2 redux是什么？
+
+1. redux是一个专门用来做状态管理的js库（不是react插件库）
+
+2. 它可以用在react、angular和vue中，但是基本上只与react配合使用
+
+   vue中可以使用vuex
+
+   angular中也有自己的实现
+
+3. 作用：集中式管理react应用中多个组件共享的状态
+
+##### 7.1.3 什么情况下需要使用redux
+
+1. 某个组件的状态，需要让其他组件可以随时拿到-共享
+2. 一个组件需要改变另一个组件的状态-通信
+3. 总体原则：能不用就不用，如果不用实现功能时很吃力就考虑使用
+
+##### 7.1.4 redux工作流程
+
+<img src="./images/i26.png" alt="redux工作流程" style="zoom: 80%;" />
 
 
 
-### 8. redux
+#### 7.2 redux的三个核心概念
+
+##### 7.2.1 action
+
+1. 动作的对象
+
+2. 包含2个属性
+
+   - type：标识属性，值为字符串，唯一，必要属性
+
+   - data：数据属性，值为任意类型，可选
+
+     ```js
+     {
+         type: "ADD_USER",
+         data:{
+             name: "Nicholas Zakas",
+             age: 18
+         }
+     }
+     ```
+
+##### 7.2.2 reducer
+
+1. 用于初始化、加工状态
+2. 加工时，根据旧的state和action，产生新的state的纯函数
+
+##### 7.2.3 store
+
+1. 将state、actions和reducer联系在一起的对象
+
+2. 如何得到此对象？
+
+   ```js
+   import {createStore} from "redux"
+   import reducer from "./reducers"
+   const store = createStore(reducer);
+   ```
+
+3. 此对象的功能？
+
+   1. getState()  得到state
+   2. dispatch(action) 分发action，触发reducer调用，产生新的state
+   3. subscribe(listener) 注册监听，当产生了新的state时，自动调用
+
+#### 7.3 redux的核心API
+
+#### 7.4 使用redux编写应用
+
+#### 7.5 redux异步编程
+
+#### 7.6 react-redux
+
+#### 7.7 使用redux调试工具
+
+#### 7.8 纯函数和高阶函数
