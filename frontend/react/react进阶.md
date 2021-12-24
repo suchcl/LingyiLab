@@ -3486,7 +3486,27 @@ withRouter函数，返回一个组件，返回一个经过withRouter加工的、
 
 #### 6.7 BrowserRouter和HashRouter
 
+1. 底层原理不同
 
+   BrowserRotuer使用的H5的history api，不兼容IE9及以下版本的IE浏览器
+
+   HashRouter使用的是URL的哈希值
+
+2. url表现形式不同
+
+   BrowserRouter的路径中没有#
+
+   HashRouter的路径中包含#
+
+3. 刷新后对路由state参数的影响
+
+   BrowserRouter没有任何影响，因为state保存在history对象中
+
+   HashRouter刷新后会导致路由的state参数丢失
+
+4. 备注：HashRouter可以用于解决一些路径错误相关的问题
+
+BrowserRouter和HashRouter相比，HashRouter的兼容性更友好一些，但是url不美观。但凡是使用了React、Vue或者Angular做的前端项目，正常情况下也不会要求兼容到IE6或者IE7吧现在。所以，大多数做C端项目来说，我是比较推荐BrowserRouter的，我要把我项目美好的一面呈现给用户。
 
 ### 7. React组件库
 
