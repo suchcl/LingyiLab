@@ -2286,6 +2286,8 @@ css文件的命名，不要直接以简单的文件意义.css的方式命名，�
 > 在使用vscode作为react的开发工具时，推荐一个插件：ES7 React/Redux/GraphQL/React-Native snippets，有一些快捷键，挺好用
 >
 > 安装了这个插件，其他的基本上就可以不装了
+>
+> filename.module.css,带有module的文件名，导入到jsx中对普通的class是不生效的
 
 ##### 4.1.5 react应用中样式应用
 
@@ -3421,7 +3423,70 @@ replaceShowMsg = (id,title) => {
 
 编程式导航中的state传参，其实就是传递一个对象参数
 
+编程式路由导航，本质上就是借助了this.props.history对象上的API对操作路由跳转、前进、后退
+
+- this.props.history.push()
+- this.props.history.replace()
+- this.props.history.go()
+- this.props.history.goBack()
+- this.props.history.goForward()
+
 ##### 6.6.2 withRouter的使用
+
+react中，路由组件具有history、location、match等一些属性、功能。
+
+withRouter可以加工一般组件，让一般组件具备只有路由组件才具有的一些属性，或使用路由组件才具有的一些API，如history、location、
+
+withRouter(Header)的返回值是一个新组件，是经过withRouter加工过的新的组件，这个新的组件具备了路由组件的特性
+
+在一般组件中是不能够使用路由组件中的特有属性的，但是withRouter函数，可以让一般组件具备路由组件的属性，可以让一般组件具备history、location、match属性、功能。
+
+```jsx
+import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
+import "./Header.module.css";
+
+class Header extends Component {
+  forward = () => {
+    this.props.history.goForward();
+  };
+
+  back = () => {
+    this.props.history.goBack();
+  };
+
+  go = () => {
+    this.props.history.go(1);
+  };
+
+  render() {
+    return (
+      <div className="page-header">
+        <h2>React Router Demo</h2>
+        <div className="btn-area">
+          <button className="btn" onClick={this.forward}>
+            前进
+          </button>
+          <button className="btn" onClick={this.back}>
+            后退
+          </button>
+          <button className="btn" onClick={this.go}>
+            go
+          </button>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default withRouter(Header);
+```
+
+withRouter函数，返回一个组件，返回一个经过withRouter加工的、具有路由组件特性的新组件。
+
+#### 6.7 BrowserRouter和HashRouter
+
+
 
 ### 7. React组件库
 
