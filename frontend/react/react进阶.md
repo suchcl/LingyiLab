@@ -3591,6 +3591,14 @@ BrowserRouter和HashRouter相比，HashRouter的兼容性更友好一些，但�
 
 #### 7.4 使用redux编写应用
 
+安装redux
+
+```bash
+npm install redux
+```
+
+
+
 #### 7.5 redux异步编程
 
 #### 7.6 react-redux
