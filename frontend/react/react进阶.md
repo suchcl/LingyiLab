@@ -3589,6 +3589,12 @@ BrowserRouter和HashRouter相比，HashRouter的兼容性更友好一些，但�
 
 #### 7.3 redux的核心API
 
+getState()
+
+store.subscribe()
+
+store.dispatch({type:"",data:xxx})
+
 #### 7.4 使用redux编写应用
 
 安装redux
@@ -3596,8 +3602,6 @@ BrowserRouter和HashRouter相比，HashRouter的兼容性更友好一些，但�
 ```bash
 npm install redux
 ```
-
-
 
 #### 7.5 redux异步编程
 
