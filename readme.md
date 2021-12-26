@@ -278,6 +278,8 @@
 
 2. [页面布局：左侧栏固定，右侧栏自适应](./interview/frontend/页面布局/页面布局_左固定右自适应.md)
 
+3. [超宽度后显示省略号](./interview/frontend/页面布局/超宽度后显示省略号.md)
+
 #### Javascript
 
 0. [import、require 的区别](./interview/frontend/import和require区别.md)
