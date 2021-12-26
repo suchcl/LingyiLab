@@ -3603,6 +3603,36 @@ store.dispatch({type:"",data:xxx})
 npm install redux
 ```
 
+redux只负责状态的管理，但是状态改变后驱动页面的变化，则需要我们自己写。
+
+redux的使用步骤：
+
+1. 安装
+
+2. src下创建redux文件
+
+   1. -redux redux目录，所有状态相关的文件都放在该目录下
+      1. store.js  一般一个项目只有一个store.js，负责状态保存
+      2. xxx_reducer.js 专门处理状态的，专人专用，加工和初始化状态
+
+3. stroe.js
+
+   1. 引入redux中的createStroe()函数，创建一个stroe
+   2. createStore()调用时传入一个为其服务的reducer
+   3. 暴露store对象
+
+4. xxx_reducer.js
+
+   1. reducer的本质是一个函数，接收preState、action，返回加工后的状态
+   2. reducer有2个作用：初始化、加工状态
+   3. reducer第一次被调用，是store自动触发的
+      1. 传递的preState是undefined
+      2. 传递的action是一个对象:{type: '@@redux/INIT9.z.w.j.l'} INIT后面的部分是随机的
+
+5. 在入口文件index.js中监测store中状态的改变，一旦发生改变，重新渲染根组件<App />
+
+   > redux只负责管理状态，至于状态改变后驱动页面的变化，则需要我们开发人员自己去编写这部分的业务代码
+
 #### 7.5 redux异步编程
 
 #### 7.6 react-redux
