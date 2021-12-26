@@ -276,7 +276,7 @@
 
 1. [综合题目](./interview/all/index.md)
 
-2. [页面布局](./interview/frontend/页面布局/页面布局.md)
+2. [页面布局：左侧栏固定，右侧栏自适应](./interview/frontend/页面布局/页面布局_左固定右自适应.md)
 
 #### Javascript
 
