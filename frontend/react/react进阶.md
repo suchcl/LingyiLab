@@ -3637,7 +3637,89 @@ redux的使用步骤：
 
 #### 7.5 redux异步编程
 
+主要是在action部分，action有两种形式：一种是一般的Object对象，另外一种是function函数。
+
+正常情况下，当action是一个一般的Object对象时，那么就是个同步的action；当action是一个function函数时，那么就是个异步action。
+
+```js
+// 同步anction，就是指action值为一般Object对象
+export const createIncrementAction = data => ({ type: INCREMENT, data });
+export const createDecrementAction = data => ({ type: DECREMENT, data });
+
+// 异步action，是指action值为函数的action
+export const createIncrementAsyncAction = (data,time) => {
+    return () => {
+        
+    }
+}
+```
+
+备注：
+
+1. 延迟的异步动作不想交给组件本身去做，就可以交给action去做；
+
+2. 什么时候需要异步action呢？想要对状态进行操作，具体的数据靠异步任务返回时
+
+3. 使用方式
+
+   1. 需要使用applyMiddleware中间件，用来执行中间件，并在store中导入
+
+      ```javascript
+      // applyMiddleware用来执行中间件
+      import { createStore,applyMiddleware } from "redux";
+      ```
+
+      需要使用redux-thunk包，用来支持异步action
+
+      ```bash
+      npm install redux-thunk
+      ```
+
+   2. 创建action的函数不再返回一个一般对象，而是返回一个函数，该函数中执行异步任务
+
+      ```js
+      // count_action.js
+      // 异步action，是指action值为函数的action
+      // 异步action中，一般都会调用同步action
+      // 异步action不是必须要用的，根据业务场景来确定是否需要的
+      export const createIncrementAsyncAction = (data,time) => {
+          return (dispatch) => {
+              setTimeout(()=>{
+                  // 联系redux，加工数据
+                  // dispatch({type:INCREMENT,data}); // 也可以通过调用同步任务的方式实现
+                  dispatch(createIncrementAction(data));
+              },time);
+          }
+      }
+      ```
+
+   3. 异步任务执行完成后，分发到一个同步action去操作数据
+
+   4. 异步action不是必须要有的，有可以在组件中去执行异步任务，根据异步任务的结果去分发一个同步的action
+
+      ```js
+      // store.js
+      /**
+       * 该文件专门用于暴露一个store对象，整个应用只有一个store对象
+       */
+      
+      // 引入createStore，专门用于创建redux中最为核心的store对象
+      // applyMiddleware用来执行中间件
+      import { createStore,applyMiddleware } from "redux";
+      // 引入为Count组件服务的reducer
+      import countReducer from "./count_reducer";
+      // 引入redux-thunk，用于支持异步action
+      import thunk from "redux-thunk";
+      
+      const stroe = createStore(countReducer,applyMiddleware(thunk));
+      
+      // 暴露store
+      export default stroe;
+      ```
+
 #### 7.6 react-redux
+
+
 
 #### 7.7 使用redux调试工具
 
