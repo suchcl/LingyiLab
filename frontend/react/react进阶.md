@@ -3947,6 +3947,28 @@ export const createIncrementAsyncAction = (data,time) => {
    )(CounterUI);
    ```
 
+5. react-redux可做的一些小优化
+
+   1. UI组件和容器组件可以整合为一个文件
+
+   2. 无需自己给容器组件传递store，只需要给最外层的<App />包裹一个<Provider store={store}><App /></Provider>即可。
+
+   3. 使用了react-redux后不需要开发者自己监测redux中状态的改变了，容器组件可以自己完成这个动作
+
+   4. mapDispatchToProps()函数也可以简单的写为一个对象；
+
+   5. 一个组件和redux打交道，需要经过的步骤：
+
+      1. 定义好一个UI组件，但不可以暴露，也就是不通过export导出
+
+      2. 引入connect生成一个容器组件，并暴露，也就是通过export导出，格式如下：
+
+         ```jsx
+         connect(mapStateToProps, mapDispatchToProps)(UI组件);
+         ```
+
+      3. 在UI组件中通过this.props.xxx读取属性和操作状态
+
 #### 7.7 使用redux调试工具
 
 #### 7.8 纯函数和高阶函数
