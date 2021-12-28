@@ -48,10 +48,57 @@
   - [4.1 使用create-react-app创建react应用](#41-%E4%BD%BF%E7%94%A8create-react-app%E5%88%9B%E5%BB%BAreact%E5%BA%94%E7%94%A8)
     - [4.1.1 react脚手架](#411-react%E8%84%9A%E6%89%8B%E6%9E%B6)
     - [4.1.2 创建并启动项目](#412-%E5%88%9B%E5%BB%BA%E5%B9%B6%E5%90%AF%E5%8A%A8%E9%A1%B9%E7%9B%AE)
+    - [4.1.3 react项目文件分析](#413-react%E9%A1%B9%E7%9B%AE%E6%96%87%E4%BB%B6%E5%88%86%E6%9E%90)
+    - [4.1.4 样式的模块化](#414-%E6%A0%B7%E5%BC%8F%E7%9A%84%E6%A8%A1%E5%9D%97%E5%8C%96)
+    - [4.1.5 react应用中样式应用](#415-react%E5%BA%94%E7%94%A8%E4%B8%AD%E6%A0%B7%E5%BC%8F%E5%BA%94%E7%94%A8)
+    - [4.1.6 功能界面的组件化编程流程](#416-%E5%8A%9F%E8%83%BD%E7%95%8C%E9%9D%A2%E7%9A%84%E7%BB%84%E4%BB%B6%E5%8C%96%E7%BC%96%E7%A8%8B%E6%B5%81%E7%A8%8B)
+  - [4.2 TodoList 案例](#42-todolist-%E6%A1%88%E4%BE%8B)
+    - [4.2.1 父子组件之间的通信](#421-%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1)
+    - [4.2.2 生成唯一值](#422-%E7%94%9F%E6%88%90%E5%94%AF%E4%B8%80%E5%80%BC)
+    - [4.2.3 react中事件](#423-react%E4%B8%AD%E4%BA%8B%E4%BB%B6)
+    - [4.2.4 checkbox控件的defaultChecked和checked属性](#424-checkbox%E6%8E%A7%E4%BB%B6%E7%9A%84defaultchecked%E5%92%8Cchecked%E5%B1%9E%E6%80%A7)
 - [5. React Ajax](#5-react-ajax)
-- [6. react-router](#6-react-router)
-- [7. React组件库](#7-react%E7%BB%84%E4%BB%B6%E5%BA%93)
-- [8. redux](#8-redux)
+  - [5.1 理解](#51-%E7%90%86%E8%A7%A3)
+    - [5.1.1 前置说明](#511-%E5%89%8D%E7%BD%AE%E8%AF%B4%E6%98%8E)
+    - [5.1.2 常用的ajax请求库](#512-%E5%B8%B8%E7%94%A8%E7%9A%84ajax%E8%AF%B7%E6%B1%82%E5%BA%93)
+  - [5.2 axios库](#52-axios%E5%BA%93)
+  - [5.3 配置代理](#53-%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%90%86)
+  - [5.4 消息订阅-发布机制](#54-%E6%B6%88%E6%81%AF%E8%AE%A2%E9%98%85-%E5%8F%91%E5%B8%83%E6%9C%BA%E5%88%B6)
+- [6. react-router   路由](#6-react-router---%E8%B7%AF%E7%94%B1)
+  - [6.1 相关理解](#61-%E7%9B%B8%E5%85%B3%E7%90%86%E8%A7%A3)
+    - [6.1.1 SPA的理解](#611-spa%E7%9A%84%E7%90%86%E8%A7%A3)
+    - [6.1.2 路由的理解](#612-%E8%B7%AF%E7%94%B1%E7%9A%84%E7%90%86%E8%A7%A3)
+    - [6.1.3 react-router的理解](#613-react-router%E7%9A%84%E7%90%86%E8%A7%A3)
+  - [6.2 react-router相关API](#62-react-router%E7%9B%B8%E5%85%B3api)
+    - [6.2.1 内置组件](#621-%E5%86%85%E7%BD%AE%E7%BB%84%E4%BB%B6)
+    - [6.2.2 其他](#622-%E5%85%B6%E4%BB%96)
+  - [6.3 基本的路由使用](#63-%E5%9F%BA%E6%9C%AC%E7%9A%84%E8%B7%AF%E7%94%B1%E4%BD%BF%E7%94%A8)
+  - [6.4 嵌套路由使用](#64-%E5%B5%8C%E5%A5%97%E8%B7%AF%E7%94%B1%E4%BD%BF%E7%94%A8)
+  - [6.5 向路由组件传递参数数据](#65-%E5%90%91%E8%B7%AF%E7%94%B1%E7%BB%84%E4%BB%B6%E4%BC%A0%E9%80%92%E5%8F%82%E6%95%B0%E6%95%B0%E6%8D%AE)
+    - [6.5.1 通过params方式传递参数](#651-%E9%80%9A%E8%BF%87params%E6%96%B9%E5%BC%8F%E4%BC%A0%E9%80%92%E5%8F%82%E6%95%B0)
+    - [6.5.2 search参数](#652-search%E5%8F%82%E6%95%B0)
+    - [6.5.3 state参数](#653-state%E5%8F%82%E6%95%B0)
+    - [6.5.4 向路由传递参数总结](#654-%E5%90%91%E8%B7%AF%E7%94%B1%E4%BC%A0%E9%80%92%E5%8F%82%E6%95%B0%E6%80%BB%E7%BB%93)
+  - [6.6 多种路由跳转方式](#66-%E5%A4%9A%E7%A7%8D%E8%B7%AF%E7%94%B1%E8%B7%B3%E8%BD%AC%E6%96%B9%E5%BC%8F)
+    - [6.6.1 编程式导航](#661-%E7%BC%96%E7%A8%8B%E5%BC%8F%E5%AF%BC%E8%88%AA)
+    - [6.6.2 withRouter的使用](#662-withrouter%E7%9A%84%E4%BD%BF%E7%94%A8)
+  - [6.7 BrowserRouter和HashRouter](#67-browserrouter%E5%92%8Chashrouter)
+- [7. redux](#7-redux)
+  - [7.1 redux理解](#71-redux%E7%90%86%E8%A7%A3)
+    - [7.1.1 学习文档](#711-%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3)
+    - [7.1.2 redux是什么？](#712-redux%E6%98%AF%E4%BB%80%E4%B9%88)
+    - [7.1.3 什么情况下需要使用redux](#713-%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E9%9C%80%E8%A6%81%E4%BD%BF%E7%94%A8redux)
+    - [7.1.4 redux工作流程](#714-redux%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B)
+  - [7.2 redux的三个核心概念](#72-redux%E7%9A%84%E4%B8%89%E4%B8%AA%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5)
+    - [7.2.1 action](#721-action)
+    - [7.2.2 reducer](#722-reducer)
+    - [7.2.3 store](#723-store)
+  - [7.3 redux的核心API](#73-redux%E7%9A%84%E6%A0%B8%E5%BF%83api)
+  - [7.4 使用redux编写应用](#74-%E4%BD%BF%E7%94%A8redux%E7%BC%96%E5%86%99%E5%BA%94%E7%94%A8)
+  - [7.5 redux异步编程](#75-redux%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B)
+  - [7.6 react-redux](#76-react-redux)
+  - [7.7 使用redux调试工具](#77-%E4%BD%BF%E7%94%A8redux%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7)
+  - [7.8 纯函数和高阶函数](#78-%E7%BA%AF%E5%87%BD%E6%95%B0%E5%92%8C%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -3719,7 +3766,166 @@ export const createIncrementAsyncAction = (data,time) => {
 
 #### 7.6 react-redux
 
+1. 所有的UI组件都应该使用一个容器组件包裹
+2. 容器组件是真正和redux打交道的，里面可以任意使用redux的相关API
+3. UI组件中不能使用任何redux的API
+4. 容器组件会传递给UI组件：
+   1. redux中保存的状态
+   2. 用于操作状态的方法
+5. 容器组件传递给UI组件的状态、操作状态的方法，均通过props传递
 
+**react-redux基本使用**
+
+1. 明确两个概念
+
+   UI组件：不能使用任何的redux的API，只负责页面的呈现和交互等
+
+   容器组件：负责和redux通信，将结果呈现给UI组件
+
+   ```jsx
+   // UI组件，只负责呈现页面效果和交互，不做状态的维护，不和redux通信
+   import React, { Component } from "react";
+   import CounterStyle from "./Counter.module.css";
+   
+   export default class Counter extends Component {
+     increment = () => {
+       const { value } = this.selectNumber;
+       let data = value * 1;
+       this.props.add(data);
+     };
+     render() {
+       return (
+         <div>
+           <h3>当前求和为：{this.props.counter}</h3>
+           <select ref={(c) => (this.selectNumber = c)}>
+             <option value="1">1</option>
+             <option value="2">2</option>
+             <option value="3">3</option>
+           </select>
+           <button onClick={this.increment} className={CounterStyle.btn}>
+             +
+           </button>
+           <button onClick={this.decrement} className={CounterStyle.btn}>
+             -
+           </button>
+           <button onClick={this.incrementIfOdd} className={CounterStyle.btn}>
+             奇数加
+           </button>
+           <button onClick={this.incrementAsync} className={CounterStyle.btn}>
+             异步加
+           </button>
+         </div>
+       );
+     }
+   }
+   ```
+
+   ```jsx
+   // 容器组件：负责和redux通信
+   // 引入Counter的UI组件
+   import CounterUI from "../../components/Counter/Counter";
+   
+   // 引入connect用于连接UI组件和redux
+   import { connect } from "react-redux";
+   import { INCREMENT } from "../../redux/constant";
+   
+   import { createIncrementAction } from "../../redux/counter_action";
+   
+   // mapStateToProps函数返回一个对象
+   // 返回的对象中的key就作为传递给UI组件的props的key，value就作为传递给UI组件props的value
+   // mapStateToProps函数的作用就是用于传递状态
+   function mapStateToProps(state) {
+     return {
+       counter: state,
+     };
+   }
+   
+   // mapDispatchToProps函数返回一个对象
+   // 返回的对象中的key就作为传递给UI组件的props的key，value就作为传递给UI组件props的value
+   // mapDispatchToProps函数的作用就是用于传递操作状态的方法
+   function mapDispatchToProps(dispatch) {
+     return {
+       add: (data) => {
+         // 通知redux执行加法操作
+         // dispatch({type:INCREMENT,data}); // 直接实现一个action
+         dispatch(createIncrementAction(data)); // 调用action
+       },
+     };
+   }
+   // 使用connect()()创建并暴露一个容器组件
+   export default connect(mapStateToProps, mapDispatchToProps)(CounterUI);
+   ```
+
+   
+
+2. 如何创建一个容器组件 — 靠react-redux的connect函数
+
+   connect(mapStateToProps, mapDispatchToProps)(UI组件)
+
+   ​	-mapStateToProps：映射状态，返回一个对象
+
+   ​	-mapDispatchToProps：映射操作状态的方法，返回值是一个对象
+
+   ```jsx
+   // 容器组件：src/container/Counter/Counter.jsx
+   // 引入Counter的UI组件
+   import CounterUI from "../../components/Counter/Counter";
+   
+   // 引入connect用于连接UI组件和redux
+   import { connect } from "react-redux";
+   import { INCREMENT } from "../../redux/constant";
+   
+   import { createIncrementAction } from "../../redux/counter_action";
+   
+   // mapStateToProps函数返回一个对象
+   // 返回的对象中的key就作为传递给UI组件的props的key，value就作为传递给UI组件props的value
+   // mapStateToProps函数的作用就是用于传递状态
+   function mapStateToProps(state) {
+     return {
+       counter: state,
+     };
+   }
+   
+   // mapDispatchToProps函数返回一个对象
+   // 返回的对象中的key就作为传递给UI组件的props的key，value就作为传递给UI组件props的value
+   // mapDispatchToProps函数的作用就是用于传递操作状态的方法
+   function mapDispatchToProps(dispatch) {
+     return {
+       add: (data) => {
+         // 通知redux执行加法操作
+         // dispatch({type:INCREMENT,data}); // 直接实现一个action
+         dispatch(createIncrementAction(data)); // 调用action
+       },
+     };
+   }
+   // 使用connect()()创建并暴露一个容器组件
+   export default connect(mapStateToProps, mapDispatchToProps)(CounterUI);
+   
+   ```
+
+   
+
+3. 备注：容器组件中的store是靠props传递过去的，而不是在容器组件中直接引入
+
+   ```jsx
+   // App.jsx
+   import React, { Component } from 'react';
+   import CounterContainer from "./container/Counter/Counter";
+   import store from "./redux/store";
+   
+   export default class App extends Component {
+       render() {
+           return (
+               <div>
+                   {/* 给容器组件传递store, props方式，不能在容器组件中直接引入 */}
+                   <CounterContainer store={store} />
+               </div>
+           )
+       }
+   }
+   ```
+
+   
 
 #### 7.7 使用redux调试工具
 
