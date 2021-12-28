@@ -3903,8 +3903,6 @@ export const createIncrementAsyncAction = (data,time) => {
    
    ```
 
-   
-
 3. 备注：容器组件中的store是靠props传递过去的，而不是在容器组件中直接引入
 
    ```jsx
@@ -3925,7 +3923,29 @@ export const createIncrementAsyncAction = (data,time) => {
    }
    ```
 
+4. mapDispatchToProps也可以是一个对象
+
+   ```jsx
+   export default connect(
+     // mapStateToProps
+     (state) => ({ counter: state }),
+     // mapDispatyToProps
+     // 下面为一般的实现，即函数实现方式
+     //   (dispatch) => ({
+     //     add: (data) => dispatch(createIncrementAction(data)),
+     //     reduce: (data) => dispatch(createDecrementAction(data)),
+     //     addAsync: (data, time) => dispatch(createIncrementActionAsync(data, time)),
+     //   }),
    
+     //  mapDispatchToProps的精简写法
+     // 就是一个对象
+     {
+       add: createIncrementAction,
+       reduce: createDecrementAction,
+       addAsync: createIncrementActionAsync,
+     }
+   )(CounterUI);
+   ```
 
 #### 7.7 使用redux调试工具
 
