@@ -4347,6 +4347,42 @@ const About = React.lazy(() => import('./About/About'));
    }
    ```
 
+5. useRef()
+
+   类式组件中可以这样使用ref
+
+   ```jsx
+   // 定义ref容器
+   myRef = React.createRef();
+   showInputMsg = () => {
+       console.log(this.myRef.current.value);
+   };
+   render(){
+       return (
+       	<div>
+           	<input type="text" ref={this.myRef} />
+               <button onClick={this.showInputMsg}>点击获取输入框信息</button>
+           </div>
+       )
+   }
+   ```
+
+   函数式组件中使用ref的方式
+
+   ```jsx
+     // 定义ref容器
+     const myRef = React.useRef();
+     function showInputMsg(){
+         console.log(myRef.current.value);
+     }
+     return (
+       <div>
+         <input type="text" ref={myRef} />
+         <button onClick={showInputMsg}>点击获取输入框输入信息</button>
+       </div>
+     );
+   ```
+
 #### 9.4 Fragment
 
 #### 9.5 Context
