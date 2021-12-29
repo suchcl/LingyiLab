@@ -3969,6 +3969,130 @@ export const createIncrementAsyncAction = (data,time) => {
 
       3. 在UI组件中通过this.props.xxx读取属性和操作状态
 
+**redux需要处理多个reducer时**
+
+当redux只需要处理一个reducer时，那么创建store的时候，就可以直接把需要处理的reducer传递给store就可以了
+
+```js
+const store = createStore(counterReducer, applyMiddleware(thunk));
+```
+
+但是一般的情况下，一个项目、应用中可能不只是只有一个reducer，需要处理多个状态，那么这个时候，就需要以对象的形式将多个reducer合并起来，统一传递给store，创建store对象。
+
+combineReducers是一个函数，该函数中传入的对象，就是redux中保存的总的状态对象
+
+```js
+const allReducers = combineReducers({
+    counter: counterReducer,
+    person: personReducer
+});
+const store = createStore(allReducers, applyMiddleware(thunk));
+```
+
+当store中合并了多个reducer时，那么在具体的使用reducer的地方，就要从store中去获取状态对象。
+
+如Counter组件中获取counter状态值，
+
+```jsx
+function mapStateToProps(state) {
+  return {
+    // 这里的state.counter中的counter，是在store中定义的,是这里的counter
+    /**
+     * const allReducers = combineReducers({
+     *    counter: counterReducer,
+     *    person: personReducer
+     *  });
+     */
+    counter: state.counter, // 在reducer没有合并之前，在redux中直接存储的数据，reducer合并后，存储在redux中的是一个对象了
+  };
+}
+```
+
+一个组件只要和redux联系，首先就要引入react-redux
+
+```jsx
+import { connect } from "react-redux";
+```
+
+**不同组件之间的数据共享**
+
+1. 不同组件之间的数据共享，通过redux实现
+2. 为每个组件编写reducer、action
+3. 重点：不同组件之间的reducer通过combineReducers进行合并，合并后的总状态是一个对象
+4. 交给store的是总的reducer，在组件中去状态的时候，需要注意取的是reducer总对象中对应的状态
+
+```jsx
+// Counter.jsx
+function mapStateToProps(state) {
+  return {
+    // 这里的state.counter中的counter，是在store中定义的,是这里的counter
+    /**
+     * const allReducers = combineReducers({
+     *    counter: counterReducer,
+     *    person: personReducer
+     *  });
+     */
+    counter: state.counter, // 这里的状态，取的是store中reducer中定义的counter属性
+    personNum: state.person.length,
+  };
+}
+
+// store.js
+const allReducers = combineReducers({
+    counter: counterReducer,
+    person: personReducer
+});
+```
+
 #### 7.7 使用redux调试工具
 
+redux也有自己的开发者工具，但是使用起来有点麻烦。
+
+不是说我们的项目中使用到了redux，浏览器的开发者工具插件就会高亮，而是需要在代码中引入redux-devtools-extension库并对store做一些处理，才可以使用
+
+```bash
+npm install redux-devtools-extension
+```
+
+store.js中通过redux-devtools-extension库做一些处理：
+
+```js
+// store.js
+// 引入redux-devtools-extension
+import { composeWithDevTools } from "redux-devtools-extension";
+// 使用redux-devtools-extension开发者工具处理
+const store = createStore(allReducers, composeWithDevTools(applyMiddleware(thunk)));
+```
+
+之后浏览器中的开发者工具就会高亮了
+
+![redux开发者工具](./images/i28.png)
+
 #### 7.8 纯函数和高阶函数
+
+##### 7.8.1 纯函数
+
+1. 一类特别的函数，只要是同样的输入（实参），必定得到同样的输出（返回）
+2. 必须遵守一些约束：
+   1. 不得改写参数数据
+   2. 不会产生任何副作用，例如网络请求，输入和输出设备
+   3. 不能调用Date.now()或者Math.random()等时刻会发生变化的方法
+3. redux的reducer函数必须要是一个纯函数
+
+##### 7.8.2 高阶函数
+
+1. 一类特别的函数，
+   1. 情况1：参数是函数
+   2. 情况2：返回值是函数
+2. 常见的高阶函数
+   1. 定时器设置函数
+   2. 常用的数组操作函数方法
+      1. forEach
+      2. map
+      3. filter
+      4. reduce
+      5. bind
+      6. find
+   3. promise
+   4. react-redux中的connect函数
+3. 作用：能实现更加动态、更加可扩展的功能
