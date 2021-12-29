@@ -4149,5 +4149,82 @@ PS D:\end\build> serve
 
 <img src="./images/i29.png" alt="serve启动一个本地web服务" style="zoom:67%;" />
 
+### 9.  附录
+
+#### 9.1 setState
+
+setState更新状态有2种写法
+
+1. setState(stateChange,[callback]) --- 对象式的setState
+   1. stateChange为状态改变对象，该对象可以体现出状态的更改
+   2. callback是可选的回调函数，它在状态更新完毕、界面也更新完成后被调用
+2. setState(updater,[callback]) ---- 函数式的setState
+   1. updater为返回stateChange对象的函数
+   2. updater可以接收到state和props
+   3. callback是可选的回调函数，它在状态更新、界面更新后被调用
+
+总结：
+
+1. 对象式的setState是函数式的setState的简写方式 ----- 语法糖
+2. 使用原则：
+   1. 如果新状态不依赖原始状态，使用对象式
+   2. 如果新状态依赖原始状态，使用函数式
+   3. 如果需要在setState()执行后获取最新的状态数据，要再第二个callback函数中获取
+
+react中状态的更新是异步的，如果希望在状态更新完后获取新的状态值，可以通过setState的回调来获取
+
+```js
+  increment = () => {
+    // 对象式的setState
+    const { count } = this.state;
+    // 回调函数是可选的，回调函数会在状态更新以及界面更新后执行，可以获取到更新后的状态
+    this.setState(
+      {
+        count: count + 1,
+      },
+      () => {
+        console.log(this.state.count);
+      }
+    );
+    // react中状态的更新是异步的，所以这里同步方式获取修改后的状态是获取不到的
+    console.log("21行的输出：", this.state.count); // 0
+  };
+```
+
+函数式setState
+
+```js
+    /**
+     * 函数式setState
+     * 函数式state可以接收到state和props
+     * 函数式setState，也可以有可选的回调
+     */
+    this.setState(
+      (state, props) => {
+        return {
+          count: count + 2,
+        };
+      },
+      () => {
+        console.log(this.state.count);
+      }
+    );
+```
 
 
+
+#### 9.2 lazyLoad
+
+#### 9.3 Hooks
+
+#### 9.4 Fragment
+
+#### 9.5 Context
+
+#### 9.6 组件优化
+
+#### 9.7 render props
+
+#### 9.8 错误便捷
+
+#### 9.9 组件通信方式总结
