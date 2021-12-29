@@ -4211,11 +4211,141 @@ react中状态的更新是异步的，如果希望在状态更新完后获取新
     );
 ```
 
-
-
 #### 9.2 lazyLoad
 
+路由懒加载，需要lazy函数，并且以回调的形式引入组件
+
+```jsx
+import React, { Component, lazy, Suspense } from "react";
+const Home = React.lazy(() => import('./Home/Home'));
+const About = React.lazy(() => import('./About/About'));
+{/* 路由注册的地方，使用Suspense包裹 */}
+<Suspense fallback={<h3>加载中……</h3>}>
+    <Route path="/about" component={About} />
+    <Route path="/home" component={Home} />
+</Suspense>
+```
+
+> 我的代码中出现了便捷异常，编码时需要注意
+
 #### 9.3 Hooks
+
+1. React Hook/Hooks是什么？
+   1. Hook是react16.8.0版本新增的特性、语法
+   2. 可以在函数式组件中使用state以及其他的react特性
+   
+2. 三个常用的Hook
+   1. State Hook：React.useState()
+   2. Effect Hook：React.useEffect()
+   3. Ref Hook：React.useRef()
+   
+3. State Hook
+   1. State Hook让函数式组件也可以有state状态，并进行状态数据的读写操作
+   2. 语法：const [xx,xxx] = React.useState(initValue);
+   3. useState()说明：
+      1. 参数：第一次初始化指定的值在内部缓存
+      2. 返回值：包含2个元素的数组，第1个为内部当前状态值，第2个为更新状态值的函数
+   4. setXxx()2种写法
+      1. setXxx(newValue)：参数为非函数值，直接指定新的状态值，内部使用其覆盖原来的状态值
+      2. setXxx(value => newValue)：参数为函数，接收原本的状态值，返回新的状态值，内部用其覆盖原来的状态值
+   
+   ```jsx
+   function Index() {
+     const [count, setCount] = useState(0);
+     const [name, setName] = useState("Nicholas Zakas");
+   
+       function increment() {
+         setCount(count + 1);
+       }
+   
+   
+       function changeName() {
+         setName("Hanmeimei");
+       }
+   
+     return (
+       <div>
+         <h3>当前求和：{count}</h3>
+         <h3>姓名：{name}</h3>
+         <button onClick={increment}>点击加1</button>
+         <button onClick={changeName}>姓名修改</button>
+       </div>
+     );
+   }
+   ```
+   
+4. Effect Hook
+
+   1. useEffect可以让函数式组件模拟生命周期的钩子函数，也就是副作用操作
+
+   2. React中的副作用操作：
+
+      1. 发送ajax请求数据
+      2. 设置订阅/启动定时器
+      3. 手动更改真实DOM
+
+   3. 语法和说明
+
+      ```js
+        React.useEffect(() => {
+            // 可以在这里执行任何的副作用操作
+            return () => { // 在组件卸载前执行
+              // 在此做一些收尾工作，如清理定时器、取消订阅等
+            }
+        }, [stateValue]); // 如果第二个数组参数为空，则回调函数只会在第一次组件渲染时，即第一次render()时执行
+      ```
+
+   4. 可以把useEffect Hook看做是下面3个生命周期钩子函数的组合
+
+      1. componentDidMount()
+      2. componentDidUpdate()
+      3. componentWillUnmount()
+
+   ```jsx
+   function Index() {
+     const [count, setCount] = useState(0);
+     const [name, setName] = useState("Nicholas Zakas");
+   
+     // useEffect()可以让函数式组件调用生命周期钩子函数
+     // 可以有2个参数，第一个参数为函数，第二个参数表示要做监测的状态(state)
+     // 第二个参数为一个数组，当数组为空时，表示不监控任何状态；如果不为空则数组项为具体要监控的状态
+     // 回调函数相当于componentDidMount和componentDidUpdate两个钩子，但是具体和第二个参数有关系
+     // React.useEffect第一个函数参数的返回值函数，相当于componentWillUnmount周期钩子函数
+     React.useEffect(() => {
+       console.log("@666");
+       let timer = setInterval(() => {
+         setCount((count) => count + 1);
+       }, 1000);
+       // 这个返回值函数，相当于生命周期中的componentWillUnmount钩子函数
+       return () => {
+         clearInterval(timer);
+       };
+     }, []);
+   
+     function increment() {
+       setCount(count + 1);
+     }
+   
+     function changeName() {
+       setName("Hanmeimei");
+     }
+   
+     function unmount() {
+       ReactDOM.unmountComponentAtNode(document.querySelector("#root"));
+     }
+   
+     return (
+       <div>
+         <h3>当前求和：{count}</h3>
+         <h3>姓名：{name}</h3>
+         <button onClick={increment}>点击加1</button>
+         <button onClick={changeName}>姓名修改</button>
+         {/* 卸载组件的时候，注意将组件中使用到的定时器啥的给清理掉 */}
+         <button onClick={unmount}>卸载组件</button>
+       </div>
+     );
+   }
+   ```
 
 #### 9.4 Fragment
 
