@@ -4385,6 +4385,43 @@ const About = React.lazy(() => import('./About/About'));
 
 #### 9.4 Fragment
 
+jsx中写文旦结构的时候，只能是一个根标签。我们可以使用一个空的div作为空标签，这样就满足了语法上的要求。但是如果组件嵌套层级多了，就会影响到性能，这个时候，就可以使用Fragment
+
+```jsx
+export default class Index extends Component {
+  render() {
+    return (
+      <Fragment>
+        <h3>Fragment</h3>
+      </Fragment>
+    );
+  }
+}
+```
+
+Fragment也可以直接使用空标签<>
+
+```jsx
+export default class Index extends Component {
+  render() {
+    return (
+      <>
+        <h3>Fragment</h3>
+      </>
+    );
+  }
+}
+```
+
+一些场景下是没有什么区别的，但是具体比较起来，也还是有一些细微的区别：
+
+1. Fragment可以指定key属性，且只可以指定key属性
+2. 空标签<>不可以指定任何标签
+
+那么怎么选用Fragment或者空标签呢？
+
+当当前组件以后可能会作为一个子组件被遍历使用的时候，就使用Fragment，否则的话，两者可以任意使用；
+
 #### 9.5 Context
 
 #### 9.6 组件优化
