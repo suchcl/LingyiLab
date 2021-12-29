@@ -99,6 +99,9 @@
   - [7.6 react-redux](#76-react-redux)
   - [7.7 使用redux调试工具](#77-%E4%BD%BF%E7%94%A8redux%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7)
   - [7.8 纯函数和高阶函数](#78-%E7%BA%AF%E5%87%BD%E6%95%B0%E5%92%8C%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0)
+    - [7.8.1 纯函数](#781-%E7%BA%AF%E5%87%BD%E6%95%B0)
+    - [7.8.2 高阶函数](#782-%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0)
+- [8. 项目部署](#8-%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -4111,3 +4114,40 @@ const store = createStore(allReducers, composeWithDevTools(applyMiddleware(thunk
    3. promise
    4. react-redux中的connect函数
 3. 作用：能实现更加动态、更加可扩展的功能
+
+### 8. 项目部署
+
+一个react项目开发完成之后，需要通过npm run build指令将我们的源代码编译，然后将编译后的代码部署到线上的web服务器，常用的web服务器可以是nginx，可以是tomcat，也可以是apache等任何一个web服务器，当然了，也可以自己写一个，只是一般没有人会这么干。
+
+那么我们的源代码开发完成之后，想在本地模拟下线上运行环境怎么办呢？
+
+可以通过serve库来帮我们实现。
+
+```bash
+npm install serve -g # 全局安装
+```
+
+然后就可以在终端进入到期望作为服务器根目录的目录，执行serve指令，之后就会开启一个以当前目录为根目录的web服务。
+
+也可以不进入到某个指定目录，而是通过参数的形式指定，就是为了测试一下，没必要那么麻烦。
+
+```bash
+PS D:\end\build> serve
+   ┌──────────────────────────────────────────────────┐
+   │                                                  │
+   │   Serving!                                       │
+   │                                                  │
+   │   - Local:            http://localhost:3000      │
+   │   - On Your Network:  http://192.168.3.67:3000   │
+   │                                                  │
+   │   Copied local address to clipboard!             │
+   │                                                  │
+   └──────────────────────────────────────────────────┘
+```
+
+表示服务已经成功启动
+
+<img src="./images/i29.png" alt="serve启动一个本地web服务" style="zoom:67%;" />
+
+
+
