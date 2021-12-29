@@ -4044,6 +4044,21 @@ const allReducers = combineReducers({
 });
 ```
 
+**reducers文件夹下汇总reducers，统一暴露reducers**
+
+```js
+//redux/reducers/index.js
+import { combineReducers } from "redux";
+
+import counter from "./counter";
+import person from "./person";
+
+export default combineReducers({
+    counter,
+    person
+});
+```
+
 #### 7.7 使用redux调试工具
 
 redux也有自己的开发者工具，但是使用起来有点麻烦。
