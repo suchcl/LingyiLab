@@ -102,6 +102,16 @@
     - [7.8.1 纯函数](#781-%E7%BA%AF%E5%87%BD%E6%95%B0)
     - [7.8.2 高阶函数](#782-%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0)
 - [8. 项目部署](#8-%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2)
+- [9.  附录](#9--%E9%99%84%E5%BD%95)
+  - [9.1 setState](#91-setstate)
+  - [9.2 lazyLoad](#92-lazyload)
+  - [9.3 Hooks](#93-hooks)
+  - [9.4 Fragment](#94-fragment)
+  - [9.5 Context](#95-context)
+  - [9.6 组件优化](#96-%E7%BB%84%E4%BB%B6%E4%BC%98%E5%8C%96)
+  - [9.7 render props](#97-render-props)
+  - [9.8 错误便捷](#98-%E9%94%99%E8%AF%AF%E4%BE%BF%E6%8D%B7)
+  - [9.9 组件通信方式总结](#99-%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -4423,6 +4433,136 @@ export default class Index extends Component {
 当当前组件以后可能会作为一个子组件被遍历使用的时候，就使用Fragment，否则的话，两者可以任意使用；
 
 #### 9.5 Context
+
+理解：一种组件之间通信的方式，常用于前代组件和后代组件之间的通信。
+
+使用
+
+```jsx
+// 创建容器对象
+const MyContext = React.createContext();
+
+// 渲染子组件时，外面包裹xxxContext.Provider，通过value属性给后代组件传值
+// 数据也可以是对象类型：value={{name,age}}
+<Provider value={数据}>
+    <子组件 />
+</Provider>
+
+// 后代组件读取数据
+// 第一种方式，适用于类组件
+static contextType = xxxContext; // 接收context
+this.context; // 读取context中的value属性
+
+// 第二种方式：函数式组件和类组件都使用
+<xxxContext.Consumer>
+    {
+        value =>( // value就是context中value的数据
+            // 要显示的内容
+        )
+    }
+</xxxContext.Consumer>
+```
+
+实际的项目开发中，很少会用到context，而是会在封装react插件的时候会使用
+
+创建context对象，要让所有的组件都能访问到，所以不能声明到某个组件的里面
+
+函数式组件不能声明类变量，函数式组件中可以通过使用Consumer来实现接收context
+
+```jsx
+        <Consumer>{(value) => `姓名：${value.username},年龄：${value.age}`}</Consumer>
+		{/* 也可以在Consumer中使用标签，拼接HTML结构 */}
+        {/* <Consumer>
+          {(value) => {
+            return (
+              <>
+                用户名{value.username}，年龄{value.age}
+              </>
+            );
+          }}
+        </Consumer> */}
+```
+
+来看完整的案例：
+
+```jsx
+import React, { Component } from "react";
+import "./context.css";
+
+// 创建Context对象
+const MyContext = React.createContext();
+const { Provider, Consumer } = MyContext;
+export default class Index extends Component {
+  state = {
+    username: "Nicholas Zakas",
+    age: 18,
+  };
+  render() {
+    const { username, age } = this.state;
+    return (
+      <div className="index">
+        <h3>我是前辈组件，姓名是:{username}</h3>
+        {/* value,就可以让后代组件都具有了value的数据 */}
+        <Provider value={{ username, age }}>
+          <A />
+        </Provider>
+      </div>
+    );
+  }
+}
+
+class A extends Component {
+  render() {
+    return (
+      <div className="child">
+        <h3>我是儿子组件,从父组件中获取到的用户名是：{this.props.username}</h3>
+        <B username={this.props.username} />
+      </div>
+    );
+  }
+}
+
+class B extends Component {
+  // 声明接收context，一定是静态类型
+  static contextType = MyContext;
+  render() {
+    const { username, age } = this.context;
+    console.log(username);
+    console.log(age);
+    return (
+      <div className="grandson">
+        <h3>
+          我是孙子组件,从父组件B中获取到的用户名是：{username}，年龄：{age}
+        </h3>
+        <C />
+      </div>
+    );
+  }
+}
+
+function C() {
+  return (
+    <div className="offspring">
+      <h3>我是后代的函数式组件</h3>
+      <h4>
+        我从前代组件中获取到了
+        <Consumer>{(value) => `姓名：${value.username},年龄：${value.age}`}</Consumer>
+        {/* <Consumer>
+          {(value) => {
+            return (
+              <>
+                用户名{value.username}，年龄{value.age}
+              </>
+            );
+          }}
+        </Consumer> */}
+      </h4>
+    </div>
+  );
+}
+```
+
+
 
 #### 9.6 组件优化
 
