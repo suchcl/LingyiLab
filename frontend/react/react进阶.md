@@ -4562,9 +4562,44 @@ function C() {
 }
 ```
 
-
-
 #### 9.6 组件优化
+
+**Component的2个问题**
+
+> 1. 只要执行了setState，即使不改变状态，组件也会重新render，重新渲染
+> 2. 只要当前组件重新render，那么当前组件的子组件也会重新render，即使子组件没有使用父组件的任何数据，造成效率低下
+
+**提高效率的方法**
+
+> 只有当组件的state或者props数据发生改变时再去重新render
+
+**原因**
+
+> component中的shouldComponentUpdate总是返回true
+
+解决
+
+> 方法1：
+>
+> ​	重写shouldComponentUpdate()方法
+>
+> ​	比较新旧state或props数据，如果有变化再返回true，否则返回false
+>
+> 办法2：
+>
+> ​	使用PureComponent
+>
+> ​	PureComponent重写了shouldComponentUpdate()，只有当state或者props数据有变化了，才返回true
+>
+> ​	注意：
+>
+> ​		只是进行stae和props数据的浅比较，如果只是数据对象内部数据变了，返回false
+>
+> ​		不要直接修改state数据，而是要产生新数据
+>
+> 项目中一般会使用PureComponent来进行优化
+
+
 
 #### 9.7 render props
 
