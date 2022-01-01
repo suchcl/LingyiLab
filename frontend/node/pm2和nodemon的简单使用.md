@@ -131,3 +131,26 @@ PS D:\node>
 使用pm2管理node服务，在文件有变动后不会自动重启服务，但是这也正是生产环境需要的谨慎的操作吧。
 
 所以，pm2和nodemon都是非常优秀的ndoe的开发工具，具有自己的使用场景，配合使用，让node服务运转的更加完美，开发体验更加优秀。
+
+**pm2停止和重启服务**
+
+停止服务，需要指定一下要停止服务的服务id、或者文件名称，使用stop指令
+
+```bash
+# 停止服务
+pm2 stop server.js
+```
+
+重启服务：可以使用reload和restart两个指令，但是一般情况下使用reload，重载
+
+使用reload或者restart重载或者重启服务的时候，也需要指定服务的id或者name
+
+```bash
+# 重载、重启服务
+PS D:\node> pm2 reload .\server.js
+Use --update-env to update environment variables
+[PM2] Applying action reloadProcessId on app [.\server.js](ids: [ 0 ])
+[PM2] [server](0) ✓
+PS D:\node>
+```
+
