@@ -53,7 +53,7 @@
 
 1. [node.js](./frontend/node/index.md)
 
-2. [nodemon和pm2的简单使用](./frontend/node/nodemon和pm2的简单使用.md)
+2. [nodemon和pm2的简单使用](./frontend/node/pm2和nodemon的简单使用.md)
 
 #### 2.5 deno
 
