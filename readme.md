@@ -90,6 +90,8 @@
 
 1. [Egg.js](./frontend/eggjs/index.md)
 
+2. [egg进阶](./frontend/eggjs/egg进阶.md)
+
 ### 4. 多端统一
 
 #### 4.1 taro
