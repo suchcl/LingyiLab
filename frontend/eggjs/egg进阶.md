@@ -109,6 +109,61 @@ module.exports = app => {
 };
 ```
 
+#### 5.2 service
+
+service是对业务逻辑层的一个封装，其实controller也是对业务逻辑层的一部分封装，有了service层后，进一步细化。
+
+service：所有和数据库相关的操作都在service层
+
+优势：
+
+- 保证了controller的逻辑更加简单
+- 独立性：一个service中封装的方法可以被多个controller调用
+- 写测试用例简单
+
+service在app目录下，且必须在app目录下
+
+service不展示数据，只返回数据，返回数据给controller使用
+
+service是和数据库做交互，所有的操作都是异步的
+
+```js
+// app/service/user.js
+"use strict";
+
+const Service = require("egg").Service;
+
+class UserService extends Service {
+    async getUser(id) {
+        return {
+            id: id,
+            name: "王二",
+            age: 16
+        }
+    }
+}
+
+module.exports = UserService;
+```
+
+service中的方法提供好了，下面看controller中对service中方法的调用
+
+```js
+// app/controller/user.js
+async getUser() {
+    const { ctx } = this;
+    // console.log(ctx);
+    const id = ctx.query.id;
+    const res = await ctx.service.user.getUser(id);
+    // 上面获取service的方法，也可以通过结构来获取到user，然后通过user来调用里面的方法
+    // const { user } = ctx.service;
+    // const res = await user.getUser(id);
+    ctx.body = res;
+}
+```
+
+egg中，controller、service都不需要导入，而是都挂载到了ctx上下文中，可以直接从上下文中去获取
+
 ### 6. 单元测试
 
 egg.js推荐使用Mocha单元测试框架，同时支持在Nodejs和浏览器环境中，功能非常强大。
