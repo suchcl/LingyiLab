@@ -286,3 +286,71 @@ async getUserProfile() {
 
 #### 7.2 post请求和参数处理
 
+post请求，不能用在URL中的请求中，在现在的API开发中使用较多，做背后的请求处理。
+
+POST请求的参数获取，通过ctx.request.body
+
+```js
+  async addStu() {
+    const { ctx } = this;
+    ctx.body = {
+      status: 200,
+      data: ctx.request.body // 通过ctx.request.body获取post请求方式的请求参数
+    };
+  }
+```
+
+路由注册：
+
+```js
+// router.js
+router.post("/addStudent", controller.user.addStu);
+```
+
+**效果测试**
+
+我当前仅仅是在做一个post的请求测试，可以使用postman来测试效果，也可以通过在vscode中安装REST Client插件来实现。
+
+REST Client插件，就是一个类似postman的网络请求调试工具
+
+在项目的根目录下创建一个以.http为扩展名的文件：
+
+```http
+# 文件名：test.http
+POST http://127.0.0.1:7001/addStudent
+# Content-Type: application/x-www-form-urlencoded
+# Content-Type 还可以是JSON格式，在传递参数时就需要是json格式
+Content-Type: application/json
+
+# 表单格式的传参方式
+# name=wangwu
+
+# json格式的传参方式
+{
+    "name": "Liuer",
+    "age": 23,
+    "job": "Programmer"
+}
+```
+
+post请求时，需要注意请求类型，常用的有application/x-www-form-urlencoded和application/json
+
+代码编写完成后，右键选择“Send Request”指令，发送一个HTTP请求
+
+<img src="./images/i3.png" alt="post请求模拟" style="zoom:67%;" />
+
+出现这个结果，表示请求发送成功，请求参数也正常的获取了
+
+在egg的开发中，首次发送http请求的时候，可能会返回一个403，禁止请求。这是egg给我们开启了CSRF的安全校验，如果是在开发环境，可以通过配置的方式，取消csrf的校验
+
+```js
+// config/config.default.js
+  // CSRF
+  config.security = {
+    csrf: {
+      enable: false
+    }
+  };
+```
+
+在config/config.default.js中添加上这几行代码，就可以了。
