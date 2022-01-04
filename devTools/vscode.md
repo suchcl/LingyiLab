@@ -55,3 +55,26 @@ Beautify和Prettier相同，都是代码格式化工具，但是在相比之下�
 live-server是一个具有实时重载功能的小型开发服务器，可以用来热加载 html 文件，但是不能用来部署线上服务。
 
 ![live-server,vscode中轻量级web服务器](./images/i3.png)
+
+5. REST Client
+
+类似postman的网络请求工具，可以自己编码模拟网络请求
+
+```http
+POST http://127.0.0.1:7001/addStudent
+# Content-Type: application/x-www-form-urlencoded
+# Content-Type 还可以是JSON格式，在传递参数时就需要是json格式
+Content-Type: application/json
+
+# 表单格式的传参方式
+# name=wangwu
+
+# json格式的传参方式
+{
+    "name": "Liuer",
+    "age": 23,
+    "job": "Programmer"
+}
+```
+
+<img src="../frontend/eggjs/images/i3.png" alt="post请求模拟" style="zoom:67%;" />
