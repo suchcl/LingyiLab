@@ -409,3 +409,87 @@ post请求时，需要注意请求类型，常用的有application/x-www-form-ur
 ```
 
 在config/config.default.js中添加上这几行代码，就可以了。
+
+### 8. EJS模板引擎
+
+官网：https://ejs.co/
+
+国内翻译过的中文文档：https://ejs.bootcss.com/
+
+EJS是一个模板渲染引擎，可以做服务渲染。
+
+有一些事情，是前后端分离的开发模式SPA方案实现不了，或者是当前是实现不了的，比如单点登录，就需要服务端渲染的方案才可以实现，SPA的方案是实现不了的，起码是现阶段是实现不了的。
+
+ejs有针对egg的模板npm库
+
+使用ejs，首先需要安装它。 
+
+```bash
+npm install egg-view-ejs --save
+```
+
+安装完成后，还需要做一些插件的配置
+
+```js
+// config/plugin.js
+// 下面两种配置方式都可以
+
+// module.exports = {
+//   ejs: {
+//     enable: true,
+//     package: "egg-view-ejs"
+//   }
+// };
+
+
+exports.ejs = {
+  enable: true,
+  package: "egg-view-ejs"
+}
+```
+
+config.default.js
+
+```js
+// config.default.js  新增一个配置
+// ejs模板引擎配置
+config.view = {
+    mapping: {
+        ".html": "ejs"
+    }
+};
+
+// 如果有关于ejs的一些细节的配置，可以再加上下面的配置
+config.ejs = {
+
+};
+```
+
+因为ejs是模板引擎，是负责页面展示的；而controller就是负责将数据展示到页面中的，所以需要在controller中使用ejs模板引擎
+
+```js
+// app/controller/home.js
+  async useEjs(){
+    const {ctx} = this;
+    // 因为render方法返回的是一个promise，所以需要使用await去接收一下
+    // render方法的第一个参数表示要使用的模板
+    // html模板，根据egg约定，要放在app/view目录下
+    await ctx.render("home.html");
+  }
+```
+
+```markdown
+app
+├─router.js
+├─view
+|  └home.html
+├─service
+|    └user.js
+├─public
+├─controller
+|     ├─home.js
+|     └user.js
+```
+
+![egg模板引擎渲染效果](./images/i4.png)
+

@@ -48,3 +48,24 @@ D:\WebStudy\reactapp
 ```
 
 这样，markdown生成的树状目录结构就完美的生成了。
+
+treer模式导出的目录为当前的目录，还可以通过-d参数指定目录
+
+```bash
+treer -d app -e ./tree.md -i "/node_modules|.git/"
+```
+
+效果
+
+```markdown
+app
+├─router.js
+├─view
+|  └home.html
+├─service
+|    └user.js
+├─public
+├─controller
+|     ├─home.js
+|     └user.js
+```
