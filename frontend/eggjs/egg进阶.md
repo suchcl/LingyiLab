@@ -109,3 +109,29 @@ module.exports = app => {
 };
 ```
 
+### 6. 单元测试
+
+egg.js推荐使用Mocha单元测试框架，同时支持在Nodejs和浏览器环境中，功能非常强大。
+
+为了能够让开发者专注于测试本身而不是耗时在测试框架选择、测试脚本的运行方式上，egg.js框架对单元测试做了一些约定。
+
+#### 6.1 测试目录结构
+
+约定test目录为所有测试脚本的存放目录，测试中所用到的fixtures和相关的辅助脚本，都应该放在test目录下。
+
+测试脚本文件统一按照${filename}.test.js命名，必须以.test.js作为文件的扩展名，或者称为后缀
+
+```mark
+test
+├─app
+|  ├─service
+|  |    └user.test.js
+|  ├─controller
+|  |     ├─home.test.js
+|  |     └user.test.js
+```
+
+#### 6.2 测试运行工具
+
+#### 6.3 准备测试
+
