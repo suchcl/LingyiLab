@@ -493,3 +493,57 @@ app
 
 ![egg模板引擎渲染效果](./images/i4.png)
 
+render()方法的第二个参数为传递给模板的数据
+
+```js
+// controller下的  
+async useEjs() {
+    const { ctx } = this;
+    await ctx.render("home.html", {
+      id: 1000,
+      name: "王五",
+      age: 16,
+      skill: "中式推捏"
+    });
+  }
+```
+
+render()方法的第二个参数为传递给模板的数据，ejs中模板中接收到这些参数后，可以通过自己的模板语法将数据渲染到页面上
+
+```html
+<ul>
+    <li>编号：<%= id%></li></li>
+    <li>姓名：<%= name%></li>
+    <li>年龄：<%= age%></li>
+    <li>技能：<%= skill%></li>
+</ul>
+```
+
+这里需要注意的是：<%=的%和=之间不要有空格，其他部分可以按照正常的js表达式去编写代码。
+
+当数据源是数组的时候，需要注意下模板中数据的循环：
+
+```js
+// controller
+  async useEjs() {
+    const { ctx } = this;
+    await ctx.render("home.html", {
+      id: 1000,
+      name: "王五",
+      age: 16,
+      skill: [
+        "技能1", "技能2", "技能3"
+      ]
+    });
+  }
+```
+
+数据源中skill字段是数组，需要在模板中通过遍历的方式，将数组项依次渲染：
+
+```html
+<!--home.html-->
+<% for(var i = 0; i < skill.length; i++) {%>
+	<li><%= skill[i] %></li>
+<% } %>
+```
+
