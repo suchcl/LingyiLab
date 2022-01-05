@@ -547,3 +547,46 @@ render()方法的第二个参数为传递给模板的数据，ejs中模板中接
 <% } %>
 ```
 
+**通过include指令引入公共模板**
+
+项目中，通常会有比如header、footer、menu等共用的一些模块，ejs可以通过incude指令动态导入这些公共模块
+
+```ejs
+<% include header.html %>
+```
+
+如果公共的模板和页面模板不在一个目录，include也可以指定相对目录
+
+```ejs
+<% include template/footer.html %>
+```
+
+表示导入了template目录下的footer.html
+
+![include指令导入模板](./images/i5.png)
+
+#### 8.1 静态资源
+
+静态资源，默认在public目录下
+
+egg中的静态资源，通过egg-static插件进行配置的，默认是放在了public目录下，也可以通过配置修改静态资源的存放目录：
+
+```js
+// config/config.default.js
+// 静态资源的默认存在位置
+config.static = {
+    prefix: "/assets/"
+};
+```
+
+表示将静态资源目录，调整为了assets目录，一般情况下，这个配置不要修改，直接使用默认的public即可。
+
+**ejs模板中导入css样式**
+
+就和普通的html导入样式的方式一样
+
+```html
+<link rel="stylesheet" type="text/css" href="public/css/reset.css">
+```
+
+![样式生效了](./images/i6.png)
