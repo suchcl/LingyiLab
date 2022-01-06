@@ -282,6 +282,8 @@
 
 16. [免费版Typora](./Hodgepodge/Typora免费版.md)
 
+17. [Mac电脑修改用户名称和电脑名称](./Hodgepodge/Mac电脑修改用户名称和电脑名称.md)
+
 ### 面试
 
 #### 综合题目
