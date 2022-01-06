@@ -280,6 +280,8 @@
 
 15. [Mac快速锁屏](./devTools/Mac锁屏.md)
 
+16. [免费版Typora](./Hodgepodge/Typora免费版.md)
+
 ### 面试
 
 #### 综合题目
