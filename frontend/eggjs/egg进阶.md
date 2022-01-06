@@ -590,3 +590,27 @@ config.static = {
 ```
 
 ![样式生效了](./images/i6.png)
+
+### 9. Cookie
+
+egg已经封装好了cookie的实现，我们只需要使用就可以了,egg中的cookie可以通过ctx获取到
+
+ctx.cookies，然后就可以调用cookie的各种方法了，其实就只有set和get
+
+```js
+  async add() {
+    const { ctx } = this;
+    ctx.cookies.set("user", "Nicholas Zakas");
+    ctx.body = {
+      status: 200,
+      data: "Cookie添加成功"
+    };
+  }
+```
+
+cookie的值不要出现中文，如
+
+```js
+ctx.cookies.set("user", "这是我新设置的cookie"); // 会报错，cookie值不要使用中文
+```
+
