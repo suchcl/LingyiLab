@@ -277,6 +277,8 @@
 
 14. [MacOS强制退出应用](./devTools/MacOS强制退出应用.md)
 
+15. [Mac快速锁屏](./devTools/Mac锁屏.md)
+
 ### 面试
 
 #### 综合题目
