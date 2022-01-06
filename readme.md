@@ -275,6 +275,8 @@
 
 13. [BeyondCompare4 延长试用期](./Hodgepodge/BeyondCompare4延长试用期.md)
 
+14. [MacOS强制退出应用](./devTools/MacOS强制退出应用.md)
+
 ### 面试
 
 #### 综合题目
