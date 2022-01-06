@@ -240,6 +240,7 @@
 
 1. [版本管理](VersionControl/index.md)
 2. [github 修改默认分支](./VersionControl/github修改默认分支为master.md)
+3. [git查看与修改用户名与邮箱](./VersionControl/git的用户名和邮箱配置.md)
 
 ### 人工智能/机器学习
 
