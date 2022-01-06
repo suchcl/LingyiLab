@@ -18,14 +18,14 @@ Mac虽然没有给我们提供快速锁屏的快捷键，但是Mac却给我们�
 
 打开设置，选择“桌面与保护程序”，再进入“屏幕保护程序”选项卡
 
-<img src="./images/i7.png" style="zoom: 50%;">
+<img src="./images/i7.png" style="zoom: 20%;">
 
 进入到“屏幕保护程序”页签后，点击右下角的“触发角”按钮，会弹出一个”活跃的屏幕角“弹层
 
-<img src="./images/i8.png" style="zoom: 50%;">
+<img src="./images/i8.png" style="zoom: 20%;">
 
 弹层中的4个下拉框分别对应了电脑屏幕的4个角，表示当电脑鼠标移动到这些角的时候可以触发的一些动作。比如我选择了左上角，触发锁定屏幕的动作
 
-<img src="./images/i8.png" style="zoom: 50%;">
+<img src="./images/i8.png" style="zoom: 20%;">
 
 这样当电脑鼠标移动到左上角的时候，就会锁屏屏幕。这就是在没有快捷键的情况下的另一种快速锁屏的办法。
