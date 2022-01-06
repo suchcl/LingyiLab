@@ -1,3 +1,11 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [MacOS怎么强制退出应用？](#macos%E6%80%8E%E4%B9%88%E5%BC%BA%E5%88%B6%E9%80%80%E5%87%BA%E5%BA%94%E7%94%A8)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ### MacOS怎么强制退出应用？
 
 如果在Mac上的某个应用长时间没有响应，我们想强制退出一下重启，怎么强制退出呢？
