@@ -288,6 +288,8 @@
 
 18. [Mac M1:complete:13: command not found: compdef](./Hodgepodge/compdef.md)
 
+19. [Mac设置vim编辑器彩色效果](./Hodgepodge/Mac设置vim编辑器彩色效果.md)
+
 ### 面试
 
 #### 综合题目
