@@ -56,6 +56,8 @@
 
 2. [nodemon和pm2的简单使用](./frontend/node/pm2和nodemon的简单使用.md)
 
+3. [MacOS使用nvm安装nodejs:clang:error:nosuchfileordirectoryCXX=c++](./frontend/node/CXX=c++.md)
+
 #### 2.5 deno
 
 1. [deno.js](./frontend/deno/index.md)
