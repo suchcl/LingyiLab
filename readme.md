@@ -284,6 +284,8 @@
 
 17. [Mac电脑修改用户名称和电脑名称](./Hodgepodge/Mac电脑修改用户名称和电脑名称.md)
 
+18. [Mac M1:complete:13: command not found: compdef](./Hodgepodge/compdef.md)
+
 ### 面试
 
 #### 综合题目
