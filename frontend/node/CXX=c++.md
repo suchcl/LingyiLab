@@ -33,4 +33,3 @@ Run `npm config delete prefix` or `nvm use --delete-prefix v14.18.0` to unset it
 ```
 
 已经通过nvm成功的安装了指定版本的nodejs
-
