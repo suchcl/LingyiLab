@@ -195,3 +195,57 @@ taro1
 // 编译后的文件，根据当前的端输出到不同的目录下
 outputRoot: `dist/${process.env.TARO_ENV}`,
 ```
+
+### 标签库（组件库）
+
+平常开发基于浏览器的开发者，更多的会使用如div、p、span、ul等HTML标签组件，但是在taro中，就不能使用直接使用这些HTML标签了(Taro3.3之前，Taro3.3开始，可以有条件的使用HTML标签)。
+
+在Taro的开发中，必须使用如View、Text、Button等经过Taro封装过的跨平台组件进行开发，而不能直接使用HTML标签。
+
+关于Taro的组件库，可参考：https://taro-docs.jd.com/taro/docs/components-desc
+
+### 组件
+
+分为入口组件和页面组件。
+
+**入口组件**
+
+入口组件，即app.js，每个入口组件都有一个全局的配置文件app.config.js，在这个配置文件中可以做一些全局的配置，如页面组件路由、全局窗口信息、布局、路由信息，详细的全局配置，可以参考：https://docs.taro.zone/docs/app-config
+
+**页面组件**
+
+页面组件，默认在pages目录下，每个页面组件都在一个目录下，如pages/index/index.jsx、pages/list/index.jsx等，每个文件夹都代表了一个路由。
+
+```jsx
+// pages/list/index.jsx
+import Taro from "@tarojs/taro";
+import { Component } from "react";
+import { View, Text, Button } from "@tarojs/components";
+import "./index.less";
+
+export default class List extends Component {
+  toHome = () => {
+    Taro.navigateTo({
+      url: "/pages/index/index",
+    });
+  };
+  render() {
+    return (
+      <View>
+        <Text>我是列表页面</Text>
+        <Button className="btn" onClick={this.toHome}>点击去首页</Button>
+        <Text className="txt">我是列表页文字内容</Text>
+      </View>
+    );
+  }
+}
+```
+
+**自定义组件**
+
+自定义组件，一般不放在pages目录下，但是有的组织也会抽离一些自定义组件，放在pages目录下的某些固定模块的components目录下，如pages/news/commponents/news_item.jsxs，表示当前的这个组件供news模块使用，不同的组织可能有不同的组织形式，这不是技术问题，而是一个技术团队内部的架构原因，没有好坏卑劣之分，只是为了适应当前业务的区别。
+
+自定义组件，遵循大驼峰命名规则。
+### taro应用中使用原生小程序组件
+
+某些情况下需要使用小程序原生的一些能力，这些能力是针对某个具体的小程序的，不具备通用性。这个时候就需要针对不通的端，去导入各个端的组件了。
