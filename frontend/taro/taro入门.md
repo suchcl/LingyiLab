@@ -1,32 +1,32 @@
-taro开发入门，可以从4个方面去着手，分别为：环境准备、基础教程、项目实践、多端开发
+taro 开发入门，可以从 4 个方面去着手，分别为：环境准备、基础教程、项目实践、多端开发
 
 ### 1. 环境准备
 
-现在taro仅提供了一种开发方式：安装taro命令行工具 --- Taro Cli进行开发。
+现在 taro 仅提供了一种开发方式：安装 taro 命令行工具 --- Taro Cli 进行开发。
 
-**Taro命令行工具安装**
+**Taro 命令行工具安装**
 
-taro开发环境依赖nodejs，在taro开发之前，先在机器上安装nodejs，建议使用LTS版本的node.js，现在最新的稳定版为V16.13.1。关于nodejs的安装，可以参考：[node.js环境搭建](../node/nodejs环境搭建.md)
+taro 开发环境依赖 nodejs，在 taro 开发之前，先在机器上安装 nodejs，建议使用 LTS 版本的 node.js，现在最新的稳定版为 V16.13.1。关于 nodejs 的安装，可以参考：[node.js 环境搭建](../node/nodejs环境搭建.md)
 
-当node.js环境准备好之后，就可以安装Taro的命令行工具了
+当 node.js 环境准备好之后，就可以安装 Taro 的命令行工具了
 
 ```bash
 npm install @tarojs/cli -g
 ```
 
-命令行工具安装完成后，可以通过执行taro指令检测命令行工具是否安装成功
+命令行工具安装完成后，可以通过执行 taro 指令检测命令行工具是否安装成功
 
 ```bash
 xxx@xxx taroPro % taro
 👽 Taro v3.3.19
 ```
 
-如果出现了上述代码的效果，则表示taro的命令行工具安装成功。
+如果出现了上述代码的效果，则表示 taro 的命令行工具安装成功。
 
-可以通过-h参数查看taro命令行工具提供的一些常用指令
+可以通过-h 参数查看 taro 命令行工具提供的一些常用指令
 
 ```bash
-xxx@xxx taroPro % taro -h   
+xxx@xxx taroPro % taro -h
 👽 Taro v3.3.19
 
 Usage: taro <command> [options]
@@ -52,23 +52,23 @@ Commands:
 
 **开发工具**
 
-主要指编辑器，前端开发，使用较多的是vscode和webstorm，个人建议使用vscode
+主要指编辑器，前端开发，使用较多的是 vscode 和 webstorm，个人建议使用 vscode
 
-如果使用vscode编辑器，一定不要忘了其强大的插件系统， 可以帮我们非常大的提升开发效率。推荐2个非常非常建议安装的插件：ESLint、Prettier，这两个工具一个帮我们做代码的格式化，一个帮我们做格式化的规则校验，搭配使用，非常完美。
+如果使用 vscode 编辑器，一定不要忘了其强大的插件系统， 可以帮我们非常大的提升开发效率。推荐 2 个非常非常建议安装的插件：ESLint、Prettier，这两个工具一个帮我们做代码的格式化，一个帮我们做格式化的规则校验，搭配使用，非常完美。
 
-除了这ESLint和Prettier之外，也有其他的一些插件，这些插件，就根据各位开发者选择的开发技术选型自己做选择了，如果选择了Vue作为基础的技术栈，那么就建议安装Vetur、volar，如果选择了react作为基础的技术栈，那么就建议安装ES7 React/Redux/GraphQL/React-Native snippets。剩下的就比较具有针对性了，就不再一一列举了。
+除了这 ESLint 和 Prettier 之外，也有其他的一些插件，这些插件，就根据各位开发者选择的开发技术选型自己做选择了，如果选择了 Vue 作为基础的技术栈，那么就建议安装 Vetur、volar，如果选择了 react 作为基础的技术栈，那么就建议安装 ES7 React/Redux/GraphQL/React-Native snippets。剩下的就比较具有针对性了，就不再一一列举了。
 
 **终端**
 
-对于使用Mac的开发者来说，也别配置的花里胡哨的了，就直接使用系统默认的终端shell就可以了，bash或者zsh。
+对于使用 Mac 的开发者来说，也别配置的花里胡哨的了，就直接使用系统默认的终端 shell 就可以了，bash 或者 zsh。
 
-如果使用的Windows，也是建议使用系统默认的命令行工具cmd或者PowerShell。因为新版本的windows集成了WSL，那么windows上最好就是使用WSL并使用Linux分发版的终端运行taro的命令行工具。由于taro的命令行工具都是在类unix系统上做的测试，所以可能会出现在windows上运行的bug，带来开发体验上的缺失。
+如果使用的 Windows，也是建议使用系统默认的命令行工具 cmd 或者 PowerShell。因为新版本的 windows 集成了 WSL，那么 windows 上最好就是使用 WSL 并使用 Linux 分发版的终端运行 taro 的命令行工具。由于 taro 的命令行工具都是在类 unix 系统上做的测试，所以可能会出现在 windows 上运行的 bug，带来开发体验上的缺失。
 
 ### 2. 基础教程
 
 **创建项目**
 
-taro命令行，通过taro init指令创建新的项目
+taro 命令行，通过 taro init 指令创建新的项目
 
 ```bash
 xxx@xxx taroPro % taro init
@@ -129,19 +129,19 @@ taro1
 ├─project.tt.json
 ├─tsconfig.json
 ├─src
-|  ├─app.config.ts
-|  ├─app.less
-|  ├─app.ts
-|  ├─index.html
-|  ├─pages
-|  |   ├─index
-|  |   |   ├─index.config.ts
-|  |   |   ├─index.less
-|  |   |   └index.tsx
+| ├─app.config.ts
+| ├─app.less
+| ├─app.ts
+| ├─index.html
+| ├─pages
+| | ├─index
+| | | ├─index.config.ts
+| | | ├─index.less
+| | | └index.tsx
 ├─config
-|   ├─dev.js
-|   ├─index.js
-|   └prod.js
+| ├─dev.js
+| ├─index.js
+| └prod.js
 ```
 
 **项目运行**
@@ -150,7 +150,7 @@ taro1
 
 干净的项目能够正常的运行起来，是整个应用的基础，地基不牢，何谈高楼。
 
-项目运行的方式，可以通过查看package.json去了解
+项目运行的方式，可以通过查看 package.json 去了解
 
 ```json
   "scripts": {
@@ -175,5 +175,23 @@ taro1
   }
 ```
 
-现在taro支持9个端，分别为微信小程序、百度小程序、支付宝小程序、头条小程序、H5、React Native、qq小程序、jd小程序以及快应用。
+现在 taro 支持 9 个端，分别为微信小程序、百度小程序、支付宝小程序、头条小程序、H5、React Native、qq 小程序、jd 小程序以及快应用。
 
+**输出目录设置**
+
+输出目录，在 config/index.js 文件中设置，文件默认设置的输出目录为根目录下的 dist 目录。
+
+如果是单一的项目，这样做也没什么问题，但是我觉着这样设置有点不够灵活，体现不了多端统一的优势,不同端的代码应该可以被编译到不同的目录下面。
+
+当然了，我们同时只能调试一个端的效果，只要关注一个端就可以了，大部分时候这样也是没有问题的，只是我想有一个明确的提示，比如我当前在调试微信小程序端，那么我的目录就是在 weapp 目录下，那么我从目录就可以直观的看到我当前调试的是是微信小程序，再比如我当前调试的是 H5，那么我就可以直观的从编译的代码目录就直观的发现我现在在调试 H5。
+
+当然了这些都不是技术上的问题，更大程度上仅仅是心理上的一点感知问题，如果想做一些灵活的配置，可以在/config/index.js 文件配置
+
+```js
+// config/index.js
+
+// 文件固定编译输出到dist目录下
+// outputRoot: 'dist',
+// 编译后的文件，根据当前的端输出到不同的目录下
+outputRoot: `dist/${process.env.TARO_ENV}`,
+```
