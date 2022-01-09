@@ -379,6 +379,8 @@
 
 2. [vscode 编辑器中：类型注释只能在 TypeScript 文件中使用](./devTools/类型注释只能在TypeScript文件中使用.md)
 
+3. [vscode中的prettier和eslint的配合使用](./devTools/vscode配置prettier和eslint.md)
+
 ### 生活琐碎
 
 1. [生活琐碎](life/index.md)
