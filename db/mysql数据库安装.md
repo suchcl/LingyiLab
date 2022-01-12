@@ -2,8 +2,8 @@
 
 下载链接：https://dev.mysql.com/downloads/mysql/
 
-![mysql安装包有arm版本和x86版本的](./images/i1.png){:zoom="30%"}
+![mysql安装包有arm版本和x86版本的](./images/i1.png)
 
-<img src="./images/i1.png" alt="mysql安装包有arm版本和x86版本的" style="transform:scale(2,2);">
+<img src="./images/i1.png" alt="mysql安装包有arm版本和x86版本的" width="300" />
 
 最新的Mac M1芯片的是ARM架构的，如果有显示是Intel的，就下载x86版本的安装包.
