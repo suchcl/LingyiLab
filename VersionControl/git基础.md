@@ -137,12 +137,18 @@ git pull  # 拉取&合并本地代码
 
 git checkout 分支名 # 切换分支
 
+git stash  # 将变动内容加入到本地暂存区、贮藏栈
+
+git stash save "注释信息" 
+
 ```
 ### 5. 常见问题
 
 1. git fetch和git pull的区别？什么时候使用git fetch，什么时候使用git pull?
 
-2. git stash
+2. git stash和git add有什么区别？
+
+
 
 3. 完成一次完美的代码提交，需要哪些必须的步骤？
 
