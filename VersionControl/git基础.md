@@ -24,9 +24,51 @@ git的下载链接：https://git-scm.com/downloads
 
 在做git配置的时候，共有3个级别的配置，分别为系统级别、当前用户级别和当前项目级别。
 
-系统级别，是对当前系统的所有用户都生效，一般很少使用，个人使用电脑，很少做系统级别的配置。系统级别的配置文件:/etc/gitconfig,我当前使用的是mac，系统中默认是没有这个文件存在的，如果有需要，可以在/etc目录下使用管理员权限或者超级用户权限来修改；
+系统级别，是对当前系统的所有用户都生效，一般很少使用，个人使用电脑，很少做系统级别的配置。系统级别的配置文件:/etc/gitconfig,我当前使用的是mac，系统中默认是没有这个文件存在的，如果有需要，可以在/etc目录下使用管理员权限或者超级用户权限添加--system参数来修改；
 
-用户级别，
+用户级别，可以通过修改~/.config/git/cofnig文件或者~/.gitconfig文件来修改，我的系统中，默认有～/.gitconfig配置文件，没有~/.config/git/config文件，这可能不同的系统版本有关系吧，我现在不确认，但我觉着这个不重要，我们的系统中有哪个文件就去改哪个文件就可以了；用户级别的配置文件修改了，修改时可以通过添加--global参数，可以让系统中当前用户下所有的git项目都生效，除非有了项目级别的配置了。
+
+项目级别，项目级别的配置信息，是在当前项目根目录下的.git目录中的config文件，在项目级别的配置文件配置的信息，只对当前项目生效，配置后不会影响到其他的git项目。
+
+```bash
+# 系统级别的信息配置  使用--system参数
+git config --system user.name 用户名
+git config --system user.email 用户邮箱
+
+# 用户级别的信息配置 使用--global参数
+git config --global user.name 用户名
+git config --global user.email 用户邮箱
+
+# 项目级别的信息配置 不需要使用任何参数
+git config user.name 用户名
+git config user.email 用户邮箱
+```
+
+**查看基本配置信息**
+
+查看配置信息的方式和配置的方式相同，只要去掉最后面的属性值就可以了
+
+```bash
+# 查看系统级别的配置信息
+git config --system user.name
+git config --system user.email
+
+# 查看用户级别的配置信息
+git config --global user.name
+git config --global user.email
+
+# 查看项目级别的配置信息
+git config user.name
+git config user.email
+```
+
+配置时使用--system或者--global参数，位置固定，紧跟在config之后，不可放在最后如git config user.name 用户名 --system或者查看配置信息时使用git config user.name 用户名 --system这样的方式。
+
+在配置信息时，将-- system或者--global参数放在最后，那么将不生效
+
+在查看信息时，如果将--system或者--global参数放在最后，则参数会被当作配置项的值去生效
+
+> Mac中，～表示当前目录，应该知道这个常识。
 #### 2.1 用户信息配置
 
 用户信息配置，使用最多的是用户名和邮箱配置，可以分为全局配置和本地配置。
@@ -67,7 +109,7 @@ git config --global user.name # 查看全局的用户信息
 git config --global user.email # 查看全局的用户邮箱信息
 ```
 
-> 注意--global参数的位置不可变，如git config user.name --global是不可以的。对于做前端、经常使用npm的同学需要注意下
+> 注意--global参数的位置不可变，如git config user.name --global是不可以的,放到后面就成了name属性的值了。对于做前端、经常使用npm的同学需要注意下
 
 **查看当前仓库的用户信息**
 
