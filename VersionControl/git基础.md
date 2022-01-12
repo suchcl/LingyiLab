@@ -1,5 +1,10 @@
 ### 1. git的安装
 
+windows的话，直接从官网下载安装文件下载即可；Mac的话，系统已经内置了git，如果想要更新版本或者重新安装的话，可以通过homebrew来安装，git官方推荐的也是使用Homebrew进行安装；linux的话，根据不同的发型版使用各自的包管理器去安装，方式都比较简单；git的官网上都给出了很详细的方法。
+
+git的下载链接：https://git-scm.com/downloads
+
+> 关于对git的了解和学习，建议去git的官网去看，有一定英文基础的，可以查看英文文档：https://git-scm.com/book/en/v2，如果英文基础稍弱一些的，官网也给出了中文文档：https://git-scm.com/book/zh/v2，有些时候虽然看官网的文档有点晦涩难懂，但是官方给出的文档，是最权威的、最新的，只是对于查看、学习的人要有一定的耐心和总结能力。
 ### 2. git的简单配置
 
 #### 2.1 用户信息配置
@@ -54,16 +59,19 @@ git config user.name  # 查看当前仓库的用户名
 git config user.email # 查看当前仓库的用户邮箱
 ```
 
+### 3. 常用的图形客户端工具
 
-### 3. 常用的UI工具
+用过的有sourceree和TortoiseGit,就是小乌龟，我个人首推sourcetree。
+
+sourcetree的各种操作都比较简单，可以实现傻瓜式操作。我本地有太多的项目信息，不再贴图演示了。
 
 ### 4. 常用指令
 
-git fetch
+git fetch  拉取代码，但是不合并代码
 
-git pull
+git pull  拉取&合并本地代码
 
-git 
+git checkout 分支名
 
 
 ### 5. 常见问题
