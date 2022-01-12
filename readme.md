@@ -292,6 +292,8 @@
 
 19. [Mac设置vim编辑器彩色效果](./Hodgepodge/Mac设置vim编辑器彩色效果.md)
 
+20. [Mac终端ls指令通过颜色区分文件和文件夹](./devTools/mac终端命令行ls区分文件和文件夹.md)
+
 ### 面试
 
 #### 综合题目

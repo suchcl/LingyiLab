@@ -1,3 +1,16 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [1. git的安装](#1-git%E7%9A%84%E5%AE%89%E8%A3%85)
+  - [2.1 用户信息配置](#21-%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF%E9%85%8D%E7%BD%AE)
+  - [2.2 查看用户信息](#22-%E6%9F%A5%E7%9C%8B%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF)
+- [3. 常用的图形客户端工具](#3-%E5%B8%B8%E7%94%A8%E7%9A%84%E5%9B%BE%E5%BD%A2%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%B7%A5%E5%85%B7)
+- [4. 常用指令](#4-%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4)
+- [5. 常见问题](#5-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ### 1. git的安装
 
 windows的话，直接从官网下载安装文件下载即可；Mac的话，系统已经内置了git，如果想要更新版本或者重新安装的话，可以通过homebrew来安装，git官方推荐的也是使用Homebrew进行安装；linux的话，根据不同的发型版使用各自的包管理器去安装，方式都比较简单；git的官网上都给出了很详细的方法。
@@ -7,6 +20,13 @@ git的下载链接：https://git-scm.com/downloads
 > 关于对git的了解和学习，建议去git的官网去看，有一定英文基础的，可以查看英文文档：https://git-scm.com/book/en/v2，如果英文基础稍弱一些的，官网也给出了中文文档：https://git-scm.com/book/zh/v2，有些时候虽然看官网的文档有点晦涩难懂，但是官方给出的文档，是最权威的、最新的，只是对于查看、学习的人要有一定的耐心和总结能力。
 ### 2. git的简单配置
 
+当git安装完成之后，需要做的第一件事就是配置好用户名和用户邮箱，这一点非常重要，因为每一次git的提交，都需要使用到这2个信息，且不可更改。
+
+在做git配置的时候，共有3个级别的配置，分别为系统级别、当前用户级别和当前项目级别。
+
+系统级别，是对当前系统的所有用户都生效，一般很少使用，个人使用电脑，很少做系统级别的配置。系统级别的配置文件:/etc/gitconfig,我当前使用的是mac，系统中默认是没有这个文件存在的，如果有需要，可以在/etc目录下使用管理员权限或者超级用户权限来修改；
+
+用户级别，
 #### 2.1 用户信息配置
 
 用户信息配置，使用最多的是用户名和邮箱配置，可以分为全局配置和本地配置。
@@ -67,13 +87,15 @@ sourcetree的各种操作都比较简单，可以实现傻瓜式操作。我本�
 
 ### 4. 常用指令
 
-git fetch  拉取代码，但是不合并代码
+```bash
 
-git pull  拉取&合并本地代码
+git fetch  # 拉取代码，但是不合并代码
 
-git checkout 分支名
+git pull  # 拉取&合并本地代码
 
+git checkout 分支名 # 切换分支
 
+```
 ### 5. 常见问题
 
 1. git fetch和git pull的区别？什么时候使用git fetch，什么时候使用git pull?
