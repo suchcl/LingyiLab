@@ -212,6 +212,14 @@
 
 #### 12.7 开发工具
 
+1. [vscode 使用小技巧](./devTools/vscode.md)
+
+2. [vscode 编辑器中：类型注释只能在 TypeScript 文件中使用](./devTools/类型注释只能在TypeScript文件中使用.md)
+
+3. [vscode中的prettier和eslint的配合使用](./devTools/vscode配置prettier和eslint.md)
+
+4. [vscode开启和关闭启动欢迎页](./devTools/vscode开启和关闭启动欢迎页.md)
+
 #### 12.8 工程自动化(CICD)
 
 #### 12.9 测试(单元测试、自动化测试)
@@ -380,16 +388,6 @@
 ### 常见效果收集
 
 1.[ant-vue-design 时间控件快捷筛选时间范围，可选择今天、昨天、最近一周、最近 2 周、最近 1 个月、3 个月、半年](./se/antVueRange.md)
-
-### 开发工具
-
-1. [vscode 使用小技巧](./devTools/vscode.md)
-
-2. [vscode 编辑器中：类型注释只能在 TypeScript 文件中使用](./devTools/类型注释只能在TypeScript文件中使用.md)
-
-3. [vscode中的prettier和eslint的配合使用](./devTools/vscode配置prettier和eslint.md)
-
-4. [vscode开启和关闭启动欢迎页](./devTools/vscode开启和关闭启动欢迎页.md)
 
 ### 生活琐碎
 
