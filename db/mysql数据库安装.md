@@ -1,0 +1,7 @@
+### mysql数据库安装及环境配置
+
+下载链接：https://dev.mysql.com/downloads/mysql/
+
+![mysql安装包有arm版本和x86版本的](./images/i1.png)
+
+最新的Mac M1芯片的是ARM架构的，如果有显示是Intel的，就下载x86版本的安装包。

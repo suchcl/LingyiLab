@@ -228,6 +228,10 @@
 
 4. [统计分析]
 
+
+### 14. 数据库
+
+1. [mysql数据的安装](./db/mysql数据库安装.md)
 ### 常见问题
 
 1. [常见问题](qa/index.md)
@@ -384,6 +388,8 @@
 2. [vscode 编辑器中：类型注释只能在 TypeScript 文件中使用](./devTools/类型注释只能在TypeScript文件中使用.md)
 
 3. [vscode中的prettier和eslint的配合使用](./devTools/vscode配置prettier和eslint.md)
+
+4. [vscode开启和关闭启动欢迎页](./devTools/vscode开启和关闭启动欢迎页.md)
 
 ### 生活琐碎
 
