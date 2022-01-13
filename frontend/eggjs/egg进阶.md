@@ -614,3 +614,40 @@ cookie的值不要出现中文，如
 ctx.cookies.set("user", "这是我新设置的cookie"); // 会报错，cookie值不要使用中文
 ```
 
+cookie还可以设置其他的一些属性，如为了安全起见，cookie一般在服务端进行设置，但是需要将cookie设置成只读的，不允许在客户端对cookie进行修改
+
+```js
+    ctx.cookies.set("user", "Nicholas Zakas", {
+      // 设置cookie的有效时长
+      maxAge: 1000 * 600,
+      // 设置cookie是否为只读，Boolean值，true为只读，false为可写，默认为true
+      httpOnly: false,
+      // 加密
+      encrypt: true
+    });
+```
+
+设置cookie的地方加密了，那么读取cookie的时候需要解密，否则不能正常读出cookie值
+
+```js
+  async show() {
+    const { ctx } = this;
+    const cookie = ctx.cookies.get("user",{
+      // 读取cookie，需要解密，encrypt在设置的时候的功能是加密，在读取cookie的时候作用是解密
+      encrypt:true
+    });
+    ctx.body = {
+      status: 200,
+      data: cookie
+    };
+  }
+}
+```
+
+读取cookie时没有解密，cookie值没有被读取出来
+
+![读取cookie时没有解密，cookie值没有被读取出来](./images/i7.png)
+
+读取cookie的时候通过encrypt解密了，cookie值被正常的读取了出来
+
+![读取cookie的时候通过encrypt解密了，cookie值被正常的读取了出来](./images/i8.png)
