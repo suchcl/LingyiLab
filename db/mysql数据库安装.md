@@ -171,23 +171,72 @@ mysql>
 到这里，表示已经成功的进入到mysql服务了，可以正常使用mysql来建库、建表了。
 #### 1.2 通过Homebrew安装及管理
 
-https://blog.csdn.net/weixin_34026997/article/details/113579589?utm_term=mac%E6%9F%A5%E7%9C%8B%E6%98%AF%E5%90%A6%E5%AE%89%E8%A3%85%E4%BA%86mysql&utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~sobaiduweb~default-1-113579589&spm=3001.4430
+参考链接：https://blog.csdn.net/weixin_34026997/article/details/113579589
 
-### 2. 服务管理
+1. 首先需要安装Homebrew
 
-#### 2.1 查看服务状态
+Homebrew可以简单的理解为Mac上的包管理器，如果是做前端开发的同学，就把Homebrew当作是npm或者yarn来理解就可以了。
 
-#### 2.2 开启服务
+关于Homebrew的详细介绍，可以参考[Homebrew](../devTools/Homebrew.md)。
 
+**安装Homebrew**
 
-#### 2.3 停止服务
+Homebrew文档：https://brew.sh/index_zh-cn
 
-#### 2.4 重启服务
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+> Homebrew在一些linux的发行版上也可以使用，只是在Mac上发扬光大了
+
+**安装brew services**
+
+```bash
+brew tap homebrew/services
+```
+
+查看通过Homebrew安装的应用列表
+
+```bash
+brew list
+```
+
+2. 安装mysql
+
+**通过brew指令安装mysql**
+
+```bash
+brew install mysql
+```
+**启动mysql服务**
+
+```bash
+brew services start mysql
+```
+
+执行了启动mysql的服务后，如果出现了下面的提示，则表示mysql服务安装并启动成功
+
+```bash
+Successfully started mysql (label: homebrew.mxcl.mysql)
+```
+
+可以通过brew services list来查看通过homebrew启动的服务列表，从而确认mysql是否已经通过homebrew成功启动
+
+```bash
+xxx@xxxxx homebrew % brew services list
+Warning: No services available to control with `brew services`
+```
+
+因为我系统上没有通过brew services启动的服务，所以这里的提示是没有被brew services受控的服务
 
 ### 3. mysql客户端工具
 
-常用的有Navicat，但是它收费的，如果是个人使用，网上有破解方法；如果是工作使用，就企业购买正版吧，支持正版。
-
-如果使用vscode作为编辑器的话，可以安装mysql插件，因为我不是专职DBA，vscode插件已经基本满足了我的需求了。
+常用的mysql的客户端工具，有Sequel Pro、Navicat、phpMyAdmin等， 因为我是做端上工作的，经常使用vscode编辑器，我就干脆使用了vscode的mysql插件。
 
 ### 4. mysql基础指令
+
+```bash
+mysql -V # 查看mysql版本
+mysqladmin -u root password "新密码"  # 修改数据库root用户的密码
+mysql -uroot -p  # 登录mysql数据库
+
+````

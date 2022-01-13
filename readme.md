@@ -220,6 +220,8 @@
 
 4. [vscode开启和关闭启动欢迎页](./devTools/vscode开启和关闭启动欢迎页.md)
 
+5. [Homebrew](./devTools/Homebrew.md)
+
 #### 12.8 工程自动化(CICD)
 
 #### 12.9 测试(单元测试、自动化测试)
