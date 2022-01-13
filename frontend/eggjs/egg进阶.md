@@ -651,3 +651,79 @@ cookie还可以设置其他的一些属性，如为了安全起见，cookie一�
 读取cookie的时候通过encrypt解密了，cookie值被正常的读取了出来
 
 ![读取cookie的时候通过encrypt解密了，cookie值被正常的读取了出来](./images/i8.png)
+
+### 10. session
+
+session和cookie基本相同，但是session的安全性更高，也是在服务端设置，但是在浏览器中是以cookie形式显示的。
+
+一般情况下，比如登录场景，登录的状态是cookie保存，但是登录的用户信息是保存在session中的。
+
+session也是存在于上下文中，可以直接通过ctx获取
+
+session一旦设置，就可以在任何地方去获取。
+
+**设置session**
+
+```js
+// 添加session
+ctx.session.username="Nicholas 第二";
+```
+
+**读取session**
+
+session一旦设置，就可以在任何地方去获取
+
+```js
+// 读取session
+const username = ctx.session.username;
+```
+
+session支持中文
+
+session的修改，其实就是重新赋了次值
+
+```js
+// 修改session，本质上就是重新赋值，支持中文内容
+ctx.session.username = "尼古拉斯 中文名";
+```
+
+**删除session**
+
+无论是cookie还是session，本质上它们就只有2个方法，一个方法是设置值，一个方法是读取值，而其他的如删除、修改，本质上都是设置值，只不过是设置为不同的值，删除就是把值设置为null，修改，重新赋一个值
+
+```js
+// 删除session，其实就是把值赋值为了null
+ctx.session.username = null;
+```
+
+**session的基本配置**
+
+设置了session之后，客户端就直接保存在了cookie中，但是会有一个EGG_SESS的东西出现，如：
+
+![默认session显示](./images/i9.png)
+
+我觉着这个标识符不好看，想给它修改一个自定义的标识符，可以从config/config.default.js中去修改
+
+```js
+config.session = {
+    key: "WODESHEN_SESS"
+};
+```
+
+egg项目默认没有这个配置，我们添加一下就可以了，且我修改了自定义的session的key，我没看下客户端：
+
+![自定义的session的key显示](./images/i10.png)
+
+修改了后，刷新下页面，重新生成下session，效果就出来了。
+
+关于session的另外几个常用的配置：
+
+```js
+  config.session = {
+    key: "WODESHEN_SESS",
+    httpOnly: true,
+    renew: true,
+    maxAge: 1000 * 120
+  };
+```
+
