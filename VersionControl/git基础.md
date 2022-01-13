@@ -194,6 +194,8 @@ git目录中保存了特定版本的文件，这些文件就是已提交状态�
 **git仓库**
 
 #### 5.3 撤销操作
+
+用的不是很多，暂时可以先参考下：https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%92%A4%E6%B6%88%E6%93%8D%E4%BD%9C吧
 ### 6. 常见问题
 
 1. git fetch和git pull的区别？什么时候使用git fetch，什么时候使用git pull?
