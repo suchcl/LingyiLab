@@ -56,6 +56,8 @@
 
 2. [nodemon和pm2的简单使用](./frontend/node/pm2和nodemon的简单使用.md)
 
+3. [MacOS使用nvm安装nodejs:clang:error:nosuchfileordirectoryCXX=c++](./frontend/node/CXX=c++.md)
+
 #### 2.5 deno
 
 1. [deno.js](./frontend/deno/index.md)
@@ -96,7 +98,7 @@
 
 #### 4.1 taro
 
-1. [taro](./frontend/taro/index.md)
+1. [taro基础入门](./frontend/taro/taro入门.md)
 
 #### 4.2 react native
 
@@ -202,11 +204,23 @@
 
 #### 12.4 版本控制(git)
 
+1. [git的基础知识](./VersionControl/git基础.md)
+
 #### 12.5 脚手架(搭建、开发)
 
 #### 12.6 组件系统建设(npm 包管理、npm 服务器)
 
 #### 12.7 开发工具
+
+1. [vscode 使用小技巧](./devTools/vscode.md)
+
+2. [vscode 编辑器中：类型注释只能在 TypeScript 文件中使用](./devTools/类型注释只能在TypeScript文件中使用.md)
+
+3. [vscode中的prettier和eslint的配合使用](./devTools/vscode配置prettier和eslint.md)
+
+4. [vscode开启和关闭启动欢迎页](./devTools/vscode开启和关闭启动欢迎页.md)
+
+5. [Homebrew](./devTools/Homebrew.md)
 
 #### 12.8 工程自动化(CICD)
 
@@ -224,6 +238,10 @@
 
 4. [统计分析]
 
+
+### 14. 数据库
+
+1. [mysql数据的安装](./db/mysql数据库安装.md)
 ### 常见问题
 
 1. [常见问题](qa/index.md)
@@ -240,6 +258,7 @@
 
 1. [版本管理](VersionControl/index.md)
 2. [github 修改默认分支](./VersionControl/github修改默认分支为master.md)
+3. [git查看与修改用户名与邮箱](./VersionControl/git的用户名和邮箱配置.md)
 
 ### 人工智能/机器学习
 
@@ -274,6 +293,20 @@
 12. [windows10C 盘突然空间不足](./Hodgepodge/widnows10C盘突然空间不足.md)
 
 13. [BeyondCompare4 延长试用期](./Hodgepodge/BeyondCompare4延长试用期.md)
+
+14. [MacOS强制退出应用](./devTools/MacOS强制退出应用.md)
+
+15. [Mac快速锁屏](./devTools/Mac锁屏.md)
+
+16. [免费版Typora](./Hodgepodge/Typora免费版.md)
+
+17. [Mac电脑修改用户名称和电脑名称](./Hodgepodge/Mac电脑修改用户名称和电脑名称.md)
+
+18. [Mac M1:complete:13: command not found: compdef](./Hodgepodge/compdef.md)
+
+19. [Mac设置vim编辑器彩色效果](./Hodgepodge/Mac设置vim编辑器彩色效果.md)
+
+20. [Mac终端ls指令通过颜色区分文件和文件夹](./devTools/mac终端命令行ls区分文件和文件夹.md)
 
 ### 面试
 
@@ -357,12 +390,6 @@
 ### 常见效果收集
 
 1.[ant-vue-design 时间控件快捷筛选时间范围，可选择今天、昨天、最近一周、最近 2 周、最近 1 个月、3 个月、半年](./se/antVueRange.md)
-
-### 开发工具
-
-1. [vscode 使用小技巧](./devTools/vscode.md)
-
-2. [vscode 编辑器中：类型注释只能在 TypeScript 文件中使用](./devTools/类型注释只能在TypeScript文件中使用.md)
 
 ### 生活琐碎
 
