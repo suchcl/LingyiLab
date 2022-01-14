@@ -202,7 +202,7 @@ git目录中保存了特定版本的文件，这些文件就是已提交状态�
 
 2. git stash和git add有什么区别？
 
-
+先参考：https://www.dazhuanlan.com/sherry920122/topics/1523679
 
 3. 完成一次完美的代码提交，需要哪些必须的步骤？
 

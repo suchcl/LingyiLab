@@ -68,6 +68,8 @@
 
 #### 2.7 webassembly
 
+1. [WebAssembly基础](./frontend/WebAssembly/WebAssembly基础.md)
+
 ### 3. 框架/库
 
 #### 3.1 vue.js
