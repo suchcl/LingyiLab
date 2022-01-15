@@ -780,3 +780,77 @@ module.exports = app => {
 ```
 
 注册路由级别的中间件，注意需要把全局注册的中间件给移除掉，比如demo中注册了路由级别的中间件counter，那么全局的中间件注册中就不能有counter中间件注册。
+
+### 15. egg.js中的扩展：Extend-application
+
+扩展，按照约定，需要写在app/extend目录下
+
+如果要扩展application对象，那么文件名就必须命名为application.js
+
+对application的扩展，可以扩展方法和属性，扩展属性的时候，通过get关键字
+
+```js
+// 扩展方法
+// 方法扩展  扩展的方法，可以在其他模块直接通过app调用，如app.currentTime();
+currentTime() {
+  return getTime();
+},
+
+// 扩展属性
+// 属性的扩展，通过get关键字
+get nowTime() {
+  return getTime();
+}
+```
+
+扩展的属性，调用的时候，直接通过属性的方式调用：
+
+```js
+// 通过扩展的属性获取当前时间
+nowTime: app.nowTime,
+```
+
+简单的demo：
+
+```js
+// app/extend/application.js
+"use strict";
+module.exports = {
+  // 方法扩展  扩展的方法，可以在其他模块直接通过app调用，如app.currentTime();
+  currentTime() {
+    return getTime();
+  },
+
+  // 属性的扩展，通过get关键字
+  get nowTime() {
+    return getTime();
+  }
+};
+
+function getTime() {
+  const now = new Date();
+  const year = now.getFullYear(); // 得到年份
+  const month = now.getMonth() + 1; // 获取月份
+  const date = now.getDate(); // 获取当前日期
+  const hours = now.getHours(); // 获取小时时间
+  const minute = now.getMinutes(); // 获取分钟数
+  const second = now.getSeconds(); // 获取秒数
+  const nowTime = `${year}年${month}月${date}${hours}点${minute}分${second}`;
+  return nowTime;
+}
+
+// 扩展的调用
+async useEjs() {
+  const { ctx, app } = this;
+  // 获取session，并返回给客户端去显示
+  const username = ctx.session.username;
+  await ctx.render("home.html", {
+    // 调用扩展的currentTime()方法，不需要单独引入，只要在app/extend/目录中定义了就可以
+    currentTime: app.currentTime(),
+    // 通过扩展的属性获取当前时间
+    nowTime: app.nowTime
+  });
+}
+```
+
+对于扩展的调用，不需要单独导入app/extend/applicatiion.js，因为egg的约定优于配置的原则，扩展的导入已经在egg内部做了实现，只要根据egg的约定进行扩展即可，就可直接对扩展进行使用。
