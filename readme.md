@@ -68,6 +68,8 @@
 
 #### 2.7 webassembly
 
+1. [WebAssembly基础](./frontend/WebAssembly/WebAssembly基础.md)
+
 ### 3. 框架/库
 
 #### 3.1 vue.js
@@ -242,6 +244,10 @@
 ### 14. 数据库
 
 1. [mysql数据的安装](./db/mysql数据库安装.md)
+
+2. [Node.js mysql客户端不支持认证协议引发的“ER_NOT_SUPPORTED_AUTH_MODE”问题](./db/ER_NOT_SUPPORTED_AUTH_MODE.md)
+
+3. [mysql数据库密码的加密方式](./db/mysql数据库密码的加密方式.md)
 ### 常见问题
 
 1. [常见问题](qa/index.md)

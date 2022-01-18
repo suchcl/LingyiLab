@@ -239,4 +239,5 @@ mysql -V # 查看mysql版本
 mysqladmin -u root password "新密码"  # 修改数据库root用户的密码
 mysql -uroot -p  # 登录mysql数据库
 
+alter table '旧表明' rename to '新表名'  # 修改表名称
 ````
