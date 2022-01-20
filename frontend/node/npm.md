@@ -16,8 +16,18 @@ npm主要有3部分组成：
 ## 常用命令
 
 ```bash
-npm install package 安装本地包(执行该命令后，会将包安装当前目录下的node_modules目录下，如果没有node_modules目录，则会新建)
-npm install package -g 全局安装，对本地所有项目都可用的包
+npm install package # 安装本地包(执行该命令后，会将包安装当前目录下的node_modules目录下，如果没有node_modules目录，则会新建)
+npm install package -g # 全局安装，对本地所有项目都可用的包
+
+npm install # 主要用来安装包，等价于 npm i，install可以简写为i
+```
+
+### npm在安装包的过程总，--save、-S、--save-d、-D的区别
+
+```bash
+npm install --save-dev # 安装开发时依赖，等价于 npm install -D
+
+npm install --save # 安装运行时依赖,等价于 npm instal -S
 ```
 
 ## 安装后的包的使用
