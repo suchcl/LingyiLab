@@ -2,7 +2,11 @@
 
 几年以前，记得在vue项目中使用less选择器的时候，需要手动配置一些less-loader或者plugin啥的，具体配置哪个忘记了。但是今天在使用vue-cli构建一个新项目的时候，发现并不需要配置这些loader了，就可以直接使用less预处理器。
 
-我的vue、cli以及less、less-loader的版本是：
+> 前段时间在vue2项目中，@vue/cli是4.x版本的，less直接给配置好了，可以直接使用，但是今天在使用vue3做测试的时候，脚手架并没有给配置好，现在不确认是否和我创建项目的方式有关。
+
+> 之前vue项目应该是通过vue init webpack 项目名称 的方式创建的，今天是直接使用的vue create 项目名称 的方式创建的，不确认是否和创建项目的方式有关，不确认是否是不同的创建方式有着不同的webpack配置。
+
+> 上面的问题暂且不论，我项目中已经配置好了，但我对官方文档对vue cli天生支持sass、less等预处理器的描述产生了怀疑，还需要我继续验证。
 
 ```json
 "dependencies": {
@@ -38,3 +42,31 @@ Syntax Error: TypeError: this.getOptions is not a function
 
 我没有查这个问题的根源是什么，但是一个表象是less-loader的版本太高了，降低下less-loader的版本就可以了。比如我降低到6.2.0是可以的。
 
+### vue3中配置less
+
+首先是npm包的安装
+
+```bash
+npm install less@3.10.3 less-loader@6.1.0 style-resources-loader vue-cli-plugin-style-resources-loader --save-dev
+```
+
+然后是在vue.config.js中进行配置
+
+```js
+const path = require("path");
+function resolve(dir) {
+    return path.join(__dirname, dir);
+}
+module.exports = {
+    // less配置
+    pluginOptions: {
+        "style-resources-loader": {
+            "preProcessor": "less",
+            // patterns: [
+            //     resolve("src/assets/less/base.less")
+            // ]
+            patterns: [""] // 这里的配置有些不合理，还需要去探索
+        }
+    }
+}
+```
