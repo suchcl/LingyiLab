@@ -2,7 +2,8 @@
 
 几年以前，记得在vue项目中使用less选择器的时候，需要手动配置一些less-loader或者plugin啥的，具体配置哪个忘记了。但是今天在使用vue-cli构建一个新项目的时候，发现并不需要配置这些loader了，就可以直接使用less预处理器。
 
-> 前段时间在vue2项目中，@vue/cli是4.x版本的，less直接给配置好了，可以直接使用，但是今天在使用vue3做测试的时候，脚手架并没有给配置好，现在不确认是否和我创建项目的方式有关。
+> 今天在使用@vue/cli4.5.0创建了个基于vue2的vue项目，直接使用less预处理器，结果在项目编译的时候异常，提示没有找到less-loader.
+> 我重新翻看了vue/cli文档，https://cli.vuejs.org/zh/guide/css.html,提示Vue Cli天生支持Sass、Less在内的预处理器。但是实际上并不是，起码在@vue/cli4.5版本中不是，由于提示的是找不到less-loader,我就直接根据提示安装了less-loader，安装后，可以正常使用了。我这是在.vue文件内使用，不是单独的less文件，如果是单独的less文件，可以参考[vue项目中less的配置](./vue项目中less的配置.md).
 
 > 之前vue项目应该是通过vue init webpack 项目名称 的方式创建的，今天是直接使用的vue create 项目名称 的方式创建的，不确认是否和创建项目的方式有关，不确认是否是不同的创建方式有着不同的webpack配置。
 

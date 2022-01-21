@@ -20,9 +20,9 @@
 
 1. [SEO](./frontend/前端基础/seo.md)
 
-2. [CSS 盒模型](./frontend/前端基础/css盒模型.md)
+2. [CSS盒模型](./frontend/前端基础/css盒模型.md)
 
-3. [less 等 css 预处理器和 css 比较](./frontend/前端基础/less等CSS预处理器相比css的优势.md)
+3. [less等css预处理器和css比较](./frontend/前端基础/less等CSS预处理器相比css的优势.md)
 
 #### 2.2 Javascript
 
@@ -371,6 +371,7 @@
 12. [SPA 页面首屏渲染慢怎么办？](./interview/frontend/vue/首屏渲染性能优化.md)
 13. [vue 项目部署后刷新出现 404 问题](./interview/frontend/vue/vue项目部署后刷新404问题.md)
 14. [为什么 Vue2 中组件只能由 1 个根节点，Vue3 可以有多个根节点](./interview/frontend/vue/vue根节点.md)
+15. [vue中配置less](./frontend/vue/vue项目中less的配置.md)
 
 #### React/React native
 
