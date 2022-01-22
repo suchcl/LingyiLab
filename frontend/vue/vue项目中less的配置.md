@@ -22,8 +22,10 @@ vue create vuedemo
 既然提示了找不到less-loader，那就直接安装吧，因为less编译为css，是在开发环境，所以安装开发时依赖即可。
 
 ```bash
-npm install less-loader --save-dev
+npm install less-loader@6.0.0 --save-dev
 ```
+
+> 安装less-laoder的时候，不要选择太高的版本，我测试过，选择6.0版本的，可以直接使用，如果选择6.0以上的版本，在项目运行的时候会有问题，需要我们解决其他问题。
 
 安装完成之后，重启服务：
 
