@@ -190,6 +190,8 @@
 
 1. [nginx 知识相关](./server/nginx/index.md)
 
+2. [mac上通过HomeBrew安装配置nginx](./server/nginx/mac上通过HomeBrew安装配置nginx.md)
+
 ### 11. 安全相关
 
 #### 11.1 web 安全
