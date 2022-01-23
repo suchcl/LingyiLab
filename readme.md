@@ -56,9 +56,9 @@
 
 1. [node.js](./frontend/node/index.md)
 
-2. [nodemon 和 pm2 的简单使用](./frontend/node/pm2和nodemon的简单使用.md)
+2. [nodemon和pm2的简单使用](./frontend/node/pm2和nodemon的简单使用.md)
 
-3. [MacOS 使用 nvm 安装 nodejs:clang:error:nosuchfileordirectoryCXX=c++](./frontend/node/CXX=c++.md)
+3. [MacOS使用nvm安装nodejs:clang:error:nosuchfileordirectoryCXX=c++](./frontend/node/CXX=c++.md)
 
 #### 2.5 deno
 
@@ -257,6 +257,10 @@
 2. [Node.js mysql 客户端不支持认证协议引发的“ER_NOT_SUPPORTED_AUTH_MODE”问题](./db/ER_NOT_SUPPORTED_AUTH_MODE.md)
 
 3. [mysql 数据库密码的加密方式](./db/mysql数据库密码的加密方式.md)
+
+### 15. Mac的日常使用
+
+1. [编辑环境变量](./server/mac/编辑环境变量.md)
 
 ### 常见问题
 

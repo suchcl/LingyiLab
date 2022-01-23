@@ -88,4 +88,65 @@ success Set "cache-folder" to "E:\\nodejs\\yarn\\cache".
 Done in 0.06s.
 ```
 
+安装npm包
+
+```bash
+yarn add package
+
+yarn add package --dev  # 安装开发时依赖
+
+yarn add package --peer # 安装到peerDependencies
+
+yarn add package --optional # 安装到optionalDependencies
+
+yarn global add package # 全局安装，注意不能是yarn add package global
+```
+
+查看安装列表
+
+```bash
+yarn list # 查看本地安装列表
+
+yarn global list # 查看全局安装列表
+```
+
 > 我的所有案例都是在 windows 上做的 demo 和验证，不过在非 windows 平台如 linux、mac 上应该是大同小异
+
+
+### 常见问题
+
+1. 使用yarn全局安装的包，指令无法使用，找不到，如Zsh command not found serve
+
+案例中，我使用
+
+```bash
+yarn global add serve
+```
+
+成功的安装了serve，但是当使用serve的是，却提示：Zsh command not found serve。就是没有找到这个serve指令。
+
+出现这个提示，就说名在系统的环境变量中找不到这个指令，那么我们已经成功的安装过了，那是什么原因呢？
+
+如果尝试使用npm全局安装一个包，是可以正常使用的。
+
+原因：
+
+根上的原因是yarn安装的包没有添加到系统的环境变量中。那我们就把yarn的bin，执行文件目录添加到环境变量中就可以了。
+
+> 我机器上的yarn是通过npm安装的：npm install yarn -g，在安装yarn之前，npm配置过了系统的环境变量，或者node配置过了，但是通过npm安装yarn之后，yarn的快执行文件目录没有配置到系统环境变量中，所以就找不到yarn安装的指令，就很正常了。
+
+```bash
+yarn global bin  # 查看yarn的全局执行文件目录
+vi ~/.zshrc  # 我系统使用的shell是zsh，如果使用的bash，就编辑~/.bash_profile
+export PATH=/Users/xxx/.yarn/bin:$PATH  # 添加yarn的全局执行文件目录到系统环境变量
+:wq  # 保存编辑文件
+source ~/.zshrc # 重载shell的配置文件，即时生效
+```
+
+再执行serve，就没问题了。
+
+![yarn全局安装的指令可以正常执行了](./images/i3.png)
+
+**那为甚么npm全局安装的指令可以正常执行呢**
+
+是因为在安装node的时候，配置过了系统环境变量。
