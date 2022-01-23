@@ -20,9 +20,9 @@
 
 1. [SEO](./frontend/前端基础/seo.md)
 
-2. [CSS盒模型](./frontend/前端基础/css盒模型.md)
+2. [CSS 盒模型](./frontend/前端基础/css盒模型.md)
 
-3. [less等css预处理器和css比较](./frontend/前端基础/less等CSS预处理器相比css的优势.md)
+3. [less 等 css 预处理器和 css 比较](./frontend/前端基础/less等CSS预处理器相比css的优势.md)
 
 4. [前端技术体系学习](./frontend/前端基础/前端技术体系.md)
 
@@ -56,9 +56,9 @@
 
 1. [node.js](./frontend/node/index.md)
 
-2. [nodemon和pm2的简单使用](./frontend/node/pm2和nodemon的简单使用.md)
+2. [nodemon 和 pm2 的简单使用](./frontend/node/pm2和nodemon的简单使用.md)
 
-3. [MacOS使用nvm安装nodejs:clang:error:nosuchfileordirectoryCXX=c++](./frontend/node/CXX=c++.md)
+3. [MacOS 使用 nvm 安装 nodejs:clang:error:nosuchfileordirectoryCXX=c++](./frontend/node/CXX=c++.md)
 
 #### 2.5 deno
 
@@ -70,7 +70,7 @@
 
 #### 2.7 webassembly
 
-1. [WebAssembly基础](./frontend/WebAssembly/WebAssembly基础.md)
+1. [WebAssembly 基础](./frontend/WebAssembly/WebAssembly基础.md)
 
 ### 3. 框架/库
 
@@ -96,13 +96,17 @@
 
 1. [Egg.js](./frontend/eggjs/index.md)
 
-2. [egg进阶](./frontend/eggjs/egg进阶.md)
+2. [egg 进阶](./frontend/eggjs/egg进阶.md)
+
+#### 3.6 Umi.js
+
+1. [Umi 技术体系](./frontend/umijs/umi.md)
 
 ### 4. 多端统一
 
 #### 4.1 taro
 
-1. [taro基础入门](./frontend/taro/taro入门.md)
+1. [taro 基础入门](./frontend/taro/taro入门.md)
 
 #### 4.2 react native
 
@@ -190,7 +194,7 @@
 
 1. [nginx 知识相关](./server/nginx/index.md)
 
-2. [mac上通过HomeBrew安装配置nginx](./server/nginx/mac上通过HomeBrew安装配置nginx.md)
+2. [mac 上通过 HomeBrew 安装配置 nginx](./server/nginx/mac上通过HomeBrew安装配置nginx.md)
 
 ### 11. 安全相关
 
@@ -210,7 +214,7 @@
 
 #### 12.4 版本控制(git)
 
-1. [git的基础知识](./VersionControl/git基础.md)
+1. [git 的基础知识](./VersionControl/git基础.md)
 
 #### 12.5 脚手架(搭建、开发)
 
@@ -222,13 +226,13 @@
 
 2. [vscode 编辑器中：类型注释只能在 TypeScript 文件中使用](./devTools/类型注释只能在TypeScript文件中使用.md)
 
-3. [vscode中的prettier和eslint的配合使用](./devTools/vscode配置prettier和eslint.md)
+3. [vscode 中的 prettier 和 eslint 的配合使用](./devTools/vscode配置prettier和eslint.md)
 
-4. [vscode开启和关闭启动欢迎页](./devTools/vscode开启和关闭启动欢迎页.md)
+4. [vscode 开启和关闭启动欢迎页](./devTools/vscode开启和关闭启动欢迎页.md)
 
 5. [Homebrew](./devTools/Homebrew.md)
 
-6. [mac的终端通过code .指令快速启动vscode](./devTools/mac终端设置vscode快捷启动.md)
+6. [mac 的终端通过 code .指令快速启动 vscode](./devTools/mac终端设置vscode快捷启动.md)
 
 #### 12.8 工程自动化(CICD)
 
@@ -246,14 +250,14 @@
 
 4. [统计分析]
 
-
 ### 14. 数据库
 
-1. [mysql数据的安装](./db/mysql数据库安装.md)
+1. [mysql 数据的安装](./db/mysql数据库安装.md)
 
-2. [Node.js mysql客户端不支持认证协议引发的“ER_NOT_SUPPORTED_AUTH_MODE”问题](./db/ER_NOT_SUPPORTED_AUTH_MODE.md)
+2. [Node.js mysql 客户端不支持认证协议引发的“ER_NOT_SUPPORTED_AUTH_MODE”问题](./db/ER_NOT_SUPPORTED_AUTH_MODE.md)
 
-3. [mysql数据库密码的加密方式](./db/mysql数据库密码的加密方式.md)
+3. [mysql 数据库密码的加密方式](./db/mysql数据库密码的加密方式.md)
+
 ### 常见问题
 
 1. [常见问题](qa/index.md)
@@ -270,7 +274,7 @@
 
 1. [版本管理](VersionControl/index.md)
 2. [github 修改默认分支](./VersionControl/github修改默认分支为master.md)
-3. [git查看与修改用户名与邮箱](./VersionControl/git的用户名和邮箱配置.md)
+3. [git 查看与修改用户名与邮箱](./VersionControl/git的用户名和邮箱配置.md)
 
 ### 人工智能/机器学习
 
@@ -306,19 +310,19 @@
 
 13. [BeyondCompare4 延长试用期](./Hodgepodge/BeyondCompare4延长试用期.md)
 
-14. [MacOS强制退出应用](./devTools/MacOS强制退出应用.md)
+14. [MacOS 强制退出应用](./devTools/MacOS强制退出应用.md)
 
-15. [Mac快速锁屏](./devTools/Mac锁屏.md)
+15. [Mac 快速锁屏](./devTools/Mac锁屏.md)
 
-16. [免费版Typora](./Hodgepodge/Typora免费版.md)
+16. [免费版 Typora](./Hodgepodge/Typora免费版.md)
 
-17. [Mac电脑修改用户名称和电脑名称](./Hodgepodge/Mac电脑修改用户名称和电脑名称.md)
+17. [Mac 电脑修改用户名称和电脑名称](./Hodgepodge/Mac电脑修改用户名称和电脑名称.md)
 
 18. [Mac M1:complete:13: command not found: compdef](./Hodgepodge/compdef.md)
 
-19. [Mac设置vim编辑器彩色效果](./Hodgepodge/Mac设置vim编辑器彩色效果.md)
+19. [Mac 设置 vim 编辑器彩色效果](./Hodgepodge/Mac设置vim编辑器彩色效果.md)
 
-20. [Mac终端ls指令通过颜色区分文件和文件夹](./devTools/mac终端命令行ls区分文件和文件夹.md)
+20. [Mac 终端 ls 指令通过颜色区分文件和文件夹](./devTools/mac终端命令行ls区分文件和文件夹.md)
 
 ### 面试
 
@@ -375,11 +379,11 @@
 12. [SPA 页面首屏渲染慢怎么办？](./interview/frontend/vue/首屏渲染性能优化.md)
 13. [vue 项目部署后刷新出现 404 问题](./interview/frontend/vue/vue项目部署后刷新404问题.md)
 14. [为什么 Vue2 中组件只能由 1 个根节点，Vue3 可以有多个根节点](./interview/frontend/vue/vue根节点.md)
-15. [vue中配置less](./frontend/vue/vue项目中less的配置.md)
+15. [vue 中配置 less](./frontend/vue/vue项目中less的配置.md)
 
 #### React/React native
 
-1. [谈谈你对react的理解](./frontend/react/React的理解.md)
+1. [谈谈你对 react 的理解](./frontend/react/React的理解.md)
 
 #### webpack
 
