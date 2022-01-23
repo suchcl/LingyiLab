@@ -88,25 +88,25 @@ Need help? Go and open issue: https://tls.jd.com/taro-issue-helper
 
 ✔ 创建项目: taro1
 ✔ 创建文件: taro1/.npmrc
-✔ 创建文件: /Users/a58/Documents/workspace/learning/taroPro/taro1/.editorconfig
-✔ 创建文件: /Users/a58/Documents/workspace/learning/taroPro/taro1/.eslintrc
-✔ 创建文件: /Users/a58/Documents/workspace/learning/taroPro/taro1/.gitignore
-✔ 创建文件: /Users/a58/Documents/workspace/learning/taroPro/taro1/babel.config.js
-✔ 创建文件: /Users/a58/Documents/workspace/learning/taroPro/taro1/global.d.ts
-✔ 创建文件: /Users/a58/Documents/workspace/learning/taroPro/taro1/package.json
-✔ 创建文件: /Users/a58/Documents/workspace/learning/taroPro/taro1/project.config.json
-✔ 创建文件: /Users/a58/Documents/workspace/learning/taroPro/taro1/project.tt.json
-✔ 创建文件: /Users/a58/Documents/workspace/learning/taroPro/taro1/tsconfig.json
-✔ 创建文件: /Users/a58/Documents/workspace/learning/taroPro/taro1/config/dev.js
-✔ 创建文件: /Users/a58/Documents/workspace/learning/taroPro/taro1/config/index.js
-✔ 创建文件: /Users/a58/Documents/workspace/learning/taroPro/taro1/config/prod.js
-✔ 创建文件: /Users/a58/Documents/workspace/learning/taroPro/taro1/src/app.config.ts
-✔ 创建文件: /Users/a58/Documents/workspace/learning/taroPro/taro1/src/app.less
-✔ 创建文件: /Users/a58/Documents/workspace/learning/taroPro/taro1/src/app.ts
-✔ 创建文件: /Users/a58/Documents/workspace/learning/taroPro/taro1/src/index.html
-✔ 创建文件: /Users/a58/Documents/workspace/learning/taroPro/taro1/src/pages/index/index.config.ts
-✔ 创建文件: /Users/a58/Documents/workspace/learning/taroPro/taro1/src/pages/index/index.less
-✔ 创建文件: /Users/a58/Documents/workspace/learning/taroPro/taro1/src/pages/index/index.tsx
+✔ 创建文件: /Users/xxx/Documents/workspace/learning/taroPro/taro1/.editorconfig
+✔ 创建文件: /Users/xxx/Documents/workspace/learning/taroPro/taro1/.eslintrc
+✔ 创建文件: /Users/xxx/Documents/workspace/learning/taroPro/taro1/.gitignore
+✔ 创建文件: /Users/xxx/Documents/workspace/learning/taroPro/taro1/babel.config.js
+✔ 创建文件: /Users/xxx/Documents/workspace/learning/taroPro/taro1/global.d.ts
+✔ 创建文件: /Users/xxx/Documents/workspace/learning/taroPro/taro1/package.json
+✔ 创建文件: /Users/xxx/Documents/workspace/learning/taroPro/taro1/project.config.json
+✔ 创建文件: /Users/xxx/Documents/workspace/learning/taroPro/taro1/project.tt.json
+✔ 创建文件: /Users/xxx/Documents/workspace/learning/taroPro/taro1/tsconfig.json
+✔ 创建文件: /Users/xxx/Documents/workspace/learning/taroPro/taro1/config/dev.js
+✔ 创建文件: /Users/xxx/Documents/workspace/learning/taroPro/taro1/config/index.js
+✔ 创建文件: /Users/xxx/Documents/workspace/learning/taroPro/taro1/config/prod.js
+✔ 创建文件: /Users/xxx/Documents/workspace/learning/taroPro/taro1/src/app.config.ts
+✔ 创建文件: /Users/xxx/Documents/workspace/learning/taroPro/taro1/src/app.less
+✔ 创建文件: /Users/xxx/Documents/workspace/learning/taroPro/taro1/src/app.ts
+✔ 创建文件: /Users/xxx/Documents/workspace/learning/taroPro/taro1/src/index.html
+✔ 创建文件: /Users/xxx/Documents/workspace/learning/taroPro/taro1/src/pages/index/index.config.ts
+✔ 创建文件: /Users/xxx/Documents/workspace/learning/taroPro/taro1/src/pages/index/index.less
+✔ 创建文件: /Users/xxx/Documents/workspace/learning/taroPro/taro1/src/pages/index/index.tsx
 
 ✔ cd taro1, 执行 git init
 ✔ 安装成功
