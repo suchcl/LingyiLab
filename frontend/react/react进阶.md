@@ -2203,6 +2203,12 @@ componentWillUpdate
 
 > 创建一个基于react脚手架的模板项目
 
+> 创建基于Ts的react项目
+
+```bash
+npx create-react-app 项目名称 --template typescript
+```
+
 ##### 4.1.3 react项目文件分析
 
 public：静态源目录，如公共图片、css样式文件等
