@@ -160,3 +160,208 @@ state是React中一个非常重要的机制，那么什么样的值需要或者�
 
 如果通过一些状态管理工具如redux，去管理所有组件状态的话，那么组件本身就是无状态的了。无状态组件就可以更纯粹的聚焦在表现层，没有太多的业务逻辑，从而可以让组件更加的易于使用和维护。
 
+##### 3.1.2 useEffect(): 执行副作用
+
+useEffect，用于执行一段副作用。
+
+那么什么是副作用呢？其实，副作用，就是一段和当前执行结果无关的代码。比如说要修改函数外部的一个变量，要发起一个http请求等，也就是说，在函数组件的当次执行过程中，useEffect()中的代码是不影响渲染出来的UI的。
+
+useEffect()函数可以接收2个参数：
+
+```js
+useEffect(callback,dependencies);
+```
+
+第一个参数为要执行的回调函数，第二个参数为可选的依赖项数组dependencies，依赖项数组是可选的。如果不指定依赖项，那么每次函数组件执行完后都会执行回调函数callback，如果指定了依赖项，那么只有在依赖项中的值发生变化的时候，才会执行callback。
+
+如果和class类式组件对应的话，那么useEffect()涵盖了componentDidMount、componentDidUpdate、componentWillUnmount三个生命周期方法，如果我们习惯了使用类式组件，千万不要拿useEffect和生命周期中的某个或者某几个生命周期钩子函数去对应。我们只要记住，useEffect是每次组件render()完成后判断依赖并执行就可以了。
+
+例如一个Blog详情的demo，这个组件会接收一个参数表示blog的id，而当id发生变化时，组件需要发起请求来获取文章的内容并展示：
+
+```jsx
+import React, { useEffect, useState } from 'react';
+
+export default function BlogView({ id }) {
+    // 设置本地的用于存储content的state
+    const [blogContent, setBlogContent] = useState(null);
+
+    useEffect(() => {
+        // useEffect函数的callback要避免直接的async函数，要封装一下
+        const doAsync = async () => {
+            // 当id发生变化时，要清空content以保持内容的一致性
+            setBlogContent(null);
+            // 发情http请求，获取blog的内容详情
+            const res = await fetch(`/blog-content/${id}`);
+            // 将获取到的新的blog详情放入state
+            setBlogContent(await res.text());
+        };
+        doAsync();
+    }, [id]); // 使用id作为依赖项，当id发生了变化时，执行网络请求(副作用)
+
+    const isLoading = !blogContent;
+    return <>
+        {isLoading ? "Loading……" : blogContent}
+    </>;
+}
+```
+
+案例利用useEffect()完成了一次数据请求并将新数据展示到页面中的操作。在这个案例中，使用id作为依赖项，在id发生变化的时候，就利用useEffect去执行副作用，请求新的内容。
+
+**useEffect()还有2个特殊的用法：没有依赖项，或者依赖项为空数组**
+
+1. 没有依赖项，每次render后都会重新执行
+
+```js
+useEffect(() => {
+    // 每次render完后都执行
+    console.log("每次render完后都执行");
+});
+```
+
+2. 依赖项为一个空数组，则只有在首次render时触发，对应类式组件就是componentDidMount()
+
+```js
+useEffect(() => {
+    // 依赖项为空数组，只有在第一次render时执行,对应类式组件就是componentDidMount()
+    console.log("依赖项为空数组，只有在第一次render时执行,对应类式组件就是componentDidMount()");
+},[]);
+```
+
+**useEffect()还可以返回一个函数，用于在组件销毁时做一些清理的工作，如移除事件的监听、移除定时器等，类似于类式组件中的componentWillUnmount钩子函数**
+
+```js
+// 自定义hooks
+const useWindowSize = () => {
+    const [size, setSize] = useState(getSize());
+    useEffect(() => {
+        const handler = () => {
+            setSize(getSize());
+        }
+        window.addEventListener("resize", handler);
+
+        // 返回一个函数，在组件销毁时调用
+        return () => {
+            window.removeEventListener("resize", handler);
+        }
+    }, []);
+    return size;
+}
+```
+
+**useEffect()让我们能够在下面4种场景下去执行一个回调函数产生副作用**
+
+1. 每次render()后都执行：不提供第2个依赖项参数
+
+```js
+useEffect(() => {});
+```
+
+2. 仅在第一次render()后执行：提供一个空数组作为依赖项
+
+```js
+useEffect(() => {},[]);
+```
+
+3. 第一次render及以后依赖项发生变化时执行：提供一个依赖项数组
+
+```js
+useEffect(() => {},[deps]);
+```
+
+4. 组件销毁时执行：返回一个回调函数
+
+```js
+useEffect(() => {
+    return () => {}
+},[]);
+```
+
+##### 3.1.3 正确理解依赖项
+
+在useEffect()中提到了依赖线的概念，其实除了在useEffect()中会用到依赖项，在后面即将要接触到的useMemo、useCallback也会用到。
+
+如前面在刚接触Hooks时提到的，Hooks提供了让我们监听某个数据变化的能力。这个变化可能会触发组件的刷新，也可能会创建一个副作用，又或者是刷新一个缓存。那么定义要监听的那些数据变化的机制，就是指hooks的依赖项。
+
+需要注意的是，依赖项并不是内置hooks的一个特殊机制，而是可以认为是一种设计模式。有类似需求的hooks都可以使用这种设计模式去实现。
+
+在定义依赖项时，需要注意3点：
+
+1. 依赖项中定义的变量一定是在回调函数中用到，否则声明的依赖项就没有了意义。
+
+2. 依赖项一般情况下是一个常量数组，而不是一个变量。因为一般在创建callback的时候，就已经很清楚需要依赖哪些项了；
+
+3. React会使用浅比较来对比依赖项是否发生了变化，所以要特别注意数组和对象类型。如果我们每次创建一个新对象，即使和之前的值是等价的，也会认为是依赖项发生了变化。
+
+```js
+function HookDemo(){
+    // 组件每次执行的时候，都会创建一个新的数组
+    const todos = [
+        {
+            text: "lear hooks"
+        }
+    ];
+    useEffect(() => {
+        console.log("Todos changed!");
+    },[todos]);
+}
+```
+
+> 浅比较，也称为引用相等，js中，====是作浅比较，只检查左右两边是否是同一个对象的引用
+
+> 深比较，也称原值相等比较，深比较是指检查两个对象的所有属性是否都相等，深比较需要以递归的方式遍历两个对象的所有属性，操作比较比较耗时，深比较不管这2个对象是否是对同一个对象的引用。
+
+##### 3.1.4 掌握hooks的使用规则
+
+Hooks本身作为一个纯粹的js函数，不是通过某个特殊的API去创建的，而是直接定义一个函数。它需要遵循一定的规则才能正常的使用。Hooks的使用规则，主要包含下面2个：只能在函数组件的顶级作用域使用、只能在函数组件或者其他hooks中使用。
+
+1. 只能在函数组件的顶级作用域使用
+
+所谓的顶级作用域，就是指在函数内的最外层作用域，而不能在循环、条件判断或者嵌套函数内执行，而是必须在函数内的最外层作用域。同时Hooks在组件的多次渲染之间，必须按顺序被执行。
+
+因为在react组件内部，其实是维护了一个对应组件的固定Hooks执行列表的，以便在多次渲染之间保持Hooks的状态，并做对比。
+
+下面的代码一定会被执行到：
+
+```js
+function Demo(){
+    const [count,setCount] = useState(0);
+    return <div>{count}</div>;
+}
+```
+
+但是下面的代码，就会出现问题，因为这些场景中，hooks并没有在函数组件的最外层作用域。
+
+```js
+function ErrorHooks(){
+    const [count,setCount] = useState(0);
+    if(count > 20){
+        // 错误，useEffect不能出现在条件判断中
+        useEfffect(() => {
+            // 执行某些业务逻辑
+            // ……
+        },[count]);
+    }
+
+    // 这里的return，可能会提前结束组件的渲染，后面的代码将不再被执行
+    if(count == 0){
+        return "";
+    }
+
+    // 错误，不能将Hooks放在return之后
+    const [loading,setLoading] = usestat(false);
+
+    // ……
+    return <div>{count}</div>
+}
+```
+
+**Hooks的这个规则，可以总结为两点**
+
+* 所有hook必须要被执行到
+
+* 必须要按顺序执行
+
+2. 只能在函数组件或者其他hooks中使用
+
+Hooks作为专门为函数式组件设计的机制，使用情况只有两种：**一种是在函数组件内，另一种情况是在自定义的Hooks里面**
+
