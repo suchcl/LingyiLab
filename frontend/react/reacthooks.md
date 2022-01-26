@@ -1,3 +1,18 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [1. 简单认识react hooks](#1-%E7%AE%80%E5%8D%95%E8%AE%A4%E8%AF%86react-hooks)
+- [2. 了解React](#2-%E4%BA%86%E8%A7%A3react)
+  - [2.1 使用组件的方式描述UI](#21-%E4%BD%BF%E7%94%A8%E7%BB%84%E4%BB%B6%E7%9A%84%E6%96%B9%E5%BC%8F%E6%8F%8F%E8%BF%B0ui)
+  - [2.2 React组件的本质是什么？](#22-react%E7%BB%84%E4%BB%B6%E7%9A%84%E6%9C%AC%E8%B4%A8%E6%98%AF%E4%BB%80%E4%B9%88)
+- [2.3 Hooks](#23-hooks)
+- [3. Hooks基础](#3-hooks%E5%9F%BA%E7%A1%80)
+  - [3.1 内置Hooks](#31-%E5%86%85%E7%BD%AEhooks)
+    - [3.1.1 useState，让函数式组件具备维持状态的能力](#311-usestate%E8%AE%A9%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BB%84%E4%BB%B6%E5%85%B7%E5%A4%87%E7%BB%B4%E6%8C%81%E7%8A%B6%E6%80%81%E7%9A%84%E8%83%BD%E5%8A%9B)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ### 1. 简单认识react hooks
 
 react引入了hooks之后，函数式组件就具备了状态管理、生命周期管理等能力，几乎可以实现原来class式组件等所有能力。
@@ -144,3 +159,4 @@ state是React中一个非常重要的机制，那么什么样的值需要或者�
 虽然useState这个Hook便于维护state状态，但是也有自己的弊端。一旦组件有自己的状态，那么就意味着如果如果组件重新渲染了，那么组件就需要有恢复状态的过程，就会让组件变得复杂。
 
 如果通过一些状态管理工具如redux，去管理所有组件状态的话，那么组件本身就是无状态的了。无状态组件就可以更纯粹的聚焦在表现层，没有太多的业务逻辑，从而可以让组件更加的易于使用和维护。
+
