@@ -369,3 +369,39 @@ Hooks作为专门为函数式组件设计的机制，使用情况只有两种：
 
 ##### 3.1.5 使用ESLint插件帮助检查Hooks的使用
 
+使用Hooks的一些特性和要遵循的规则，只要有3点：
+
+1. 在useEffect回调函数中使用到的变量，都必须声明在依赖中；
+
+2. Hooks不能出现在条件语句或者循环中，也不能出现在return之后；
+
+3. Hooks只能在函数式组件或者自定义的Hooks中使用；
+
+那么这些规则怎么才能保证被我们执行的好呢，我们可以借助eslint-plugin-react-hooks这个eslint插件帮我们去检查。
+
+使用方法：
+
+安装插件
+
+```bash
+npm install eslint-plugin-react-hooks --save-dev
+```
+
+在eslint的配置文件中进行规则配置
+
+```js
+
+{
+  "plugins": [
+    // ...
+    "react-hooks"
+  ],
+  "rules": {
+    // ...
+    // 检查 Hooks 的使用规则
+    "react-hooks/rules-of-hooks": "error", 
+    // 检查依赖项的声明
+    "react-hooks/exhaustive-deps": "warn"
+  }
+}
+```
