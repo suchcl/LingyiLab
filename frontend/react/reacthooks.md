@@ -405,3 +405,9 @@ npm install eslint-plugin-react-hooks --save-dev
   }
 }
 ```
+
+前面已经学习了useState()和useEffect()这2个最为核心的hooks，掌握了这2个核心的hooks，就基本上已经掌握了React函数式组件的开发思路。
+
+当我们了解了useState和useEffect这2个最为核心的hooks后，已经可以实现大部分的业务功能开发了，但是还有一些细节的问题，如事件处理函数会被重复定义、数据计算过程没有缓存等等，还都需要一些机制来处理。这些细节问题，可以通过4个内置的hooks(useCallback、useMemo、museRef、useContext)的作用和用法，学习使用这些Hooks去解决这些细节问题。
+
+##### 3.1.6 useCallback 缓存回调函数
