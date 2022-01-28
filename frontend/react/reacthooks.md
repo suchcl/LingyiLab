@@ -411,3 +411,70 @@ npm install eslint-plugin-react-hooks --save-dev
 当我们了解了useState和useEffect这2个最为核心的hooks后，已经可以实现大部分的业务功能开发了，但是还有一些细节的问题，如事件处理函数会被重复定义、数据计算过程没有缓存等等，还都需要一些机制来处理。这些细节问题，可以通过4个内置的hooks(useCallback、useMemo、museRef、useContext)的作用和用法，学习使用这些Hooks去解决这些细节问题。
 
 ##### 3.1.6 useCallback 缓存回调函数
+
+在React函数组件中，每一次UI的变化，都是通过重新执行整个函数来执行的，<font color="#f20">这一点和class组件有区别：函数组件中并没有一个直接的方式在多次渲染之间维持一个状态</font>。比如下面的代码：
+
+```jsx
+import React from 'react';
+
+export default function Counter2() {
+    const [count, setCount] = React.useState(0);
+    const increment = () => {
+        console.log(`count: ${count}`);
+        setCount(count + 1);
+    }
+
+    const decrement = () => {
+        setCount(count - 1);
+    }
+    return <div>
+        <p>{count}</p>
+        <button onClick={increment}>+</button>
+        <button onClick={decrement}>-</button>
+    </div>;
+}
+```
+
+案例代码中，我们在按钮上添加了一个事件处理函数，让计数器加1或者减1，但是因为事件处理函数式在函数内部，所以在计数器这个函数组件在多次渲染之间，加1increment和减1decrement的事件处理函数是没有办法被重用的，组件每次渲染都会被创建一个新的。
+
+我们可以思考一下这个函数式组件的执行过程：每次组件状态发生变化的时候，函数组件都会重新执行一遍，在每次重新执行的时候，都会重新创建新的事件处理函数increment和decrement。这2个事件处理函数中，都包含了count这个状态的闭包，以确保每次重新创建的时候都能得到正确的结果。
+
+这也就意味着，即使count这个状态没有发生变化，但是函数组件中其他的状态发生变化，或者其他原因需要重新渲染时，也会创建新的关于count状态的事件处理函数。创建这个状态的新的事件处理函数，在结果上是没有什么影响的，但是从逻辑上来讲，这是没有必要的，因为count这个状态我并没有发生任何变化，那么也就没有必要重新执行关于这个状态的事件处理函数。因为重新执行没有必要执行的代码，不仅增加了系统的资源消耗，更重要的是：<font color="#f20">每次创建新函数的方式会让接收事件处理函数的组件，需要重新渲染</font>。
+
+比如案例中的2个按钮，分别接收了increment和decrement2个事件处理函数，并且作为属性onClick的属性值，如果组件每次渲染时都会创建新的函数，那么React就会认为这个组件的props发生了变化，从而必须重新渲染。因此，理想的状态是：<font color="#f20">只有当count这个状态发生了变化时，我们才去重新定义一个回调函数</font>，useCallback这个hook可以满足我们这个诉求。
+
+```js
+useCallback(fn,[deps]); // 用法,deps是依赖的变量数组
+```
+
+接下来通过使用useCallback来对上面的加1操作做优化的实现：
+
+```jsx
+// 使用useCallback，只有当依赖发生变化时，才去重新执行回调函数
+    const increment = useCallback(() => {
+        setCount(count + 1);
+    }, [count]); // 只有当count发生变化时，才会重新创建回调函数
+```
+
+在新的实现里，将count这个状态作为一个依赖传递给useCallback，这样，只有当count这个状态发生变化的时候，才会重新创建一个回调函数，这样就保证了组件不会创建重复的回调函数，而接收这个函数作为属性值的组件，也不会频繁的需要重新渲染。下面来看一下完整的实现：
+
+```jsx
+import React, { useCallback } from 'react';
+
+export default function Counter2() {
+    const [count, setCount] = React.useState(0); // useState没有从React中解构出来，所以使用方式是：React.useState
+    // 常规实现，会重复执行回调函数
+    // const increment = () => {
+    //     setCount(count + 1);
+    // }
+
+    // 使用useCallback，只有当依赖发生变化时，才去重新执行回调函数
+    const increment = useCallback(() => {
+        setCount(count + 1);
+    }, [count]); // 只有当count发生变化时，才会重新创建回调函数
+    return <div>
+        <p>{count}</p>
+        <button onClick={increment}>+</button>
+    </div>;
+}
+```
