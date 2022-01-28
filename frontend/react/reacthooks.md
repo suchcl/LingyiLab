@@ -478,3 +478,16 @@ export default function Counter2() {
     </div>;
 }
 ```
+
+##### 3.1.7 useMemo 缓存计算结果
+
+除了useCallback，useMemo也是为缓存而设计的。只不过，useCallback缓存的是函数，useMemo缓存的是计算结果。
+
+useMemo的API：
+
+```js
+useMemo(fn,[deps]); // fn为一个产生所需要的数据的计算函数，deps是一个依赖，数组类型、格式
+```
+
+useMemo的使用场景大概是这样子的：<font color="#f20">如果某个数据是通过其他数据计算得到的，那么只有当用到的数据，即所依赖的数据发生变化时，才应该需要重新计算</font>。
+
