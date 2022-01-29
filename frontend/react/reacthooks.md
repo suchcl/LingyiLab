@@ -624,3 +624,17 @@ export default function UserListbyUseMemo() {
 除了可以避免重复计算之外，useMemo()还有一个也非常重要的作用:<font color="#f20">避免子组件的重复渲染</font>。如案例中的usersToShow这个变量，如果每次都需要重新过滤、计算得到，那么对于自组件UserList而言，也会每次都需要刷新、重新渲染，因为usersToShow是一个属性。但是如果能缓存usersToShow这个属性，缓存了前一次的计算结果，那么就可以避免很多次不必要的重复刷新、渲染。
 
 > 有一些场景，useCallback和useMemo是可以通用的。也就是说，可以使用useCallback实现useMemo的作用，也可以使用useMemo实现useCallback的效果。因为从本质上来说，这2个hooks都是做了同一件事：建立了一个绑定到某个结果到依赖数据的关系。只有当依赖数据变化了，这个结果才会被重新得到。
+
+##### 3.1.8 useRef 在多次渲染之间共享数据
+
+函数组件的一个优势，就是简化了思考UI的实现逻辑，但是和class类式组件相比，也缺失了一大功能，就是**在多次渲染之间的数据共享能力**。
+
+在类式组件中，我们可以通过定义成员变量，以便可以在对象上通过成员属性去保存一些数据，但是在函数式的组件中，并不存在成员变量这一空间去保存数据。那么React通过useRef这样的一个Hook去实现了类式组件中数据共享的能力。
+
+useRef API
+
+```jsx
+const myRefContainer = useRef(initialValue);
+```
+
+我们可以把useRef看作是一个函数组件之外的一个容器空间，在这个容器中，我们可以通过唯一的current属性设置一个值，从而在函数组件的多次渲染之间共享这个数值。 ---- 这一点和React中的ref是如出一辙。
