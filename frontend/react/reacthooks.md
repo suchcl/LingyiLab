@@ -10,6 +10,12 @@
 - [3. Hooks基础](#3-hooks%E5%9F%BA%E7%A1%80)
   - [3.1 内置Hooks](#31-%E5%86%85%E7%BD%AEhooks)
     - [3.1.1 useState，让函数式组件具备维持状态的能力](#311-usestate%E8%AE%A9%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BB%84%E4%BB%B6%E5%85%B7%E5%A4%87%E7%BB%B4%E6%8C%81%E7%8A%B6%E6%80%81%E7%9A%84%E8%83%BD%E5%8A%9B)
+    - [3.1.2 useEffect(): 执行副作用](#312-useeffect-%E6%89%A7%E8%A1%8C%E5%89%AF%E4%BD%9C%E7%94%A8)
+    - [3.1.3 正确理解依赖项](#313-%E6%AD%A3%E7%A1%AE%E7%90%86%E8%A7%A3%E4%BE%9D%E8%B5%96%E9%A1%B9)
+    - [3.1.4 掌握hooks的使用规则](#314-%E6%8E%8C%E6%8F%A1hooks%E7%9A%84%E4%BD%BF%E7%94%A8%E8%A7%84%E5%88%99)
+    - [3.1.5 使用ESLint插件帮助检查Hooks的使用](#315-%E4%BD%BF%E7%94%A8eslint%E6%8F%92%E4%BB%B6%E5%B8%AE%E5%8A%A9%E6%A3%80%E6%9F%A5hooks%E7%9A%84%E4%BD%BF%E7%94%A8)
+    - [3.1.6 useCallback 缓存回调函数](#316-usecallback-%E7%BC%93%E5%AD%98%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0)
+    - [3.1.7 useMemo 缓存计算结果](#317-usememo-%E7%BC%93%E5%AD%98%E8%AE%A1%E7%AE%97%E7%BB%93%E6%9E%9C)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -497,3 +503,124 @@ useMemo的使用场景大概是这样子的：<font color="#f20">如果某个数
 
 2. 搜索关键字：用户在输入框输入的用户名关键字；
 
+```jsx
+import React, { useEffect, useState } from 'react';
+
+export default function UserListbyUseMemo() {
+  const [users, setUsers] = useState(null);
+  const [searchKey, setSearchKey] = useState("");
+
+  useEffect(() => {
+    const doAsync = async () => {
+      // 组件首次加载时，请求用户数据
+      const res = await fetch("https://reqres.in/api/users/");
+      setUsers(await res.json());
+    };
+    doAsync();
+  }, []);
+  let usersToShow = null;
+
+  if (users) {
+    // 无论任何原因的组件刷新，这里一定会对数组做一次过滤操作
+    // usersToShow = users.data.filter((user) => {
+    //   return user.first_name.includes(searchKey);
+    // });
+
+    // 这里有一个语法：就是如果箭头函数体只有一个返回语句，那么可以省略函数体的大括号和return关键字，以及语句结束的分号
+    usersToShow = users.data.filter(user => user.first_name.includes(searchKey));
+  }
+  return (
+    <div>
+      <input
+        type="text"
+        value={searchKey}
+        onChange={(event) => setSearchKey(event.target.value)}
+      />
+      <ul>
+        {usersToShow &&
+          usersToShow.length > 0 &&
+          usersToShow.map((user) => {
+            return <li key={user.id}>{user.first_name}</li>
+          })}
+      </ul>
+    </div>
+  );
+}
+
+```
+
+上面的这种实现，功能上没有任何问题，但是有一个潜在的性能问题，就是无论什么原因当这个组件被更新了，都会导致用户users数据被重新过滤，这可能并不是我们想要的。因为这个组件上可能除了数据还有其他数据，比如：
+
+```jsx
+import React, { useEffect, useMemo, useState } from 'react';
+
+export default function UserListbyUseMemo() {
+  const [users, setUsers] = useState(null);
+  const [searchKey, setSearchKey] = useState("");
+  const [num, setNum] = useState(10);
+
+  useEffect(() => {
+    const doAsync = async () => {
+      // 组件首次加载时，请求用户数据
+      const res = await fetch("https://reqres.in/api/users/");
+      setUsers(await res.json());
+    };
+    doAsync();
+  }, []);
+
+  // 常规实现，有个弊端是无论什么原因组件刷新，都会重新过滤下users数据 
+  let usersToShow = null;
+  if (users) {
+    // 无论任何原因的组件刷新，这里一定会对数组做一次过滤操作
+    usersToShow = users.data.filter((user) => {
+      console.log("user和搜索关键字都没有变");
+      return user.first_name.includes(searchKey);
+    });
+  }
+
+  // 测试数字变化
+  const numIncrement = () => {
+    setNum(num + 1);
+  }
+  return (
+    <div>
+      <h3>我测试下数字变化</h3>
+      <button onClick={numIncrement}>数字加1:{num}</button>
+      <br />
+      <input
+        type="text"
+        value={searchKey}
+        onChange={(event) => setSearchKey(event.target.value)}
+      />
+      <ul>
+        {usersToShow &&
+          usersToShow.length > 0 &&
+          usersToShow.map((user) => {
+            return <li key={user.id}>{user.first_name}</li>
+          })}
+      </ul>
+    </div>
+  );
+}
+```
+
+这个案例，比前面仅仅多了一个num的数据，有一个操作按钮可让num变化，那么每次num变化的时候，users数据也都会过滤一遍。实际上这是没有必要的。因为num的操作和用户数据没有任何关系。这个时候，我们可以使用useMemo()来缓存下结果数据，让只有当用户数据依赖的users和searchKey发生变化的时候，用户数据才重新渲染：
+
+```jsx
+  // 通过useMemo，指定只有当users和searchKey发生变化时，才重新过滤用户users数据
+  const usersToShow = useMemo(() => {
+    console.log("user和搜索关键字都没有变");
+    if (!users) {
+      return null;
+    }
+    return users.data.filter((user) => user.first_name.includes(searchKey));
+  }, [users, searchKey]);
+```
+
+上面的案例中，仅仅改动这一小部分，就可以了，功能完全没有任何问题，还实现了对用户数据过滤的优化，提升了性能问题，节省了资源的开销。
+
+其实，这就是useMemo的一个非常重要的好处：<font color="#f20">避免重复计算</font>。
+
+除了可以避免重复计算之外，useMemo()还有一个也非常重要的作用:<font color="#f20">避免子组件的重复渲染</font>。如案例中的usersToShow这个变量，如果每次都需要重新过滤、计算得到，那么对于自组件UserList而言，也会每次都需要刷新、重新渲染，因为usersToShow是一个属性。但是如果能缓存usersToShow这个属性，缓存了前一次的计算结果，那么就可以避免很多次不必要的重复刷新、渲染。
+
+> 有一些场景，useCallback和useMemo是可以通用的。也就是说，可以使用useCallback实现useMemo的作用，也可以使用useMemo实现useCallback的效果。因为从本质上来说，这2个hooks都是做了同一件事：建立了一个绑定到某个结果到依赖数据的关系。只有当依赖数据变化了，这个结果才会被重新得到。
