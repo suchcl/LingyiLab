@@ -1,3 +1,29 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [var、let、const](#varletconst)
+  - [块级作用域](#%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F)
+  - [默认参数作用域与暂时性死区](#%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E6%9A%82%E6%97%B6%E6%80%A7%E6%AD%BB%E5%8C%BA)
+- [扩展运算符](#%E6%89%A9%E5%B1%95%E8%BF%90%E7%AE%97%E7%AC%A6)
+  - [对象合并](#%E5%AF%B9%E8%B1%A1%E5%90%88%E5%B9%B6)
+- [剩余参数](#%E5%89%A9%E4%BD%99%E5%8F%82%E6%95%B0)
+- [模板字符串](#%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2)
+- [获取对象属性 Object.keys()](#%E8%8E%B7%E5%8F%96%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7-objectkeys)
+- [箭头函数](#%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0)
+- [Array.forEach](#arrayforeach)
+- [Array.filter() 过滤筛选](#arrayfilter-%E8%BF%87%E6%BB%A4%E7%AD%9B%E9%80%89)
+- [Array.some()](#arraysome)
+- [Array.every()](#arrayevery)
+- [Array.reduce()](#arrayreduce)
+- [对象属性同名简写（对象属性的增强写法）](#%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7%E5%90%8C%E5%90%8D%E7%AE%80%E5%86%99%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7%E7%9A%84%E5%A2%9E%E5%BC%BA%E5%86%99%E6%B3%95)
+- [Promise](#promise)
+- [class](#class)
+- [解构赋值](#%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC)
+- [对象的增强写法（对象字面量的增强写法）](#%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%A2%9E%E5%BC%BA%E5%86%99%E6%B3%95%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F%E7%9A%84%E5%A2%9E%E5%BC%BA%E5%86%99%E6%B3%95)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ### var、let、const
 
 var，是之前ES标准的变量声明关键词，现在不建议继续使用了。
