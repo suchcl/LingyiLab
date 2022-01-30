@@ -619,7 +619,7 @@ export default function UserListbyUseMemo() {
 
 上面的案例中，仅仅改动这一小部分，就可以了，功能完全没有任何问题，还实现了对用户数据过滤的优化，提升了性能问题，节省了资源的开销。
 
-其实，这就是useMemo的一个非常重要的好处：<font color="#f20">避免重复计算</font>。
+其实，这就是useMemo的一个非常重要的好处：<font style="color:#f20">避免重复计算</font>。
 
 除了可以避免重复计算之外，useMemo()还有一个也非常重要的作用:<font color="#f20">避免子组件的重复渲染</font>。如案例中的usersToShow这个变量，如果每次都需要重新过滤、计算得到，那么对于自组件UserList而言，也会每次都需要刷新、重新渲染，因为usersToShow是一个属性。但是如果能缓存usersToShow这个属性，缓存了前一次的计算结果，那么就可以避免很多次不必要的重复刷新、渲染。
 
@@ -638,3 +638,49 @@ const myRefContainer = useRef(initialValue);
 ```
 
 我们可以把useRef看作是一个函数组件之外的一个容器空间，在这个容器中，我们可以通过唯一的current属性设置一个值，从而在函数组件的多次渲染之间共享这个数值。 ---- 这一点和React中的ref是如出一辙。
+
+比如一个计时器的案例：
+
+```jsx
+import React, { useCallback, useRef, useState } from 'react';
+
+export default function Timer() {
+    // 定义time，这个state用于保存计时的累积时间
+    const [time, setTime] = useState(0);
+    // 定义timer这个容器，用于在夸组件之间保存、共享变量
+    const timer = useRef(null);
+
+    // 开始计时的事件处理函数
+    const timerStart = useCallback(() => {
+        // 使用current属性设置ref的值
+        timer.current = window.setInterval((time) => {
+            setTime(time => time + 1);
+        }, 100)
+    }, []);
+
+    // 暂停计时的事件处理函数
+    const timerParse = useCallback(() => {
+        // 使用window.clearInterval来清理计时器
+        window.clearInterval(timer.current);
+        timer.current = null;
+    }, []);
+
+    // 停止计时器的事件处理函数
+    const timerStop = () => {
+        window.clearInterval(timer.current);
+        timer.current = null;
+        setTime(0);
+    }
+    return (
+        <div>
+            {time / 10} seconds,
+            <br />
+            <button onClick={timerStart}>Start</button>
+            <button onClick={timerParse}>Parse</button>
+            <button onClick={timerStop}>Clear</button>
+        </div>
+    );
+}
+```
+
+一般情况下的计时器功能，会有开始计时、暂停、清零操作、功能，在功能实现的时候，我们需要window.setInterval来提供计时功能，需要window.clearInterval提供清空计时器的功能。这是2个基本的操作，但是还有暂停，以及清零(清空计时器功能)功能的细节实现。那么我们就需要一个地方保存window.setInterval计时器的引用，以便可以在暂停和清零的时候精准的找到对应的计时器。这个时候，useRef就派上了用场。
