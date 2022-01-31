@@ -684,3 +684,6 @@ export default function Timer() {
 ```
 
 一般情况下的计时器功能，会有开始计时、暂停、清零操作、功能，在功能实现的时候，我们需要window.setInterval来提供计时功能，需要window.clearInterval提供清空计时器的功能。这是2个基本的操作，但是还有暂停，以及清零(清空计时器功能)功能的细节实现。那么我们就需要一个地方保存window.setInterval计时器的引用，以便可以在暂停和清零的时候精准的找到对应的计时器。这个时候，useRef就派上了用场。
+
+从案例中，我们也可以看出，**useRef和UI的渲染是没有直接的关系的，因此当useRef的值发生变化的时候，是不会引起组件的重新渲染的。这是useRef区别于useState的地方**。
+
