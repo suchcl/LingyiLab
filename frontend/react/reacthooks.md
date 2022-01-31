@@ -687,3 +687,8 @@ export default function Timer() {
 
 从案例中，我们也可以看出，**useRef和UI的渲染是没有直接的关系的，因此当useRef的值发生变化的时候，是不会引起组件的重新渲染的。这是useRef区别于useState的地方**。
 
+**useRef的两个重要作用**
+
+1. 存储夸渲染的数据；
+
+2. 保存某个DOM节点的引用 ----- 和React中的ref同作用
