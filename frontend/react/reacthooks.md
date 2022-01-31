@@ -691,4 +691,25 @@ export default function Timer() {
 
 1. 存储夸渲染的数据；
 
-2. 保存某个DOM节点的引用 ----- 和React中的ref同作用
+2. 保存某个DOM节点的引用；
+
+在React的编程中，我们基本上不需要关心真实的DOM节点的渲染和修改，但是在一些特殊的场景中，我们需要获取到真实DOM节点的引用，所以结合React的ref和这个useRef的Hook，就可以获取到真实的DOM节点，并对这个DOM节点进行操作。
+
+```jsx
+import React, { useRef } from 'react';
+
+export default function InputFocus() {
+    const inputEle = useRef(null);
+
+    const inputFocus = () => {
+        // current属性指向了真实的input这个DOM节点，从而可以调用DOM的focus方法
+        inputEle.current.focus();
+    }
+    return (
+        <div>
+            <input type="text" ref={inputEle} />
+            <button onClick={inputFocus}>输入框获取焦点</button>
+        </div>
+    );
+}
+```
