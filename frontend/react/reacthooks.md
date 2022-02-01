@@ -17,6 +17,7 @@
     - [3.1.6 useCallback 缓存回调函数](#316-usecallback-%E7%BC%93%E5%AD%98%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0)
     - [3.1.7 useMemo 缓存计算结果](#317-usememo-%E7%BC%93%E5%AD%98%E8%AE%A1%E7%AE%97%E7%BB%93%E6%9E%9C)
     - [3.1.8 useRef 在多次渲染之间共享数据](#318-useref-%E5%9C%A8%E5%A4%9A%E6%AC%A1%E6%B8%B2%E6%9F%93%E4%B9%8B%E9%97%B4%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE)
+    - [3.1.9 useContext 定义全局状态](#319-usecontext-%E5%AE%9A%E4%B9%89%E5%85%A8%E5%B1%80%E7%8A%B6%E6%80%81)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -714,3 +715,18 @@ export default function InputFocus() {
     );
 }
 ```
+
+##### 3.1.9 useContext 定义全局状态
+
+通过对React的学习，我们已经了解到，React组件之间的状态传递，只有一种方式：props。这就意味着状态传递只能通过父子组件之间进行，但是实际场景中，组件状态的传递，不光发生在父子组件之间，还可能会发生在跨级组件之间、兄弟组件之间等等，那么怎么办呢？
+
+**全局状态管理**
+
+React提供了一个Context这样一个机制，可以让所有在某个组件开始的组件树上创建一个Context，这样，这个树上的所有组件，就都能访问这个Context了。那么在函数式组件里，提供了一个useContext这样的一个Hook来管理Context。
+
+useContext API
+
+```jsx
+const value = useContext(myContext);
+```
+
