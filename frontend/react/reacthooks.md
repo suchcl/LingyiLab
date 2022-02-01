@@ -16,6 +16,7 @@
     - [3.1.5 使用ESLint插件帮助检查Hooks的使用](#315-%E4%BD%BF%E7%94%A8eslint%E6%8F%92%E4%BB%B6%E5%B8%AE%E5%8A%A9%E6%A3%80%E6%9F%A5hooks%E7%9A%84%E4%BD%BF%E7%94%A8)
     - [3.1.6 useCallback 缓存回调函数](#316-usecallback-%E7%BC%93%E5%AD%98%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0)
     - [3.1.7 useMemo 缓存计算结果](#317-usememo-%E7%BC%93%E5%AD%98%E8%AE%A1%E7%AE%97%E7%BB%93%E6%9E%9C)
+    - [3.1.8 useRef 在多次渲染之间共享数据](#318-useref-%E5%9C%A8%E5%A4%9A%E6%AC%A1%E6%B8%B2%E6%9F%93%E4%B9%8B%E9%97%B4%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
