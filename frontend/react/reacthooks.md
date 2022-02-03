@@ -730,3 +730,69 @@ useContext API
 const value = useContext(myContext);
 ```
 
+通过useContext创建的myContext有一个Provider属性，一般作为组件树的根组件。下面来看一个案例：
+
+```jsx
+// App.jsx
+import React from "react";
+import theme from "./assetes/data/theme.json";
+import ToolBar from "./components/UseContext";
+import './App.css';
+
+// 创建一个theme的Context
+const ThemeContext = React.createContext(theme.light);
+function App() {
+  return (
+    <ThemeContext.Provider value={theme.dark}>
+      <div className="App">
+        <h3>ToolBar</h3>
+        <ToolBar />
+      </div>
+    </ThemeContext.Provider>
+  );
+}
+
+
+export default App;
+
+// UseContext.jsx
+import React, { useContext } from 'react';
+import theme from "../assetes/data/theme.json";
+
+// 创建一个theme的Context
+const ThemeContext = React.createContext(theme.dark);
+// 在Toolbar组件中使用一个使用了theme的button组件
+export default function ToolBar(props) {
+    return (
+        <div>
+            <ThemeButton />
+        </div>
+    )
+}
+
+// 在ThemeButton中使用useContext获取当前主题
+function ThemeButton() {
+    const currentTheme = useContext(ThemeContext);
+
+    return (
+        <button style={{
+            background: currentTheme.background,
+            color: currentTheme.foreground
+        }}>
+            我使用了context设置的主题
+        </button>
+    )
+}
+```
+
+案例中，Context其实就是实现了一个全局变量的作用，那么为什么要设计的这么复杂呢？其实最根本的原因是**为了数据的绑定**。是为了当Context发生变化的时候，希望所有使用了这个数据的组件都能够自动更新。如果仅仅使用一个全局变量实现类似的效果，实现方案可能会变的很复杂。
+
+Context提供了一个方便在多个组件之间共享数据的机制，但是它的灵活性也是一把双刃剑，Context提供了一个定义React全局变量的机制，而全局变量，则意味着：
+
+1. 会让调试变得困难，因为我们很难跟踪某个Context的变化究竟是怎么产生的；
+
+2. 让组件的复用变得困难，因为一个组件一旦使用了Context，它就必须要确保被用到的地方一定有这个Context的Provider在其父组件的路径上；
+
+一般情况下，在React应用中，除了像切换主题(theme)、多语言(language)等一目了然的需要全局设置的变量外，很少会使用Context做太多的数据共享。**Context更多的是提供了一个强大的机制，让React应用具备了定义全局响应式数据的能力**。
+
+很多状态管理的框架、工具，比如redux，正好是利用了Context的机制提供了一种更加可控的组件之间的状态管理机制。因此，理解Context机制，可以让我们更好的理解类似Redux这样的框架的实现原理。
