@@ -825,4 +825,39 @@ React的本质、最底层的思路：**从Model到View到映射**。如果状�
 
 这些事件的本身并不会引起组件的重新渲染，但是这两类事件的结果，肯定是导致了某些状态的改变，这个状态可能是state，也可能是Context，从而导致了组件的重新渲染。
 
-对于触发某些事件发生了状态变化，引起了组件的重新渲染，在技术实现上，函数式组件和类式组件其实没有本质上的区别，都是通过事件处理函数来改变某个状态实现的；但是对于副作用产生的事件引起的状态变化，
+对于触发某些事件发生了状态变化，引起了组件的重新渲染，在技术实现上，函数式组件和类式组件其实没有本质上的区别，都是通过事件处理函数来改变某个状态实现的；但是对于副作用产生的事件引起的状态变化，对应到类式组件，是通过手动判断props和state的变化来执行的。大概的实现可以参考如下案例：
+
+```jsx
+import React, { Component } from 'react';
+
+export default class BlogViewClass extends Component {
+    state = {
+        blogContent: "blog内容"
+    };
+    componentDidMount() {
+        // 组件第一次加载时去获取blog数据
+        const id = this.props.id;
+        const res = fetch("/blog-content/${id}");
+        this.setState(
+            {
+                blogContent: res
+            }
+        );
+    }
+
+    componentWillUnmount(prevProps) {
+        const { id } = this.props;
+        if (prevProps.id !== id) {
+            const res = fetch(`/blog-content/${id}`);
+            this.setState({
+                blogContent: res
+            });
+        }
+    }
+    render() {
+        return <div>
+            {this.state.blogContent}
+        </div>;
+    }
+}
+```
