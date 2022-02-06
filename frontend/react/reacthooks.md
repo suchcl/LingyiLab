@@ -861,3 +861,37 @@ export default class BlogViewClass extends Component {
     }
 }
 ```
+
+从代码中我们可以看出来，在类式组件中，实现副作用，需要在至少2个生命周期的钩子函数，一个是在组件首次加载后，另一个是在每次UI更新后。而在函数式组件中，没有了生命周期的概念，而提供的useEffect这样的一个Hook来执行副作用，只需要像下面这样简单的代码就可以实现副作用：
+
+```jsx
+import React, { useEffect, useState } from 'react';
+
+export default function BlogView({ id }) {
+    // 设置本地的用于存储content的state
+    const [blogContent, setBlogContent] = useState(null);
+
+    // useEffect，实现副作用，和类式组件中componentDidMount以及componentDidUpdate两个生命周期钩子函数实现等价的作用 
+    useEffect(() => {
+        // useEffect函数的callback要避免直接的async函数，要封装一下
+        const doAsync = async () => {
+            // 当id发生变化时，要清空content以保持内容的一致性
+            setBlogContent(null);
+            // 发情http请求，获取blog的内容详情
+            const res = await fetch(`/blog-content/${id}`);
+            // 将获取到的新的blog详情放入state
+            setBlogContent(await res.text());
+        };
+        doAsync();
+    }, [id]); // 使用id作为依赖项，当id发生了变化时，执行网络请求(副作用)
+
+    const isLoading = !blogContent;
+    return <>
+        {isLoading ? "Loading……" : blogContent}
+    </>;
+}
+```
+
+函数式组件的编程思想是：**当某个状态发生变化时，我需要做什么，应该做什么**，类式组件中的编程思想是：**每个生命周期中都需要做什么**。
+
+当我们从类式组件转换到函数式组件的编程时，要先忘掉类式组件中生命周期的概念、机制，逐渐熟悉、适应函数式组件的编程思想。这就需要我们开发者多联系、多写代码多思考。
