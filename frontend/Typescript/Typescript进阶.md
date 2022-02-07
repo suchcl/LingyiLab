@@ -1346,7 +1346,7 @@ abstract introBySelf():void;
 
 type：描述一个对象的类型
 
-interface：用来定义一个类结构，交对象结构也可以。
+interface：用来定义一个类结构，叫对象结构也可以。
 
 - 用来定义一个类中应该包含的属性和方法
 
