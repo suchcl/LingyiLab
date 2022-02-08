@@ -921,7 +921,49 @@ export default function BlogView({ id }) {
 
 #### 4.1 函数式组件中的条件判断
 
-1. 根据数据是否有值来判断
+1. &&与运算符判断元素是否要渲染
+
+jsx中，通常可以通过&&运算符来判断元素是否需要渲染。方式：
+
+```jsx
+value && html // value为true时，渲染html；value为false时，不渲染html
+```
+案例：
+
+```jsx
+import React, { useState } from 'react';
+
+export default function ConditionRender() {
+    const [isShow, setIsShow] = useState(true);
+    const showOrHideText = (event) => {
+        if (isShow) {
+            setIsShow(false);
+            event.target.innerText = "展示";
+        } else {
+            setIsShow(true);
+            event.target.innerText = "隐藏";
+        }
+    }
+    return <div>
+        <div style={{ background: "#8c0", padding: '20px' }}>
+            {
+                isShow && (<div>我是判断需要展示和隐藏的文案</div>)
+            }
+            <button onClick={showOrHideText}>隐藏</button>
+        </div>
+    </div>;
+}
+```
+
+2. 三目运算符? :实现if-else条件渲染
+
+使用方式：
+
+```jsx
+value && (htmlA) : (htmlB) // 当value为true时，渲染htmlA；当value为false时，渲染htmlB
+```
+
+案例：
 
 ```jsx
 import React, { useState } from 'react';
@@ -939,7 +981,7 @@ export default function ConditionRender() {
 }
 ```
 
-2. 函数式组件的数据遍历
+3. 函数式组件的数据遍历:使用map
 
 ```jsx
 import React, { useState } from 'react';
