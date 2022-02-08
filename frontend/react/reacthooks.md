@@ -18,6 +18,7 @@
     - [3.1.7 useMemo 缓存计算结果](#317-usememo-%E7%BC%93%E5%AD%98%E8%AE%A1%E7%AE%97%E7%BB%93%E6%9E%9C)
     - [3.1.8 useRef 在多次渲染之间共享数据](#318-useref-%E5%9C%A8%E5%A4%9A%E6%AC%A1%E6%B8%B2%E6%9F%93%E4%B9%8B%E9%97%B4%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE)
     - [3.1.9 useContext 定义全局状态](#319-usecontext-%E5%AE%9A%E4%B9%89%E5%85%A8%E5%B1%80%E7%8A%B6%E6%80%81)
+  - [3.2 正确理解函数组件的生命周期](#32-%E6%AD%A3%E7%A1%AE%E7%90%86%E8%A7%A3%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -915,3 +916,69 @@ export default function BlogView({ id }) {
 函数式组件的编程思想是：**当某个状态发生变化时，我需要做什么，应该做什么**，类式组件中的编程思想是：**每个生命周期中都需要做什么**。
 
 当我们从类式组件转换到函数式组件的编程时，要先忘掉类式组件中生命周期的概念、机制，逐渐熟悉、适应函数式组件的编程思想。这就需要我们开发者多联系、多写代码多思考。
+
+### 4. 常用的一些案例
+
+#### 4.1 函数式组件中的条件判断
+
+1. 根据数据是否有值来判断
+
+```jsx
+import React, { useState } from 'react';
+
+export default function ConditionRender() {
+    const userInfo = { name: "Nicholas Zakas", age: 18, job: "" };
+    const [user, setUser] = useState(userInfo);
+    return <div>
+        <h4>用户名: {user.name}</h4>
+        <p>年龄: {user.age}</p>
+        {
+            user.job ? (<p>工作: {user.job}</p>) : (<p>无工作</p>)
+        }
+    </div>;
+}
+```
+
+2. 函数式组件的数据遍历
+
+```jsx
+import React, { useState } from 'react';
+
+export default function ConditionRender() {
+    const newsList = [
+        {
+            id: 1,
+            title: "新闻1"
+        },
+        {
+            id: 2,
+            title: "新闻2"
+        },
+        {
+            id: 3,
+            title: "新闻3"
+        },
+        {
+            id: 4,
+            title: "新闻4"
+        },
+        {
+            id: 5,
+            title: "新闻5"
+        },
+    ];
+    const [news, setNews] = useState(newsList);
+    return <div>
+        <ul className='news'>
+            {
+                // news.map(item => {
+                //     return <li key={item.id}>{item.title}</li>
+                // })
+                news.map(item => <li key={item.id}>{item.title}</li>)
+            }
+        </ul>
+    </div>;
+}
+```
+
+遍历，一般使用map遍历，使用forEach也可以

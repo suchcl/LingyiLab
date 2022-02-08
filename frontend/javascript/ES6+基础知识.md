@@ -428,6 +428,8 @@ console.log(arr); // [1, 4, 9]
 
 可见，forEach接收1个回调函数，回调函数有3个参数， 分别为当前项、当前项索引以及当前数组。
 
+forEach遍历，没有返回值
+
 经过forEach遍历的数组，会改变原数组的值。
 
 和Array.forEach()功能接近的一个方法是Array.map()方法。
