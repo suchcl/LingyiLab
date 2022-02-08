@@ -236,7 +236,9 @@
 
 5. [Homebrew](./devTools/Homebrew.md)
 
-6. [mac 的终端通过 code .指令快速启动 vscode](./devTools/mac终端设置vscode快捷启动.md)
+6. [mac的终端通过code .指令快速启动 vscode](./devTools/mac终端设置vscode快捷启动.md)
+
+7. [mac下使用tree命令](./devTools/mac下使用tree命令.md)
 
 #### 12.8 工程自动化(CICD)
 
