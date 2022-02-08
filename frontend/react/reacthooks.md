@@ -1032,3 +1032,29 @@ export default function ConditionRender() {
 遍历，一般使用map遍历.
 
 > js中，在遍历数组的时候，forEach和map的功能大概类似，都是对一个数组进行遍历。forEach不会返回值，会改变原数组；不改变原数组，但是每次遍历会返回当前值，然后所有的返回值组成一个新的数组。
+
+4. 子组件通过返回null阻止组件渲染
+
+```jsx
+import React, { useRef, useState } from 'react';
+
+export default function PreventChild() {
+    const [show, setShow] = useState(true);
+    const notShow = () => {
+        setShow(false);
+    }
+    return <div>
+        <Child show={show} />
+        <button onClick={notShow}>阻止子组件渲染</button>
+    </div>;
+}
+
+function Child(props) {
+    console.log(props);
+    const { show } = props;
+    if (!show) {
+        return null;
+    }
+    return (<p>子组件内容</p>);
+}
+```
