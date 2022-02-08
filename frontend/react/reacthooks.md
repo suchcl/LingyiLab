@@ -716,6 +716,12 @@ export default function Timer() {
 
 2. 保存某个DOM节点的引用；
 
+> 函数式组件不能设置ref属性
+
+```jsx
+<Child show={show} ref={child} /> // Child是一个函数式组件，这里是不能设置ref属性的
+```
+
 在React的编程中，我们基本上不需要关心真实的DOM节点的渲染和修改，但是在一些特殊的场景中，我们需要获取到真实DOM节点的引用，所以结合React的ref和这个useRef的Hook，就可以获取到真实的DOM节点，并对这个DOM节点进行操作。
 
 ```jsx
