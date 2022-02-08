@@ -981,4 +981,6 @@ export default function ConditionRender() {
 }
 ```
 
-遍历，一般使用map遍历，使用forEach也可以
+遍历，一般使用map遍历.
+
+> js中，在遍历数组的时候，forEach和map的功能大概类似，都是对一个数组进行遍历。forEach不会返回值，会改变原数组；不改变原数组，但是每次遍历会返回当前值，然后所有的返回值组成一个新的数组。
