@@ -150,6 +150,26 @@ export default function Count() {
     });
 ```
 
+useState值为对象的案例：
+
+```jsx
+import React, { useState } from 'react';
+
+export default function Profile() {
+    const [profile, setProfile] = useState({ name: "Nicholas Zakas", age: 18 });
+    const changeName = () => {
+        setProfile({ name: "Hameimei", age: 20 });
+    }
+    return <div style={{ background: '#9a0' }}>
+        <h4>姓名: {profile.name}</h4>
+        <p>年龄: {profile.age}</p>
+        <button onClick={changeName}>修改姓名</button>
+    </div>;
+}
+```
+
+当useState值为对象时，直接修改对象属性即可，即初始值的数据结构是什么样子的，在修改值的数据结构也是什么样子的，就可以了。
+
 **什么值需要且可以保存在state中呢？**
 
 state是React中一个非常重要的机制，那么什么样的值需要或者可以保存在state中呢？
