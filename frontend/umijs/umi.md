@@ -226,7 +226,8 @@ export default defineConfig({
 });
 ```
 
-**路由配置**
+##### 3.1.1 路由配置
+
 1. 工程化配置
 
 工程化配置，就是把路由信息单独配置成一个路由文件。默认的配置中，route是配置到了.umirc.ts中的，在项目中，建议把router部分抽离出去
@@ -345,6 +346,77 @@ export default (props:any) => {
 
 子路由中，路由的跳转可以通过绝对的路由，即完全的路由如/user/profile,有可以通过相对路由来跳转，account就是一个相对路由(我暂且叫它相对路由吧，和相对路径对比，顺口，虽然它不严谨)。
 
-> 各位看官先不用纠结案例中的a跳转的合理性，我这里只是为了图省事，就没有写路由跳转，用a模拟了下。
+> 各位看官先不用纠结案例中的a跳转的合理性，我这里只是为了图省事，就没有写路由跳转，用a模拟了下；正常情况下，如果不是编程式路由导航跳转，会使用Link组件实现路由的跳转。
 
+##### 3.1.2 路由跳转
 
+1. 编程式路由
+
+通过umi内置的history插件实现编程式路由跳转
+
+```tsx
+import { history } from "umi";
+export default (props:any) => {
+    // 编程式路由跳转
+    const changeProfile = () => {
+        history.push("profile");
+    }
+
+    // 编程式路由跳转
+    const improvePersonalData = () => {
+        history.push("account");
+    }
+    return <div style={{padding: '20px'}}>
+        <h4>大个人中心就是大</h4>
+        <button onClick={changeProfile}>去修改个人档案</button>
+        <button onClick={improvePersonalData}>完善个人资料</button>
+        {/* 通过props.children来渲染子路由 */}
+        {props.children}
+        </div>
+}
+```
+
+**编程式路由跳转携带参数**
+
+都是query参数，会显示到浏览器地址栏
+
+```tsx
+// 跳转到指定路由
+history.push("profile");
+
+// 跳转到指定路由并携带URL(query)参数,浏览器地址栏会显示
+history.push("profile?key=sun");
+
+// 通过对象方式传递参数，显示到浏览器地址栏
+history.push({
+    pathname: "account",
+    query: {
+        from: "moon"
+    }
+});
+```
+2. Link组件
+
+Link组件只适用单页应用内部的跳转，如果是外部的地址跳转，需要使用a标签
+
+Link组件是umi内置组件，直接导入使用即可。
+
+Link组件，也可以携带参数，直接在path后拼接即可
+
+```tsx
+import { Link } from "umi"; // 导入Link组件
+export default function DetailPage(){
+    return <div className="detail">
+        <h4>详情页</h4>
+        <ul>
+            <li>
+                <Link to="/">首页</Link>
+            </li>
+            <li>
+                {/* Link组件页可以携带参数，直接拼接即可，会在浏览器地址栏显示 */}
+                <Link to="/list?from=detail">列表页</Link>
+            </li>
+        </ul>
+    </div>
+}
+```
