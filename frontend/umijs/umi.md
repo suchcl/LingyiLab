@@ -193,3 +193,109 @@ Starting the development server...
 项目已经成功启动，可以通过http://localhost:8000去访问看效果：
 
 ![umi项目已经成功启动](./images/i2.png)
+
+### 3. umi基础
+
+#### 3.1 配置
+
+umi，在.umirc.ts或者config/config.ts中进行配置，简单的配置，可以直接在.umirc.ts中进行配置，如果复杂的配置，可以在config/config.ts中进行配置，支持ES6.
+
+常见的配置:
+
+```ts
+import { defineConfig } from 'umi';
+
+// 路由组件
+const Index = '@/pages/index';
+const List = '@/pages/list/index';
+
+export default defineConfig({
+  nodeModulesTransform: {
+    type: 'none',
+  },
+  layout: {},
+  routes: [
+    { path: '/', component: Index },
+    {path: '/list', component: List}
+  ],
+  fastRefresh: {},
+  history:{
+    type: 'hash'
+  },
+  mfsu: {} // 启用mfsu
+});
+```
+
+**路由配置**
+1. 工程化配置
+
+工程化配置，就是把路由信息单独配置成一个路由文件。默认的配置中，route是配置到了.umirc.ts中的，在项目中，建议把router部分抽离出去
+
+```ts
+// src/roiter/router.ts
+const router: any = [
+    {
+        path: "/",
+        component: "@/pages/index"
+    },
+    {
+        path: "/list/",
+        component: "@/pages/list/index"
+    }
+  ]
+  
+export default router;
+```
+
+在.umirc.ts中导入路由信息
+
+```ts
+import { defineConfig } from 'umi';
+// 路由
+import router from './src/router/router';
+
+export default defineConfig({
+  nodeModulesTransform: {
+    type: 'none',
+  },
+  routes: router
+});
+```
+
+2. 约定式路由
+
+约定式路由，就是文件路径就是路由，不需要手写配置，通过目录和文件极其命名分析路由配置
+
+```markdown
+./src/pages
+├── detail
+│   └── index.tsx
+├── index.less
+├── index.tsx
+└── list
+    └── index.tsx
+```
+
+如这样的文件目录，会得到如下的路由：
+
+```ts
+const router: any = [
+    {
+        path: "/",
+        component: "@/pages/index"
+    },
+    {
+        path: "/list/",
+        component: "@/pages/list/index"
+    },
+    {
+        path: "/detail",
+        component: "@/pages/detail/index"
+    }
+  ]
+  
+export default router;
+```
+
+>  约定式路由，要先注释掉.umirc.ts文件中的routes配置
+
