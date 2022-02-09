@@ -299,3 +299,52 @@ export default router;
 
 >  约定式路由，要先注释掉.umirc.ts文件中的routes配置
 
+```ts
+import { defineConfig } from 'umi';
+export default defineConfig({
+  nodeModulesTransform: {
+    type: 'none',
+  },
+  // routes: router, // 约定谁路由，要注释掉routes配置项
+});
+```
+
+3. 配置子路由
+
+配置子路由，需要有一个这些子路由组件的公共通用组件,如
+
+```markdown
+./user
+├── account
+│   └── index.tsx
+├── index.tsx
+├── profile
+│   └── index.tsx
+└── ucenter
+    └── index.tsx
+```
+
+案例中，user模块有几个子模块，每个模块都有自己的路由，即都是user模块的子路由，那么./user/index.tsx就是这些子路由的公共通用组件。在这个公共通用的组件中，通过props.children来渲染子路由。
+
+```tsx
+export default (props:any) => {
+    return <div style={{padding: '20px'}}>
+        <h4>大个人中心就是大</h4>
+        {/* 具有子路由的公共组件中，路由跳转时既可以使用绝对路径，即全路由，也可以使用相对路由 */}
+        <a href="/user/profile">个人档案</a>
+        <br />
+        <a href="/user/ucenter">小的里面的个人中心</a>
+        <br />
+        {/* 这里可以使用相对路径 */}
+        <a href="account">账号安全</a>
+        {/* 通过props.children来渲染子路由 */}
+        {props.children}
+        </div>
+}
+```
+
+子路由中，路由的跳转可以通过绝对的路由，即完全的路由如/user/profile,有可以通过相对路由来跳转，account就是一个相对路由(我暂且叫它相对路由吧，和相对路径对比，顺口，虽然它不严谨)。
+
+> 各位看官先不用纠结案例中的a跳转的合理性，我这里只是为了图省事，就没有写路由跳转，用a模拟了下。
+
+
