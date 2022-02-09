@@ -310,6 +310,22 @@ export default defineConfig({
 });
 ```
 
+**以下条件、规则的文件不会被注册为路由**
+
+- 以.或者_开头的文件或目录
+
+- 以d.ts结尾的类型文件
+
+- 以test.ts、spec.ts、e2e.ts结尾的测试文件，同样适用于js、jsx和tsx文件
+
+- components和component目录
+
+- utils和util目录
+
+- 不是.js、.jsx、.ts和.tsx文件
+
+- 文件内容不包含jsx或tsx元素
+
 3. 配置子路由
 
 配置子路由，需要有一个这些子路由组件的公共通用组件,如
