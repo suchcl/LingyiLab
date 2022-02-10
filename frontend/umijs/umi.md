@@ -559,9 +559,72 @@ https://github.com/browserslist/browserslist#browsers-data-updating
     ……
 ```
 
-##### 3.1.4 样式和图片文件
+#### 3.2 样式和图片文件
 
 umi默认支持了less预处理器，如果想使用css，则直接将.less修改为css即可，同样适用。
 
+> umi本身没有内置sass和stylus，如果有需要，可以通过chainWebpack或者umi插件的形式进行配置。一般请下，less就满足需求了，没有必要再去进行配置sass或者stylus了。
+
 1. global.less  全局样式
 
+umi中约定src/global.less为全局样式，如果存在该文件，则会被自动引入到入口文件最前面，自动生效，不需要开发者手动引入。
+
+2. CSS Modules
+
+umi可以自动识别css modules的使用，而样式文件名中可以没有.module标识，在样式导入时会进行加以区分即可。
+
+```tsx
+import { useState } from "react";
+import { Link,history } from "umi"
+// 以CSS Modules的方式导入
+import style from "./detail.less";
+// 非CSS Modules的方式导入样式
+import from "./detail-base.less";
+export default function DetailPage(){
+    return <div className={style.detail}>
+        <div className={style.box}>
+            <div className={style.text}>
+                <h4>CSS Modules</h4>
+                <p>好消息：一则数据传来，美国白忙活了，华为赢了</p>
+                <p>电动汽车“充电宝”？高速一蔚来车尾外挂箱体引猜测，民警：12分</p>
+            </div>
+        </div>
+
+        <div className="box">
+                <div className="text">
+                    <h4>非CSS Modules</h4>
+                    <p>上海微电子正式官宣！交付国内首台高端封装光刻机，倪光南说对了</p>
+                    <p>立陶宛外长吃瘪！出访澳大利亚时，在台湾问题上，被澳方当面上课</p>
+                </div>
+            </div>
+    </div>
+}
+```
+
+![CSS Modules和非CSS Modules](./images/i3.png)
+
+从效果图以及代码来分析，css modules和非css modules，在样式文件的建立上没有什么特殊的要求，不像在react中，文件名中需要有.module标识，在umi中，只需要在导入时做一些区分，以及在应用时使用不同的方式。
+
+```tsx
+// 以CSS Modules的方式导入
+import style from "./detail.less";
+// 非CSS Modules的方式导入样式
+import from "./detail-base.less";
+
+{/* CSS Modules模式的样式引用 */}
+<div className={style.box}>
+    <div className={style.text}>
+        <h4>CSS Modules</h4>
+        <p>好消息：一则数据传来，美国白忙活了，华为赢了</p>
+        <p>电动汽车“充电宝”？高速一蔚来车尾外挂箱体引猜测，民警：12分</p>
+    </div>
+</div>
+{/* 非CSS Modules模式的样式引用 */}
+<div className="box">
+    <div className="text">
+        <h4>非CSS Modules</h4>
+        <p>上海微电子正式官宣！交付国内首台高端封装光刻机，倪光南说对了</p>
+        <p>立陶宛外长吃瘪！出访澳大利亚时，在台湾问题上，被澳方当面上课</p>
+    </div>
+</div>
+```
