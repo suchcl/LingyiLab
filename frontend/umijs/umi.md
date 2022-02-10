@@ -4,6 +4,12 @@
 
 - [1.Umi 简介](#1umi-%E7%AE%80%E4%BB%8B)
 - [2. 快速上手](#2-%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B)
+- [3. umi基础](#3-umi%E5%9F%BA%E7%A1%80)
+  - [3.1 配置](#31-%E9%85%8D%E7%BD%AE)
+    - [3.1.1 路由配置](#311-%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE)
+    - [3.1.2 路由跳转](#312-%E8%B7%AF%E7%94%B1%E8%B7%B3%E8%BD%AC)
+    - [3.1.3 环境变量](#313-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)
+    - [3.1.4 样式和图片文件](#314-%E6%A0%B7%E5%BC%8F%E5%92%8C%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
