@@ -28,7 +28,7 @@ Downloading https://nodejs.org/dist/v14.18.0/node-v14.18.0-darwin-x64.tar.gz...
 ################################################################################################################################################################################################### 100.0%
 Computing checksum with shasum -a 256
 Checksums matched!
-nvm is not compatible with the npm config "prefix" option: currently set to "/Users/a58/Documents/nodejs/node_global"
+nvm is not compatible with the npm config "prefix" option: currently set to "/Users/xxx/Documents/nodejs/node_global"
 Run `npm config delete prefix` or `nvm use --delete-prefix v14.18.0` to unset it.
 ```
 

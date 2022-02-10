@@ -453,3 +453,109 @@ set PORT=9000 yarn start # 设置在9000端口上启动服务
 yarn add cross-env --dev
 cross-env PORT=9000 yarn start # 在windows上和mac上都生效，设置在9000端口上启动服务
 ```
+
+2. 生成器工具  generate
+
+umi generate <type> <name> [options]
+
+umi generate page pagename 默认生成一组名称为pagename.js的react文件和pagename.css的样式文件，且js文件中会直接引入css文件。如pagename.js文件：
+
+```bash
+xx@xxxxx umi1 % umi generate page t1
+Browserslist: caniuse-lite is outdated. Please run:
+npx browserslist@latest --update-db
+
+Why you should do it regularly:
+https://github.com/browserslist/browserslist#browsers-data-updating
+Write: src/pages/t1.js
+Write: src/pages/t1.css
+```
+
+下面来看模板文件t1.js代码：
+
+```js
+import React from 'react';
+import styles from './t1.css';
+
+export default function Page() {
+  return (
+    <div>
+      <h1 className={styles.title}>Page t1</h1>
+    </div>
+  );
+}
+```
+
+```bash
+umi generate page pagename --typescript  # 生成一个模板文件为ts为扩展名和一个样式文件以.css为扩展名的文件
+umi generate page pagename --less # 生成一个模板文件以.js为扩展名和一个以.less为扩展名的样式文件
+umi generate page pagename --typescript --less # 生成一个以.ts为扩展名的模板文件和一个以.less为扩展名的样式文件
+```
+
+3. umi plugin  查看当前项目使用到的所有umi插件
+
+语法  umi plugin <type> [opitons]
+
+当前type就支持一个list,options可选key
+
+```bash
+xx@xxxxx umi1 % umi plugin list --key
+Browserslist: caniuse-lite is outdated. Please run:
+npx browserslist@latest --update-db
+
+Why you should do it regularly:
+https://github.com/browserslist/browserslist#browsers-data-updating
+
+  Plugins:
+
+    - @umijs/preset-built-in [key: builtIn] (preset)
+    - @umijs/preset-react [key: react] (preset)
+    - ./node_modules/umi/node_modules/@@/registerMethods [key: registerMethods]
+    - ./node_modules/umi/node_modules/@@/routes [key: routes]
+    - ./node_modules/umi/node_modules/@@/generateFiles/core/history [key: history]
+    - ./node_modules/umi/node_modules/@@/generateFiles/core/plugin [key: plugin]
+    - ./node_modules/umi/node_modules/@@/generateFiles/core/polyfill [key: polyfill]
+    - ./node_modules/umi/node_modules/@@/generateFiles/core/routes [key: routes]
+    - ./node_modules/umi/node_modules/@@/generateFiles/core/umiExports [key: umiExports]
+    - ./node_modules/umi/node_modules/@@/generateFiles/core/configTypes [key: configTypes]
+    - ./node_modules/umi/node_modules/@@/generateFiles/umi [key: umi]
+    - ./node_modules/umi/node_modules/@@/features/404 [key: 404]
+    - ./node_modules/umi/node_modules/@@/features/alias [key: alias]
+    - ./node_modules/umi/node_modules/@@/features/analyze [key: analyze]
+    ……
+```
+
+不使用可选的参数key，就没有了后面的显示key了
+
+```bash
+xx@xxxx umi1 % umi plugin list
+Browserslist: caniuse-lite is outdated. Please run:
+npx browserslist@latest --update-db
+
+Why you should do it regularly:
+https://github.com/browserslist/browserslist#browsers-data-updating
+
+  Plugins:
+
+    - @umijs/preset-built-in (preset)
+    - @umijs/preset-react (preset)
+    - ./node_modules/umi/node_modules/@@/registerMethods
+    - ./node_modules/umi/node_modules/@@/routes
+    - ./node_modules/umi/node_modules/@@/generateFiles/core/history
+    - ./node_modules/umi/node_modules/@@/generateFiles/core/plugin
+    - ./node_modules/umi/node_modules/@@/generateFiles/core/polyfill
+    - ./node_modules/umi/node_modules/@@/generateFiles/core/routes
+    - ./node_modules/umi/node_modules/@@/generateFiles/core/umiExports
+    - ./node_modules/umi/node_modules/@@/generateFiles/core/configTypes
+    - ./node_modules/umi/node_modules/@@/generateFiles/umi
+    - ./node_modules/umi/node_modules/@@/features/404
+    - ./node_modules/umi/node_modules/@@/features/alias
+    ……
+```
+
+##### 3.1.4 样式和图片文件
+
+umi默认支持了less预处理器，如果想使用css，则直接将.less修改为css即可，同样适用。
+
+1. global.less  全局样式
+
