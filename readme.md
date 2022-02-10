@@ -280,6 +280,8 @@
 
 5. [nrm 选中选择内置的源后不显示\*](./qa/nrm选中选择内置的源后不显示.md)
 
+6. [zsh: command not found: umi](./frontend/umijs/notfoundumi.md)
+
 ### 版本管理
 
 1. [版本管理](VersionControl/index.md)

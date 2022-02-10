@@ -347,26 +347,24 @@ export default defineConfig({
 export default (props:any) => {
     return <div style={{padding: '20px'}}>
         <h4>大个人中心就是大</h4>
-        {/* 具有子路由的公共组件中，路由跳转时既可以使用绝对路径，即全路由，也可以使用相对路由 */}
+        {/* 具有子路由的公共组件中，路由跳转时需要使用全路径 */}
         <a href="/user/profile">个人档案</a>
         <br />
         <a href="/user/ucenter">小的里面的个人中心</a>
         <br />
-        {/* 这里可以使用相对路径 */}
-        <a href="account">账号安全</a>
         {/* 通过props.children来渲染子路由 */}
         {props.children}
         </div>
 }
 ```
 
-子路由中，路由的跳转可以通过绝对的路由，即完全的路由如/user/profile,有可以通过相对路由来跳转，account就是一个相对路由(我暂且叫它相对路由吧，和相对路径对比，顺口，虽然它不严谨)。
+子路由中，路由的跳转可以通过绝对的路由，即完全的路由如/user/profile。
 
 > 各位看官先不用纠结案例中的a跳转的合理性，我这里只是为了图省事，就没有写路由跳转，用a模拟了下；正常情况下，如果不是编程式路由导航跳转，会使用Link组件实现路由的跳转。
 
 ##### 3.1.2 路由跳转
 
-1. 编程式路由
+1. 命令式路由跳转
 
 通过umi内置的history插件实现编程式路由跳转
 
@@ -411,7 +409,7 @@ history.push({
     }
 });
 ```
-2. Link组件
+2. 配置式路由跳转：通过Link组件
 
 Link组件只适用单页应用内部的跳转，如果是外部的地址跳转，需要使用a标签
 
@@ -435,4 +433,23 @@ export default function DetailPage(){
         </ul>
     </div>
 }
+```
+
+##### 3.1.3 环境变量
+
+1. 设置环境变量，执行命令时添加
+
+```bash
+# mac
+PORT=9000 yarn start # 设置在9000端口上启动服务
+
+# windows
+set PORT=9000 yarn start # 设置在9000端口上启动服务
+```
+
+上面的方式，区分了mac和windows环境，可以通过cross-env来抹平这个差异
+
+```bash
+yarn add cross-env --dev
+cross-env PORT=9000 yarn start # 在windows上和mac上都生效，设置在9000端口上启动服务
 ```
