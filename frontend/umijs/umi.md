@@ -688,3 +688,16 @@ umi模板中使用图片，可以通过require动态导入固定图片，也可�
 
 ![模板中图片的导入](./images//i4.png)
 
+**模板中使用svg**
+
+使用svg的方式，和使用图片的方式相同
+
+```tsx
+<div className={style.pic_area}>
+    <div className="pic">
+        {/* 导入svg */}
+        <img src={require("./images/i1.svg")} alt="" />
+    </div>
+    <div className="text"></div>
+</div>
+```
