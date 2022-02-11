@@ -683,6 +683,8 @@ umi模板中使用图片，可以通过require动态导入固定图片，也可�
     <img src={require("@/pages/detail/images/i2.jpg")} alt="" />
 </div>
 ```
+
 在通过requre导入图片的时候，会根据图片质量的大小对图片做一些处理，图片质量小了，会被转换成base64格式去展示，图片质量大了，会直接使用原图，不会进行格式转换。
 
 ![模板中图片的导入](./images//i4.png)
+
