@@ -559,7 +559,40 @@ https://github.com/browserslist/browserslist#browsers-data-updating
     ……
 ```
 
-#### 3.2 样式和图片文件
+4. umi webpack查看umi使用的webpack配置
+
+使用方式：
+
+umi webpack [options]
+
+```bash
+xxx@xxxx umi1 % umi webpack --rule=images
+Browserslist: caniuse-lite is outdated. Please run:
+npx browserslist@latest --update-db
+
+Why you should do it regularly:
+https://github.com/browserslist/browserslist#browsers-data-updating
+{
+  test: /\.(png|jpe?g|gif|webp|ico)(\?.*)?$/,
+  use: [
+    {
+      loader: '/Users/xxx/Documents/workspace/umi/umi1/node_modules/@umijs/deps/compiled/url-loader/cjs.js',
+      options: {
+        limit: 10000,
+        name: 'static/[name].[hash:8].[ext]',
+        esModule: false,
+        fallback: {
+          loader: '/Users/xxx/Documents/workspace/umi/umi1/node_modules/@umijs/deps/compiled/file-loader/cjs.js',
+          options: { name: 'static/[name].[hash:8].[ext]', esModule: false }
+        }
+      }
+    }
+  ]
+}
+```
+一个简单的使用案例，查看了下umi使用的关于webpack对于images的配置信息。
+
+#### 3.2 样式文件
 
 umi默认支持了less预处理器，如果想使用css，则直接将.less修改为css即可，同样适用。
 
@@ -628,3 +661,28 @@ import from "./detail-base.less";
     </div>
 </div>
 ```
+
+#### 3.3 图片
+
+umi模板中使用图片，可以通过require动态导入固定图片，也可以使用接口下发的图片src属性。
+
+```tsx
+<div className={style.pic}>
+    {/* 图片需要使用require导入，可以是相对路径 */}
+    <img src={require("./images/i1.jpg")} alt="" />
+</div>
+<div className={style.pic}>
+    <img src={require("./images/i3.jpg")} alt="" />
+</div>
+<div className={style.pic}>
+    {/* 图片可以使用接口下发的地址作为src的属性值 */}
+    <img src={img} alt="" />
+</div>
+<div className={style.pic}>
+    {/* 图片路径，可以是相对路径，也可以是绝对路径，使用绝对路径的时候可以使用别名@，@指向src目录 */}
+    <img src={require("@/pages/detail/images/i2.jpg")} alt="" />
+</div>
+```
+在通过requre导入图片的时候，会根据图片质量的大小对图片做一些处理，图片质量小了，会被转换成base64格式去展示，图片质量大了，会直接使用原图，不会进行格式转换。
+
+![模板中图片的导入](./images//i4.png)
