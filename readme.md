@@ -28,6 +28,8 @@
 
 5. [浏览器工作原理](./frontend/前端基础/浏览器工作原理.md)
 
+6. [前端基础技术体系](./frontend/前端基础/再学前端.md)
+
 #### 2.2 Javascript
 
 1. [迭代器](./frontend/javascript/iterator.md)
