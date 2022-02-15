@@ -31,3 +31,76 @@ ts可以编译成标准的javascript，可以在任何浏览器、操作系统�
 #### 1.3 应该怎么去学习typescript？
 
 循序渐进，基础（语法基础） -> 工程（做项目） -> 实战（还是做项目）
+
+### 2. Typescript基础
+
+#### 2.1 强类型与弱类型
+
+什么是强类型语言呢？其实在很早之前，有一些计算机方面的科学家给出了一些解释：
+
+> 在强类型语言中，当一个对象从调用函数传递到被调用函数时，其类型必须与被调用函数中声明的类型兼容。
+
+```javascript
+function a(){
+    b(x);
+}
+
+function b(y){
+    // ……
+}
+```
+
+如案例中，函数a中调用了函数b，那么被调用的函数b中的参数x的类型，要和b函数定义时的参数y的类型保持一致，且程序应该运行良好。
+
+后来关于强类型的定义又做了一些完善和具体：
+
+> 强类型语言，不允许改变变量的数据类型，除非进行强制的类型转换。
+
+以java为例，参考一下：
+
+```java
+import java.io.*;
+class test  
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		int x = 1;
+		boolean y = true;
+		x = y;
+		System.out.println(x);
+	}
+}
+```
+
+代码在运行时会报错，提示boolean型不能被转换为整型。
+
+```java
+import java.io.*;
+class test  
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		int x = 1;
+		boolean y = true;
+// 		x = y;
+        char z = 'a';
+        x = z; // 这里没有报错，正常的输出了97，因为java进行了强制的类型转换
+		System.out.println(x);
+	}
+}
+```
+
+> 弱类型语言：变量可以被赋值给、赋予不同的数据类型。
+
+如js就是弱类型的编程语言，同一个变量可以被赋值不同类型的值。
+
+强类型语言，有严格的限制，不同的数据类型之间不能进行赋值，除非进行了强制的数据类型的转换。
+
+强类型语言，有一个好处，就是避免了很多不必要的错误。
+
+#### 2.2 静态类型语言和动态类型语言
+
+静态类型语言：在编译阶段确定所有变量的类型；
+
+动态类型语言：在执行阶段确定所有变量的类型。
+
