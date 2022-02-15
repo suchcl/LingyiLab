@@ -1,3 +1,17 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [1.再学ts](#1%E5%86%8D%E5%AD%A6ts)
+  - [1.1 简单认识Typescript](#11-%E7%AE%80%E5%8D%95%E8%AE%A4%E8%AF%86typescript)
+  - [1.2 为什么要使用Typescript](#12-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8typescript)
+  - [1.3 应该怎么去学习typescript？](#13-%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E5%8E%BB%E5%AD%A6%E4%B9%A0typescript)
+- [2. Typescript基础](#2-typescript%E5%9F%BA%E7%A1%80)
+  - [2.1 强类型与弱类型](#21-%E5%BC%BA%E7%B1%BB%E5%9E%8B%E4%B8%8E%E5%BC%B1%E7%B1%BB%E5%9E%8B)
+  - [2.2 静态类型语言和动态类型语言](#22-%E9%9D%99%E6%80%81%E7%B1%BB%E5%9E%8B%E8%AF%AD%E8%A8%80%E5%92%8C%E5%8A%A8%E6%80%81%E7%B1%BB%E5%9E%8B%E8%AF%AD%E8%A8%80)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ### 1.再学ts
 
 #### 1.1 简单认识Typescript
@@ -104,3 +118,64 @@ class test
 
 动态类型语言：在执行阶段确定所有变量的类型。
 
+看案例：
+
+```javascript
+class C{
+    constructor(x,y){
+        this.x = x;
+        this.y = y;
+    }
+}
+
+function add(a,b){
+    return a.x + a.y + b.x + b.y;
+}
+```
+
+当js编译器看到这段代码的时候，它是不会知道类C和函数add中的参数的数据类型的，只有在实例化了类C和调用了add函数的时候，给类C的构造函数和add函数传递进来参数了，编译器才会知道函数的参数的具体的数据类型。
+
+在来看一段C++的具有同样功能的代码：
+
+```c
+class C{
+    public:
+        int x;
+        int y;
+}
+
+int add(C a,C b){
+    return a.x + a.y + b.x + b.y;
+}
+```
+
+C++的编译器在编译时，就已经知道了add函数参数的数据类型了，肯定是整型。
+
+下面看一下在内存存储上的区别：
+
+![动态类型语言和静态类型语言在内存存储上的区别](./images/i15.png)
+
+| 静态类型语言       | 动态类型语言                    |
+| ------------------ | ------------------------------- |
+| 对类型要求极度严格 | 对类型要求非常宽松              |
+| 可以立即发现错误   | Bug可能隐藏很长时间，不易被发现 |
+| 运行时性能良好     | 运行时性能差                    |
+| 自文档化           | 可读性差                        |
+
+动态类型语言的支持者认为：
+
+1. 性能是可以改善的，如V8引擎，而语言的灵活性更重要；
+2. 隐藏的错误，可以通过一些技术手段去发现如单元测试；
+3. 文档可以通过工具生成；
+
+动态类型语言和静态类型语言的争论一直在争论中，但是没有一个明确的结论。每种语言都有自己的可取之处，同时也可能会存在一些不足。
+
+**其他的一些争议，或者叫讨论吧**
+
+一些学者，把强类型语言定义为：不允许程序发生错误后继续执行
+
+那么按照这个标准，C/C++是就应该是弱类型语言了，它没有对数组的越界进行检查？那么这两门语言到底是强类型还是弱类型语言呢？
+
+下面来补一张常识图：
+
+![强类型和弱类型语言象限图](./images/i16.png)
