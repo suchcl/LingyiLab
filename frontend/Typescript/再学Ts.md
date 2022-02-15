@@ -179,3 +179,58 @@ C++的编译器在编译时，就已经知道了add函数参数的数据类型�
 下面来补一张常识图：
 
 ![强类型和弱类型语言象限图](./images/i16.png)
+
+#### 2.3 ts基础
+
+刚开始学习ts的时候，不要安装太多工程化的东西，只需要有简单的编辑器和node环境支持即可。
+
+**环境搭建**
+
+全局安装typescript，以便可以全局使用tsc指令
+
+```bash
+npm install typescript -g
+```
+
+初始化一个ts项目
+
+```bash
+mkdir welcome
+cd welcome
+npm init -y # 直接忽略各种选择项吧
+```
+
+之后就可以通过执行tsc指令来查看ts的可以进行的各种配置了
+
+可以通过tsc --init创建包含一些默认配置项的ts的配置文件：tsconfig.json
+
+```bash
+PS D:\welcome> tsc --init
+
+Created a new tsconfig.json with:
+                                                                                                                     TS
+  target: es2016
+  module: commonjs
+  strict: true
+  esModuleInterop: true
+  skipLibCheck: true
+  forceConsistentCasingInFileNames: true
+
+
+You can learn more at https://aka.ms/tsconfig.json
+```
+
+**配置构建工具**
+
+配置构建工具，会使用webpack
+
+```bash
+npm install webpack webpack-cli webpack-dev-server --save-dev
+npm install ts-loader typescript --save-dev
+
+```
+
+
+
+
+
