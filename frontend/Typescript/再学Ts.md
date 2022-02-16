@@ -227,10 +227,74 @@ You can learn more at https://aka.ms/tsconfig.json
 ```bash
 npm install webpack webpack-cli webpack-dev-server --save-dev
 npm install ts-loader typescript --save-dev
-
 ```
 
+#### 2.4 ts的数据类型
 
+| ES6的数据类型 | TS的数据类型 |          |
+| ------------- | ------------ | -------- |
+| Boolean       | Boolean      | void     |
+| Number        | Number       | any      |
+| String        | String       | never    |
+| Array         | Array        | 元祖     |
+| Function      | Function     | 枚举     |
+| Object        | Object       | 高级类型 |
+| Symbol        | Symbol       |          |
+| undefined     | undefined    |          |
+| null          | null         |          |
+
+ES6有6中基本的数据类型，Boolean、Number、String、null、undefined、Symbol
+
+引用类型：Array、Object、Function
+
+TS的数据类型，在ES6的基础上新增了void、any、never、元祖、枚举以及其他一些高级类型
+
+#### 2.5 类型注解
+
+作用：相当于强类型语言中的类型声明
+
+语法：(变量/函数):type
+
+对变量和函数发生约束作用。
+
+```ts
+// 原始类型
+let bool:boolean = true;
+let num:number = 12;
+let str:string = "Hello String";
+
+// 数组
+let arr:number[] = [1,2,3];
+let arr2:Array<number> = [4,5,6]; // 泛型
+
+// 元祖
+let tuple:[number,string] = [12,"Nicholas Zakas"];
+
+// 函数
+let add = (x:number,y:number):number => {
+    return x + y;
+}
+
+// 对象
+let obj:object = {
+    x:1,
+    y:2
+};
+
+// symbol
+let s1:symbol = Symbol();
+let s2 = Symbol();
+
+// 多种数据类型，可以为变量dt声明了多种数据类型，可以为string类型值也可以为number类型值
+let dt:string | number = 2;
+dt = "hello";
+```
+
+ts中，也可以为一个变量同时声明多种类型，只需要在类型注解中用|分割多个数据类型即可，如
+
+```ts
+let dt:string | number = 10; // 变量dt可以为string类型或者number类型
+```
 
 
 
