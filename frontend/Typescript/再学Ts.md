@@ -337,3 +337,56 @@ console.log(t); // [ 'Nicholas', 18, [ 4, 5 ], 99 ]
 ![越界的元祖元素不能访问](./images/i17.png)
 
 > 可以通过数组的push等方法向元祖添加越界元素，但是越界元素不能被访问，ts编译是编译不过去的。
+
+ts中函数声明的时候，函数可以省略类型的注解，这是利用了ts的类型推断功能。
+
+个人的习惯中，还是不省略，养成一个良好的习惯，就是只要使用了ts写代码，就处处添加类型注解。
+
+```ts
+// 函数
+let add = (x:number,y:number):number => x + y;
+
+let increment = (x:number,y:number) => x + y;
+
+function decrement(x:number,y:number):number{
+    return x - y;
+}
+```
+
+无论是箭头函数还是通过function声明的普通函数，函数的返回值类型可以省略。
+
+```ts
+// 声明了一个函数类型的变量，返回值为string，没有做实现
+let compute:(x:number,y:number) => string;
+// 做变量的函数的实现,做函数类型的实现的时候，形参可以不加类型注解，如a、b都没有加类型注解
+compute = (a,b) => {
+    return (a + b).toString();
+}
+console.log(compute(2,3)); // 5
+```
+
+**对象类型的限定**
+
+ts中对象类型的注解，有点特殊，需要记一下
+
+```ts
+// 对象
+let obj:object = {
+    x:1,
+    y:2
+};
+```
+
+这样的对象类型的变量声明，在语法上按说是没有什么问题的，但是没有实际意义。
+
+我们不能通过obj访问对象属性x或者y，因为变量obj是object类型的，但是object身上并没有x或者y这2个成员变量。所以正确的声明对象类型的变量的方式需要明确具体的成员变量及类型：
+
+```ts
+// ts中声明对象类型变量，需要明确对象的成员属性，并明确数据类型
+let obj:{x:number,y:number} = {
+    x: 12,
+    y: 10
+};
+console.log(obj.x); // 12
+```
+
