@@ -529,3 +529,148 @@ console.log(Message.Success);
 字符串枚举和数字枚举，构成了异构枚举，不建议使用。
 
 > 将程序中不易维护的硬编码，都可以使用枚举
+
+####  2.6 接口
+
+接口，可以用来约束对象、函数以及类的结构和类型，这是一种代码协作的契约，开发者必须要遵守且不能改变。
+
+**定义对象类型接口**
+
+定义对象类型接口，并渲染到页面的案例
+
+```ts
+interface List {
+    // 定义一个只读属性id
+    readonly id:number;
+    name:string;
+}
+
+interface Result{
+    data:List[]
+}
+// 渲染函数
+function render(result:Result){
+    result.data.forEach((item) => {
+        console.log(item.id,item.name);
+    });
+}
+
+// 假如从api获取到的数据
+const result = {
+    data: [
+        {
+            id:1,
+            name: "Nicholas Zakas",
+            gender: "male"
+        },
+        {
+            id: 2,
+            name: "Hameimei"
+        }
+    ]
+};
+
+render(result);
+```
+
+这种情况下，api下发的数据字段和我们interface中定义的字段完全相同，非常理想化。当然了，这段代码是可以正常执行没有任何问题的。
+
+但是实际上，很多时候api下发的字段总是会有一些冗余字段，比如案例中给我们多下发了gender和age字段，那ts代码编译，就有问题了：
+
+1. 如果api下发的数据赋值给了一个变量，那么代码在执行的过程中不会有什么问题，可以通过ts的编译，只是冗余的字段不会被做处理
+
+   ```ts
+   // 假如从api获取到的数据
+   const result = {
+       data: [
+           {
+               id:1,
+               name: "Nicholas Zakas",
+               gender: "male" // 下发的冗余字段gender
+           },
+           {
+               id: 2,
+               name: "Hameimei"
+           }
+       ]
+   };
+   ```
+
+2. 如果api下发的数据是通过字面量的形式直接传递给使用函数的，那会报错，通不过ts的编译
+
+   ```ts
+   render({
+       data:[
+           {
+               id:1,
+               name: "Nicholas Zakas ddd",
+               age: 16 // 下发了冗余的age字段,会报异常
+           },
+           {
+               id: 2,
+               name: "Hameimei"
+           }
+       ]
+   });
+   ```
+
+   <img src="./images/i21.png" alt="接口下发冗余字段，直接赋值给执行函数，会报异常" style="zoom:67%;" />
+
+那么出现这种情况怎么处理呢？一般情况下常用的有3种方式解决：
+
+- 使用类型断言，告诉编译器这就是某个指定的类型
+
+  ```ts
+  render({
+      data:[
+          {
+              id:1,
+              name: "Nicholas Zakas ddd",
+              age: 16 // 下发了冗余的age字段
+          },
+          {
+              id: 2,
+              name: "Hameimei"
+          }
+      ]
+  } as Result);
+  ```
+
+- 将api下发的数据赋值给一个变量，然后通过使用变量的方式实现对数据的调用 ---- 就是前面正常的那个情况
+
+  ```ts
+  const result = {
+      data: [
+          {
+              id:1,
+              name: "Nicholas Zakas",
+              gender: "male"
+          },
+          {
+              id: 2,
+              name: "Hameimei"
+          }
+      ]
+  };
+  render(result);
+  ```
+
+- 使用泛型
+
+  ```ts
+  render(<Result>{ // 泛型
+      data: [
+          {
+              id:1,
+              name: "Nicholas Zakas",
+              gender: "female"
+          },
+          {
+              id: 2,
+              name: "Hameimei"
+          }
+      ]
+  })
+  ```
+
+  但一般不建议使用这种方式，因为在react中有歧义
