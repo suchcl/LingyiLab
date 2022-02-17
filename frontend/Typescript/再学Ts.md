@@ -390,3 +390,56 @@ let obj:{x:number,y:number} = {
 console.log(obj.x); // 12
 ```
 
+**symbol**
+
+symbol表示唯一值。
+
+```ts
+// symbol
+let s1:symbol = Symbol();
+let s2 = Symbol();
+console.log("s1:", s1);
+console.log(s1 === s2); // false
+```
+
+任何的Symbol类型的变量都是不相等的。
+
+**undefined**
+
+如果一个变量被声明了一个undefined类型，那么这个变量就只能被赋值undefined类型的唯一值undefined
+
+```ts
+let ud:undefined = 23; // 这里的赋值是有问题的，不能将23赋值给一个undefined类型变量
+let udf:undefined = undefined;
+```
+
+![不能将其他的类型赋值给一个undefined类型变量](./images/i18.png)
+
+**null**
+
+null和undefined相同，如果一个变量被声明为了null类型，那么这个变量就只能被赋值null类型的唯一值null，而不能将其他的类型值赋值给null类型的变量。
+
+> 既然其他的类型值都不能赋值给undefined、null这两个类型的变量，那么null和undefined可以赋值给其他的数据类型变量吗？
+
+![undefined和null赋值给其他类型变量](./images/i19.png)
+
+简单从代码上看是不行的，但是ts文档告诉我们了，undefined和null是其他类型的子类型，那么也就是说undefined和null是可以赋值给其他类型的变量的，这个时候需要在tsconfig.json配置文件进行一下简单配置：
+
+```json
+"strictNullChecks": false,  // 将strictNullChecks设置成false即可，默认是true
+```
+
+![undefined和null可以赋值给其他类型变量了](./images/i20.png)
+
+**void类型**
+
+在js中，void是一个操作符，它可以让任何表达式返回undefined。
+
+void 0可以返回一个undefined。
+
+js中的undefined不是一个保留字，我们可以自定义一个undefined代替全局的undefined
+
+```js
+console.log(void 0); // undefined
+```
+
