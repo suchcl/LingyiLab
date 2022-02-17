@@ -296,5 +296,44 @@ ts中，也可以为一个变量同时声明多种类型，只需要在类型注
 let dt:string | number = 10; // 变量dt可以为string类型或者number类型
 ```
 
+元祖，是ts中区别于js的一种数据类型，元祖是一种特殊的数组，它限定了数组项的个数和类型。
 
+```ts
+let tuple:[number,string] = [12,"Nicholas Zakas"];
+let t:[string,number,Array<number>] = ["Nicholas",18,[4,5]];
+let t2:[string,number,string[]]=["Hanmeimei",16,["apple","banana"]];
+let t3:[string,number,number[]] = ["LiLei",12,[3,4]];
+```
 
+这几种都是合法的元祖，需要注意的是元祖的数据类型限定中，如果是数组类型的限定，和定义数组相同，可以使用基本的数据类型加[]的方式声明，也可以通过范式的方式声明。
+
+**元祖越界**
+
+元祖是一种特殊的数组，它可以使用数组的方法，如遍历、插入、弹出元素等操作。
+
+```ts
+let t:[string,number,Array<number>] = ["Nicholas",18,[4,5]];
+t.forEach((item) => {
+    console.log(item);
+});
+```
+
+元祖使用了数组的forEach方法遍历元素。
+
+下面使用push向元祖插入元素
+
+```ts
+let t:[string,number,Array<number>] = ["Nicholas",18,[4,5]];
+t.push(99);
+console.log(t); // [ 'Nicholas', 18, [ 4, 5 ], 99 ]
+```
+
+从执行结果上看，成功的向元祖插入了元素。
+
+但是这个时候需要注意，新插入的元素是访问不到的，这就是元祖的越界问题。
+
+实际的开发中，不要越界插入元祖元素。
+
+![越界的元祖元素不能访问](./images/i17.png)
+
+> 可以通过数组的push等方法向元祖添加越界元素，但是越界元素不能被访问，ts编译是编译不过去的。
