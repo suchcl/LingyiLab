@@ -443,3 +443,21 @@ js中的undefined不是一个保留字，我们可以自定义一个undefined代
 console.log(void 0); // undefined
 ```
 
+**any**
+
+尽量不要是用any类型，否则就和js没有什么区别了，失去了ts的意义了。
+
+**never**
+
+永远不会有返回值的类型，或者死循环的语句，会返回一个never类型
+
+```ts
+let error = () => {
+    throw new Error("error");
+}
+
+let endless = () => {
+    while(1){} // 永远不会有返回值
+}
+```
+
