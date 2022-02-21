@@ -771,7 +771,38 @@ render(result);
   console.log(add2(9)); // 9
   ```
   
+  **如果有可选参数的话，那么可选参数的位置必须在必选参数的后面**。
   
+  为参数设置默认值，方式和js中的方式相同。
+  
+  ```ts
+  function add3(x:number, y = 2, z:number,q = 3){
+      return x + y + z + q;
+  }
+  console.log(add3(1,2,3,4)); // 10
+  ```
+  
+  在设置参数默认值的时候，需要注意，必选参数前的默认值是不能省略的，需要传递undefined来获取参数的默认值；必选参数后面的默认值，可以省略
+  
+  ```ts
+  function add3(x:number, y = 2, z:number,q = 3){
+      return x + y + z + q;
+  }
+  console.log(add3(3,undefined,2,9)); // 16,通过传递undefined获取到了y的默认值
+  ```
+  
+  如果函数参数个数不固定的时候，可以使用剩余参数：
+  
+  ```ts
+  function add4(x:number,...rest:number[]){
+      return x + rest.reduce((pre,cur) => pre + cur);
+  }
+  console.log(add4(2,3,4)); // 9
+  ```
+  
+  函数重载
+  
+  ts中的函数重载，和java以及C++中的重载概念不同。
   
   
   
