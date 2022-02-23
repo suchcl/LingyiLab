@@ -13,6 +13,8 @@
   - [2.4 ts的数据类型](#24-ts%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B)
   - [2.5 类型注解](#25-%E7%B1%BB%E5%9E%8B%E6%B3%A8%E8%A7%A3)
   - [2.6 接口](#26-%E6%8E%A5%E5%8F%A3)
+  - [2.7 函数](#27-%E5%87%BD%E6%95%B0)
+  - [2.8 函数重载](#28-%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -642,172 +644,171 @@ render(result);
 
 - 将api下发的数据赋值给一个变量，然后通过使用变量的方式实现对数据的调用 ---- 就是前面正常的那个情况
 
-  ```ts
-  const result = {
-      data: [
-          {
-              id:1,
-              name: "Nicholas Zakas",
-              gender: "male"
-          },
-          {
-              id: 2,
-              name: "Hameimei"
-          }
-      ]
-  };
-  render(result);
-  ```
+```ts
+const result = {
+    data: [
+        {
+            id:1,
+            name: "Nicholas Zakas",
+            gender: "male"
+        },
+        {
+            id: 2,
+            name: "Hameimei"
+        }
+    ]
+};
+render(result);
+```
 
 - 使用泛型
 
-  ```ts
-  render(<Result>{ // 泛型
-      data: [
-          {
-              id:1,
-              name: "Nicholas Zakas",
-              gender: "female"
-          },
-          {
-              id: 2,
-              name: "Hameimei"
-          }
-      ]
-  })
-  ```
+```ts
+render(<Result>{ // 泛型
+    data: [
+        {
+            id:1,
+            name: "Nicholas Zakas",
+            gender: "female"
+        },
+        {
+            id: 2,
+            name: "Hameimei"
+        }
+    ]
+})
+```
 
-  但一般不建议使用这种方式，因为在react中有歧义
+但一般不建议使用这种方式，因为在react中有歧义
+
+**对象类型接口**
+
+就是用接口定义对象，包括Object和数组
+
+**函数类型接口**
+
+函数类型接口，就是用接口定义函数。
+
+前面在学习ts数据类型的时候，我们知道可以通过下面的方式来定义一个函数类型：
+
+```ts
+let Sum:(x:number,y:number) => number;
+```
+
+表示声明了一个变量，该变量是一个函数类型，这个函数类型接收2个number类型参数，并且返回一个number类型的函数。这个函数类型的名称可以使用Sum来表示，说的直白一点：声明Sum为一个接收2个数字类型参数并返回一个number类型的函数。
+
+使用接口可以实现同样的功能，即通过接口类声明一个函数类型：
+
+```ts
+interface Adds{
+    (x:number,y:number):number
+}
+```
   
-  **对象类型接口**
-  
-  就是用接口定义对象，包括Object和数组
-  
-  **函数类型接口**
-  
-  函数类型接口，就是用接口定义函数。
-  
-  前面在学习ts数据类型的时候，我们知道可以通过下面的方式来定义一个函数类型：
-  
-  ```ts
-  let Sum:(x:number,y:number) => number;
-  ```
-  
-  表示声明了一个变量，该变量是一个函数类型，这个函数类型接收2个number类型参数，并且返回一个number类型的函数。这个函数类型的名称可以使用Sum来表示，说的直白一点：声明Sum为一个接收2个数字类型参数并返回一个number类型的函数。
-  
-  使用接口可以实现同样的功能，即通过接口类声明一个函数类型：
-  
-  ```ts
-  interface Adds{
-      (x:number,y:number):number
-  }
-  ```
-  
-  通过接口声明的函数类型需要接收2个number类型参数，且返回number的类型值，使用Adds表示这个类型。
-  
-  来看下这个函数类型的实现案例：
-  
-  ```ts
-  let ads:Adds = (a,b) => a + b;
-  ```
-  
-  在使用接口可以实现这个功能，使用别名的方式，也可以实现：
-  
-  ```ts
-  // 函数类型定义,通过别名方式
-  type Add = (x:number,y:number) => number;
-  // 函数的实现
-  let ad:Add = (a,b) => a - b;
-  // 执行出了正确的结果
-  console.log("add：",ad(5,2)); // 3
-  ```
-  
-  **混合类型接口**
-  
-  ```ts
-  // 定义混合类型接口
-  interface Lib {
-      // void返回值
-      ():void;
-      // string类型版本号
-      version: string;
-      // 定义一个方法
-      doSth():void;
-  }
-  // 实现这个混合类型接口
-  let lib:Lib = (() => {}) as Lib;
-  lib.version = "1.0.0";
-  lib.doSth = () => {};
-  ```
-  
-  实际应用：
-  
-  ```ts
-  // 可以尝试封装这个单例模式的获取库版本号的方法
-  function getLib(){
-      let lib:Lib = (() => {}) as Lib;
-      lib.version = '1.2.0';
-      lib.doSth = () => {
-          console.log('来干活了');
-      };
-      return lib;
-  }
-  
-  let l1 = getLib(); // 实例化一个对象
-  console.log(l1.version); // 1.2.0
-  l1.doSth(); // 来干活了
-  ```
-  
-  #### 2.7 函数
-  
-  js中的函数参数，可以任意，没有强制要求
-  
-  ts中的函数参数，需要按照定义给定固定数量和固定类型的参数，也可以根据需要定义可选参数，这个时候也可以不用传递这些可选的参数。
-  
-  ```ts
-  // 可选参数y
-  function add2(x:number,y?:number){
-      // 如果y存在，则返回x + y，否则返回x
-      return y? x + y : x;
-  }
-  
-  console.log(add2(3,4)); // 7
-  console.log(add2(9)); // 9
-  ```
-  
-  **如果有可选参数的话，那么可选参数的位置必须在必选参数的后面**。
-  
-  为参数设置默认值，方式和js中的方式相同。
-  
-  ```ts
-  function add3(x:number, y = 2, z:number,q = 3){
-      return x + y + z + q;
-  }
-  console.log(add3(1,2,3,4)); // 10
-  ```
-  
-  在设置参数默认值的时候，需要注意，必选参数前的默认值是不能省略的，需要传递undefined来获取参数的默认值；必选参数后面的默认值，可以省略
-  
-  ```ts
-  function add3(x:number, y = 2, z:number,q = 3){
-      return x + y + z + q;
-  }
-  console.log(add3(3,undefined,2,9)); // 16,通过传递undefined获取到了y的默认值
-  ```
-  
-  如果函数参数个数不固定的时候，可以使用剩余参数：
-  
-  ```ts
-  function add4(x:number,...rest:number[]){
-      return x + rest.reduce((pre,cur) => pre + cur);
-  }
-  console.log(add4(2,3,4)); // 9
-  ```
-  
-  #### 2.8 函数重载
-  
-  ts中的函数重载，和java以及C++中的重载概念不同。
-  
-  
-  
-  
+通过接口声明的函数类型需要接收2个number类型参数，且返回number的类型值，使用Adds表示这个类型。
+
+来看下这个函数类型的实现案例：
+
+```ts
+let ads:Adds = (a,b) => a + b;
+```
+
+在使用接口可以实现这个功能，使用别名的方式，也可以实现：
+
+```ts
+// 函数类型定义,通过别名方式
+type Add = (x:number,y:number) => number;
+// 函数的实现
+let ad:Add = (a,b) => a - b;
+// 执行出了正确的结果
+console.log("add：",ad(5,2)); // 3
+```
+
+**混合类型接口**
+
+```ts
+// 定义混合类型接口
+interface Lib {
+    // void返回值
+    ():void;
+    // string类型版本号
+    version: string;
+    // 定义一个方法
+    doSth():void;
+}
+// 实现这个混合类型接口
+let lib:Lib = (() => {}) as Lib;
+lib.version = "1.0.0";
+lib.doSth = () => {};
+```
+
+实际应用：
+
+```ts
+// 可以尝试封装这个单例模式的获取库版本号的方法
+function getLib(){
+    let lib:Lib = (() => {}) as Lib;
+    lib.version = '1.2.0';
+    lib.doSth = () => {
+        console.log('来干活了');
+    };
+    return lib;
+}
+
+let l1 = getLib(); // 实例化一个对象
+console.log(l1.version); // 1.2.0
+l1.doSth(); // 来干活了
+```
+#### 2.7 函数
+
+js中的函数参数，可以任意，没有强制要求
+
+ts中的函数参数，需要按照定义给定固定数量和固定类型的参数，也可以根据需要定义可选参数，这个时候也可以不用传递这些可选的参数。
+
+```ts
+// 可选参数y
+function add2(x:number,y?:number){
+    // 如果y存在，则返回x + y，否则返回x
+    return y? x + y : x;
+}
+
+console.log(add2(3,4)); // 7
+console.log(add2(9)); // 9
+```
+
+**如果有可选参数的话，那么可选参数的位置必须在必选参数的后面**。
+
+为参数设置默认值，方式和js中的方式相同。
+
+```ts
+function add3(x:number, y = 2, z:number,q = 3){
+    return x + y + z + q;
+}
+console.log(add3(1,2,3,4)); // 10
+```
+
+在设置参数默认值的时候，需要注意，必选参数前的默认值是不能省略的，需要传递undefined来获取参数的默认值；必选参数后面的默认值，可以省略
+
+```ts
+function add3(x:number, y = 2, z:number,q = 3){
+    return x + y + z + q;
+}
+console.log(add3(3,undefined,2,9)); // 16,通过传递undefined获取到了y的默认值
+```
+
+如果函数参数个数不固定的时候，可以使用剩余参数：
+
+```ts
+function add4(x:number,...rest:number[]){
+    return x + rest.reduce((pre,cur) => pre + cur);
+}
+console.log(add4(2,3,4)); // 9
+```
+
+#### 2.8 函数重载
+
+ts中的函数重载，和java以及C++中的重载概念不同。
+
+
+
+
