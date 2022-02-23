@@ -9,6 +9,10 @@
 - [2. Typescript基础](#2-typescript%E5%9F%BA%E7%A1%80)
   - [2.1 强类型与弱类型](#21-%E5%BC%BA%E7%B1%BB%E5%9E%8B%E4%B8%8E%E5%BC%B1%E7%B1%BB%E5%9E%8B)
   - [2.2 静态类型语言和动态类型语言](#22-%E9%9D%99%E6%80%81%E7%B1%BB%E5%9E%8B%E8%AF%AD%E8%A8%80%E5%92%8C%E5%8A%A8%E6%80%81%E7%B1%BB%E5%9E%8B%E8%AF%AD%E8%A8%80)
+  - [2.3 ts基础](#23-ts%E5%9F%BA%E7%A1%80)
+  - [2.4 ts的数据类型](#24-ts%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B)
+  - [2.5 类型注解](#25-%E7%B1%BB%E5%9E%8B%E6%B3%A8%E8%A7%A3)
+  - [2.6 接口](#26-%E6%8E%A5%E5%8F%A3)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -800,7 +804,7 @@ render(result);
   console.log(add4(2,3,4)); // 9
   ```
   
-  #### 2.7 函数重载
+  #### 2.8 函数重载
   
   ts中的函数重载，和java以及C++中的重载概念不同。
   
