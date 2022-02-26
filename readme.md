@@ -330,13 +330,15 @@
 
 16. [免费版 Typora](./Hodgepodge/Typora免费版.md)
 
-17. [Mac 电脑修改用户名称和电脑名称](./Hodgepodge/Mac电脑修改用户名称和电脑名称.md)
+17. [Mac电脑修改用户名称和电脑名称](./Hodgepodge/Mac电脑修改用户名称和电脑名称.md)
 
-18. [Mac M1:complete:13: command not found: compdef](./Hodgepodge/compdef.md)
+18. [MacM1:complete:13: command not found: compdef](./Hodgepodge/compdef.md)
 
-19. [Mac 设置 vim 编辑器彩色效果](./Hodgepodge/Mac设置vim编辑器彩色效果.md)
+19. [Mac设置vim编辑器彩色效果](./Hodgepodge/Mac设置vim编辑器彩色效果.md)
 
-20. [Mac 终端 ls 指令通过颜色区分文件和文件夹](./devTools/mac终端命令行ls区分文件和文件夹.md)
+20. [Mac终端ls指令通过颜色区分文件和文件夹](./devTools/mac终端命令行ls区分文件和文件夹.md)
+
+21. [常用mac指令](./devTools/mac指令.md)
 
 ### 面试
 
