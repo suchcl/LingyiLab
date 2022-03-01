@@ -56,6 +56,7 @@
 2. [Ts 基础知识](./frontend/Typescript/Typescript2021.10.md)
 3. [Typescript 进阶](./frontend/Typescript/Typescript进阶.md)
 4. [Typescript函数](./frontend/Typescript/函数.md)
+5. [泛型](./frontend/Typescript/泛型.md)
 
 #### 2.4 nodejs
 
