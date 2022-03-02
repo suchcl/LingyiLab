@@ -2175,6 +2175,25 @@ componentWillUpdate
     </script>
 ```
 
+> 项目中的列表，优秀的实践是都加key，key的值不要使用该列表遍历的索引index。如果api没有给客户端下发唯一值，那么也可以使用nanoid生成客户端的唯一id。
+> nanoid使用办法：
+
+安装nanoid依赖包
+```bash
+npm install nanoid --save
+```
+
+nanoid暴露了生成唯一字符串id的方法，直接导入使用即可。
+
+```js
+import { nanoid } from "nanoid";
+
+// 生成唯一的字符串id
+const key = nanoid();
+```
+
+关于nanoid，可参考：[nanoid](../前端基础/nanoid.md)
+
 看案例：
 
 ![使用index作为key和使用唯一标识作为key的区别](./images/i15.png)
