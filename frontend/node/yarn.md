@@ -112,6 +112,12 @@ yarn global list # 查看全局安装列表
 
 > 我的所有案例都是在 windows 上做的 demo 和验证，不过在非 windows 平台如 linux、mac 上应该是大同小异
 
+查看yarn的当前的源
+
+```bash
+yarn config get registry # 查看yarn的当前的源
+```
+> yarn也有一个类似nrm的源管理工具cgr，可以同时管理yarn、npm、cnpm,可以参考：[nrm、cgr](./nrm.md)
 
 ### 常见问题
 
@@ -150,3 +156,4 @@ source ~/.zshrc # 重载shell的配置文件，即时生效
 **那为甚么npm全局安装的指令可以正常执行呢**
 
 是因为在安装node的时候，配置过了系统环境变量。
+
