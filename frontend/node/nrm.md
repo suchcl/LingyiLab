@@ -85,3 +85,10 @@ cd node_modules/cgr
     }
 }
 ```
+
+#### 4. npm、yarn的一些常用操作
+
+```bash
+yarn global dir # 查看通过yarn安装的包的全局的安装位置
+npm root -g # 通过npm全局安装的包的位置
+```
