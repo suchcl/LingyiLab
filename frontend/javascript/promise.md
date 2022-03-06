@@ -81,4 +81,4 @@ promise2 = promise.then(onFulfilled, onRejected);
 
 中文：https://www.ituring.com.cn/article/66566
 
-引文地址：https://promisesaplus.com/
+英文原文地址：https://promisesaplus.com/
