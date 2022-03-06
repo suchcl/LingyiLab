@@ -7,7 +7,6 @@
 - [3. 要求](#3-%E8%A6%81%E6%B1%82)
   - [3.1 Promise状态 --- status](#31-promise%E7%8A%B6%E6%80%81-----status)
   - [3.2 then方法](#32-then%E6%96%B9%E6%B3%95)
-  - [3.3 Promise解决过程](#33-promise%E8%A7%A3%E5%86%B3%E8%BF%87%E7%A8%8B)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -78,5 +77,7 @@ promise2 = promise.then(onFulfilled, onRejected);
 - 如果onFulfilled不是函数且promise1完成(Fulfilled)执行，promise2必须完成执行(Fulfilled),并返回和promise1相同的值(value);
 - 如果onRejected不是函数且promise1是拒绝(Reject)状态，promise2也必须是拒绝(Rejected)，且返回和promise1相同的原因(reason);
 
-#### 3.3 Promise解决过程
+上面罗列了Promise/A+协议的一些基本要求，还有一些更加细节的执行过程，可以参考：
 
+中文：https://www.ituring.com.cn/article/66566
+引文地址：https://promisesaplus.com/
