@@ -72,14 +72,13 @@ promise.then(onFulfilled, onRejected);
 ```js
 promise2 = promise.then(onFulfilled, onRejected);
 ```
-
-    * 如果onFulfilled或者onRejected返回一个值x，则运行下面的Promise解决过程：
+    - 如果onFulfilled或者onRejected返回一个值x，则运行下面的Promise解决过程：
 
     [[resolve]](promise2,x)
 
-    * 如果onFulfilled或者onRejected抛出一个异常e，则promise2必须拒绝(Rejected),并返回异常e的原因(reason);
-    * 如果onFulfilled不是函数且promise1完成(Fulfilled)执行，promise2必须完成执行(Fulfilled),并返回和promise1相同的值(value);
-    * 如果onRejected不是函数且promise1是拒绝(Reject)状态，promise2也必须是拒绝(Rejected)，且返回和promise1相同的原因(reason);
+    - 如果onFulfilled或者onRejected抛出一个异常e，则promise2必须拒绝(Rejected),并返回异常e的原因(reason);
+    - 如果onFulfilled不是函数且promise1完成(Fulfilled)执行，promise2必须完成执行(Fulfilled),并返回和promise1相同的值(value);
+    - 如果onRejected不是函数且promise1是拒绝(Reject)状态，promise2也必须是拒绝(Rejected)，且返回和promise1相同的原因(reason);
 
 #### 3.3 Promise解决过程
 
