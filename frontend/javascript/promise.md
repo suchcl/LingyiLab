@@ -80,4 +80,5 @@ promise2 = promise.then(onFulfilled, onRejected);
 上面罗列了Promise/A+协议的一些基本要求，还有一些更加细节的执行过程，可以参考：
 
 中文：https://www.ituring.com.cn/article/66566
+
 引文地址：https://promisesaplus.com/
