@@ -602,6 +602,8 @@ umi默认支持了less预处理器，如果想使用css，则直接将.less修�
 
 umi中约定src/global.less为全局样式，如果存在该文件，则会被自动引入到入口文件最前面，自动生效，不需要开发者手动引入。
 
+> 如果项目在运行期间新增了global.css,那么需要重新启动一下服务器以使全局global.css生效；
+
 2. CSS Modules
 
 umi可以自动识别css modules的使用，而样式文件名中可以没有.module标识，在样式导入时会进行加以区分即可。
