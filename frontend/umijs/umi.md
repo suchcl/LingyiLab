@@ -697,7 +697,7 @@ inlineLimit: 10000
 
 **模板中使用svg**
 
-使用svg的方式，和使用图片的方式相同
+使用svg的方式,和使用图片的方式相同
 
 ```tsx
 <div className={style.pic_area}>
