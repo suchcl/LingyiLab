@@ -61,3 +61,73 @@ demo只实现了一级和二级菜单的效果,但是我没没有很多场景还
 ![react+antd实现二级菜单](./images/i32.png)
 
 > demo中有部分代码仅仅是为了实现菜单级点击菜单实现路由跳转，部分没有考虑其合理性，看官有需要的时候，自行优化代码。
+
+### antd实现多级菜单
+
+菜单组件(nav.tsx)
+
+```tsx
+import { FC } from 'react';
+import { Menu } from 'antd';
+const { SubMenu } = Menu;
+import { Link } from 'react-router-dom';
+
+interface MenuType {
+  menuList: any;
+}
+const CustomeNav: FC<MenuType> = (props: any) => {
+  const { menuList } = props;
+  function formSubmenuChild(obj: any) {
+    let cHtml = <div></div>;
+    let childArray = obj.children;
+    if (obj.children && obj.children.length > 0) {
+      cHtml = childArray.map((item: any) => {
+        return formSubmenuChild(item);
+      });
+      return (
+        <SubMenu key={obj.path} title={obj.text}>
+          {cHtml}
+        </SubMenu>
+      );
+    } else {
+      return (
+        <Menu.Item key={obj.path}>
+          <Link to={obj.path}>{obj.text}</Link>
+        </Menu.Item>
+      );
+    }
+  }
+
+  // 拼接菜单项
+  let html = menuList.map((obj: any) => {
+    if (obj.children && obj.children.length > 0) {
+      return formSubmenuChild(obj);
+    } else {
+      return (
+        <Menu.Item key={obj.path}>
+          <Link to={obj.path}>{obj.text}</Link>
+        </Menu.Item>
+      );
+    }
+  });
+
+  return (
+    <Menu mode="horizontal" theme="dark">
+      {html}
+    </Menu>
+  );
+};
+
+CustomeNav.propTypes = {};
+
+export default CustomeNav;
+```
+
+调用：
+
+```tsx
+// 导入子组件
+import CustomeNav from './nav';
+// 调用子组件
+<CustomeNav menuList={menu}></CustomeNav>
+```
