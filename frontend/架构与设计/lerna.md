@@ -36,3 +36,4 @@ axxx@xxxxx lerna % tree ./
 └── packages
 ```
 
+到现在为止，一个简单的lerna项目，已经创建完成。
