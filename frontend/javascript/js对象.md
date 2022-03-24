@@ -15,7 +15,7 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-### js对象：Object类型
+### 1. js对象：Object类型
 
 大多数引用值的类型都是Object类型。
 
@@ -246,3 +246,66 @@ p.getName();
 ```
 
 原型模式的一个优势，就是在原型上创建的书型和方法，可以被所有的对象实例共享。
+
+### 2. Js对象的常用操作
+
+#### 2.1 Object.keys()
+
+Object.keys()方法会返回一个由一个给定对象的自身可枚举属性组成的数组，数组中属性名的排列顺序和正常循环遍历该对象时返回的顺序一致。
+
+**语法**
+
+```javascript
+Object.keys(obj)
+```
+
+**参数**
+obj：要返回其枚举自身属性的对象
+
+**返回值**
+
+一个给定对象的所有可枚举属性的字符串数组
+
+```javascript
+    const obj = {
+        "id": 1,
+        "name": "拜登",
+        "gender": "男",
+        "mobile": "132xxxxxxxx",
+        "email": "baideng@bb.com",
+        "address": "北美华盛顿白宫",
+        "remark": "半个疯子"
+    };
+    console.log(Object.keys(obj)); // ['id', 'name', 'gender', 'mobile', 'email', 'address', 'remark']
+```
+
+#### 2.2 Object.values()
+
+Object.values()方法返回一个给定对象自身的可枚举属性的属性值组成的数组，值的顺序与使用for……in循环遍历的顺序相同 --- 区别在于for-in循环枚举原型链中的属性。
+
+**语法**
+
+```javascript
+Object.values(obj)
+```
+
+**参数**
+
+obj:一个拥有可枚举属性且被返回自身所有可枚举属性值的对象 ------- 就是一个对象，一般情况下，就是我们自定义对象。
+
+**返回值**
+
+对象中可枚举属性的属性值组成的数组。
+
+```javascript
+    const obj = {
+        "id": 1,
+        "name": "拜登",
+        "gender": "男",
+        "mobile": "132xxxxxxxx",
+        "email": "baideng@bb.com",
+        "address": "北美华盛顿白宫",
+        "remark": "半个疯子"
+    };
+    console.log(Object.values(obj)); // [1, '拜登', '男', '132xxxxxxxx', 'baideng@bb.com', '北美华盛顿白宫', '半个疯子']
+```
