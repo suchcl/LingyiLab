@@ -2,7 +2,7 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-- [js对象：Object类型](#js%E5%AF%B9%E8%B1%A1object%E7%B1%BB%E5%9E%8B)
+- [1. js对象：Object类型](#1-js%E5%AF%B9%E8%B1%A1object%E7%B1%BB%E5%9E%8B)
   - [1. 显示的创建Object对象有两种方式：](#1-%E6%98%BE%E7%A4%BA%E7%9A%84%E5%88%9B%E5%BB%BAobject%E5%AF%B9%E8%B1%A1%E6%9C%89%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F)
   - [2. 属性的读取](#2-%E5%B1%9E%E6%80%A7%E7%9A%84%E8%AF%BB%E5%8F%96)
   - [3.  使用构造函数创建对象和使用字面量方式创建对象的区别？](#3--%E4%BD%BF%E7%94%A8%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E5%92%8C%E4%BD%BF%E7%94%A8%E5%AD%97%E9%9D%A2%E9%87%8F%E6%96%B9%E5%BC%8F%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%8C%BA%E5%88%AB)
@@ -12,6 +12,9 @@
     - [4.3 工厂模式](#43-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F)
     - [4.4 构造函数模式](#44-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E6%A8%A1%E5%BC%8F)
     - [4.5 原型模式](#45-%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F)
+- [2. Js对象的常用操作](#2-js%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C)
+  - [2.1 Object.keys()](#21-objectkeys)
+  - [2.2 Object.values()](#22-objectvalues)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
