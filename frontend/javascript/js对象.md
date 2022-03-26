@@ -312,3 +312,5 @@ obj:一个拥有可枚举属性且被返回自身所有可枚举属性值的对�
     };
     console.log(Object.values(obj)); // [1, '拜登', '男', '132xxxxxxxx', 'baideng@bb.com', '北美华盛顿白宫', '半个疯子']
 ```
+
+#### 2.3 Object.entries()
