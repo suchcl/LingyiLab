@@ -117,6 +117,56 @@ console.log("baseModule.jian: ", baseModule.jian(30));
 
 - 模块的加载顺序，按照其在代码中出现的先后顺序；
 
+> Nodejs是CommonJs模块规范的一个具体实现。
+
+#### 2.1 module对象
+
+Node内部提供一个Module构建函数，所有模块都是Module的实例。
+
+```js
+function Module(id,parent){
+    this.id = id;
+    this.exports = {};
+    this.parent = parent;
+}
+// ……
+```
+在每个模块内部，都有一个module对象，代表当前模块，它具有以下属性：
+
+- module.id 模块标识符，通常是带有绝对路径的模块文件名
+
+- module.filename 模块的文件名，带有绝对路径
+
+- module.loaded 表示该模块是否已经加载完成，是一个布尔值
+
+- module.parent 返回一个数组，表示调用该模块的模块
+
+- module.children 返回一个数组，表示该模块要用到的其他模块
+
+- module.exports 表示该模块对外输出的值
+
+**module.exports属性表示当前模块对外输出的接口，其他文件加载该模块，实际上就是读取module.exports的变量**
+
+为了方便，Node为每个模块提供一个exports变量，指向module.exports.这样就等同于在每个模块的头部，有一行这样的指令：
+
+```js
+const exports = module.exports;
+```
+
+> 不能直接将exports指向一个具体的值，因为这样就切断了exports和module.exports的联系。
+
+如下面的写法，都是无效的：
+
+```js
+exports.hello = function () {
+    return "How do you do?";
+}
+
+exports = "Hello world!";
+```
+
+> module.exports和exports使用的时候，有的时候会感觉到迷惑，最简单的方式就是不使用exports，我们的代码中不使用exports，在commonjs模块规范中，统一使用module.exports。
+
 ### . require和import的区别
 
 **requrie/exports输出的是一个值的拷贝，import/export模块输出的是值的引用；**
