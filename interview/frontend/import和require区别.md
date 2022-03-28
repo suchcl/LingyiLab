@@ -4,6 +4,9 @@
 
 - [1. 简单了解模块](#1-%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3%E6%A8%A1%E5%9D%97)
 - [2. commonjs模块](#2-commonjs%E6%A8%A1%E5%9D%97)
+  - [2.1 module对象](#21-module%E5%AF%B9%E8%B1%A1)
+  - [2.2 模块缓存](#22-%E6%A8%A1%E5%9D%97%E7%BC%93%E5%AD%98)
+- [3. es6模块](#3-es6%E6%A8%A1%E5%9D%97)
 - [. require和import的区别](#-require%E5%92%8Cimport%E7%9A%84%E5%8C%BA%E5%88%AB)
 - [import的优势](#import%E7%9A%84%E4%BC%98%E5%8A%BF)
 
@@ -166,6 +169,47 @@ exports = "Hello world!";
 ```
 
 > module.exports和exports使用的时候，有的时候会感觉到迷惑，最简单的方式就是不使用exports，我们的代码中不使用exports，在commonjs模块规范中，统一使用module.exports。
+
+#### 2.2 模块缓存
+
+第一次加载一个模块时，Node会缓存该模块，当以后再次加载该模块时，node就会直接从缓存中取该模块的module.exports属性。
+
+```js
+// base.js
+const message = "success";
+function hello() {
+    return "How do you do?";
+}
+
+module.exports = {
+    hello, message
+};
+
+// commonjs.js
+const mb = require("./base");
+const message = require("./base").message = "Hello world!";
+const msg = require("./base").message; // msg会使用上面缓存的message值，而不是重新加载base模块而使用message属性值
+
+console.log(mb.hello());
+console.log(message); // Hello world!
+console.log(mb.message); // Hello world!
+console.log(msg); // Hello world!
+```
+
+commonjs.js中，有3处模块导入的地方，其中后两处的模块导入，都是导入的message属性
+
+```js
+const message = require("./base").message = "Hello world!";
+const msg = require("./base").message; 
+```
+代码在执行的时候，会将第一次导入的message属性进行缓存，缓存的过程中对message属性重新赋值了，为“Hello world！”，但是下面又重新导入了message：const msg = require("./base").message;。
+
+但是后面的导入，并不会去从base.js重新导入模块，而是从缓存中获取message属性，所以msg的值是Hello world!,而不是模块中定义的“success”。
+
+> 缓存是根据绝对路径识别模块的，如果同样的模块名，但是保存在不同的路径，require是会重新加载模块的。
+
+### 3. es6模块
+
 
 ### . require和import的区别
 
