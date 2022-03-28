@@ -210,7 +210,118 @@ const msg = require("./base").message;
 
 ### 3. es6模块
 
+ES6模块的设计思想就是尽量静态化，能够在编译阶段就能确定模块之间的依赖关系，以及输入和输出变量。CommonJs和AMD模块，只能在运行时才能够确认模块之间的依赖关系。如CommonJS模块规范的应用：
 
+```js
+// 如CommonJS规范中的
+let { stat, exits, readFile } = require("fs");
+// 等价于
+let _fs = require("fs");
+let stat = _fs.stat;
+let exits = _fs.exits;
+let readFile = _fs.readFile;
+```
+
+这个demo的本质是正题加载fs模块，就是加载fs模块的所有方法以及属性，生成一个_fs对象，然后再从这个_fs对象读取3个方法。这种加载称为运行时加载，因为只有在运行的时候才能得到这个对象，导致没有办法在源码的编译阶段做静态优化。
+
+而ES6的模块不是对象，而是通过export指令显示指定输出的代码，再通过import导入。
+
+```js
+// es6模块
+import { stat, exits, readFile } from "fs";
+```
+
+这段es6模块的实质是从fs模块加载3个方法，其他的不加载(fs模块也许就只有这3个方法，也许还有很多方法和属性)，这种加载方式称为“编译时加载”或者静态加载，即ES6可以再编译阶段就完成了模块的加载，效率要比CommonJS模块的加载方式要高。当然这种高效率的背后也有一些弊端，就是没有办法引用ES6模块本身，因为它不是一个对象，我们没有办法使用。
+
+#### 3.1 export
+
+ES6的模块功能主要由2个指令构成：export和import。export指令用于规定模块的对外接口，import指令用于导入其他模块。
+
+- ES6模块必须且只能使用export导出；
+
+- export必须于模块内部的变量建立一一对应的关系；
+
+1. 一个模块就是一个独立的文件。该文件内部的所有变量，外部无法获取。如果我们希望外部能够使用模块内部的变量，就必须且只能使用export导出。
+
+```js
+export const firstName = "Nicholas";
+
+export function add(x, y) {
+    return x + y;
+}
+```
+
+> export指令指定的是对外的接口，必须于模块内部的变量建立一一对应的关系。如上面的代码，也可以使用下面的方式导出：
+
+```js
+const firstName = "Nicholas";
+
+function add(x, y) {
+    return x + y;
+}
+
+export {
+    firstName, add
+};
+```
+
+export导出的，需要是一个变量，而不能是一个具体的值。如下面的导出方式是错误的：
+
+```js
+export "hello";
+const msg = "hello";
+export msg;
+```
+
+第一个导出，直接导出了一个值，是不允许的；
+
+第二个导出，虽然导出了一个变量，但是变量msg指向的是hello，所以还是一个具体的值，也是不被允许的。
+
+对于上述案例，可以通过如下方式进行导出：
+
+```js
+export const msg = "hello";
+// 或者
+const msg = "hello";
+export {
+    msg
+};
+```
+
+es6中还可以通过别名的方式导出：
+
+```js
+const msg = "hello";
+export { msg as message };
+// 导入时通过message变量导入
+import { message } from "./es6base.js";
+console.log(message);
+```
+
+#### 3.2 import指令
+
+- import指令导入的变量都是只读的，不能被修改； 
+
+- import指令具有变量提升的效果；
+
+- import是静态执行，所以不能使用变量和表达式；
+
+- import语句是单例模式；
+
+1. import指令导入的变量是只读的，不能被修改：因为import的本质就是一个导入接口，不允许在加载模块内部改变变量值
+
+```js
+let msg = "hello";
+export { msg as message };
+
+// 导入
+import { message } from "./es6base.js";
+message = "How are you?"; // 是不被允许的
+```
+
+demo中在导入后修改了import进来的变量，这是不被允许的。因为import导入变量，本质上是声明了一个常量，常量，是不允许修改值的。
+
+上面的demo，message是一个变量，但是如果message是一个对象，那么这样的情况下，message本身不允许被修改，但是message对象的属性是可以被修改的。
 ### . require和import的区别
 
 **requrie/exports输出的是一个值的拷贝，import/export模块输出的是值的引用；**
