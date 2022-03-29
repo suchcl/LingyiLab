@@ -12,7 +12,7 @@
   - [3.3 export default](#33-export-default)
   - [3.4 export、import的复合写法](#34-exportimport%E7%9A%84%E5%A4%8D%E5%90%88%E5%86%99%E6%B3%95)
 - [4. require和import的区别](#4-require%E5%92%8Cimport%E7%9A%84%E5%8C%BA%E5%88%AB)
-- [import的优势](#import%E7%9A%84%E4%BC%98%E5%8A%BF)
+- [5. import的优势](#5-import%E7%9A%84%E4%BC%98%E5%8A%BF)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -441,7 +441,7 @@ import/export是在代码编译时加载，所以必须放在文件开头的地�
 
 **import/export导出的模块默认采用严格模式；require/exports导出默认不使用严格模式**
 
-### import的优势
+### 5. import的优势
 
 1. 可以实现代码分割（配合webpack），将代码打包到不同的bundle中，可以实现文件、代码的按需加载；require不行；
 
