@@ -342,6 +342,39 @@ console.log(person.age); // 16
 
 > 通过import导入的对象，其属性值可以被修改，其他模块可以读取到修改后的属性值，但是这种写法有一个问题，就是如果出问题了不好纠错，问题不好排查，所以最好的实践是凡是通过import导入的变量，都默认为只读，不要轻易修改对象的属性。
 
+**import指令具有提升效果，import指令语句会提升到整个模块的头部执行** 这是因为import指令是在编译阶段执行的，是在代码执行之前。
+
+```js
+console.log(addX(2, 3));
+import { addX } from "./es6base.js";
+```
+比如上面的案例，是完全没有问题的，代码可以正常的执行，实际上在编译的时候，先编译了import指令语句，然后再去执行。
+
+**import是静态执行，被import的部分不能是表达式和变量**
+
+```js
+// 这里不能导入表达式
+import {"a" + "b"} from "modules";
+
+// 这里不能从一个变量中导入数据
+const myModule = "modules";
+import { foo } from myModule;
+```
+
+**如果多次重复从一个语句中导入变量，那么只会执行一次导入动作，而不是多次**
+
+```js
+import { foo } from "module";
+import { bar } from "module";
+```
+
+这里的两行导入语句，等价于：
+
+```js
+import { foo, bar } from "module";
+```
+
+> 上面的两条导入语句，foo和bar，但是是从同一个模块module中导入的，也就是说，import指令语句是单例模式。
 
 
 ### . require和import的区别
