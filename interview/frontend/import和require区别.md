@@ -322,6 +322,23 @@ message = "How are you?"; // 是不被允许的
 demo中在导入后修改了import进来的变量，这是不被允许的。因为import导入变量，本质上是声明了一个常量，常量，是不允许修改值的。
 
 上面的demo，message是一个变量，但是如果message是一个对象，那么这样的情况下，message本身不允许被修改，但是message对象的属性是可以被修改的。
+
+```js
+// m1.js
+const person = {
+    name: "Nicholas Zakas",
+    age: 18
+};
+
+// es6.js
+export { person };
+import { person } from "./m1.js";
+console.log(person); // {name: 'Nicholas Zakas', age: 18}
+person.age = 16; // 修改了对象的属性值
+console.log(person.age); // 16
+```
+
+> 通过import导入的对象，其属性值可以被修改，其他模块可以读取到修改后的属性值，但是这种写法有一个问题，就是如果出问题了不好纠错，问题不好排查，所以最好的实践是凡是通过import导入的变量，都默认为只读，不要轻易修改对象的属性。
 ### . require和import的区别
 
 **requrie/exports输出的是一个值的拷贝，import/export模块输出的是值的引用；**
