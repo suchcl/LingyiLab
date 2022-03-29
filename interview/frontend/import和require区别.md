@@ -7,6 +7,8 @@
   - [2.1 module对象](#21-module%E5%AF%B9%E8%B1%A1)
   - [2.2 模块缓存](#22-%E6%A8%A1%E5%9D%97%E7%BC%93%E5%AD%98)
 - [3. es6模块](#3-es6%E6%A8%A1%E5%9D%97)
+  - [3.1 export](#31-export)
+  - [3.2 import指令](#32-import%E6%8C%87%E4%BB%A4)
 - [. require和import的区别](#-require%E5%92%8Cimport%E7%9A%84%E5%8C%BA%E5%88%AB)
 - [import的优势](#import%E7%9A%84%E4%BC%98%E5%8A%BF)
 
@@ -339,6 +341,9 @@ console.log(person.age); // 16
 ```
 
 > 通过import导入的对象，其属性值可以被修改，其他模块可以读取到修改后的属性值，但是这种写法有一个问题，就是如果出问题了不好纠错，问题不好排查，所以最好的实践是凡是通过import导入的变量，都默认为只读，不要轻易修改对象的属性。
+
+
+
 ### . require和import的区别
 
 **requrie/exports输出的是一个值的拷贝，import/export模块输出的是值的引用；**
