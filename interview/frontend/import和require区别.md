@@ -9,7 +9,9 @@
 - [3. es6模块](#3-es6%E6%A8%A1%E5%9D%97)
   - [3.1 export](#31-export)
   - [3.2 import指令](#32-import%E6%8C%87%E4%BB%A4)
-- [. require和import的区别](#-require%E5%92%8Cimport%E7%9A%84%E5%8C%BA%E5%88%AB)
+  - [3.3 export default](#33-export-default)
+  - [3.4 export、import的复合写法](#34-exportimport%E7%9A%84%E5%A4%8D%E5%90%88%E5%86%99%E6%B3%95)
+- [4. require和import的区别](#4-require%E5%92%8Cimport%E7%9A%84%E5%8C%BA%E5%88%AB)
 - [import的优势](#import%E7%9A%84%E4%BC%98%E5%8A%BF)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -376,8 +378,52 @@ import { foo, bar } from "module";
 
 > 上面的两条导入语句，foo和bar，但是是从同一个模块module中导入的，也就是说，import指令语句是单例模式。
 
+#### 3.3 export default
 
-### . require和import的区别
+- export default就是输出一个叫做default的变量或者方法
+
+- export default后面不能跟变量声明的语句
+
+**export default本质上输出的是一个叫做default的变量或者方法，然后在通过import导入的时候我们可以为它定义任意的名字**
+
+```js
+// m1.js
+function sayHello() {
+    return "Hello";
+}
+export default sayHello;
+
+// es6.js
+import ha from "./m1.js"
+console.log(ha());
+```
+
+因为m1中是通过export default导出的，所以在调用时可以为变量定义任意的名字，比如这里我给它定义了ha。
+
+> 因为export default指令导出的就是一个叫做default的变量，所以该指令后面不能再继续跟变量声明语句了
+
+```js
+// 下面的导出是正确的
+const a = 1;
+export default a;
+
+// 下面的导出是错误的
+export default const a = 1;
+```
+
+> 既然提到了export default后面不能跟声明语句的变量了，那么为什么可以跟一个不是声明语句的变量呢？本质上default后面的变量是在default变量赋值。
+
+#### 3.4 export、import的复合写法
+
+如果在一个模块中导入一个模块的同时，也需要导出，这个时候可以使用export、import的复合写法。
+
+```js
+export { sayHello, play } from "./es6base.js"
+```
+
+但是这种写法，在当前模块其实是用不了导入进来的sayHello和play的，因为当前的这种写法，仅仅是对外提供了一个接口，然而这个接口的原始能力又不是这个模块提供的，所以当前模块仅仅是提供了一个转发的功能。
+
+### 4. require和import的区别
 
 **requrie/exports输出的是一个值的拷贝，import/export模块输出的是值的引用；**
 
