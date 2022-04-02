@@ -805,10 +805,90 @@ function add4(x:number,...rest:number[]){
 console.log(add4(2,3,4)); // 9
 ```
 
-#### 2.8 函数重载
+#### 2.8 接口定义函数画
 
-ts中的函数重载，和java以及C++中的重载概念不同。
+语法：
 
+```ts
+interface 函数类型名{
+    (参数名1:参数类型, 参数名2:参数类型):函数返回值类型
+}
+```
 
+用接口定义函数，不需要定义函数名，只需要定义函数的结构，对函数的参数及返回值类型进行约束.如：
 
+```ts
+interface Add {
+    (x: number, y: number): number
+}
+```
 
+如这个接口定义了一个函数的接口类型Add，这个类型的函数需要有2个参数x和y，且参数类型都是number类型，函数也需要是number类型。
+
+> 我一个简单的理解，ts定义函数类型常用的可能是3种方法：接口定义函数类型、变量定义函数类型、类型别名定义函数类型，其语法分别为：
+
+**接口定义函数类型**
+
+```ts
+interface 函数名{
+    (参数名称: 参数类型, 参数名称: 参数类型): 返回值类型
+}
+```
+
+接口定义函数类型，不需要定义函数名称，只需要定义函数的参数名称、参数的数据类型和函数的返回值即可。
+
+```ts
+interface Add {
+    (x:number, y: number):number
+}
+```
+
+**变量定义函数类型**
+
+```ts
+let 变量名称:(参数名称:参数类型,参数名称:参数类型) => 返回值类型;
+```
+
+**类型别名定义函数类型**
+
+```ts
+type 类型名称 = (参数名称:参数类型,参数名称:参数类型) => 返回值类型;
+```
+
+#### 2.9 混合类型接口
+
+混合类型接口，既可以有方法，也可以像对象类型接口一样定义属性。如
+
+```ts
+// 定一个一个混合类型接口
+interface Lib {
+    (): void;
+    version: string;
+    play(): void;
+}
+
+// 下的代码定义好了一个混合类型，但是有个弊端,这是一个单例，lib对象的属性和方法只能调用一次，调用次数多了没有意义
+let lib: Lib = (() => { }) as Lib;
+lib.version = "1.1.0";
+lib.play = () => {
+    console.log("Let's go playing football!");
+}
+
+console.log(lib.version);// 1.1.0
+
+// 我们可以对上述案例进行优化，封装到一个方法中，然后返回实例
+function getLib(version: string) {
+    let lib: Lib = (() => { }) as Lib;
+    lib.version = version;
+    lib.play = () => {
+        console.log("Let's go playing football!");
+    }
+    return lib;
+}
+
+let lib1 = getLib("1.2.0");
+console.log(lib1.version);
+
+let lib2 = getLib("1.4.0");
+console.log(lib2.version);
+```
