@@ -896,3 +896,5 @@ console.log(lib2.version);
 #### 2.10 
 
 ### 3. 泛型
+
+### 4. 类
