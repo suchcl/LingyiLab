@@ -15,6 +15,11 @@
   - [2.6 接口](#26-%E6%8E%A5%E5%8F%A3)
   - [2.7 函数](#27-%E5%87%BD%E6%95%B0)
   - [2.8 函数重载](#28-%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD)
+  - [2.9 接口定义函数](#29-%E6%8E%A5%E5%8F%A3%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0)
+  - [2.10 混合类型接口](#210-%E6%B7%B7%E5%90%88%E7%B1%BB%E5%9E%8B%E6%8E%A5%E5%8F%A3)
+  - [2.11](#211)
+- [3. 泛型](#3-%E6%B3%9B%E5%9E%8B)
+- [4. 类](#4-%E7%B1%BB)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -796,7 +801,7 @@ function add3(x:number, y = 2, z:number,q = 3){
 console.log(add3(3,undefined,2,9)); // 16,通过传递undefined获取到了y的默认值
 ```
 
-如果函数参数个数不固定的时候，可以使用剩余参数：
+如果函数参数个数不固定的时候，可以使用剩余参数，剩余参数的类型是以数组的形式存在的：
 
 ```ts
 function add4(x:number,...rest:number[]){
@@ -805,7 +810,39 @@ function add4(x:number,...rest:number[]){
 console.log(add4(2,3,4)); // 9
 ```
 
-#### 2.8 接口定义函数画
+必选参数之前的默认参数是不可以省略的， 如果需要使用必选参数前面的参数的默认值，那么在调用的时候就必须要明确的传入一个undefined。
+
+```ts
+function inc2(x: number, y = 2, z: number, q = 1) {
+    return x + y + z + q;
+}
+
+console.log(inc2(3, undefined, 4)); // 10
+```
+
+#### 2.8 函数重载
+
+ts中，函数的重载和java以及C++有所不同。
+
+ts中的函数重载，要求我们先定义一些列的相同函数名的函数声明，但是函数参数会有所不同，同时函数没有实现，只声明、定义。然后只在最后一个函数声明中去实现。
+
+```ts
+function inc4(...rest: number[]): number;
+function inc4(...rest: string[]): string;
+function inc4(...rest: any[]): any {
+    let first = rest[0];
+    if (typeof first === "string") {
+        return rest.join(" ");
+    }
+    if (typeof first === "number") {
+        return rest.reduce((prev, cur) => prev + cur);
+    }
+}
+console.log(inc4(3, 4, 5)); // 12
+console.log(inc4("x", "y", "z")); // x y z
+```
+
+#### 2.9 接口定义函数
 
 语法：
 
@@ -855,7 +892,7 @@ let 变量名称:(参数名称:参数类型,参数名称:参数类型) => 返回
 type 类型名称 = (参数名称:参数类型,参数名称:参数类型) => 返回值类型;
 ```
 
-#### 2.9 混合类型接口
+#### 2.10 混合类型接口
 
 混合类型接口，既可以有方法，也可以像对象类型接口一样定义属性。如
 
@@ -893,7 +930,11 @@ let lib2 = getLib("1.4.0");
 console.log(lib2.version);
 ```
 
-#### 2.10 
+js中对函数的参数是没有限制的，但是在ts中，函数的形参和实参必须要一一对应。
+
+如果函数的形参有默认参数，那么在调用的时候如果想使用默认参数，那么就必须要传入一个undefined，而不能省略，否则就形参和实参酒对应不上了。
+
+#### 2.11 
 
 ### 3. 泛型
 
