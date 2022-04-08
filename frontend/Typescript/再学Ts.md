@@ -20,6 +20,9 @@
   - [2.11](#211)
 - [3. 泛型](#3-%E6%B3%9B%E5%9E%8B)
 - [4. 类](#4-%E7%B1%BB)
+  - [4.1 类的继承和成员修饰符](#41-%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF%E5%92%8C%E6%88%90%E5%91%98%E4%BF%AE%E9%A5%B0%E7%AC%A6)
+  - [4.2 类的继承](#42-%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF)
+  - [4.3 类的修饰符](#43-%E7%B1%BB%E7%9A%84%E4%BF%AE%E9%A5%B0%E7%AC%A6)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -1015,7 +1018,11 @@ public: ts类中，默认是public的，即可被所有对象访问。
 
 private：只能被类本身调用，不能被类的实例和类的字类调用；
 
-类的构造函数也可以被声明为private的，表明当前的这个类既不能被实例化，也不能被继承。
+protected：受保护的，受保护的成员变量，只能在字类中访问，不能在实例中访问
+
+readonly：只读属性，只读属性的值不能被修改，声明时必须要初始化。
+
+static：静态属性，通过static修饰的成员变量只能通过类名来调用； static成员变量可以被继承；
 
 ```ts
 class Cat {
@@ -1037,3 +1044,62 @@ cat.play(); // 这里是报错的，会提示：属性“play”为私有属性�
 ```
 
 ![属性“play”为私有属性，只能在类“Cat”中访问](./images/i25.png)
+
+类的构造函数也可以被声明为private的，表明当前的这个类既不能被实例化，也不能被继承。
+
+![声明为private的构造函数的类，既不能被继承，也不能被实例化](./images/i26.png)
+
+如果一个类中的构造函数被声明成了protected的，那么这个类就只能被继承，不能被实例化。
+
+除了正常的成员属性可以添加成员修饰符外，构造函数的参数也可以使用修饰符，构造函数的参数使用了成员呢修饰符后就自动变成了当前类的成员属性，就不需要在重新声明成员属性了。
+
+```ts
+class People {
+    constructor(public name: string, public age: number) {
+        this.name = name;
+        this.age = age;
+    }
+}
+
+const pl = new People("Nicholas Zakas", 16);
+console.log(pl); // People {name: 'Nicholas Zakas', age: 16}
+```
+
+demo中，构造函数的参数使用了成员修饰符，就不需要重新这些参数的成员属性了。
+
+```ts
+class People {
+    constructor(public name: string, public age: number) {
+        this.name = name;
+        this.age = age;
+    }
+    static color: string = "yello";
+}
+
+const pl = new People("Nicholas Zakas", 16);
+console.log(People.color); // yello 只能通过类名People来访问
+```
+
+static修饰的成员变量可以被字类访问
+
+```ts
+class People {
+    constructor(public name: string, public age: number) {
+        this.name = name;
+        this.age = age;
+    }
+    static color: string = "yello";
+}
+
+const pl = new People("Nicholas Zakas", 16);
+console.log(People.color); // yello
+
+console.log(pl); // People {name: 'Nicholas Zakas', age: 16}
+
+class WhitePeople extends People {
+    constructor(name: string, age: number) {
+        super(name, age);
+    }
+}
+console.log(WhitePeople.color); // 派生类访问了父类中定义的static成员变量
+```
