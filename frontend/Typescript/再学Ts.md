@@ -23,6 +23,8 @@
   - [4.1 类的继承和成员修饰符](#41-%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF%E5%92%8C%E6%88%90%E5%91%98%E4%BF%AE%E9%A5%B0%E7%AC%A6)
   - [4.2 类的继承](#42-%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF)
   - [4.3 类的修饰符](#43-%E7%B1%BB%E7%9A%84%E4%BF%AE%E9%A5%B0%E7%AC%A6)
+  - [4.4 抽象类](#44-%E6%8A%BD%E8%B1%A1%E7%B1%BB)
+  - [4.5 多态](#45-%E5%A4%9A%E6%80%81)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -1103,3 +1105,8 @@ class WhitePeople extends People {
 }
 console.log(WhitePeople.color); // 派生类访问了父类中定义的static成员变量
 ```
+
+#### 4.4 抽象类
+
+
+#### 4.5 多态
