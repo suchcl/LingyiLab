@@ -1108,5 +1108,204 @@ console.log(WhitePeople.color); // 派生类访问了父类中定义的static成
 
 #### 4.4 抽象类
 
+ES中没有引入抽象类的概念，抽象类是TS中具备而ES中不具备的东西，是对Es的扩展。
+
+抽象类，就是只能被继承而不能被实例化的类。
+
+抽象类使用abstract关键字声明。
+
+```ts
+abstract class Animal {
+
+}
+const animal = new Animal(); // 无法创建抽象类的实例
+```
+
+如demo，声明了一个抽象类Animal，然后我们通过new关键字实例化这个类，然而编译器给我们报错了，提示：无法创建抽象类的实例
+
+![无法创建抽象类的实例](./images/i27.png)
+
+> 在继承一个类的时候，无论父类有没有参数，都要调用super方法，且super的调用要在派生类其他成员属性赋值语句之前。
+
+```ts
+abstract class Animal {
+
+}
+// const animal = new Animal(); // 无法创建抽象类的实例
+
+class Tiger extends Animal {
+    constructor(public color: string, public age: number) {
+        super(); // 如果这里不调用super，会提示异常：派生类的构造函数必须包含 "super" 调用，哪怕父类没有参数
+    }
+    introduce() {
+        console.log("我的颜色是" + this.color + ",今年" + this.age + "岁了。");
+    }
+}
+```
+
+抽象类中看可以定义方法，以及具体的实现，那么派生类的实例就可以直接调用父类的方法而不需要重新声明了(直接调用即可，不需要在派生类中做任何操作).
+
+```ts
+abstract class Animal {
+    constructor(name: string) {
+        this.name = name;
+    }
+    name: string;
+    play() {
+        console.log(`${this.name}在玩皮球！`);
+    }
+}
+// const animal = new Animal(); // 无法创建抽象类的实例
+
+class Tiger extends Animal {
+    constructor(name: string, public color: string, public age: number) {
+        super(name); // 如果这里不调用super，会提示异常：派生类的构造函数必须包含 "super" 调用，哪怕父类没有参数
+    }
+    introduce() {
+        console.log(`大家好，我是${this.name},今年${this.age}岁了，我是${this.color}颜色的！`);
+    }
+}
+
+const tiger = new Tiger("小虎牙", "yello", 3);
+tiger.introduce(); // 大家好，我是小虎牙,今年3岁了，我是yello颜色的！
+// 调用从父类继承的play方法
+tiger.play(); // 小虎牙在玩皮球！
+```
+
+抽象类中也可以声明抽象方法，抽象方法即通过abstract关键字声明，只声明了方法的结构即参数和函数返回值类型但是没有具体实现的方法。
+抽象类中声明的抽象方法，在继承它的派生类中必须要实现这些抽象方法，否则会报错：非抽象类不会实现继承自“Animal”类的抽象成员“studying”
+
+```ts
+abstract class Animal {
+    constructor(name: string) {
+        this.name = name;
+    }
+    name: string;
+    play() {
+        console.log(`${this.name}在玩皮球！`);
+    }
+    // 定义的抽象类，在它的字类中必须要实现这个抽象方法，否则报错
+    abstract studying(): void;
+}
+// const animal = new Animal(); // 无法创建抽象类的实例
+
+class Tiger extends Animal {
+    constructor(name: string, public color: string, public age: number) {
+        super(name); // 如果这里不调用super，会提示异常：派生类的构造函数必须包含 "super" 调用，哪怕父类没有参数
+    }
+    introduce() {
+        console.log(`大家好，我是${this.name},今年${this.age}岁了，我是${this.color}颜色的！`);
+    }
+    // 实现父类中定义的抽象方法
+    studying(): void {
+        console.log(`${this.name}非常爱学习！`);
+    }
+}
+
+const tiger = new Tiger("小虎牙", "yello", 3);
+tiger.introduce(); // 大家好，我是小虎牙,今年3岁了，我是yello颜色的！
+// 调用从父类继承的play方法
+tiger.play(); // 小虎牙在玩皮球！
+tiger.studying(); // 小虎牙非常爱学习！
+```
+
+抽象类中的抽象方法，可以抽离出来类中的一些共性，以及实现多态，即在不同的字类中有不同的实现，实现了运行时的绑定。
+
+```ts
+abstract class Student {
+    constructor(public stage: string) {
+        this.stage = stage;
+    }
+    abstract study(): void;
+    abstract play(): void;
+}
+
+class Pupil extends Student {
+    constructor(stage: string, course: string, public sports: string) {
+        super(stage);
+        this.course = course;
+    }
+    course: string;
+    study(): void {
+        console.log(`${this.stage}学习${this.course}.`);
+    }
+    play(): void {
+        console.log(`${this.stage}喜欢玩${this.sports}.`);
+    }
+}
+
+const pupil = new Pupil("小学生", "语文和数学", "沙包");
+pupil.study(); // 小学生学习语文和数学.
+pupil.play(); // 小学生喜欢玩沙包.
+
+class MiddleSchoolStudent extends Student {
+    constructor(stage: string, public reading: string, public sports: string) {
+        super(stage);
+        this.reading = reading;
+        this.sports = sports;
+    }
+    study(): void {
+        console.log(`${this.stage}喜欢${this.reading}.`);
+    }
+
+    play(): void {
+        console.log(`${this.stage}喜欢玩${this.sports}`);
+
+    }
+}
+const middle = new MiddleSchoolStudent("中学生", "阅读", "足球");
+middle.study(); // 中学生喜欢阅读.
+middle.play(); // 中学生喜欢玩足球
+```
+
+ts中的类，也可以作为类型使用。
+
+```ts
+abstract class Student {
+    constructor(public stage: string) {
+        this.stage = stage;
+    }
+    abstract study(): void;
+    abstract play(): void;
+}
+
+class Pupil extends Student {
+    constructor(stage: string, course: string, public sports: string) {
+        super(stage);
+        this.course = course;
+    }
+    course: string;
+    study(): void {
+        console.log(`${this.stage}学习${this.course}.`);
+    }
+    play(): void {
+        console.log(`${this.stage}喜欢玩${this.sports}.`);
+    }
+}
+
+class MiddleSchoolStudent extends Student {
+    constructor(stage: string, public reading: string, public sports: string) {
+        super(stage);
+        this.reading = reading;
+        this.sports = sports;
+    }
+    study(): void {
+        console.log(`${this.stage}喜欢${this.reading}.`);
+    }
+
+    play(): void {
+        console.log(`${this.stage}喜欢玩${this.sports}`);
+
+    }
+}
+const pupil = new Pupil("小学生", "语文和数学", "沙包");
+const middle = new MiddleSchoolStudent("中学生", "阅读", "足球");
+
+// 使用抽象类Student作为类型声明了一个Student类型的数组，其数组项为其字类的实例对象
+const student: Student[] = [pupil, middle];
+student.forEach(item => {
+    item.study(); // 小学生学习语文和数学.、中学生喜欢阅读.
+});
+```
 
 #### 4.5 多态
