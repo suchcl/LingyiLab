@@ -1308,4 +1308,86 @@ student.forEach(item => {
 });
 ```
 
-#### 4.5 多态
+#### 4.5 类与接口的关系
+
+**类类型接口**
+
+一个接口可以约束类成员有哪些属性，以及它们的类型。
+
+类实现接口的时候，必须要实现接口中定义的所有的属性，即包括接口中定义的方法。
+
+实现接口的类，除了实现接口中所有的属性，也可以定义自己的属性。
+
+```ts
+interface Human {
+    name: string;
+    eat(): void;
+}
+
+class Asian implements Human {
+    constructor(name: string) {
+        this.name = name;
+    }
+    name: string;;
+    eat(): void {
+        console.log("我喜欢吃大米饭!");
+    }
+
+    // 除了实现所有的接口中定义的属性之外，类也可以定义自己的成员属性
+    play() {
+        console.log("play football!");
+    }
+}
+```
+
+接口只能约束类的公有成员，即定义为public的成员属性，在类中声明为非public类型的成员属性，是不能在接口中进行约束的
+
+```ts
+interface Human {
+    // 接口中不能约束类的构造函数，下面一行代码即是一个构造函数
+    // new(name: string): void;
+    name: string;
+    age: number;
+    eat(): void;
+}
+
+// 这里会提示类错误的实现接口
+class Asian implements Human {
+    // 注意构造函数中声明了private的成员属性age，接口中也声明了age属性的约束，所以这里会报错
+    constructor(name: string, private age: number) {
+        this.name = name;
+    }
+    name: string;
+    eat(): void {
+        console.log("我喜欢吃大米饭!");
+    }
+
+    play() {
+        console.log("play football!");
+    }
+}
+```
+
+![接口不能约束类中非public类型的成员变量](./images/i28.png)
+
+接口不能约束类的构造函数，即接口中不能定义构造函数。
+
+```ts
+interface Human {
+    // 接口中不能约束类的构造函数，下面一行代码即是一个构造函数
+    // new(name: string): void;
+    name: string;
+    eat(): void;
+}
+```
+
+#### 4.6 接口的继承
+
+接口和类一样，也可以实现接口的相互继承，且接口可以继承多个接口。
+
+接口的继承，通过extends实现。
+
+> 继承，通过extends关键字实现；实现接口，通过implements关键字实现；
+
+> 英语中，extends：延伸的意思，编程中可理解为延伸某个接口或类，就是在某个接口、类的基础上功能再次扩展；implements：执行、履行的意思，在编程中可以理解为实现、执行某个接口
+
