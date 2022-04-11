@@ -1042,6 +1042,67 @@ myLog("Hello"); // 报异常，因为默认的number类型，这里给的是stri
 ```
 
 案例中，接口指定了默认的类型为number类型，而自定义函数myLog在实现Log接口的时候没有指定具体的类型，那么默认就是number类型，
+
+#### 3.3 泛型类与泛型约束
+
+泛型类
+
+```ts
+class Log<T>{
+    run(value: T) {
+        console.log(value);
+    }
+}
+
+// 实例化的时候，可以指定类型，如果指定了类型，那么就只能穿入指定类型的数据，如果没有指定类型，那么就可以穿入任意类型的数据
+let log = new Log<string>();
+log.run("hello world!");
+
+let log2 = new Log<number>();
+log2.run(2);
+```
+
+> 泛型不能约束类的静态成员。
+
+看代码：
+
+```ts
+function log<T>(value: T): T {
+    console.log(value, value.length);
+    return value;
+}
+```
+
+案例定义了一个函数log，函数不光打印了其参数value，还打印出了其参数value的属性，这个时候编译器给我们提示：类型“T”上不存在属性“length”
+
+![类型“T”上不存在属性“length”](./images/i29.png)
+
+
+这个时候，我们可以预定义一个接口，让这个预定义的接口具有length属性，然后让类型变量T去继承我们预定义的接口：
+
+```ts
+// 预定义一个包含length属性的接口
+interface Length {
+    length: number;
+}
+
+// 让类型变量T实现含有length属性的接口Length
+function log<T extends Length>(value: T): T {
+    console.log(value, value.length);
+    return value;
+}
+log("12"); // 12 2
+```
+
+这样在类型变量T实现了具有length属性的接口后，那么T就不能是任意的类型了，它必须是一个具有length属性的数据，如string、array等。这叫做**泛型约束**。
+
+**泛型的好处**
+
+1. 函数和类可以轻松的实现支持多种类型，增强程序的可扩展性；
+
+2. 不必写多条函数重载，冗长的联合类型声明，增强代码的可读性；
+
+3. 灵活控制类型之间的约束；
 ### 4. 类
 
 ES6中引入了类的概念，Ts中也有类的概念，ts中的类覆盖了ES6中的类，同时还有一些自己独有的特性。
