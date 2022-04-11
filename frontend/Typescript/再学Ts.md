@@ -944,6 +944,104 @@ js中对函数的参数是没有限制的，但是在ts中，函数的形参和�
 
 ### 3. 泛型
 
+泛型，就是不预先确定具体的数据类型，具体的、明确的数据类型在使用的时候才能确定。
+
+很经典的案例，就是一个输出函数，一些场景可能要输出数字类型，一些场景可能要输出字符串类型等，那么按照常规的实现思路，可能就是要定义多个输出函数，做的好一些是做一个函数重载，反正无论怎么实现，终究都是要定义多个函数，或者那么干脆就定义一个参数都为any类型的函数吧。这样是是可以实现的，但是就失去了ts类型约束的初衷了。
+
+```ts
+function log(value: any): any {
+    console.log(value);
+    return value;
+}
+
+log(12);
+log("hello world!");
+```
+
+其实定义了any类型，和没有定义类型没有什么太大的区别了，这不是我们的目的。
+
+这个时候，就可以使用泛型，在函数定义的时候不预先设定参数的类型，只有在使用的时候才能具体的确定函数的类型。
+
+```ts
+function log<T>(value: T): T {
+    console.log(value);
+    return value;
+}
+
+// 明确指定函数参数类型的方式调用泛型函数
+log<string[]>(['a', 'b']);
+log(['1', '2', '3']); // 以类型推导的方式调用泛型函数，建议使用这种方式
+```
+
+#### 3.1 泛型函数
+
+ts中，可以通过类型别名来定义泛型。
+
+```ts
+// 声明一个泛型类型函数类型
+type Log = <T>(value: T) => T;
+// 定义一个泛型类型函数的实现
+// let myLog:Log = log;
+let myLog: Log = <T>(value: T): T => {
+    console.log(value);
+    return value;
+}
+myLog(12); // 12
+```
+#### 3.2 泛型接口
+
+泛型也可以用来定义接口。
+
+```ts
+interface Log {
+    <T>(value: T): T
+}
+
+let myLog: Log = <T>(value: T): T => {
+    console.log(value);
+    return value;
+}
+
+myLog(15); // 15
+myLog("Hello"); // Hello
+```
+
+如demo中，定义了一个接口，接口中定义了一个函数类型,但是有可能一个接口中不光只约束一个函数类型，还有可能会有其他的成员参数，如果需要对所有的成员参数都进行类型约束，那么就可以给接口添加泛型，如
+
+```ts
+interface Log<T> {
+    (value: T): T
+}
+```
+这样就会对接口中的所有成员参数进行约束，只是这样在调用的时候，需要指定下接口的类型：
+
+```ts
+// 使用接口的时候，需要显示指定接口的类型<string>
+let myLog: Log<string> = <T>(value: T): T => {
+    console.log(value);
+    return value;
+}
+myLog(15); // 这里会报错，因为类型声明中声明了是string类型，所以这里会报错
+myLog("Hello"); // 这里是符合要求的，没有任何问题
+```
+
+也可以通过给接口泛型默认值，就不需要在实现接口的时候都指定类型了，当然了，如果和指定的默认类型不同的时候，还是要指定类型的。
+
+```ts
+interface Log<T = number> {
+    // <T>(value: T): T
+    (value: T): T
+}
+
+let myLog: Log = <T>(value: T): T => {
+    console.log(value);
+    return value;
+}
+myLog(15); // 15，正常输出
+myLog("Hello"); // 报异常，因为默认的number类型，这里给的是string类型
+```
+
+案例中，接口指定了默认的类型为number类型，而自定义函数myLog在实现Log接口的时候没有指定具体的类型，那么默认就是number类型，
 ### 4. 类
 
 ES6中引入了类的概念，Ts中也有类的概念，ts中的类覆盖了ES6中的类，同时还有一些自己独有的特性。
