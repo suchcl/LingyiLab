@@ -24,7 +24,8 @@
   - [4.2 类的继承](#42-%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF)
   - [4.3 类的修饰符](#43-%E7%B1%BB%E7%9A%84%E4%BF%AE%E9%A5%B0%E7%AC%A6)
   - [4.4 抽象类](#44-%E6%8A%BD%E8%B1%A1%E7%B1%BB)
-  - [4.5 多态](#45-%E5%A4%9A%E6%80%81)
+  - [4.5 类与接口的关系](#45-%E7%B1%BB%E4%B8%8E%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%85%B3%E7%B3%BB)
+  - [4.6 接口的继承](#46-%E6%8E%A5%E5%8F%A3%E7%9A%84%E7%BB%A7%E6%89%BF)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -1390,4 +1391,42 @@ interface Human {
 > 继承，通过extends关键字实现；实现接口，通过implements关键字实现；
 
 > 英语中，extends：延伸的意思，编程中可理解为延伸某个接口或类，就是在某个接口、类的基础上功能再次扩展；implements：执行、履行的意思，在编程中可以理解为实现、执行某个接口
+
+**接口继承类**
+
+接口除了可以继承接口以外还看可以继承类。
+
+接口继承类，就是接口对类的成员变量做了一次抽象,接口可以抽象类的公有成员、受保护成员和私有成员。
+
+```ts
+class Auto {
+    state = 1;
+}
+
+interface AutoInterface extends Auto {
+
+}
+```
+如demo，AutoInterface接口继承了Auto类，其实就是AutoInterface接口抽象了类Auto的成员变量state。如果有类要实现AutoInterface接口时，只需要实现state变量就可以了。
+
+```ts
+class Auto {
+    state = 1;
+}
+
+interface AutoInterface extends Auto {
+
+}
+
+class C implements AutoInterface {
+    state: number = 2;
+}
+```
+
+如类C实现了AutoInterface接口，只需要在类C种实现state变量即可。
+
+```ts
+let car = new C();
+console.log(car.state); // 2
+```
 
