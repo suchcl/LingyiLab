@@ -1704,3 +1704,170 @@ let foo: Foo = {};
 类型断言，不能滥用，一定要注意，否则会带来代码的安全隐患。
 
 #### 5.3 类型的兼容性
+
+当一个类型Y可以被赋值给一个类型X时，我们就说类型X兼容类型Y。
+
+X兼容Y：X(目标类型) = Y(源类型)
+
+```ts
+let s: string = "hello";
+// 可以将null类型值赋值给string类型，我们就可以说字符串行兼容null类型
+s = null;
+```
+
+类型兼容，广泛用于函数、接口中
+
+```ts
+interface X {
+    a: number;
+    b: number;
+}
+
+interface Y {
+    a: number;
+    b: number;
+    c: number;
+}
+
+let x: X = {
+    a: 1,
+    b: 2
+};
+
+let y: Y = {
+    a: 1,
+    b: 2,
+    c: 3
+};
+// 可以被正常赋值
+x = y;
+// 不可以被赋值，X类型的变量x中缺少了Y类型变量y的属性c
+y = x;
+```
+
+![类型兼容](./images/i32.png)
+
+类型兼容在接口中的应用：
+
+1. 源类型需要具备目标类型的基本舒心；
+
+2. 类型少的兼容类型多的；
+
+> 虽然类型兼容，可能会带来一些安全上的隐患，但是可以增加语言的灵活性，需要在应用时灵活把控。
+
+#### 5.4 类型保护机制
+
+类型保护，就是Typescript能够在特定的区块中保证变量属于某种特定的类型。可以在此区块中放心的引用次此类型的属性，或者调用此类型的方法。
+
+```ts
+enum Type { strong, week };
+
+class Java {
+    helloJava() {
+        console.log("Hello Java!");
+    }
+}
+
+class Javascript {
+    helloJavaScript() {
+        console.log("Hello JavaScript");
+    }
+}
+
+function getLanguage(type: Type) {
+    let lang = type === Type.strong ? new Java() : new Javascript();
+    // 下面通过lang来调用实例方法的地方，都会报错，因为编译器不知道lang到底是哪种类型
+    if (lang.helloJava) {
+        lang.helloJava();
+    } else {
+        lang.helloJavaScript();
+    }
+}
+```
+![类型断言来解决](./images/i33.png)
+
+这种类型的报错，也可以通过类型断言来解决
+
+```ts
+function getLanguage(type: Type) {
+    let lang = type === Type.strong ? new Java() : new Javascript();
+    // 下面通过lang来调用实例方法的地方，就不会报错了
+    if ((lang as Java).helloJava) {
+        (lang as Java).helloJava();
+    } else {
+        (lang as Javascript).helloJavaScript();
+    }
+}
+```
+
+**4种创建这种特殊区块的方法**
+
+1. instanceof
+
+```ts
+function getLanguage(type: Type) {
+    let lang = type === Type.strong ? new Java() : new Javascript();
+    if (lang instanceof Java) {
+        lang.helloJava();
+    } else {
+        lang.helloJavaScript();
+    }
+}
+```
+
+判断lang是否是Java的实例，是的话，就直接Java的方法，否则就执行Javascript的方法，这样就保证了lang变量肯定是某种类型的实例。
+
+2. in关键字
+
+判断某个属性是否属于某个对象。
+
+```ts
+function getLanguage(type: Type) {
+    let lang = type === Type.strong ? new Java() : new Javascript();
+    // if ("java" in lang) {
+    //     lang.helloJava();
+    // } else {
+    //     lang.helloJavaScript();
+    // }
+    if ("helloJava" in lang) {
+        lang.helloJava();
+    } else {
+        lang.helloJavaScript();
+    }
+}
+```
+
+通过某个类型中的某个属性去判断，看判断的属性是否存在，如果存在，则就肯定是这个类型的，否则就是其他类型了
+
+3. typeof类型保护：可以做基本的类型判断的保护
+
+```ts
+// s参数，联合类型：string、number
+function getLanguage(type: Type, s: string | number) {
+    // 如果s是string类型的，那么s就会自动的被识别为string类型，编码时可以提示string类型方法
+    if (typeof s === "string") {
+        s.trim();
+    } else {
+        s.toString();
+    }
+}
+```
+
+4. 通过自定义创建一个类型保护函数来走类型保护
+
+```ts
+// 类型保护函数  函数返回值lang is Java:类型谓词
+function isJava(lang: Java | Javascript): lang is Java {
+    return (lang as Java).helloJava !== undefined;
+}
+
+function getLanguage(type: Type) {
+    let lang = type === Type.strong ? new Java() : new Javascript();
+    if (isJava(lang)) {
+        lang.helloJava();
+    } else {
+        lang.helloJavaScript();
+    }
+}
+```
+
