@@ -35,6 +35,7 @@
     - [5.1.2 上下文的类型推断](#512-%E4%B8%8A%E4%B8%8B%E6%96%87%E7%9A%84%E7%B1%BB%E5%9E%8B%E6%8E%A8%E6%96%AD)
   - [5.2 类型断言](#52-%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80)
   - [5.3 类型的兼容性](#53-%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%85%BC%E5%AE%B9%E6%80%A7)
+  - [5.4 类型保护机制](#54-%E7%B1%BB%E5%9E%8B%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
