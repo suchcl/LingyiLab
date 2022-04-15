@@ -1,3 +1,12 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [1.认识lerna](#1%E8%AE%A4%E8%AF%86lerna)
+- [2.快速开始](#2%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ### 1.认识lerna
 
 lerna是一个用于管理多个软件包(packages)的javascript项目的包管理工具.
