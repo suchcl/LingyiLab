@@ -1,3 +1,15 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [1. 什么是memorepo？](#1-%E4%BB%80%E4%B9%88%E6%98%AFmemorepo)
+- [2. memorepo的优势](#2-memorepo%E7%9A%84%E4%BC%98%E5%8A%BF)
+- [3. memorepo的不足](#3-memorepo%E7%9A%84%E4%B8%8D%E8%B6%B3)
+- [4. git中使用menorepo的困难](#4-git%E4%B8%AD%E4%BD%BF%E7%94%A8menorepo%E7%9A%84%E5%9B%B0%E9%9A%BE)
+- [5. 前端范围领域内使用lerna进行menorepo项目管理](#5-%E5%89%8D%E7%AB%AF%E8%8C%83%E5%9B%B4%E9%A2%86%E5%9F%9F%E5%86%85%E4%BD%BF%E7%94%A8lerna%E8%BF%9B%E8%A1%8Cmenorepo%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ### 1. 什么是memorepo？
 
 Memorepo是项目管理的一种方式，指在一个项目仓库(repo)中管理多个模块/包(package)，和现在常见的每个模块、小项目、模块都创建一个项目仓库的代码管理方式不同。
@@ -45,3 +57,20 @@ projectName
 3. 由于项目间随意相互的引用造成的耦合性增加，可能会造成项目间职责不明确，代码的组合型降低；
 
 4. 权限问题，代码对项目内所有成员可见；
+
+### 4. git中使用menorepo的困难
+
+1. git在每次提交的时候都会跟踪整个提交树的状态，由于项目增多、代码量加大，这会让git运行变得缓慢；
+
+2. git的tag的作用将逐渐缩小，甚至失去它的作用：比如一个repo中的app项目的tag对于repo中的web项目是没有什么实际意义的；
+
+3. 由于git底层使用的有向无环图实现历史记录，提交记录的激增，会使git log、git blame变的缓慢；
+
+4. git分支也会随着项目的激增而激增，分支的激增也会导致git branch运行变缓；
+
+5. 大文件存储会影响整个repo的性能(不过这个已经在git LFS(Large File Storage)中得到解决)；
+
+6. git clone、git fetch、git push、git status都会随着文件数量的增多而变的缓慢；
+
+### 5. 前端范围领域内使用lerna进行menorepo项目管理
+
