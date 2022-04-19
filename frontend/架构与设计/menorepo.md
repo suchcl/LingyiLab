@@ -80,6 +80,10 @@ git在menorepo项目中确实存在一些问题，尤其是项目规模大了、
 
 lerna是一个git+npm进行前端项目管理的开源软件，lerna的诞生是为了解决babel的多包问题，以优化使用git和npm管理多包存储库的工作流程。
 
+> Rush: https://rushjs.io/zh-cn/
+
+> NX: https://nx.dev/
+
 一个简单的lerna项目的结构：
 
 ```markdown
