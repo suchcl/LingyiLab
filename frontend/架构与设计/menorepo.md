@@ -122,4 +122,70 @@ projectName
 
 如子项目A有启动服务的指令start、子项目B中也有启动项目的指令start，那么使用lerna运行start指令就会自动运行子项目A和子项目B的start指令，如果还配置了其他的同名命令如test、publish等，也是同样的效果。
 
+**几个常用的lerna指令**
+
+> 这里只介绍几个常用的指令，详细的指令可参考lerna官网：https://www.lernajs.cn。
+
+1. lerna init
+
+2. lerna clean 
+
+3. lerna bootstrap
+
+4. lerna version
+
+5. lerna publish
+
+作用同npm publish，只是lerna publish会将所有未发布到npm到子项目发布到npm。
+
+6. lerna run
+
+类似npm run，lerna run将执行所有子项目中定义在package.json中的同名指令。比如所有的项目都定义了start指令，那么lerna run start将执行所有项目都start指令。
+
 #### 5.2 尝试一个lerna项目
+
+1. 创建lerna项目
+
+项目创建相对简单，新建一个项目目录，进入项目目录后执行learn init指令，便可新建一个lerna项目
+
+```bash
+mkdir lerna
+lerna init --yes
+```
+
+新创建的项目结构：
+
+```markdown
+lerna
+├─lerna.json
+├─package.json
+├─tree.md
+├─packages
+```
+
+简单看下初始化后的代码内容：
+
+lerna.json
+
+```json
+{
+  "lerna": "2.11.0",
+  "packages": [
+    "packages/*"
+  ],
+  "version": "0.0.0"
+}
+```
+
+packages表示接受lerna管理的包，这了的值packages/*表示packages目录下的所有子项目都接受lerna的统一管理。
+
+package.json，和通过npm创建的项目的package.json相同，没有什么特殊的地方。
+
+2. 创建子项目
+
+首先我们创建一个基于react的子项目，直接通过脚手架来创建。
+
+```markdown
+npm init react-app my-react-app 基于create-react-app脚手架创建一个react项目
+
+```
