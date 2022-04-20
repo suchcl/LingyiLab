@@ -246,4 +246,57 @@ lerna
 
 一个大致的项目轮廓已经建立起来了。
 
-现在的lerna项目已经创建了
+3. 清理子项目中的node_modules依赖
+
+```bash
+lerna clean
+```
+
+通过lerna clean指令清理所有子项目中node_modules中安装的依赖。
+
+> 通过lerna clean清理子项目的安装依赖，不光是将子项目中node_modules目录中的文件卸载或者移除掉，而是将node_modules目录也直接清理掉。
+
+4. 提升node_modules到项目根目录，以便让所有子项目看可以共享node_modules
+
+```bash
+lerna bootstrap --hoist # 将子项目中的node_modules提升到根目录下
+```
+
+通过lerna bootstrap --hoist提升后，子项目共用的依赖包，都将安装到根目录下的node_modules目录，而每个子项目差异化的、不公用的依赖包，还是安装在各自的项目中。
+
+![node_modules提升](./images/i4.png)
+
+由于空间的关系，我们的案例中有3个子项目，图中只显示了2个子项目。从图中可以看到，子项目共用的依赖包都已经提升到lerna项目的根目录了，但是每个子项目也依旧保留了node_modules目录。只不过子项目中保留的node_modules目录中基本上都是各子项目的可执行文件。
+
+5. 配置执行脚本指令
+
+因为lerna可以管理的是同名的指令，所以我们将lerna和子项目中同一个类型的指令都更改成同名的指令，如启动服务的指令都更改为start，测试指令都统一更改为test。
+
+```js
+// lerna中根目录下的package.json
+"scripts": {
+    "start": "lerna run start"
+}
+
+// express项目下的package.json
+"scripts": {
+    "start": "./bin/app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+},
+
+// vue项目中的package.json  
+    "scripts": {
+    "start": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+},
+
+// react项目中的package.json
+"scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+},
+```
+
