@@ -187,5 +187,63 @@ package.json，和通过npm创建的项目的package.json相同，没有什么�
 
 ```markdown
 npm init react-app my-react-app 基于create-react-app脚手架创建一个react项目
-
+npm init express-app my-express-app 基于express-generator项目生成器创建一个express项目
 ```
+
+我在lerna项目中创建了3个子项目，一个react项目、一个vue项目和一个express项目，并且都可以正常启动。
+
+```markdown
+lerna
+├─lerna.json
+├─package.json
+├─packages
+|    ├─vue-app
+|    |    ├─README.md
+|    |    ├─babel.config.js
+|    |    ├─package-lock.json
+|    |    ├─package.json
+|    |    ├─src
+|    |    |  ├─App.vue
+|    |    |  ├─main.js
+|    |    |  ├─components
+|    |    |  |     └HelloWorld.vue
+|    |    |  ├─assets
+|    |    |  |   └logo.png
+|    |    ├─public
+|    |    |   ├─favicon.ico
+|    |    |   └index.html
+|    ├─my-react-app
+|    |      ├─README.md
+|    |      ├─package-lock.json
+|    |      ├─package.json
+|    |      ├─src
+|    |      |  ├─App.css
+|    |      |  ├─App.js
+|    |      |  ├─App.test.js
+|    |      |  ├─index.css
+|    |      |  ├─index.js
+|    |      |  ├─logo.svg
+|    |      |  ├─reportWebVitals.js
+|    |      |  └setupTests.js
+|    |      ├─public
+|    |      |   ├─favicon.ico
+|    |      |   ├─index.html
+|    |      |   ├─logo192.png
+|    |      |   ├─logo512.png
+|    |      |   ├─manifest.json
+|    |      |   └robots.txt
+|    ├─express-app
+|    |      ├─index.js
+|    |      ├─package-lock.json
+|    |      ├─package.json
+|    |      ├─routes.js
+|    |      ├─handlers
+|    |      |    ├─configured.js
+|    |      |    └simple.js
+|    |      ├─bin
+|    |      |  └app
+```
+
+一个大致的项目轮廓已经建立起来了。
+
+现在的lerna项目已经创建了
