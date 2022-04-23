@@ -327,3 +327,5 @@ npm run start # 会启动所有子项目
 6. 发布新的版本
 
 通过lerna publish指令
+
+7. 
