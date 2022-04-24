@@ -49,6 +49,7 @@
 15. [客户端 Javascript 应用事件](./frontend/javascript/客户端javascript应用事件.md)
 16. [展开运算符](./frontend/javascript/展开运算符.md)
 17. [数组常用方法](./frontend/javascript/arr.md)
+18. [前端实现框架内的标签页打开](./frontend/javascript/前端实现框架内的标签页打开.md)
 
 #### 2.3 Typescript
 
