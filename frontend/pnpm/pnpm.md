@@ -97,3 +97,19 @@ pnpm,全文为performant npm,意为高性能的npm。
 pnpm add -g pnpm # 升级
 ```
 
+### 5.卸载pnpm
+
+卸载pnpm之前，首先需要删除通过pnpm全局安装的依赖包。
+
+查看通过pnpm安装的全局依赖包
+
+```bash
+pnpm ls -g # 查看通过pnpm安装的全局依赖包
+```
+
+**删除通过pnpm安装的全局依赖包**
+
+有两种方式删除通过pnpm安装的全局依赖包
+
+1. pnpm rm -g pck：逐个手动删除通过pnpm安装的全局依赖包
+2. pnpm root -g去找到pnpm的全局目录，并手动的删除它
