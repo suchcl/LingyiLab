@@ -2,4 +2,6 @@
 
 参考：https://juejin.cn/post/7091956084092436494
 
-### demo
+### 1. 安装pnpm
+
+通过npm安装
