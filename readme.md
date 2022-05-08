@@ -291,6 +291,8 @@
 
 6. [zsh: command not found: umi](./frontend/umijs/notfoundumi.md)
 
+7. [M1芯片的Mac:nvm安装nodejs报错:clang:error:nosuchfileordirectory:'CXX=c++'](./qa/nvm%E7%AE%A1%E7%90%86node%E7%89%88%E6%9C%AC.md)
+
 ### 版本管理
 
 1. [版本管理](VersionControl/index.md)
