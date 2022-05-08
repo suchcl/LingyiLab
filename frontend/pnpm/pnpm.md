@@ -113,3 +113,6 @@ pnpm ls -g # 查看通过pnpm安装的全局依赖包
 
 1. pnpm rm -g pck：逐个手动删除通过pnpm安装的全局依赖包
 2. pnpm root -g去找到pnpm的全局目录，并手动的删除它
+
+> pnpm,依赖nodejs版本，nodejs版本不能低于14.19.0.所以在安装pnpm的时候，需要先确认下nodejs的版本。
+
