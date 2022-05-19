@@ -5,3 +5,7 @@
 ### 1. 安装pnpm
 
 通过npm安装
+
+```bash
+npm install pnpm -g # 全局安装
+```
