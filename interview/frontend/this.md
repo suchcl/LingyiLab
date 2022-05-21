@@ -1,4 +1,23 @@
-### var声明的全局变量，默认会被绑定到window上，let、const声明的变量，默认不会被绑定到window上
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [1.var声明的全局变量，默认会被绑定到window上，let、const声明的变量，默认不会被绑定到window上](#1var%E5%A3%B0%E6%98%8E%E7%9A%84%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E9%BB%98%E8%AE%A4%E4%BC%9A%E8%A2%AB%E7%BB%91%E5%AE%9A%E5%88%B0window%E4%B8%8Aletconst%E5%A3%B0%E6%98%8E%E7%9A%84%E5%8F%98%E9%87%8F%E9%BB%98%E8%AE%A4%E4%B8%8D%E4%BC%9A%E8%A2%AB%E7%BB%91%E5%AE%9A%E5%88%B0window%E4%B8%8A)
+- [2.var是函数作用域，找变量时需要注意注意this的指向](#2var%E6%98%AF%E5%87%BD%E6%95%B0%E4%BD%9C%E7%94%A8%E5%9F%9F%E6%89%BE%E5%8F%98%E9%87%8F%E6%97%B6%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E6%B3%A8%E6%84%8Fthis%E7%9A%84%E6%8C%87%E5%90%91)
+- [3.闭包中的this指向window](#3%E9%97%AD%E5%8C%85%E4%B8%AD%E7%9A%84this%E6%8C%87%E5%90%91window)
+- [4.隐式绑定](#4%E9%9A%90%E5%BC%8F%E7%BB%91%E5%AE%9A)
+- [5.显示绑定](#5%E6%98%BE%E7%A4%BA%E7%BB%91%E5%AE%9A)
+- [6.显示绑定的其他一些用法](#6%E6%98%BE%E7%A4%BA%E7%BB%91%E5%AE%9A%E7%9A%84%E5%85%B6%E4%BB%96%E4%B8%80%E4%BA%9B%E7%94%A8%E6%B3%95)
+- [7.小结](#7%E5%B0%8F%E7%BB%93)
+- [8.new绑定](#8new%E7%BB%91%E5%AE%9A)
+- [9.箭头函数的this绑定](#9%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E7%9A%84this%E7%BB%91%E5%AE%9A)
+  - [9.1 箭头函数使用小结](#91-%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8%E5%B0%8F%E7%BB%93)
+  - [9.2 避免使用箭头函数的场景](#92-%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E7%9A%84%E5%9C%BA%E6%99%AF)
+  - [9.3 适合使用箭头函数的场景](#93-%E9%80%82%E5%90%88%E4%BD%BF%E7%94%A8%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E7%9A%84%E5%9C%BA%E6%99%AF)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+### 1.var声明的全局变量，默认会被绑定到window上，let、const声明的变量，默认不会被绑定到window上
 
 ```javascript
 // a,b分别是使用let、const声明的，所以a、b两个变量不会被绑定到window上
@@ -13,7 +32,7 @@ foo(); //undefined,undefined
 console.log(window.a); // undefined
 ```
 
-### var是函数作用域，找变量时需要注意注意this的指向
+### 2.var是函数作用域，找变量时需要注意注意this的指向
 
 ```javascript
 var a = 1;
@@ -28,7 +47,7 @@ foo();
 
 案例中，函数foo的this指向的是window，函数外通过var声明的a，默认绑定到了window上，函数内通过var声明的变量a，具有函数的作用域，如果在函数内部找a，找的是函数内部声明的a=2，但是如果在函数内部通过this找a，则找的是window上的a。
 
-### 闭包中的this指向window
+### 3.闭包中的this指向window
 
 闭包中的this指向window，如果期望闭包可以访问其包裹函数的this，将其包裹函数的作用域传给闭包即可。
 
@@ -62,7 +81,7 @@ var obj = {
 console.log(obj.getNum()); // 2
 ```
 
-### 隐式绑定
+### 4.隐式绑定
 
 隐式绑定，就是被隐式绑定的函数在特定的情况下会丢失绑定对象。
 
@@ -140,7 +159,7 @@ var obj2 = { a: 3, doFoo };
 obj2.doFoo(obj.foo); // obj2,异常提示，因为在严格模式下，全局的this指向了undefined，undefined是没有a属性的，所以就给出来异常信息提示
 ```
 
-### 显示绑定
+### 5.显示绑定
 
 显示绑定this，就是通过一些方法，显示的改变函数的this指向，主要通过的方法有call()、apply()、bind()直接指定this的绑定对象。
 
@@ -389,7 +408,7 @@ obj.foo.call(obj2)(1); // 6
  */
 ```
 
-### 显示绑定的其他一些用法
+### 6.显示绑定的其他一些用法
 
 可以在一个函数内部使用call来显示绑定某个对象，这样无论怎么样调用，其内部的this总是指向这个对象。
 
@@ -457,7 +476,7 @@ arr.filter(function (i) {
 }, obj);
 ```
 
-#### 小结
+### 7.小结
 
 1. this永远指向最后调用它的那个对象
 2. 匿名函数的this指向window
@@ -466,7 +485,7 @@ arr.filter(function (i) {
 5. 如果call()、apply()、bind()接收到的第一个参数是null、undefined或者是空，则忽略这个参数
 6. 数组的forEach、map、filter函数的第2个参数也可以动态的显示的绑定this，改变this的指向
 
-### new绑定
+### 8.new绑定
 
 不管是new绑定还是其他方式的绑定，以及call、apply、bind，还是数组的forEach、filter、map等，函数内部的this始终指向最后调用它的对象。
 
@@ -547,7 +566,7 @@ person2.foo().call(person2); // person2,person2
 
 百变不离其宗，只要抓住几个核心的点，谁调用的函数、bind、call、apply以及数组的几个方法：forEach、map、filter
 
-### 箭头函数的this绑定
+### 9.箭头函数的this绑定
 
 普通的函数，其this永远指向最后调用它的那个对象，但是箭头函数就不是了：
 
@@ -753,14 +772,14 @@ obj1.foo2.call(obj2)(); // window,window
 obj1.foo2().call(obj2); // window,obj2
 ```
 
-#####  箭头函数使用小结
+#### 9.1 箭头函数使用小结
 
 1. 箭头函数的作用域是由外层作用域决定的，且指向函数定义时的this而不是执行时的this
 2. 字面量创建的对象，作用域是window；如果字面量对象中有箭头函数属性，该箭头函数的this指向window
 3. 构造函数创建的对象，作用域就是这个构造函数，这个构造函数的this指向该构造函数的实例化对象，即this指向这个实例化对象
 4. 箭头函数的this不能通过call、apply、bind来直接修改，但是可以通过修改作用域的this来修改箭头函数的this指向
 
-##### 避免使用箭头函数的场景
+#### 9.2 避免使用箭头函数的场景
 
 1. 使用箭头函数定义对象的方法
 
@@ -816,7 +835,7 @@ obj1.foo2().call(obj2); // window,obj2
    });
    ```
 
-##### 1.7.3 适合使用箭头函数的场景
+#### 9.3 适合使用箭头函数的场景
 
 在不需要绑定this到当前函数时的场景比较适合使用，this可以跟随上下文，不追求函数本身的情况下。
 
