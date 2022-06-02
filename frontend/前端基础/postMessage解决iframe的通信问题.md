@@ -117,3 +117,31 @@ iframe.html
 
 ![通过message事件接收信息](./images/i5.png)
 
+通过打印的信息，可以看出来，信息已经从index.html正常的传递给了iframe.html(上图信息都是从iframe.html打印的),iframe.html也正常的接收到了信息。在接收到的信息中，可以重点关注标注出来的2个字段：data和origin。
+
+data：就是从来源页面传递过来的数据，数据类型，普通的数据类型都可以，如数字、字符串、数组、对象，都做过测试，都是可以的。传递的数据，会被结构化克隆算法序列化，这意味着我们开发者基本上可以不受限制的将数据对象安全的传递给目标窗口而不需要自己序列化。
+
+origin：数据来源。我们可以通过该字段，对来源数据做安全性校验，这就在一定程度上规避了存在隐患来源的数据。
+
+### 总结
+
+虽然现在使用iframe的场景不是很多，但是涉及到iframe之间的通信问题，已经被解决了，且可以规避安全问题，安全上有保证了。
+
+通信方式：
+
+原页面通过获取iframe的引用，iframe通过当前window再postMessage，iframe页面通过监听message事件接收信息，接收到的信息都在message事件的响应函数的event参数中，这个event参数中最重要的是data和origin两个字段。
+
+```js
+// 原页面发送消息
+btn.onclick = function () {
+    var iframe = document.getElementById("myIframe");
+    iframe.contentWindow.postMessage(arr, "*");
+};
+
+// 目标iframe页面接收消息
+function getMessageFromIndex(event) {
+    var n = 10;
+    console.log(event.data);
+}
+window.addEventListener("message", getMessageFromIndex, false);
+```
