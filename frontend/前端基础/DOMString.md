@@ -1,0 +1,3 @@
+### DOMString
+
+DOMString是一个UTF-16的字符串，由于Javascript已经使用了这样的字符串，所以DOMString直接映射到了一个String。其实，就是说DOMString就是一个普通的String，就当是一个普通的字符串理解就可以了。
