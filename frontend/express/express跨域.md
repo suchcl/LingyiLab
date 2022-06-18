@@ -32,3 +32,13 @@ CORS的使用，需要浏览器的支持，代码上基本没有什么特殊的�
 就需要一些特殊的办法去跨过这个门槛。跨过这个门槛的方法有多种，如JSONP、CORS、Access-Conrol-Allow-Origin白名单(其实是cors的一种具体实现)、websocket、代理服务器等。
 
 看到这里应该就明白了，其实CORS是突破同源策略的一种实现。
+
+### 预检请求(Preflighted Request)
+
+预检请求，是CORS中的一种透明服务器验证机制。预检请求首先需要向另外一个域名的资源发送一个HTTP OPTIONS请求头，其目的就是为了判断实际发送的请求是否合法。
+
+需要进行预检请求的2种情况：
+
+1. 简单请求：比如使用Content-Type为application/xml或text/xml的post请求；
+
+2. 请求中设置自定义头，比如X-JSON、X-MENGXIANHUI等。
