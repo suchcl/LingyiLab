@@ -42,3 +42,9 @@ CORS的使用，需要浏览器的支持，代码上基本没有什么特殊的�
 1. 简单请求：比如使用Content-Type为application/xml或text/xml的post请求；
 
 2. 请求中设置自定义头，比如X-JSON、X-MENGXIANHUI等。
+
+HTTP请求方法，最常用的是GET和POST，但是除此之外，还有OPTIONS、HEAD、PUT、DELETE、TRACE和CONNECT等方法。
+
+OPTIONS方法是用于请求获得由Request-URI标识的资源在请求/响应的通信过程中可以使用的功能选项。通过这个方法，客户端可以在具体资源请求之前，绝对对该资源采取何种必要措施，或者了解服务器性能。
+
+OPTIONS请求方法的响应不能被缓存。
