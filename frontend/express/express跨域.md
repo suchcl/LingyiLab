@@ -1,3 +1,18 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [跨域、cors、options请求](#%E8%B7%A8%E5%9F%9Fcorsoptions%E8%AF%B7%E6%B1%82)
+  - [前端通过post、src请求时，会有两条请求记录，一条请求的请求方法为OPTIONS，再有一条的请求方法才是post或者get。](#%E5%89%8D%E7%AB%AF%E9%80%9A%E8%BF%87postsrc%E8%AF%B7%E6%B1%82%E6%97%B6%E4%BC%9A%E6%9C%89%E4%B8%A4%E6%9D%A1%E8%AF%B7%E6%B1%82%E8%AE%B0%E5%BD%95%E4%B8%80%E6%9D%A1%E8%AF%B7%E6%B1%82%E7%9A%84%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95%E4%B8%BAoptions%E5%86%8D%E6%9C%89%E4%B8%80%E6%9D%A1%E7%9A%84%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95%E6%89%8D%E6%98%AFpost%E6%88%96%E8%80%85get)
+  - [CORS-跨域资源共享](#cors-%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB)
+  - [同源策略](#%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5)
+  - [CORS和同源策略](#cors%E5%92%8C%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5)
+  - [预检请求(Preflighted Request)](#%E9%A2%84%E6%A3%80%E8%AF%B7%E6%B1%82preflighted-request)
+  - [简单请求和和非简单请求](#%E7%AE%80%E5%8D%95%E8%AF%B7%E6%B1%82%E5%92%8C%E5%92%8C%E9%9D%9E%E7%AE%80%E5%8D%95%E8%AF%B7%E6%B1%82)
+    - [怎么区分简单请求和非简单请求？](#%E6%80%8E%E4%B9%88%E5%8C%BA%E5%88%86%E7%AE%80%E5%8D%95%E8%AF%B7%E6%B1%82%E5%92%8C%E9%9D%9E%E7%AE%80%E5%8D%95%E8%AF%B7%E6%B1%82)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## 跨域、cors、options请求
 
 ### 前端通过post、src请求时，会有两条请求记录，一条请求的请求方法为OPTIONS，再有一条的请求方法才是post或者get。
@@ -48,3 +63,18 @@ HTTP请求方法，最常用的是GET和POST，但是除此之外，还有OPTION
 OPTIONS方法是用于请求获得由Request-URI标识的资源在请求/响应的通信过程中可以使用的功能选项。通过这个方法，客户端可以在具体资源请求之前，绝对对该资源采取何种必要措施，或者了解服务器性能。
 
 OPTIONS请求方法的响应不能被缓存。
+
+### 简单请求和和非简单请求
+
+浏览器将CORS请求分为两类：简单请求(simple request)和非简单请求(not-simple request)。简单请求浏览器不会预检，非简单请求，浏览器会进行预检。
+
+#### 怎么区分简单请求和非简单请求？
+
+同时满足下面的3个条件，就是简单请求，否则就是非简单请求。
+
+1. 请求方式只能是：GET、POST和HEAD；
+
+2. HTTP请求头限制下面几个字段：Accept、Accept-language、Content-language、Content-Type、Last-Event-ID；
+
+3. Content-TypeContent-Type只能是如下取值：application/x-www-form-urlencoded、multipart/form-data、text/plain.
+
