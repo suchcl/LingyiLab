@@ -6,3 +6,4 @@
 6. [HTML标记设置width属性不生效](./HTML标记的width属性.md)
 7. [Uncaught SyntaxError: Illegal return statement](./非法返回.md)
 8. [Uncaught (in promise) Error: Maximum recursive updates exceeded. This means you have a reactive effect that is mutating its own dependencies and thus recursively triggering itself. Possible sources include component template, render function, updated hook or watcher source function.](./Uncaught%20(in%20promise)%20Error.md)
+9. [开发者工具和js文件的代码执行效果有什么不同?](./%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7%E6%8E%A7%E5%88%B6%E5%8F%B0%E5%92%8Cjs%E6%96%87%E4%BB%B6%E6%89%A7%E8%A1%8C%E6%95%88%E6%9E%9C%E6%9C%89%E4%BB%80%E4%B9%88%E4%B8%8D%E5%90%8C%E6%AD%A5.md)
