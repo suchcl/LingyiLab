@@ -1,4 +1,14 @@
-### UMI中使用ant design布局
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [1. UMI中使用ant design布局](#1-umi%E4%B8%AD%E4%BD%BF%E7%94%A8ant-design%E5%B8%83%E5%B1%80)
+- [2. 菜单和边栏](#2-%E8%8F%9C%E5%8D%95%E5%92%8C%E8%BE%B9%E6%A0%8F)
+- [3. Footer](#3-footer)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+### 1. UMI中使用ant design布局
 
 1. 创建几个基本的umi项目
 
@@ -97,3 +107,15 @@ export default function BaseLayout() {
 到此为止，umi4通过antd来布局的效果，已经完成
 
 ![umi4和antd实现页面布局](./images/i8.png)
+
+### 2. 菜单和边栏
+
+### 3. Footer
+
+```tsx
+<Footer className={styles.footer}>
+    版权所有,违者必究
+</Footer>
+```
+
+这个简单，没有什么技术点
