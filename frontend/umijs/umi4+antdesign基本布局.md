@@ -5,6 +5,7 @@
 - [1. UMI中使用ant design布局](#1-umi%E4%B8%AD%E4%BD%BF%E7%94%A8ant-design%E5%B8%83%E5%B1%80)
 - [2. 菜单和边栏](#2-%E8%8F%9C%E5%8D%95%E5%92%8C%E8%BE%B9%E6%A0%8F)
 - [3. Footer](#3-footer)
+- [10.部署](#10%E9%83%A8%E7%BD%B2)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -110,6 +111,8 @@ export default function BaseLayout() {
 
 ### 2. 菜单和边栏
 
+
+
 ### 3. Footer
 
 ```tsx
@@ -118,4 +121,33 @@ export default function BaseLayout() {
 </Footer>
 ```
 
-这个简单，没有什么技术点
+这个简单，没有什么技术点.
+
+
+### 10.部署
+
+项目部署的时候，需要注意下项目中使用的路有模式。路有模式，只有两种，hash模式和hisory模式，使用hash模式的时候，项目部署时没有什么需要注意的，但是使用history模式的时候，项目部署的时候，需要web服务器的配合、支持。以nginx为例：
+
+```bash
+location / {
+    try_files $uri $uri/ /index.html;
+}
+```
+
+就是在当前项目下，做一下反向代理，可以看一下完整的配置：
+
+```bash
+server {
+	location / {
+		 try_files $uri $uri/ /index.html;
+	}
+    listen        80;
+    server_name xxx.xxxx.com;  # 项目域名
+
+    root /xxxx/xxxx/xxxxx/xxxxx;  #当前项目的目录
+    index index.html index.php index.htm;
+
+    charset utf-8;
+    client_max_body_size 100M;
+}
+```
