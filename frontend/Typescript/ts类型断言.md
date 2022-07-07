@@ -27,3 +27,6 @@ let strLength2:number = (nvalue as string).length;
 let strLength:number = (<string>nvalue).length;
 let strLength2:number = (nvalue as string).length;
 ```
+
+### 非空断言
+
