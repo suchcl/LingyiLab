@@ -10,6 +10,16 @@
 arr: ["apple", "banana", "tomato"],
 ```
 
+v-for遍历常规的普通数组：
+
+```ts
+<ul>
+    <li v-for="item in arr" :key="item">{{ item }}</li>
+</ul>
+```
+
+![v-for遍历常规数组](./images/i26.png)
+
 2. v-for遍历对象数组
 
 其实对象数组类型，也是数组类型，只是数组项的类型稍微有些特殊，这些数组的项是对象，但是其本质还是数组。如下面的数据格式类型：
@@ -30,6 +40,16 @@ user: [
 },
 ],
 ```
+
+v-for遍历对象数组：
+
+```ts
+<ul>
+    <li v-for="item in user" :key="item.id">{{ item.name }}</li>
+</ul>
+```
+
+![v-for遍历对象数组](./images/i27.png)
 
 3. v-for遍历对象
 
