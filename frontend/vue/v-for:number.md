@@ -45,7 +45,23 @@ obj: {
 
 当提供一个参数遍历，则参数默认为属性值：
 
+```ts
+    <ul>
+      <li v-for="item in obj" :key="item">{{ item }}</li>
+    </ul>
+```
 
+![v-for遍历对象只有一个参数时，参数为对象的属性值](./images/i24.png)
+
+v-for遍历对象的时候，可以提供2个参数，参数分别为属性值和属性名:
+
+```ts
+<ul>
+    <li v-for="(value, name) in obj" :key="value">{{ name }}: {{ value }}</li>
+</ul>
+```
+
+![v-for遍历对象提供2个参数时，参数分别为属性值和属性名](./images/i25.png)
 
 4. v-for遍历数值
 
