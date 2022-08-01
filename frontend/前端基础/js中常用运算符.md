@@ -29,6 +29,9 @@ console.log(baz); // 100
 
 const bar = '' || "Hello";
 console.log(bar); // "Hello"
+
+const cnt = 0 ?? "Hello world!";
+console.log(cnt); // 0
 ```
 
 空值合并运算符(??)，只有在操作数为null和undefined的时候，才会返回右侧的操作数；逻辑或操作符(||)，只要左侧操作数是假值，就会返回右侧的操作数。
