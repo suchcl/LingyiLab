@@ -81,8 +81,68 @@ Cookie存储在本地，可以被更改，安全性不高，所以敏感程度�
 
 - Cookie的使用
 
+Cookie一般是web应用的服务端开发人员设置的，前端开发人员很少使用，但是也有的场景会用到，就比如前面介绍到的在本地临时缓存一些不敏感的信息。
 
+js中没有原生的API可以直接获取和设置cookie，但是我们可以去简单的封装一下，基本可以通用：
+
+```js
+    /**
+     * 设置cookie
+     * @param {string} name cookie名
+     * @param {string} value cookie值
+     * @param {number} date 时长，天
+     */
+    setCookie(name, value, day) {
+        if (day !== 0) {
+            var expires = day * 24 * 60 * 60 * 1000;
+            var date = new Date(+new Date() + expires);
+            document.cookie = `${name} = ${encodeURI(value)};expires=${date.toString()}`;
+        } else {
+            document.cookie = `${name}=${encodeURI(value)}`
+        }
+    },
+    /**
+     * 获取cookie
+     * @param {string} name cookie名
+     * @returns {string}
+     */
+    getCookie(name) {
+        var strCookie = document.cookie;
+        var arrCookie = strCookie.split('; ');
+        for (var i = 0; i < arrCookie.length; i++) {
+            var arr = arrCookie[i].split('=');
+            if (name === arr[0]) {
+                return arr[1]
+            }
+        }
+        return '';
+    },
+    /**
+     * 删除cookie
+     * @param {string} name cookie名
+     */
+    delCookie(name) {
+        // var expires = new Date(+new Date() - 24 * 60 * 60 * 1000);
+        var expires = new Date('1970-01-01');
+        var cval = this.getCookie(name);
+        if (cval !== '') {
+            document.cookie = `${name} = ${encodeURI(cval)};expires=${expires.toString()}`;
+        }
+    }
+```
+
+删除cookie，js是没有给提供删除cookie的api的。通用的删除cookie的做法是，给cookie设置一个早于当前时间的过期时间，这样，这个cookie就无效了，也就是相当于是删除了指定名称的cookie了。
+
+因为js中的Date对象记录的是自1970年1月1日起经过的毫秒数，所以删除cookie时设置过期时间时有的就直接设置为了1970年1月1日了，如new Date('1970-01-01')，也可以设置一个早于当前时间的一个时间戳，都是可以的。
+
+**httpOnly**
+
+在Cookie的众多属性中，来重点关注一下httpOnly，这个属性指定cookie能否被客户端js去访问。
+
+默认请看下，cookie不会携带httpOnly属性，所以在默认情况下，客户端js是可以访问cookie的，可访问cookie，就是表示js可以读取、删除cookie。如果服务端在设置cookie的时候，设置了httpOnly属性，那么客户端就没有办法去操作这些cookie了，只能由服务端去修改。
 
 2. localStorage
+
+
 
 3. sessionStorage
