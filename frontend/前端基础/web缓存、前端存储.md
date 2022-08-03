@@ -143,6 +143,79 @@ js中没有原生的API可以直接获取和设置cookie，但是我们可以去
 
 2. localStorage
 
+本地存储,是永久保存的，不会随着浏览器的关闭而销毁；
 
+数据可以手动删除；
+
+localStorage受同源策略的限制，不同源之间的localStorage数据是不能相互访问的；
+
+localStorage受浏览器厂商的限制，在chrome浏览器下存储的数据，在edge等其他浏览器中是不能访问的；
+
+> 同源策略：协议、端口、域名
 
 3. sessionStorage
+
+会话级别，浏览器关闭，数据会自动销毁、删除；
+
+sessionStoage存储的数据，在浏览器或者标签关闭时，数据会自动销毁。
+
+在同一个标签页内前进或者后退操作时，数据不会丢失；
+
+sessionStoage在localStorage同源策略限制的基础上，还有一些更加严格的要求和限制：
+
+sessionStoage还在限制在窗口中(窗口是最顶级窗口)：
+
+    - 即在同一个窗口或者标签的不同页面之间，可以共享sessionStorage的数据；
+
+    - 如果是多个iframe，那么它们之间也是共享sessionStorage数据的；
+
+但是在不同的窗口和标签中，不能共享sessionStorage中的数据，即使这些窗口或者标签中是来自同一个页面；
+
+4. localStorage和sessionStorage的关系
+
+localStorage和sessionStorge都是window对象的属性，表示同一个Storage对象。因为localStorage和sessionStorage都是表示的Storage对象，所以他们拥有共同的方法，只是使用的场景不同而已。
+
+localStorage:本地存储
+
+sessionStoage: 会话存储
+
+共同的方法：
+
+```js
+// 数据存储
+setItem(key,value)
+
+// 数据读取
+getItem(key)
+
+// 数据删除
+removeItem(key)
+
+// 删除所有的缓存数据
+clear() // 注意这里不需要参数，删除所有的缓存数据
+
+// 获取指定位置的键名
+key(pos:number)
+```
+
+还有一个属性：
+
+```js
+// 返回数据项的数量，整数
+length
+```
+
+### 4. cookie、localStorage和sessionStorage的区别
+
+1. 存储大小
+
+cookie最小，为4k的限制；
+
+localStorage和sessionStorage大概在5M左右；
+
+2. 时效
+
+
+
+3. 与服务器之间的交互方式
+
