@@ -215,7 +215,17 @@ localStorage和sessionStorage大概在5M左右；
 
 2. 时效
 
+localStorage:永久存储，浏览器关闭后数据不会被自动清除，本身没有过期时间，但是可以手动删除；
 
+sessionStorage:浏览器关闭，数据自动销毁；
+
+Cookie:可以设置过期时间，在过期时间之前一直有效，即使关闭浏览器数据也不会销毁；
 
 3. 与服务器之间的交互方式
+
+cookie的数据会随着http请求自动发送到服务端，服务器端也可以写cookie到浏览器端；
+
+storage(localStorage和sessionStorage)不会随着http请求自动发送数据到服务器端，只是将数据保存到本地；
+
+4. 作用域
 
