@@ -252,4 +252,6 @@ sessionStoage:
 
     - 不同窗口或标签页之间不能共享sessionStorage，即便是同一个文档
 
+    - 在同一个标签页之间进行浏览器的前进、后退操作时，sessionStoage数据会被保存、共享
+
     - 这里说的窗口，是指顶级窗口，如果页面里面有多个iframe，那么这多个iframe之间是共享sessionStorage的
