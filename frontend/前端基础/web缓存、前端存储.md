@@ -229,3 +229,26 @@ storage(localStorage和sessionStorage)不会随着http请求自动发送数据�
 
 4. 作用域
 
+cookie:
+
+    - 同源策略限制：不同源的文档之间不能相互访问和操作cookie
+
+    - 浏览器厂商的限制：不同浏览器下设置的cookie，在其他浏览器是不能访问和操作
+
+localStorage:
+
+    - 同源策略的限制；
+
+    - 同源的文档之间可以相互访问和修改数据；
+
+    - 受浏览器厂商的限制：如在chrome浏览器存储的数据，在edge等其他浏览器上是不能够访问
+
+sessionStoage:
+
+    - 在localStorage同源策略的基础上，有更加严格的限制；
+
+    - 被限制在窗口中，同一个窗口或标签页的不同页面之间共享sessionStorage
+
+    - 不同窗口或标签页之间不能共享sessionStorage，即便是同一个文档
+
+    - 这里说的窗口，是指顶级窗口，如果页面里面有多个iframe，那么这多个iframe之间是共享sessionStorage的
