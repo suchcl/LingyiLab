@@ -5,6 +5,7 @@
 - [1. 客户端存储的理解](#1-%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AD%98%E5%82%A8%E7%9A%84%E7%90%86%E8%A7%A3)
 - [2. 前端缓存](#2-%E5%89%8D%E7%AB%AF%E7%BC%93%E5%AD%98)
 - [3. 前端常用的3种缓存技术：Cookie、localStorage、sessionStoage](#3-%E5%89%8D%E7%AB%AF%E5%B8%B8%E7%94%A8%E7%9A%843%E7%A7%8D%E7%BC%93%E5%AD%98%E6%8A%80%E6%9C%AFcookielocalstoragesessionstoage)
+- [4. cookie、localStorage和sessionStorage的区别](#4-cookielocalstorage%E5%92%8Csessionstorage%E7%9A%84%E5%8C%BA%E5%88%AB)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
