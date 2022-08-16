@@ -13,7 +13,7 @@ git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git # 更换b
 cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
 git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git # 更换homebrew-core.git
 
-brew update # brew更新
+brew update # brew更新，更新brew自己本身
 
 git config # 查看homebrew的基本配置
 ```
