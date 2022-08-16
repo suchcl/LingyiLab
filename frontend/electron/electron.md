@@ -28,16 +28,18 @@ Electron应用程序，将nodejs打包到了Electron应用的二进制文件中�
 
 #### 2.1 关闭所有窗口时退出应用程序
 
-在windows和linux中，关闭了所有的窗口后，通常就是退出了一个应用，但是在Macos中则有不同的表现，所以需要手动设置在关闭了所有的窗口后去退出一个应用程序。
+在windows和linux中，关闭了所有的窗口后，通常就是退出了一个应用，但是在MacOS中则有不同的表现
 
 ```js
 // 监听window-all-closed事件
 app.on("window-all-closed", () => {
-    if(process.platform !== "darwin"){
+    if(process.platform !== "darwin"){ // 在所有平台中都实现了统一，关闭了所有窗口后，引用程序不会完全退出
         app.quit();
     }
 });
 ```
+
+app.quit():不会完全退出一个应用程序，只是当前窗口关闭
 
 #### 2.2 如果没有窗口则打开一个新的窗口(MacOs)
 
@@ -69,6 +71,8 @@ electron和浏览器类似，Electron应用程序分为主进程和渲染进程�
 渲染进程负责完成界面渲染、接收用户输入、响应用户交互等功能；
 
 **一个Electron应用只能有一个主进程，但是可以有多个渲染进程。**
+
+electron应用中，不能在主进程中(可以简单理解不能在main.js)访问、编辑DOM，因为它无法访问渲染器文档上下文，它们存在于不同的进程中。
 
 ### 4. 常用功能
 
