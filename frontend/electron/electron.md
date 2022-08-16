@@ -105,6 +105,87 @@ npm run make
 
 执行了make指令后，会在项目的根目录下创建一个out目录，打包后的应用呢程序就会被打包到这个目录。
 
+在安装了electron-forge/cli后，package.json发生了一些变化，主要是electron-forge/cli的相关依赖和配置，大概的信息如下:
+
+```json
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.65",
+    "@electron-forge/maker-deb": "^6.0.0-beta.65",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.65",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.65",
+    "@electron-forge/maker-zip": "^6.0.0-beta.65",
+    "electron": "^20.0.2"
+  },
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.0"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "electron"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-dmg",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
+  }
+```
+从代码中，我们看到了maker-zip、maker-deb、maker-rpm等依赖，配置(config)中有一个makers字段，这个字段是一个数组，配置了需要打包的终端类型，这是打包的核心配置。
+
+**配置应用背景图片**
+
+不应该叫背景图片，应该是应用的logo吧。
+
+#### 4.1 打包dmg格式应用
+
+我们在安装electron-forge/cli的时候，默认的安装了一些依赖，我用的是mac，我这默认安装了maker-zip、maker-rpm、maker-deb等，但是默认只能打包mac系统下的zip格式，在mac系统中，最有好的安装包格式是dmg格式，我们可以在安装一个maker-dmg依赖，然后配置下makers就可以实现
+
+```bash
+npm install @electron-forge/maker-dmg --save-dev
+```
+然后配置makers:
+
+```json
+        {
+          "name": "@electron-forge/maker-dmg",
+          "config": {
+            "name": "An+" // 可以是中问,应用名
+          },
+          "platforms": [
+            "darwin"
+          ]
+        },
+```
+
+然后就可以执行npm run make来打包应用了。
+
+**打包exe应用**
+
+
+
 ### 5. 常用功能
 
 1. 获取设备mac地址
