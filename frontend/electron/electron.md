@@ -190,6 +190,10 @@ npm install @electron-forge/maker-dmg --save-dev
 
 因为打包生成各平台的可执行应用，需要各种平台的环境支持，那么mac上就不会有windows的环境，同样，windows上也不会有mac上的应用的环境。即便同是mac的Intel芯片的终端和M1芯片的终端的环境都是不同的。
 
+<font color="#f20">这些是存在的现象和问题，但是作为开发人员，公司也不太可能给我们每个人都配置多台设备，那么对于开发有好来说，还是希望能够在一台设备上可以打包成各个终端的不同应用。</font>
+
+> 插播一个小知识：mac平台上Homebrew更新： brew update, brew自己本身更新
+
 ### 5. 常用功能
 
 1. 获取设备mac地址
