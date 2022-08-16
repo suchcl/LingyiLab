@@ -63,6 +63,9 @@ npm view package version 查看包的最新的版本
 npm view package versions 查看包的所有的版本列表
 ```
 
+3. npm缓存
+
+
 
 ## npm install和npm ci的区别
 

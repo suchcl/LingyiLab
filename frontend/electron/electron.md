@@ -74,7 +74,38 @@ electron和浏览器类似，Electron应用程序分为主进程和渲染进程�
 
 electron应用中，不能在主进程中(可以简单理解不能在main.js)访问、编辑DOM，因为它无法访问渲染器文档上下文，它们存在于不同的进程中。
 
-### 4. 常用功能
+**预加载脚本**
+
+预加载脚本在渲染器进程加载之前加载，并有权访问两个渲染器全局(如window和document)和nodejs环境。
+
+### 4. 打包发布应用程序
+
+Electron支持几种打包工具：
+
+1. electron-forge
+
+2. electron-builder
+
+3. electron-packager
+
+Electron建议使用Electron Forge，因为简单易上手，并使用Electron Forge的import指令设置Forge脚手架。
+
+```bash
+npm install @electron-forge/cli --save-dev
+npx electron-forge import
+```
+
+安装了electron-forge/cli后，项目的启动脚本就会被指定为electron-forge,package.json中的start指令由electron .变成了electron-forge start，然后添加forge的make指令。
+
+**通过Forge的make指令打包可分发的应用程序**
+
+```bash
+npm run make
+```
+
+执行了make指令后，会在项目的根目录下创建一个out目录，打包后的应用呢程序就会被打包到这个目录。
+
+### 5. 常用功能
 
 1. 获取设备mac地址
 
