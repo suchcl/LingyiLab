@@ -198,7 +198,9 @@ npm install @electron-forge/maker-dmg --save-dev
 
 上面已经了解到，mac上是不能直接打包windows应用的，因为需要windows应用的执行环境，所以我们需要在mac系统上安装一些windows应用的执行环境。
 
-mac上需要的windows应用的执行环境有：wine、mono
+mac上需要的windows应用的执行环境有：wine、mono。
+
+在mac上的electron应用中打包windows应用程序，需要先安装这2个依赖。
 
 **wine**
 
@@ -206,10 +208,34 @@ wine，是Wine Is Not an Emulator首字母的缩写，Wine不是一个模拟器�
 
 总之，wine就是一个兼容层，可以在非windows系统上运行windows应用程序。
 
+wine的安装:
+
+```bash
+brew install wine
+```
+
+通过brew安装wine正常情况下很少出问题，如果抱异常信息了，更新下brew就可以了。
+
+更新brew的方式：
+
+```bash
+brew update # brew update 更新brew自己本身，不是更新通过brew安装的应用
+```
+> 因为很多源的服务器是国外的，部分情况下可能出现更新速度慢，或者失败的场景，这个是，就想办法解决下网络问题，或者更信下源。
+
 **mono**
 
 一个跨平台的.net运行环境，可以运行在mac、linux等终端上。
 
+安装mono就有点麻烦了，在网上查到了也可以通过brew来安装mono，但是我尝试直接使用brew install mono，结果都失败了，提示需要将Homebrew的安装目录移动到/usr/local目录下(我使用的M1的mac，homebrew默认被安装到了/opt/homebrew,Intel版本的Mac好像是被安装到/usr/local目录下的)，或者是使用‘arch -arm64 brew install 应用名’的方式安装，我进行了尝试后，提示没有mono这个源。
+
+![没有找到mono的源](./images/i2.png)
+
+另外一种方式就是下载mono安装文件的方式安装，下载地址：https://www.mono-project.com/download/stable/#download-mac。
+
+这种方式安装成功了。
+
+> wine和mono都安装成功了，但是在通过electron-forge打包windows应用的时候，还是没有成功。
 ### 5. 常用功能
 
 1. 获取设备mac地址
