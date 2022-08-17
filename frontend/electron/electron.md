@@ -194,6 +194,22 @@ npm install @electron-forge/maker-dmg --save-dev
 
 > 插播一个小知识：mac平台上Homebrew更新： brew update, brew自己本身更新
 
+#### 4.2 使用electron-forge在mac上打包windows应用
+
+上面已经了解到，mac上是不能直接打包windows应用的，因为需要windows应用的执行环境，所以我们需要在mac系统上安装一些windows应用的执行环境。
+
+mac上需要的windows应用的执行环境有：wine、mono
+
+**wine**
+
+wine，是Wine Is Not an Emulator首字母的缩写，Wine不是一个模拟器。它是一个能够在多个操作系统上运行windows应用的兼容层。wine不像虚拟机或者其他模拟器一样模仿内部的windows逻辑，而是将windows API调用翻译成为动态的POSIX调用，免除了性能和其他一些行为的内存占用，让我们能够让干净的集合windows应用到我们非windows系统的桌面。
+
+总之，wine就是一个兼容层，可以在非windows系统上运行windows应用程序。
+
+**mono**
+
+一个跨平台的.net运行环境，可以运行在mac、linux等终端上。
+
 ### 5. 常用功能
 
 1. 获取设备mac地址
