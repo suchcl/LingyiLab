@@ -90,6 +90,8 @@ Electron支持几种打包工具：
 
 Electron建议使用Electron Forge，因为简单易上手，并使用Electron Forge的import指令设置Forge脚手架。
 
+<font color="#f20">Electron-forge只能打本系统的包，比如mac上就只能打mac应用的包，而不能在mac上打包windows应用的包。这一点electron文档上没有告诉我们，明显的一个坑。</font>这个坑，害我用了1天的时间去调试、解决打包的问题。
+
 ```bash
 npm install @electron-forge/cli --save-dev
 npx electron-forge import
@@ -236,6 +238,8 @@ brew update # brew update 更新brew自己本身，不是更新通过brew安装�
 这种方式安装成功了。
 
 > wine和mono都安装成功了，但是在通过electron-forge打包windows应用的时候，还是没有成功。
+
+> 使用electron-forge只能在各自的平台上进行对应平台的应用程序，就是说在mac上只能打包mac系统的应用程序，在windows上只能打包windows平台的应用程序，而不能在mac上打包windows平台的应用程序.
 ### 5. 常用功能
 
 1. 获取设备mac地址
