@@ -257,3 +257,29 @@ brew update # brew update 更新brew自己本身，不是更新通过brew安装�
 2. 多标签页功能
 
 electron原生本身不提供多标签页功能，但是可以通过其他的一些变通的方式获取来实现多标签页功能。
+
+3. 预定义功能
+
+在electron的菜单中，role属性包含了一些预定义功能，有些功能直接使用role就可以实现，不再需要触发click事件去实现了.具体的role属性，可参考：https://www.electronjs.org/docs/latest/api/menu-item#menuitemrole
+
+![菜单role属性](./images/i3.png)
+
+```js
+    {
+        label: '&Edit(E)',
+        submenu: [
+            {
+                label: '剪切',
+                role: 'cut'
+            },
+            {
+                label: '复制',
+                role: 'copy'
+            },
+            {
+                label: '粘贴',
+                role: 'paste'
+            }
+        ]
+    },
+```
