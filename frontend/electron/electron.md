@@ -168,6 +168,8 @@ app.whenReady().then(() => {
 </html>
 ```
 
+> webview不拥有渲染进程的权限，这一点与iframe不同，webview和electron应用运行的是不同的进程。webview嵌入的内容和electron应用之间的交互都是异步的，这一点保证了主应用和webview之间的安全。
+
 **一个Electron应用只能有一个主进程，但是可以有多个渲染进程。**
 
 electron应用中，不能在主进程中(可以简单理解不能在main.js)访问、编辑DOM，因为它无法访问渲染器文档上下文，它们存在于不同的进程中。
