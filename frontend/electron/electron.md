@@ -86,6 +86,88 @@ electron和浏览器类似，Electron应用程序分为主进程和渲染进程�
 
 主进程和渲染进程之间通过GUI操作进行通信，出于安全和资源泄露问题的考虑，限制渲染进程直接调用本地GUI接口的能力。
 
+仅仅从代码上看，主进程的代码看起来更像是nodejs的代码，而渲染进程看起来更像是传统web页面的代码。
+
+```js
+// 主进程代码
+const { app, BrowserWindow, ipcMain } = require("electron");
+const path = require("path");
+
+const createWindow = () => {
+    const win = new BrowserWindow({
+        width: 1000,
+        height: 800,
+        minHeight: 400,
+        minWidth: 600,
+        webPreferences: {
+            preload: path.join(__dirname, "preload.js"),
+            nodeIntegration: true, // 集合node进程
+            contextIsolation: false, // 设置为false后就可以在渲染进程中正常导入electron了
+            webviewTag: true // 开启多标签
+        }
+    });
+
+    win.loadFile("./index.html");
+    // 默认最大化显示
+    win.maximize();
+
+    // 关闭应用
+    ipcMain.on("quit", (event, args) => {
+        win.webContents.send("quitMessage", "应用即将退出");
+        app.quit();
+    })
+}
+
+app.whenReady().then(() => {
+    // 初始化窗口
+    createWindow();
+});
+```
+
+```html
+<!--渲染进程代码-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>主应用</title>
+    <link rel="stylesheet" href="./src/css/main.css">
+</head>
+
+<body>
+    <div class="main">
+        <p>Hello world!</p>
+        <button id="send">发送消息</button>
+    </div>
+    <script>
+        const { ipcRenderer } = require("electron");
+        const btn = document.querySelector('#send');
+        // 渲染进程向主进程发送消息
+        btn.addEventListener("click", function () {
+            ipcRenderer.send("sendMessage", "我是渲染进程");
+        });
+
+        // 渲染进程接收主进程给的响应
+        ipcRenderer.on("receiveMessage", (event, args) => {
+            console.log("我从主进程接收到的消息:", args);
+        })
+
+        const quit = document.querySelector("#quit");
+        quit.addEventListener("click", function () {
+            ipcRenderer.send("quit", "quit");
+        });
+        ipcRenderer.on("quitMessage", (event, args) => {
+            console.log("接收到的关闭应用的信息:", args);
+        })
+    </script>
+</body>
+
+</html>
+```
+
 **一个Electron应用只能有一个主进程，但是可以有多个渲染进程。**
 
 electron应用中，不能在主进程中(可以简单理解不能在main.js)访问、编辑DOM，因为它无法访问渲染器文档上下文，它们存在于不同的进程中。
