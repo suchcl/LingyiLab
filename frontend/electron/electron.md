@@ -10,7 +10,8 @@
 - [4. 打包发布应用程序](#4-%E6%89%93%E5%8C%85%E5%8F%91%E5%B8%83%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F)
   - [4.1 打包dmg格式应用](#41-%E6%89%93%E5%8C%85dmg%E6%A0%BC%E5%BC%8F%E5%BA%94%E7%94%A8)
   - [4.2 使用electron-forge在mac上打包windows应用](#42-%E4%BD%BF%E7%94%A8electron-forge%E5%9C%A8mac%E4%B8%8A%E6%89%93%E5%8C%85windows%E5%BA%94%E7%94%A8)
-  - [4. 通信方式](#4-%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F)
+- [5. 常用功能](#5-%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD)
+- [6. 通信方式](#6-%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -352,6 +353,7 @@ brew update # brew update 更新brew自己本身，不是更新通过brew安装�
 > wine和mono都安装成功了，但是在通过electron-forge打包windows应用的时候，还是没有成功。
 
 > 使用electron-forge只能在各自的平台上进行对应平台的应用程序，就是说在mac上只能打包mac系统的应用程序，在windows上只能打包windows平台的应用程序，而不能在mac上打包windows平台的应用程序.
+
 ### 5. 常用功能
 
 1. 获取设备mac地址
@@ -392,7 +394,7 @@ electron原生本身不提供多标签页功能，但是可以通过其他的一
 
 在MacOS中，无论我们设置什么标签，应用菜单的第一个菜单项的标签始终是我们的应用的名字。要想修改的话，只能通过修改应用绑定的Info.plist文件来修改应用的名字。
 
-#### 4. 通信方式
+### 6. 通信方式
 
 在electron应用中，一个应用只能有1个主进程，但是可以多个渲染进程。
 
