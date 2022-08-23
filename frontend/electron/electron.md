@@ -409,3 +409,15 @@ electron原生本身不提供多标签页功能，但是可以通过其他的一
 下图为我们梳理了“主进程-渲染进程-窗口”之间的通信方式：
 
 ![主进程-渲染进程-窗口之间的通信方式](./images/i4.png)
+
+从图中，我们可以清晰的看出来，ipcMain和webContents都在主进程中，它们之间无缝衔接调用，每个webContents管理一个窗口。
+
+在进行消息通信的是，有几点需要注意：
+
+1. ipcRender通常是信息的发起者，ipcMain通常只是信息的接收者，而webContengts则是中间枢纽，代理了部分ipc消息，如send或者sendSync消息可以直接被webContents截获。
+
+2. ipcMain只有在接收到了ipcRender发送过来的消息后，才知道了有这个渲染进程的存在，否则主进程仅仅是一个全局的无状态的服务器；
+
+3. webContents作为既存在于主进程，又可以直接对应到单个window的对象，有效的隔离了ipc消息作用域；
+
+通常情况下，应该尽量使用webContents和ipcRender之间进行通信，只有涉及到全局事件时再通过ipcMain进行调度。
