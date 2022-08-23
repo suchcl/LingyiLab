@@ -421,3 +421,12 @@ electron原生本身不提供多标签页功能，但是可以通过其他的一
 3. webContents作为既存在于主进程，又可以直接对应到单个window的对象，有效的隔离了ipc消息作用域；
 
 通常情况下，应该尽量使用webContents和ipcRender之间进行通信，只有涉及到全局事件时再通过ipcMain进行调度。
+
+#### 6.1 BrowserWindow的一些配置
+
+1. frame:窗口边框，是否有边框
+
+2. titleBarStyle：菜单栏样式
+
+3. webPreferences:web相关配置
+
