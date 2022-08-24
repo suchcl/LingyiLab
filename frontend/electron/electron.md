@@ -430,3 +430,20 @@ electron原生本身不提供多标签页功能，但是可以通过其他的一
 
 3. webPreferences:web相关配置
 
+### 7. 用户窗口(BrowserWindow)常用事件
+
+#### 7.1 new-window 可以监听到新窗口打开页面事件
+
+electron应用中，打开新窗口事件，一般情况下都可以通过new-window事件监听到，就是说并不是说所有的新窗口都可以通过new-window事件监听到。经过一些测试场景，可以被监听到的事件有：
+
+1. 通过window.open()方式打开的心链接可以被监听到
+
+2. a标签打开新窗口可以被捕捉到
+
+```html
+<a href="https://www.baidu.com" target="_blank">百度</a>
+```
+
+new-window不能监听到的事件有：
+
+1. 渲染进程中使用BrowserWindow创建新窗口，new-window事件监听不到
