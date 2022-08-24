@@ -12,6 +12,10 @@
   - [4.2 使用electron-forge在mac上打包windows应用](#42-%E4%BD%BF%E7%94%A8electron-forge%E5%9C%A8mac%E4%B8%8A%E6%89%93%E5%8C%85windows%E5%BA%94%E7%94%A8)
 - [5. 常用功能](#5-%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD)
 - [6. 通信方式](#6-%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F)
+  - [6.1 BrowserWindow的一些配置](#61-browserwindow%E7%9A%84%E4%B8%80%E4%BA%9B%E9%85%8D%E7%BD%AE)
+- [7. 用户窗口(BrowserWindow)常用事件](#7-%E7%94%A8%E6%88%B7%E7%AA%97%E5%8F%A3browserwindow%E5%B8%B8%E7%94%A8%E4%BA%8B%E4%BB%B6)
+  - [7.1 new-window 可以监听到新窗口打开页面事件](#71-new-window-%E5%8F%AF%E4%BB%A5%E7%9B%91%E5%90%AC%E5%88%B0%E6%96%B0%E7%AA%97%E5%8F%A3%E6%89%93%E5%BC%80%E9%A1%B5%E9%9D%A2%E4%BA%8B%E4%BB%B6)
+- [8. 预加载](#8-%E9%A2%84%E5%8A%A0%E8%BD%BD)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -447,3 +451,35 @@ electron应用中，打开新窗口事件，一般情况下都可以通过new-wi
 new-window不能监听到的事件有：
 
 1. 渲染进程中使用BrowserWindow创建新窗口，new-window事件监听不到
+
+### 8. 预加载
+
+preload是BrowserWindow类的webPreferences参数的一个可选配置项。
+
+预加载，就是在运行页面其他脚本之前预先加载的指定的脚本，文件是个js文件。
+
+加载时机：因为是预加载，所以加载是在窗口创建之后、窗口中的页面加载之前，需要注意这个页面指的是渲染进程，而不是某个具体的页面。我们每new BrowseraWindow，就创建了一个新的渲染进程。
+
+electron5.x版本以后，渲染进程默认是没有办法去调用Node Api的，如果想要在渲染进程中调用Node Api，需要在窗口中指定nodeIntegration属性为true。当然了这个属性，是在BrowserWindow的webPreferences属性中去配置的。
+
+```js
+const newWindowOptions = {
+    title: "New Tab",
+    // show: false,
+    titleBarStyle: "hidden",
+    titleBarOverlay: {
+        color: "#369",
+        symbolColor: "#f20",
+        height: 34
+    },
+    focusable: true,
+    webPreferences: {
+        // 渲染进程可以调用Node API
+        nodeIntegration: true,
+        nativeWindowOpen: true,
+        webSecurity: true,
+        contextIsolation: false, // 设置为false后，可以在渲染进程中导入electron模块
+        preload: path.join(__dirname, "../preload.js")
+    }
+};
+```
