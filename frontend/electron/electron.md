@@ -91,7 +91,11 @@ electron通过集成浏览器内核，使用前端技术来实现不同平台下
 
 1. Chromium为electron提供了强大的渲染能力，由于chromium本身就是跨平台的，所以不需要考虑代码跨平台的兼容性问题；
 
-2. Chromium本身并不具备
+2. Chromium本身并不具备原生GUI的操作能力，但是electron集成的Nodejs，具备调用系统底层API的能力，如path、file、fs等模块；
+
+3. Native API为electron提供了原生系统GUI的支持，通过Native APi，electron具备了调用系统原生应用程序接口的能力。
+
+总结起来，就是Chromium负责了UI的的渲染，Nodejs负责了业务逻辑，Native API提供了原生能力的支持。
 
 **主进程**
 
