@@ -81,6 +81,18 @@ electron和浏览器类似，Electron应用程序分为主进程和渲染进程�
 
 染进程和渲主进程之间进行交互，通过icpRenderer跟主进程进行数据交互。
 
+**electron的跨端原理**
+
+前面我们已经了解到，electron可以通过js、html和css构建出跨端的桌面应用，典型的如Mac、windows和linux。那么electron是怎么构建出可跨端的终端应用的呢？
+
+electron通过集成浏览器内核，使用前端技术来实现不同平台下的渲染，并结合了Chromiun、Nodejs和用于调用系统本地能力的API三大板块。如下图：
+
+![electron的跨端原理](./images/i5.png)
+
+1. Chromium为electron提供了强大的渲染能力，由于chromium本身就是跨平台的，所以不需要考虑代码跨平台的兼容性问题；
+
+2. Chromium本身并不具备
+
 **主进程**
 
 主进程通过创建BrowserWindow实例创建页面，每一个BrowserWindow实例都在它自己的渲染进程中运行网页。
