@@ -1,4 +1,13 @@
-### Chromium架构
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [1. Chromium架构](#1-chromium%E6%9E%B6%E6%9E%84)
+- [2. Electron架构解析](#2-electron%E6%9E%B6%E6%9E%84%E8%A7%A3%E6%9E%90)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+### 1. Chromium架构
 
 我们知道js是一门单线程语言，但是浏览器是一个多线程的，同理，Chromium作为chrome的体验版，Chromium也是多线程的工作机制。参考链接：https://www.chromium.org/developers/design-documents/multi-process-architecture/。
 
@@ -20,4 +29,25 @@ RenderViewHost则与RenderView对象进行交互，渲染网页内容，主进�
 
 3. view管理
 
-每个渲染进程可以维护多个RenderView对象，当新开标签页或弹出窗口后，渲染进程就会创建一个RenderView对象，Renderview对象与它在主进程中对应的RenderViewHost和Webkit嵌入层通信，渲染网页内容。
+每个渲染进程可以维护多个RenderView对象，当新开标签页或弹出窗口后，渲染进程就会创建一个RenderView对象，Renderview对象与它在主进程中对应的RenderViewHost和Webkit嵌入层通信，渲染网页内容。---- 这部分是日常开发最需要关注的地方，因为我们做的最多的就是页面的展示，和调用electron的能力。
+
+### 2. Electron架构解析
+
+electron架构参考了Chromium架构模式，将主进程和渲染进程隔离，但是又在chromium架构的基础上做了一定的扩展。
+
+**Chrome浏览器的架构**
+
+![Chrome的架构](./images/i4.png)
+
+由图例可看出来，Chromium运行时由一个浏览器进程和一个或多个的渲染进程构成，渲染进程负责渲染页面，浏览器进程负责管理渲染进程以及一些系统功能，如菜单栏、收藏夹等。
+
+**Electron的架构(和Chromium架构的变化)**
+
+![electron架构组成以及和Chromium的变化](./images/i5.png)
+
+electron仍然使用了Chromium的渲染进程和主进程的理念，渲染进程还是负责渲染界面，渲染进程可以有多个，每个渲染进程之间相互独立、互不干扰。electron和chromium改进的是，electron集成了nodejs环境，可以在渲染进程中调用nodejs API，渲染进程还是负责HTML和CSS的渲染，通过js实现DOM交互。
+
+electron和chromium另外的一点不同，就是名称的变化。在Chromium中的进程命名是Browser Process和Renderer Process，翻译成中文就是浏览器进程和渲染进程。在Electron中，虽然保留了Renderer Process的概念，但是Browser Process改名成了Main Process，翻译成中文为主进程。
+
+由于我经常说是主进程和渲染进程习惯了，就没有更改这个习惯，如果有同学看到这里了，知道在Chromium中是Browser Process和Render Process，在electron中，是Main Proess和Render Process，记住这个概念就可以了，其实本质上是一回事。
+
