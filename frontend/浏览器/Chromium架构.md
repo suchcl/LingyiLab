@@ -52,3 +52,11 @@ electron和chromium另外的一点不同，就是名称的变化。在Chromium�
 由于我经常说是主进程和渲染进程习惯了，就没有更改这个习惯，如果有同学看到这里了，知道在Chromium中是Browser Process和Render Process，在electron中，是Main Proess和Render Process，记住这个概念就可以了，其实本质上是一回事。
 
 electron应用，每个应用只能同时运行一个主线程，该主线程运行在nodejs下，所以这个主线程也就是这个electron应用，可以调用系统的底层功能，如：渲染进程的创建、系统底层功能及原生资源的调用、应用生命周期的控制如启动、退出以及一些事件的监听等。在很多场景下需要调用系统功能的地方，都是通过主进程和渲染进程之间通信，然后主进程去调用系统功能的。
+
+**electron的架构图**
+
+经过上面的学习，我们大概可以总结下electron的架构图：
+
+![electron架构图](./images/i6.png)
+
+从electron的系统架构图中，可以发现：主线程和渲染进程都集成了Nodejs，另外，主进程还集成了Native API，渲染进程还集成了Renderer API和Chromium以实现跨端开发。
