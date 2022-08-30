@@ -4,6 +4,7 @@
 
 - [1. Chromium架构](#1-chromium%E6%9E%B6%E6%9E%84)
 - [2. Electron架构解析](#2-electron%E6%9E%B6%E6%9E%84%E8%A7%A3%E6%9E%90)
+- [3. Electron和Chromium的事件机制](#3-electron%E5%92%8Cchromium%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%9C%BA%E5%88%B6)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
