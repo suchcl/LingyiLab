@@ -60,3 +60,22 @@ electron应用，每个应用只能同时运行一个主线程，该主线程运
 ![electron架构图](./images/i6.png)
 
 从electron的系统架构图中，可以发现：主线程和渲染进程都集成了Nodejs，另外，主进程还集成了Native API，渲染进程还集成了Renderer API和Chromium以实现跨端开发。
+
+
+### 3. Electron和Chromium的事件机制
+
+Nodejs的事件循环机制与浏览器的事件循环机制不同，Chromium是Chrome浏览器的体验版(这么说不严谨，本质上是这么回事，这个说辞好理解)，那么Chromium和浏览器的事件循环机制是相同的。
+
+Nodejs的事件循环基于libuv实现，Chromium的事件循环基于messageBump实现，electron应用的主线程只能同时运行一个事件循环，所以在electron应用中，需要将两种完全不同的事件循环机制整合起来。
+
+整合事件循环机制，有两种方案：
+
+1. 使用libuv实现mesageBump，将Chromium集成到Nodejs；
+
+2. 将nodejs集成到Chromium；
+
+第一种方案的实现，由于不同的OS系统GUI事件循环差异很大，如Mac的事件循环是NSRunLoop，linux的事件循环为glib，实现过程复杂，成本较高，资源消耗和延迟问题没有办法得到有效解决，electron放弃了第一种实现方案；
+
+Electron也尝试使用小间隔的定时器来轮询GUI事件循环，但这种方案有一个弊端，就是CPU占用过高，且GUI响应速度慢。
+
+后来libuv引入了backend_fd概念，backend_fd轮训事件循环的文件描述符，electron通过轮询backend_fd来得到libuv的新事件实现Nodejs与Chromium事件循环的融合。
