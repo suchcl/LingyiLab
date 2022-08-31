@@ -26,4 +26,54 @@ react本身对于组件的拆分是没有大小的要求的，并没有明确的
 
 2. 每个文件只定义一个组件
 
+先看案例：
+
+```tsx
+const Parent = () => {
+  const [count,setCount] = useState<number>(0);
+  const handleClick = () => {
+    setCount(count+1);
+  }
+
+  const Child = () => {
+    return (
+      <button onClick={handleClick}>点击</button>
+    )
+  }
+
+  return (
+    <Child />
+  );
+}
+```
+
+在Parent组件中，又定义了一个Child组件，就是说在Parent组件中嵌套了Child组件。这种方式定义组件，虽然在某些开发场景下带来了一定的遍历，比如Child组件可以调用Parent组件中的函数、使用Parent组件中的数据而不需要传递props，但是这里面也隐藏了很大的性能问题。每次Parent组件更新、重新渲染的时候，Child组件都会被重新创建，原来定义的Child组件被销毁。
+
+类似的组件定义的良好实践是不嵌套定义组件，所有子组件都提取到父组件外部单独定义。如：
+
+```tsx
+const Child = (props: any) => {
+  const { onClick, number } = props;
+  return (
+    <>
+      <p>数字: {number}</p>
+      <button onClick={onClick}>点击变数</button>
+    </>
+  );
+};
+
+export default function index() {
+  const [count, setCount] = useState<number>(0);
+  const handleClick = () => {
+    setCount((count) => count + 1);
+  };
+
+  return (
+    <>
+      <Child onClick={handleClick} number={count} />
+    </>
+  );
+}
+```
+
 3. 避免组件嵌套
