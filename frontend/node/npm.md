@@ -20,6 +20,9 @@ npm install package # 安装本地包(执行该命令后，会将包安装当前
 npm install package -g # 全局安装，对本地所有项目都可用的包
 
 npm install # 主要用来安装包，等价于 npm i，install可以简写为i
+
+# npm通过--registry参数指定安装源
+npm install cnpm --registry=https://registry.npm.taobao.org -g
 ```
 
 ### npm在安装包的过程总，--save、-S、--save-d、-D的区别
