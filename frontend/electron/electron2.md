@@ -8,6 +8,8 @@ electron = chromium + nodejs + Native API
 
 ![electron组成](./images/i6.png)
 
+electron的能力和chromium和nodejs密不可分,因为electron的很大一部分的功能就是在chromium和nodejs的基础上实现的。
+
 electron难点：
 
 1. 技术栈较多：C++、多进程、rust
@@ -41,5 +43,9 @@ electron难点：
 **都谁在用electron**
 
 **什么时候适合使用electron**
+
+在做一些小范围项目，可快速验证效果的场景下；
+
+一些特定领域，如开发者工具、效率应用工具的时候，可以尝试使用electron
 
 **怎么使用electron**
