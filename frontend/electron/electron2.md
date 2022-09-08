@@ -49,3 +49,33 @@ electron难点：
 一些特定领域，如开发者工具、效率应用工具的时候，可以尝试使用electron
 
 **怎么使用electron**
+
+### Electron进程间通信
+
+**electron应用中进程之间通信的目的/为什么要通信**
+
+事件通知
+
+数据传输
+
+数据共享
+
+**IPC模块通信**
+
+Electron提供了IPC通信模块，主进程的ipcMain和渲染进程的ipcRenderer
+
+ipcMain、ipcRenderer都是EventEmitter对象
+
+**进程间的通信，从渲染进程到主进程**
+
+callback方式
+
+    ipcRenderer.send(channel,...args)   渲染进程向主进程发送一个事件，并可以传递一些数据(参数，非必填，可选)
+
+    ipcMain.on(channel,handler)   主进程监听从从渲染进程发送的事件，并向渲染进程返回一个结果
+
+Promise写法(electron7.0之后，处理请求+响应模式)
+
+    ipcRenderer.invoke(channel,...args);
+
+    ipcMain.handle(channel,handle);
