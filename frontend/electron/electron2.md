@@ -79,3 +79,17 @@ Promise写法(electron7.0之后，处理请求+响应模式)
     ipcRenderer.invoke(channel,...args);
 
     ipcMain.handle(channel,handle);
+
+**进程间通信：从主进程到渲染进程**
+
+    webContents.send(channel): 通过具体的窗口向渲染进程发送消息
+
+**页面之间(渲染进程和渲染进程之间)的通信**
+
+    通知事件
+
+        ipcRenderer.sendTo();
+
+    数据共享
+
+        web技术(WebStorage ---- localStorage、sessionStorage、indexDB)
