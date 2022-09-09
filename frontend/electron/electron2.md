@@ -50,7 +50,7 @@ electron难点：
 
 **怎么使用electron**
 
-### Electron进程间通信
+### 2. Electron进程间通信
 
 **electron应用中进程之间通信的目的/为什么要通信**
 
@@ -93,3 +93,99 @@ Promise写法(electron7.0之后，处理请求+响应模式)
     数据共享
 
         web技术(WebStorage ---- localStorage、sessionStorage、indexDB)
+
+### 3. Native能力及原生UI
+
+BrowserWindow 应用窗口
+
+Tray 托盘
+
+app设置dock.badge
+
+Menu菜单
+
+dialog原生弹窗
+
+TouchBar 苹果触控栏
+
+……
+
+**Electron给我们提供的一些获取系统底层的能力**
+
+clipboard 剪切板
+
+globalShortcut 全局快捷键
+
+desktopCapture 捕获桌面
+
+shell 打开文件、URL
+
+……
+
+**使用Nodejs获取底层的能力**
+
+Electron同时在主进程和渲染进程暴露了Nodejs的所有接口
+
+    fs文件读写能力
+
+    crypto 加密能力
+
+通过npm安装即可导入社区上所有的nodejs库
+
+**使用Nodejs调用原生模块**
+
+可以在electron中通过node调用C++已经实现好的一些功能、应用
+
+ndoe.js add-on
+
+node-ffi(Foreign Functio Interface)
+
+**通过Node调用系统能力**
+
+WinRT: 在windows上可以使用，推荐一个库 https://github.com/NodeRT/NodeRT
+
+Applescript(https://github.com/TooTallNate/node-applescript)
+
+shell(node.js child_process)
+
+**无兼容问题**
+
+electron应用，不要考虑IE，这是一个没有IE的世界，因为electron使用的是chromium内核，已经限制了环境，不需要考虑任何除了Chrome以外的事件
+
+大胆使用Chrome浏览器已经支持的API
+
+babel中设置targets为electron对应的chrome版本
+
+可以不定期的关注google应用的更新，可以看看这个链接：https://developer.chrome.com/blog/
+
+> Chrome76版本之后，浏览器本身支持了LazyLoad(https://mathiasbynens.be/demo/img-loading-lazy)
+
+**可以放心大胆的使用高版本的ES语法**
+
+因为electron使用的chromium内核，所以可以放心大胆的使用高版本的es语法而不用担心兼容性问题
+
+async、await、Promise
+
+string、array、Object等高级语法
+
+BigInt
+
+**无跨域问题**
+
+使用nodejs发送网络请求
+
+使用electron的net模块发送请求
+
+这两种发送请求的方式，都不受浏览器同源策略的影响。
+
+**更多能力**
+
+除了上面已经罗列的一些功能之外，electron还有其他的一些常用能力：
+
+操作本地文件
+
+更好的调用本地DB
+
+多线程、多进程并行
+
+……
