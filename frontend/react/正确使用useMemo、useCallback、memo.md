@@ -25,3 +25,94 @@ useMemo和useCallback，在很多场景下，其实不建议使用，因为使�
 明确了这2个场景之后，那么我们首先可以明确的是，在父组件中和子组件没有关系的状态变更可以不重新渲染子组件，以减少不必要的性能、资源的浪费。
 
 一般情况下呢，我们也知道这个道理，但是就是在实现的时候，存在一些问题。
+
+### 2. useMemo 解决因函数更新而导致自己重新渲染的问题
+
+语法：
+
+```markdown
+const fn = useMemo(fn, array);
+```
+
+第一个参数是函数，第二个参数是依赖，只有在依赖变化时才会重新执行函数。参数fn，需要返回一个函数:
+
+```ts
+  const childClick = useMemo(() => {
+    return () => {
+      console.log("子组件重新执行了");
+    }
+  }, [b]);
+```
+
+可以看一个完整的案例：
+
+```tsx
+// Parent.tsx
+import { FC, useMemo, useCallback, useState } from "react";
+import Child from "./components/child";
+
+
+const MultiRender: FC = () => {
+  const [a, setA] = useState<number>(0);
+  const [b, setB] = useState<number>(0);
+
+  const changeA = () => {
+    setA(i => i + 1);
+  }
+
+  const changeB = () => {
+    setB(i => i + 1);
+  }
+
+  const childClick = useMemo(() => {
+    return () => {
+      console.log("子组件重新执行了");
+    }
+  }, [b]);
+
+  return (
+    <>
+      <p>数值a:{a}</p>
+      <button onClick={changeA}>改变a</button>
+      <button onClick={changeB}>改变b</button>
+      <Child data={b} childClick={childClick} />
+    </>
+  );
+};
+
+export default MultiRender;
+
+// Child.tsx
+import { FC, memo } from "react";
+import styles from './index.less';
+
+interface IProps {
+  data: any;
+  childClick:any;
+}
+
+const Child: FC<IProps> = ({data,childClick}) => {
+  console.log("子组件渲染了");
+  return (
+    <>
+      <div className={styles.childCmp}>
+        <p>子组件</p>
+        <p>从父组件接收的值:{data}</p>
+        <button onClick={childClick}>子组件中点击事件</button>
+      </div>
+    </>
+  )
+}
+export default memo(Child);
+```
+
+大概的效果如下：
+
+![父组件和子组件无关状态的变化，不重新渲染子组件](./images/i50.png)
+
+这样在点击“改变a”按钮时，只改变了a的状态，那么子组件是不会重新渲染的，只有在点击了“改变b”按钮后，因为改变了props，所以子组件就跟着变了。
+
+**为什么不使用useMemo，改变a状态会引起子组件的重新渲染呢？**
+
+因为childClick这个自定义事件是通过props传递给子组件的，在父组件中每次a状态发生变化的时候，父组件都会重新渲染，那么childClick这个自定义事件也都会被初始化、重新建立，所以这个props也是在父组件每次重新渲染的时候都会变化，那么props变化了，子组件就会自动更新了。
+
