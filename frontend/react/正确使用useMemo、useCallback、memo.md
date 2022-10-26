@@ -188,3 +188,5 @@ const Child: FC<IProps> = ({data,childClick}) => {
 
 export default memo(Child);
 ```
+
+> useState、useMemo、useCallback的值传递给子组件，在父组件中更新了值之后，子组件不会重新渲染，因为这3个hooks处理后的值，都是memoized值(即缓存的值).
