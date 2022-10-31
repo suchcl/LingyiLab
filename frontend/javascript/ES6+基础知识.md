@@ -722,6 +722,31 @@ console.log(decAssign()); // {uname: "Nicholas", age: 16, gender: "Male"}
       console.log(data); // 12
 ```
 
+**剩余参数解构**
+
+当一个对象中有多个值时，如果需要解构剩余参数的时候，可以使用...rest参数。只是使用了...rest参数后，该参数将会以对象的形式输出，这个对象中包含了剩余的参数。
+
+```js
+const obj = {
+    key1: "first",
+    key2: 123,
+    key3: "last"
+};
+
+const {key1,key2,...rest} = obj;
+console.log(rest);
+```
+
+案例中，rest会输出什么呢？
+
+会输出一个对象，该对象中包含key3属性。
+
+```js
+{key3: 'last'} // 这就是rest表示的剩余参数
+```
+
+这一点可以作为一个常识记住，没有什么技巧性的内容。
+
 ### 对象的增强写法（对象字面量的增强写法）
 
 对象字面量，很多开发语言中都有类似的概念。
