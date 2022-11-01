@@ -111,7 +111,7 @@ umi 同时支持配置式路由和约定式路由，配置式路由是大部分�
 > umi团队建议使用yarn作为umi项目中管理npm依赖的工具。
 
 ```bash
-xxx@xxxx umi1 % yarn create @umijs/umi-app
+yarn create @umijs/umi-app
 yarn create v1.22.17
 [1/4] 🔍  Resolving packages...
 [2/4] 🚚  Fetching packages...
