@@ -1,3 +1,13 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [1. umi项目中页面跳转传递及接收参数](#1-umi%E9%A1%B9%E7%9B%AE%E4%B8%AD%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E4%BC%A0%E9%80%92%E5%8F%8A%E6%8E%A5%E6%94%B6%E5%8F%82%E6%95%B0)
+- [2. Link组件方式页面跳转，并实现参数的传递和接收](#2-link%E7%BB%84%E4%BB%B6%E6%96%B9%E5%BC%8F%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E5%B9%B6%E5%AE%9E%E7%8E%B0%E5%8F%82%E6%95%B0%E7%9A%84%E4%BC%A0%E9%80%92%E5%92%8C%E6%8E%A5%E6%94%B6)
+  - [2.1 Link组件实现常规页面跳转，不传递和接收参数](#21-link%E7%BB%84%E4%BB%B6%E5%AE%9E%E7%8E%B0%E5%B8%B8%E8%A7%84%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E4%B8%8D%E4%BC%A0%E9%80%92%E5%92%8C%E6%8E%A5%E6%94%B6%E5%8F%82%E6%95%B0)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ### 1. umi项目中页面跳转传递及接收参数
 
 umi项目中页面之间跳转，可以通过两种方式实现：
@@ -51,3 +61,4 @@ Link，和HTML标记a元素标签等价，to属性和a元素中的href属性等�
 ```tsx
 <Link to="/route2" target="_blank">新标签页打开页面2</Link>
 ```
+
