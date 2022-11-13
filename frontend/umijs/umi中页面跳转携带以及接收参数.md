@@ -75,7 +75,22 @@ Link组件携带参数实现页面的跳转，常用的有2种方法：
 但是如果使用Link组件实现页面跳转需要携带参数时，那么to属性就不能是一个简单的字符串了，而需要是一个对象了，对象包括要跳转的目标路由、请求参数query，query是一个对象，该对象为页面跳转时携带的参数。
 
 ```tsx
+// 不携带参数的Link组件跳抓链接
+<Link to="/route2">页面2</Link>
 
+// 通过query参数携带参数的Link组件实现页面跳转
+<Link
+    to={{
+    pathname: '/route2',
+    query: {
+        name: 'Simpson',
+        age: 12,
+        gender: 'Male',
+    },
+    }}
+>
+    Link组件通过query对象携带参数
+</Link>
 ```
 
 **使用query参数，也可以通过search参数**
