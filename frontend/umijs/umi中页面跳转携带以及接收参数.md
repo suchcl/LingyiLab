@@ -93,9 +93,51 @@ Link组件携带参数实现页面的跳转，常用的有2种方法：
 </Link>
 ```
 
-**使用query参数，也可以通过search参数**
+**使用Link组件，也可以通过search参数**
+
+在使用Link组件时，也可以通过serach参数拼接参数。通过search参数拼接参数时，参数是字符串拼接的方式，而不像query参数传参时直接时直接是一个对象。
+
+```tsx
+<Link
+    to={{
+    pathname: '/route2',
+    search: '?name=Nicholas&age=18',
+    hash: '#the-hash',
+    state: { fromDashboard: true },
+    time: '20222-12-12',
+    }}
+>
+    Link组件添加参数到页面2,带有search
+</Link>
+```
+
+从案例可以看出，使用了search来拼接参数。通过search方式来拼接参数时，最前面有一个？需要注意，不能漏掉。
+
+search方式拼接参数，个人感觉没有query的方式简单、明了。
+
+> Link组件携带参数时，其底层是通过Location API接口来实现的,在使用Link组件传递参数时，Location API支持的属性，在Link组件传递参数时都可以使用。
 
 **在Link组件进行页面跳转的过程中，也可以添加其他其定义参数，在目标页面中参数接收时都可以作为Location对象的属性接收**
+
+无论是query方式还是search拼接参数的方式传递参数，最终都是通过hisroty或location来接收参数的。
+
+> history中包含了location对象，也可以将location对象看作是history的一个属性。histroy中的location属性接收的数据，和使用location对象自己接收的数据完全相同。
+
+在umi中，我们可以使用useHistory和useLocation这2个hooks来接收Link组件传递过来的参数。
+
+> umi中，还有一个useParams这个hooks来接收参数，只是useParams可以用来接收动态路由参数，接收不到Link传递的参数。
+
+```tsx
+const history = useHistory();
+console.log('%c [ history ]-13', 'font-size:13px; background:pink; color:#bf2c9f;', history)
+
+const location = useLocation();
+console.log('%c [ location ]-16', 'font-size:13px; background:pink; color:#bf2c9f;', location)
+```
+
+uesHistory和useLocation都可以接收到参数，具体效果如下:
+
+![useHistory和useLocation接收Link组件携带的参数](./images/i12.png)
 
 2. 在url中拼接参数
 
