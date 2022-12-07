@@ -34,3 +34,93 @@ function Welcome(props) {
 ### 自定义组件名称
 
 自定义组件名称，统一为大写字母开头，如<Welcome />。React会将以小写字母开头的组件视为原生的DOM组件，如<div>、<p>、<img>。
+
+### React组件的三大核心属性：state、props和refs
+
+1. state
+
+* state是组件对象最重要的属性，值是对象(也可以包含多个key、value的组合)
+
+* 组件被称为状态机，通过setState更新组件的state从而来更新对应的页面显示，即重新渲染组件
+
+* 组件每调用一次setState,就会重新执行一次render函数，根据最新的state来创建ReactElement对象，然后再根据最新的ReactElement对象，对DOM进行修改
+
+```jsx
+class ShowAndHidden extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isShow: true,
+            showStr: "Hello World!"
+        };
+    }
+
+    triggle = () => {
+        this.setState({
+            isShow: !this.state.isShow
+        });
+    }
+    render() {
+        return (
+            <div>
+                {this.state.isShow && <p>{this.state.showStr}</p>}
+                <button onClick={this.triggle}>{this.state.isShow ? "隐藏" : "展示"}</button>
+            </div>
+        )
+    }
+}
+
+ReactDOM.render(<ShowAndHidden />, document.getElementById("app"));
+```
+
+在类组件中，如果想要通过事件来修改状态(state)时，只能通过setState方法。
+
+**那么setState是同步还是异步的呢？**
+
+* 在组件生命周期或者React事件中，setState是异步
+
+```jsx
+class ShowAndHidden extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isShow: true,
+            showStr: "Hello World!"
+        }
+    }
+
+    trigger = () => {
+        this.setState({
+            isShow: !this.state.isShow
+        });
+        console.log(this.state.isShow);
+    }
+
+    componentDidMount(){
+        this.setState({
+            showStr: "我爱我的祖国"
+        });
+        console.log("componentDidMount:", this.state.showStr);
+    }
+
+    render() {
+        return (
+            <div>
+                <p>{this.state.showStr}</p>
+                <button onClick={this.trigger}>{this.state.isShow ? "隐藏" : "展示"}</button>
+            </div>
+        )
+    }
+}
+ReactDOM.render(<ShowAndHidden />, document.getElementById("app"));
+```
+
+![在组件生命周期或者React事件中，setState是异步](./images/i51.png)
+
+* 在setTimeout或者dom原生事件中，setState是同步
+
+2. props
+
+3. refs
