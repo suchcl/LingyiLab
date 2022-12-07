@@ -123,6 +123,77 @@ ReactDOM.render(<ShowAndHidden />, document.getElementById("app"));
 
 * 在setTimeout或者dom原生事件中，setState是同步
 
+```jsx
+class ShowAndHidden extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isShow: true,
+            showStr: "Hello world!"
+        };
+    }
+
+    triggle = () => {
+        setTimeout(() => {
+            this.setState({
+                showStr: "我爱我的祖国"
+            });
+            console.log("@@showStr:", this.state.showStr);
+        }, 0);
+    }
+
+    componentDidMount() {
+        const btn = this.refs.btn;
+        btn.addEventListener("click", () => {
+            this.setState({
+                showStr: "点击了refs的btn"
+            });
+            console.log("@@refs的btn:", this.state.showStr);
+        });
+    }
+
+    render() {
+        return (
+            <div>
+                <p>{this.state.showStr}</p>
+                {/* 这是react事件 */}
+                <button onClick={this.triggle}>点击</button>
+                {/* 这里通过refs获取了dom元素，然后给这个dom元素绑定addEventListener，为原生DOM事件 */}
+                <button ref="btn">点击btn</button>
+            </div>
+        )
+    }
+    }
+    ReactDOM.render(<ShowAndHidden />, document.getElementById("app"));
+```
+
+![在setTimeout或者原生DOM事件中，setState是同步事件](./images/i52.png)
+
+**怎么获取到更新后的最新的state值？**
+
+从上面我们可以了解到，当在React组件的生命周期函数中，或者在React事件中，setState是异步的，那么我们在这些场景中设置了setState，怎么获取到最新的state值呢？
+
+* 在setTimeout中触发setState或者在原生DOM事件中触发setState；
+
+* setState接收2个参数，第2个参数为一个回调函数，该回调函数会在setState更新后执行
+
+```jsx
+getNewState = () => {
+    this.setState({
+        msg: "React.Component"
+    }, () => {
+        console.log("@@更新后的msg:", this.state.msg);
+    });
+}
+<div className="newState">
+    <p>{this.state.msg}</p>
+    <button onClick={this.getNewState}>给setState传递回调参数，同步获取最新state</button>
+</div>
+```
+
+![给setState传递2个参数，从第2个参数即回调函数中可以获取最新的state值](./images/i53.png)
+
 2. props
 
 3. refs
