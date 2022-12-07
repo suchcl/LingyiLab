@@ -119,6 +119,8 @@ ReactDOM.render(<ShowAndHidden />, document.getElementById("app"));
 
 ![在组件生命周期或者React事件中，setState是异步](./images/i51.png)
 
+从效果上来看，当页面加载完成或者点击了按钮之后，都触发了setState，但是触发了setState之后isShow和showStr的值并没有改变，由此我们可以推断，这里的setState是异步操作，在执行完setState之后不能立刻拿到新的state的值。
+
 * 在setTimeout或者dom原生事件中，setState是同步
 
 2. props
