@@ -304,6 +304,123 @@ React推崇状态决定视图，页面的展示逻辑由状态去控制。但是
 
 React提供了refs来帮助开发者直接获取和操作DOM节点，就像以前使用jquery一样，可以方便的操作DOM。虽然React提供了操作DOM的能力，但是一定不要过度使用refs。意思就是能不用refs就不要用了。
 
+**创建、使用refs的3种方式**
+
+1. string方式 ---- 不推荐，了解即可
+
+```jsx
+class Person extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isShow: true,
+            showStr: "Nicholas Zakas"
+        };
+    }
+
+    trigger = () => {
+        // console.log('@@ref的btn:', this.refs.btn)
+        console.log('@@btn2:', this.refs.btn2);
+        console.log("@@input:", this.refs.msg.value);
+        
+        // 下面的代码不会被执行，
+        this.refs.btn2.addEventListener('click', function () {
+            console.log("11111");
+        })
+    }
+
+    componentDidMount(){
+        this.refs.btn2.addEventListener("click", () => {
+            console.log("按钮2被点击了");
+        })
+    }
+
+    render() {
+        return (
+            <div>
+                <p>{this.state.showStr}</p>
+                {/* string方式refs，不推荐使用了，了解即可 */}
+                <input type="text" ref="msg" />
+                <button onClick={this.trigger}>点击</button>
+                <button ref="btn2">点击2</button>
+            </div>
+        )
+    }
+}
+
+ReactDOM.render(<Person />, document.getElementById("app"));
+```
+
+2. 回调函数方式
+
+回调函数方式，先声明一个空的ref对象，然后在组件中通过回调函数的方式为该ref对象赋值，在使用时通过this来调用该ref对象。
+
+```jsx
+class Person extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showStr: "Hello world!"
+        };
+        // 声明一个空的ref元素
+        this.btnRef = null;
+    }
+
+    componentDidMount() {
+        // 注意这里直接通过this.btnRef获取到ref元素，和string形式的ref不同，需要通过this.refs.refname去获取dom元素
+        this.btnRef.addEventListener("click", () => {
+            console.log("回调函数");
+        })
+    }
+    render() {
+        return (
+            <div>
+                <p>{this.state.showStr}</p>
+                {/* 将当前元素在回调函数中赋值给在构造函数中声明的空ref对象 */}
+                <button ref={ref => { this.btnRef = ref }}>点击</button>
+            </div>
+        )
+    }
+
+}
+ReactDOM.render(<Person />, document.getElementById("app"));
+```
+
+3. React.createRef方式----这是推荐的方式
+
+```jsx
+class Person extends React.Component{
+    constructor(props){
+        super(props);
+        this.state= {
+            showStr: "Hello World!"
+        };
+
+        // 通过React.createRef创建一个ref
+        this.btnRef = React.createRef();
+    }
+
+    componentDidMount(){
+        // 通过createRef创建的ref，在使用时需要通过当前ref对象的current属性获取当前对象
+        this.btnRef.current.addEventListener("click", () => {
+            console.log("ref按钮被点击了");
+        });
+    }
+
+    render(){
+        return (
+            <div>
+                <p>{this.state.showStr}</p>
+                {/* 通过createRef声明的ref对象为当前对象赋值 */}
+                <button ref={this.btnRef}>点击</button>
+            </div>
+        )
+    }
+}
+
+ReactDOM.render(<Person />, document.getElementById('app'));
+```
+
 **React中的两个常用术语：DOM节点、元素和react元素**
 
 1. DOM节点、元素
@@ -313,3 +430,7 @@ DOM节点、元素，就是React代码中的原生的div、image、p等原生dom
 2. React元素
 
 React元素，就是我们创建的React组件，包括类组件和函数式组件
+
+**useRef**
+
+上面主要介绍了些类组件中使用ref的方式，在函数式组件中，主要是通过useRef这个钩子函数来实现。
