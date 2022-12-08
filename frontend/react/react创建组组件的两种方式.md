@@ -202,4 +202,97 @@ getNewState = () => {
 
 2. props
 
+* 每个组件都会有props属性
+
+* 组件标签的所有属性都保存在props属性中
+
+```jsx
+class Person extends React.Component {
+    constructor(props) {
+        super(props);
+        console.log(this.props);
+        console.log(this.props.name);
+    }
+
+    fetchData = () => {
+        console.log(this.props.gender);
+    }
+
+    componentDidMount(){
+        this.fetchData();
+    }
+
+    render() {
+        return (
+            <div>
+                <h2>props</h2>
+            </div>
+        )
+    }
+}
+
+ReactDOM.render(<Person name="Nicholas Zakas" age="18" gender="男" />, document.getElementById("app"));
+```
+
+**props的设置和读取方式**
+
+- 通过组件标签属性从组件外向组件内传递变化的数据或使用扩展属性：将对象的所有属性通过props传递
+
+```jsx
+const personProps = {
+    name: 'Nicholas Zakas',
+    id: '10',
+    sex: 'male'
+};
+// ReactDOM.render(<Person name="Nicholas Zakas" age="18" gender="男" />, document.getElementById("app")); // 通过标签属性向组件内部传递数据
+ReactDOM.render(<Person {...personProps} />, document.getElementById("app")); // 通过扩展属性向组件内部传递props数据
+```
+
+- 组件内部读取props属性：this.props.如果要访问某个指定的props，则可以this.props.name
+
+```jsx
+class Person extends React.Component {
+    constructor(props) {
+        super(props);
+        // 通过this.props来获取props数据
+        console.log(this.props);
+        // 可以获取具体的某个props属性
+        console.log(this.props.name);
+    }
+
+    fetchData = () => {
+        // 自定义方法中也可以通过this.props获取props值
+        console.log(this.props.gender);
+    }
+
+    componentDidMount() {
+        this.fetchData();
+    }
+
+    render() {
+        return (
+            <div>
+                <h2>props</h2>
+            </div>
+        )
+    }
+}
+
+const personProps = {
+    name: 'Nicholas Zakas',
+    id: '10',
+    sex: 'male'
+};
+// ReactDOM.render(<Person name="Nicholas Zakas" age="18" gender="男" />, document.getElementById("app")); // 通过标签属性向组件内部传递数据
+ReactDOM.render(<Person {...personProps} />, document.getElementById("app")); // 通过扩展属性向组件内部传递props数据
+```
+
+- 对props中的属性值进行类型限制和必要性限制
+
+在组件内部不要修改props的数据
+
+使用prop-types库进行必要性限制
+
+- 默认属性值
+
 3. refs
