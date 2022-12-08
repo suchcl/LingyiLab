@@ -296,3 +296,20 @@ ReactDOM.render(<Person {...personProps} />, document.getElementById("app")); //
 - 默认属性值
 
 3. refs
+
+
+**refs**
+
+React推崇状态决定视图，页面的展示逻辑由状态去控制。但是有一些实际的场景这么操作不是很方便，甚至是实现起来成本过高，所以这些场景还是需要去获取DOM。
+
+React提供了refs来帮助开发者直接获取和操作DOM节点，就像以前使用jquery一样，可以方便的操作DOM。虽然React提供了操作DOM的能力，但是一定不要过度使用refs。意思就是能不用refs就不要用了。
+
+**React中的两个常用术语：DOM节点、元素和react元素**
+
+1. DOM节点、元素
+
+DOM节点、元素，就是React代码中的原生的div、image、p等原生dom标签
+
+2. React元素
+
+React元素，就是我们创建的React组件，包括类组件和函数式组件

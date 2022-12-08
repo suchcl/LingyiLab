@@ -1157,7 +1157,7 @@ ReactDOM.render(
 
 1. 字符串形式的ref
 
-   ```react
+   ```jsx
    <!--字符串形式的ref-->
    <input type="text" ref="username" />
    
