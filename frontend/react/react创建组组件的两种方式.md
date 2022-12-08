@@ -194,6 +194,12 @@ getNewState = () => {
 
 ![给setState传递2个参数，从第2个参数即回调函数中可以获取最新的state值](./images/i53.png)
 
+**setState为什么要异步更新呢？**
+
+* 性能：如果每次setState都进行一次更新，那么render函数就会被频繁的调用，界面重新渲染，就会严重影响页面的渲染效率，所以最终的机制是获取到多个更新然后进行批量更新。
+
+* 如果同步更新了state，但是如果render函数还没有执行，那么state和props将不能保持同步；
+
 2. props
 
 3. refs
