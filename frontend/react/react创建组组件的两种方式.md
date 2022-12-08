@@ -434,3 +434,100 @@ React元素，就是我们创建的React组件，包括类组件和函数式组�
 **useRef**
 
 上面主要介绍了些类组件中使用ref的方式，在函数式组件中，主要是通过useRef这个钩子函数来实现。
+
+```tsx
+import { useEffect, useRef } from "react";
+
+const State = () => {
+    const refBtn = useRef(null);
+
+    useEffect(() => {
+        refBtn.current.addEventListener("click", () => {
+            console.log("ref按钮被点击了");
+        })
+    },[]);
+
+    return (
+        <>
+            <div>useRef</div>
+            <button ref={refBtn}>ref按钮</button>
+        </>
+    )
+}
+
+export default State;
+```
+
+这是一个简单的useRef案例。
+
+useRef
+
+const refContainer = useRef(initialVlaue);
+
+1. 返回一个可变的ref对象，该对象只有一个current属性，初始值为传入的initialVlaue;
+
+2. 返回的ref对象在组件的生命周期中保持不变；
+
+3. 当更新current值时不会re-render,这是useRef和useState的区别；
+
+4. 更新useRef是副作用，一般写在useEffect或者eventHandler里面
+
+5. useRef类似于组件的this
+
+```tsx
+import { useRef,MutableRefObject } from "react";
+
+const FocusInput = () => {
+    const inputRef:MutableRefObject<any> = useRef(null);
+
+    const focusInput = () => {
+        inputRef.current.focus();
+    }
+    return (
+        <div>
+            <input type="text" ref={inputRef} />
+            <button onClick={focusInput}>聚焦input</button>
+        </div>
+    )
+}
+
+export default FocusInput;
+```
+
+useRef使用的小案例，点击按钮时input获取焦点
+
+下面来看一个案例：
+
+```tsx
+import { FC, useState } from "react";
+
+const LinkeButton: FC = () => {
+    const [like, setLike] = useState(0);
+    const handleAlertClick = () => {
+        setTimeout(() => {
+            alert(`你点击了${like}`);
+        }, 3000);
+    }
+    return (
+        <>
+            <button onClick={() => setLike(like + 1)}>{like}赞</button>
+            <button onClick={handleAlertClick}>Alert</button>
+        </>
+    )
+}
+
+export default LinkeButton;
+```
+
+![通过useState获取状态值](./images/i54.png)
+
+当我们点击赞按钮的时候，当like值为4的时候，点击下alert按钮，然后再继续点击赞按钮，等会会alert出来一个弹窗，其值为4，不是我后来点击到的最新的state值。
+
+**那么为什么alert出来的值，不是界面上最新的like的值呢？**
+
+这是因为在react中，state更新，都会重新渲染组件，组件每次渲染都会拿到独立的like值，且会重新定义、声明handleAlertClick函数，每个handleAlertClick函数中的like值也是该函数中自己保存的值，所以当我点击赞按钮到like值为4时，点击alert按钮，触发了handleAlertClick函数，这个时候like的值是4，所以后来alert出来的值是4，而不是后来我继续点击赞按钮的到的最新的like值。
+
+> 不同渲染之间没有办法共享state状态值。
+
+实际场景中，我希望我点击alert按钮的时候，弹出的是最新的like值，怎么办呢？
+
