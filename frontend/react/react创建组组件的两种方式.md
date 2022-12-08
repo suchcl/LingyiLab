@@ -531,3 +531,116 @@ export default LinkeButton;
 
 实际场景中，我希望我点击alert按钮的时候，弹出的是最新的like值，怎么办呢？
 
+这个时候可以考虑使用全局变量---之前在没有使用react或者vue的时候，经常使用全局变量。
+
+```tsx
+import { FC } from "react";
+
+let like:number = 0;
+const GlobalLike: FC = () => {
+    const handleAlertClick = () => {
+        setTimeout(() => {
+            alert(`你点击了${like}`);
+        }, 3000);
+    }
+    return (
+        <>
+            <button onClick={() => { like = like + 1 }}>{like}赞</button>
+            <button onClick={handleAlertClick}>Alert</button>
+        </>
+    )
+}
+
+export default GlobalLike;
+```
+
+![使用全局变量获取最新的like值](./images/i55.png)
+
+使用全局变量，虽然alert出了最新的like值，但是也有一个新的问题暴露了出来，就是赞按钮的like数一直是初始的0，没有变化，无论点击多少次赞按钮。
+
+赞按钮的like值没有界面上的变化，这是因为like是一个全局变量，不是一个react应用的state状态值，所以虽然like这个变量的值改变了，但是React组件并不会re-render。
+
+**使用useRef，既保证like值变化，也保证alert出来最新的like值**
+
+```tsx
+import { FC, useRef, useState } from "react";
+
+const GlobalLike: FC = () => {
+    const like = useRef(0);
+    const handleAlertClick = () => {
+        setTimeout(() => {
+            alert(`你点击了${like.current}`);
+        }, 3000);
+    }
+    return (
+        <>
+            <button onClick={() => {
+                like.current = like.current + 1;
+            }}>{like.current}赞</button>
+            <button onClick={handleAlertClick}>Alert</button>
+        </>
+    )
+}
+
+export default GlobalLike;
+```
+![通过useRef获取最新的值](./images/i56.png)
+
+虽然通过useRef获取到了最新的like值了，但是赞按钮上的like值，还是一只都是0，没有变化。因为ref的变化，也不会使组件re-render.
+
+那么如果希望在能够获取到最新的like值，赞按钮的like也可以随着点击次数的变化而变化，怎么办呢？
+
+赞按钮上like的变化，只能是组件re-render才行，那么就只能引入state机制了。
+
+```tsx
+import { FC, useRef, useState } from "react";
+
+const GlobalLike: FC = () => {
+    const like = useRef(0);
+    const [num,setNum] = useState(0);
+    const handleAlertClick = () => {
+        setTimeout(() => {
+            alert(`你点击了${like.current}`);
+        }, 3000);
+    }
+    return (
+        <>
+            <button onClick={() => {
+                setNum(num + 1);
+                like.current = num + 1;
+            }}>{num}赞</button>
+            <button onClick={handleAlertClick}>Alert</button>
+        </>
+    )
+}
+
+export default GlobalLike;
+```
+
+![结合使用useRef和useState实现组件re-render和获取最新的值](./images/i57.png)
+
+**小结**
+
+1. useRef是定义在实例基础上的，如果代码中有多个相同的组件，每个组件的ref只跟组件本身有关系，跟其他组件的ref没有关系；
+
+2. 组件前定义的全局变量，是属于全局的。如果代码中有多个相同的组件，那么这个全局变量在全局是同一个变量，它们之间会互相影响；
+
+**useRef和createRef的区别**
+
+可以从组件的生命周期去分析，一个组件的生命周期大致可以分为3个阶段：
+
+1. 从组件创建到挂载到DOM阶段：初始化props、state，根据state和props来构建DOM
+
+2. 组件依赖props和state状态发生变更，触发更新
+
+3. 组件销毁
+
+第一个阶段，useRef和createRef没有差别；
+
+第二个阶段，createRef每次都返回一个新的引用，useRef不会随着组件的更新而重新创建；
+
+意思是说，createRef每次渲染都会返回一个新的引用，useRef每次都会返回相同的引用；
+
+第三个阶段，两者都会销毁
+
+### 获取子组件的属性或方法
