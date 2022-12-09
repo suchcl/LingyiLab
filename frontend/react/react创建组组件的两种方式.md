@@ -644,3 +644,81 @@ export default GlobalLike;
 第三个阶段，两者都会销毁
 
 ### 获取子组件的属性或方法
+
+在父组件中创建一个ref，作为子组件的一个属性传递到子组件，然后子组件根据内部方法的变化去动态的更改ref(useEffect)。
+
+```tsx
+// 父组件
+import { FC, MutableRefObject, useRef } from "react";
+import ChildInput from "./ChildInput";
+
+const ParentCRef: FC = () => {
+    const childRef: MutableRefObject<any> = useRef({});
+
+    const handleFocus = () => {
+        const node = childRef.current;
+        console.log(node.getValue());
+        console.log(node.getName());
+        // alert(node.getValue());
+    }
+    return (
+        <>
+            <ChildInput label="名称" cRef={childRef} />
+            <button onClick={handleFocus}>focus</button>
+        </>
+    )
+}
+
+export default ParentCRef;
+
+// 子组件
+import { FC, MutableRefObject, useCallback, useEffect, useState } from "react";
+interface ChildProps {
+    label: string;
+    cRef: MutableRefObject<any>;
+}
+
+const ChildInput: FC<ChildProps> = (props) => {
+    const [value, setValue] = useState("");
+    const { label, cRef } = props;
+    const [name, sestName] = useState<string>("");
+
+    const handleChange = (e: any) => {
+        setValue(e.target.value);
+    }
+
+    const getValue = useCallback(() => {
+        return value;
+    }, [value])
+
+    const changeName = (e: any) => {
+        sestName(e.target.value);
+    }
+
+    const getName = useCallback(() => {
+        return name;
+    }, [name]);
+
+    useEffect(() => {
+        if (cRef && cRef.current) {
+            cRef.current.getValue = getValue;
+        }
+    }, [getValue])
+
+    useEffect(() => {
+        if (cRef && cRef.current) {
+            cRef.current.getName = getName;
+        }
+    }, [getName])
+
+    return (
+        <>
+            <span>{label}</span>
+            <input type="text" value={value} onChange={handleChange} />
+            <input type="text" value={name} onChange={changeName} />
+        </>
+    )
+}
+
+export default ChildInput;
+```
