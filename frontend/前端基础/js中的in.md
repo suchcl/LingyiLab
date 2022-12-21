@@ -10,7 +10,7 @@ js中in关键字使用的场景很多，但是总的来说，是有2种类型：
 
 ### 2. js中in的各种使用案例
 
-1. for……in
+1. for……in遍历数组、对象，获取数组索引、元素或对象的属性、属性值
 
 ```ts
 let names = ['Tom', 'Herry'];
@@ -46,4 +46,27 @@ let userInfo = {
 for(let item in userInfo){
     console.log(`${item}: ${userInfo[item]}`); // 这里是通过[]方式读取对象属性值
 }
+```
+
+2. 判断对象是否是数组的元素或者对象的属性,是数组的索引或者对象的属性，返回true，否则返回false
+
+格式： (变量 in 数组/对象)
+
+当判断数组时：变量代指数组索引；
+
+当判断对象时，变量代指对象属性；
+
+```ts
+let arrs = ["apple", "pear", "peach"];
+console.log("apple" in arrs); //false, 变量apple(这里虽然是个常量)   变量代指数组的索引，不是数组的元素，所以false了
+console.log(2 in arrs); // true 变量是数组的索引
+console.log(4 in arrs); // false,虽然4是一个索引，但是数组arrs的索引只有0，1，2，所以判断是否是数组arrs的元素时false了，没有这个元素
+
+const uInfo = {
+    a: "one",
+    b: 'two',
+    c: 'three'
+};
+console.log("one" in uInfo); // false 变量代指对象的属性，one是uInfo对象的一个属性值，不是uInfo对象的属性
+console.log("a" in uInfo); // true a是uInfo对象的属性，所以true
 ```
