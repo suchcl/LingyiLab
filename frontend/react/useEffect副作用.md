@@ -23,3 +23,156 @@ componentDidMount: 组件挂载
 componentDidUpdate: 组件更新
 
 componentWillUnmount: 组件即将卸载
+
+### useEffect的使用方式
+
+useEffect有2个参数，语法：
+
+```ts
+useEffect(() => {
+    effect,
+    return () => {
+        cleanup
+    }
+}, []);
+```
+
+useEffect可以接收2个参数：
+
+1. 第一个参数，是一个函数，该函数中可以做一些副作用处理，如异步请求数据、设置定时器等，该函数可以返回一个函数(也可以不返回)，返回函数内用来执行清理相关的操作，如清除定时器、解绑事件等。
+
+2. 第二个参数：依赖项，是一个数组，用来控制effect的执行时机。
+
+### useEffect的各种调用场景
+
+1. 没有依赖项
+
+组件每次渲染都会调用，组件中的任何状态的变化都会引起组件的重新渲染,如状态变化了、父组件传递给子组件的props变了，子组件都会重新渲染，都会引起子组件中useEffect的变化。
+
+```ts
+import React, { memo, ReactNode, FC, useEffect } from "react";
+import styles from "./index.less";
+interface BoxProps {
+    children: ReactNode;
+    msg: string;
+}
+
+const Box: FC<BoxProps> = ({ children,msg }) => {
+    useEffect(() => {
+        console.log("子组件变化了");
+    });
+    return (
+        <>
+            <h3>box子组件</h3>
+            <div className={styles.boxContainer}>
+                <p>信息：{msg}</p>
+                {children}
+            </div>
+        </>
+    )
+}
+
+export default memo(Box);
+```
+
+![没有依赖项，子组件props的变化、state的变化、页面初始化都会执行useFfect](./images/i59.png)
+
+2. 依赖项中有监听值
+
+当依赖项中有监听的值时，在页面初始化时和依赖项发生变化时effect执行
+
+```tsx
+import React, { memo, ReactNode, FC, useEffect } from "react";
+import styles from "./index.less";
+interface BoxProps {
+    children: ReactNode;
+    msg: string;
+}
+
+const Box: FC<BoxProps> = ({ children,msg }) => {
+    useEffect(() => {
+        console.log("子组件变化了");
+    },[msg]); // 有依赖项
+    return (
+        <>
+            <h3>box子组件</h3>
+            <div className={styles.boxContainer}>
+                <p>信息：{msg}</p>
+                {children}
+            </div>
+        </>
+    )
+}
+
+export default memo(Box);
+```
+
+![useEffect有依赖项，当依赖项值发生变化时执行](./images/i60.png)
+
+3. 依赖项数组为空数组时
+
+当依赖项为空数组时，只有在页面初始化时执行一次
+
+```tsx
+import React, { memo, ReactNode, FC, useEffect } from "react";
+import styles from "./index.less";
+interface BoxProps {
+    children: ReactNode;
+    msg: string;
+}
+
+const Box: FC<BoxProps> = ({ children,msg }) => {
+    useEffect(() => {
+        console.log("子组件变化了");
+    },[]); // 依赖项为空数组
+    return (
+        <>
+            <h3>box子组件</h3>
+            <div className={styles.boxContainer}>
+                <p>信息：{msg}</p>
+                {children}
+            </div>
+        </>
+    )
+}
+
+export default memo(Box);
+```
+
+![依赖项为空，只有在页面初始化时执行一次](./images/i61.png)
+
+4. 清除副作用--以定时器为例
+
+```tsx
+import React, { memo, ReactNode, FC, useEffect } from "react";
+import styles from "./index.less";
+interface BoxProps {
+    children: ReactNode;
+    msg: string;
+}
+
+const Box: FC<BoxProps> = ({ children,msg }) => {
+    useEffect(() => {
+        let timer = setInterval(() => {
+            console.log("这里是一个定时器");
+        },1000);
+        return () => {
+            console.log("在组件下一次渲染前执行该清理函数，清除副作用");
+            clearInterval(timer);
+        }
+    },[msg]); // 这里有依赖项，当依赖项触发的时候，定时器会被清理，重新执行
+    return (
+        <>
+            <h3>box子组件</h3>
+            <div className={styles.boxContainer}>
+                <p>信息：{msg}</p>
+                {children}
+            </div>
+        </>
+    )
+}
+
+export default memo(Box);
+```
+
+![当依赖项变化的时候，计时器被清除](./images/i62.png)
