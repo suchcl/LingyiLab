@@ -1,3 +1,18 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [1.umi+qiankun搭建微前端应用](#1umiqiankun%E6%90%AD%E5%BB%BA%E5%BE%AE%E5%89%8D%E7%AB%AF%E5%BA%94%E7%94%A8)
+- [2.umi介入qiankkun，搭建微前端应用](#2umi%E4%BB%8B%E5%85%A5qiankkun%E6%90%AD%E5%BB%BA%E5%BE%AE%E5%89%8D%E7%AB%AF%E5%BA%94%E7%94%A8)
+  - [2.1 主应用](#21-%E4%B8%BB%E5%BA%94%E7%94%A8)
+  - [2.2 子应用](#22-%E5%AD%90%E5%BA%94%E7%94%A8)
+- [3. 主子应用之间的通信](#3-%E4%B8%BB%E5%AD%90%E5%BA%94%E7%94%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1)
+  - [3.1 主应用向umi子应用通信](#31-%E4%B8%BB%E5%BA%94%E7%94%A8%E5%90%91umi%E5%AD%90%E5%BA%94%E7%94%A8%E9%80%9A%E4%BF%A1)
+  - [3.2 主应用向vue子应用通信](#32-%E4%B8%BB%E5%BA%94%E7%94%A8%E5%90%91vue%E5%AD%90%E5%BA%94%E7%94%A8%E9%80%9A%E4%BF%A1)
+  - [3.3 主应用向混合开发项目通信](#33-%E4%B8%BB%E5%BA%94%E7%94%A8%E5%90%91%E6%B7%B7%E5%90%88%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E9%80%9A%E4%BF%A1)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ### 1.umi+qiankun搭建微前端应用
 
 微前端应用，我了解过的有MicroApp(https://micro-zoe.github.io/micro-app/)和qiankun(https://qiankun.umijs.org/zh/guide),不过以前都是简单的了解过，由于实际项目并没有这个诉求，也就没有深入调研实践过，仅仅简单的了解了下。
@@ -119,3 +134,16 @@ export const qiankun = {
     }
 };
 ```
+
+### 3. 主子应用之间的通信
+
+主应用为umi项目，子应用分别以umi(react)项目、vue项目和一个传统的混合开发项目(暂且这么叫吧，也没有想到好的名字，就是前端提供静态的html页面，然后php或者java啥的套页面，做数据到DOM元素的数据绑定)。
+
+> 在前端开发领域，说的通信，就是指数据传递，再直观一点，就是参数传递。所以，在软件开发领域说到通信这个术语的时候如果不好理解，就可以简单理解为参数传递。
+
+#### 3.1 主应用向umi子应用通信
+
+
+#### 3.2 主应用向vue子应用通信
+
+#### 3.3 主应用向混合开发项目通信
