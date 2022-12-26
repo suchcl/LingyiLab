@@ -193,6 +193,8 @@ export default function MyPage() {
 }
 ```
 
+> 主应用中路由配置需要和主应用中挂载的子应用的路由保持一致。如我可能是用<MicroApp />组件挂载子应用，需要一个容器页面，我容器页面配置的path，需要和<MicroApp />子应用页面在当前子应用中的path属性名保持一致。
+
 #### 3.2 子应用
 
 1. umi子应用
@@ -216,6 +218,14 @@ export default function MyPage() {
 3. 其他混合式开发应用
 
 ### 4. 应用通信
+
+#### 4.1 配合使用useModel
+
+需要项目中已经安装了@umijs/plugin-model或@umijs/plugin-react依赖。
+
+1. 
+
+#### 4.2 基于props传递
 
 #### 4.1 主应用和子应用都是umi项目之间的通信
 
