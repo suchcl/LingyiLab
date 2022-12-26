@@ -1,3 +1,27 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [1. 分别创建两个项目](#1-%E5%88%86%E5%88%AB%E5%88%9B%E5%BB%BA%E4%B8%A4%E4%B8%AA%E9%A1%B9%E7%9B%AE)
+  - [1.1 搭建umi的子应用](#11-%E6%90%AD%E5%BB%BAumi%E7%9A%84%E5%AD%90%E5%BA%94%E7%94%A8)
+  - [1.2 搭建vue子应用](#12-%E6%90%AD%E5%BB%BAvue%E5%AD%90%E5%BA%94%E7%94%A8)
+- [1.3 搭建混合开发类型的子应用，可以以html+js为模型](#13-%E6%90%AD%E5%BB%BA%E6%B7%B7%E5%90%88%E5%BC%80%E5%8F%91%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%AD%90%E5%BA%94%E7%94%A8%E5%8F%AF%E4%BB%A5%E4%BB%A5htmljs%E4%B8%BA%E6%A8%A1%E5%9E%8B)
+- [2. 安装依赖](#2-%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96)
+  - [2.1 主应用](#21-%E4%B8%BB%E5%BA%94%E7%94%A8)
+  - [2.2 子应用](#22-%E5%AD%90%E5%BA%94%E7%94%A8)
+- [3. 应用配置](#3-%E5%BA%94%E7%94%A8%E9%85%8D%E7%BD%AE)
+  - [3.1 主应用](#31-%E4%B8%BB%E5%BA%94%E7%94%A8)
+    - [3.1.1 注册子应用](#311-%E6%B3%A8%E5%86%8C%E5%AD%90%E5%BA%94%E7%94%A8)
+    - [3.1.2 装载子应用](#312-%E8%A3%85%E8%BD%BD%E5%AD%90%E5%BA%94%E7%94%A8)
+  - [3.2 子应用](#32-%E5%AD%90%E5%BA%94%E7%94%A8)
+- [4. 应用通信](#4-%E5%BA%94%E7%94%A8%E9%80%9A%E4%BF%A1)
+  - [4.1 主应用和子应用都是umi项目之间的通信](#41-%E4%B8%BB%E5%BA%94%E7%94%A8%E5%92%8C%E5%AD%90%E5%BA%94%E7%94%A8%E9%83%BD%E6%98%AFumi%E9%A1%B9%E7%9B%AE%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1)
+  - [4.2 主应用为umi应用子项目为vue项目的的应用个之间的通信](#42-%E4%B8%BB%E5%BA%94%E7%94%A8%E4%B8%BAumi%E5%BA%94%E7%94%A8%E5%AD%90%E9%A1%B9%E7%9B%AE%E4%B8%BAvue%E9%A1%B9%E7%9B%AE%E7%9A%84%E7%9A%84%E5%BA%94%E7%94%A8%E4%B8%AA%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1)
+  - [4.3 主应用为umi应用子项目为混合式开发应用的应用之间的通信](#43-%E4%B8%BB%E5%BA%94%E7%94%A8%E4%B8%BAumi%E5%BA%94%E7%94%A8%E5%AD%90%E9%A1%B9%E7%9B%AE%E4%B8%BA%E6%B7%B7%E5%90%88%E5%BC%8F%E5%BC%80%E5%8F%91%E5%BA%94%E7%94%A8%E7%9A%84%E5%BA%94%E7%94%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1)
+- [5. 微前端项目的集成](#5-%E5%BE%AE%E5%89%8D%E7%AB%AF%E9%A1%B9%E7%9B%AE%E7%9A%84%E9%9B%86%E6%88%90)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ### 1. 分别创建两个项目
 
 > 本文先以两个umi项目为例搭建应用，完成之后会分别大家vue以及不使用常规如react、vue等前端库、框架搭建的应用，去探索基于qiankun搭建这些应用，以及这些应用之间的通信。
