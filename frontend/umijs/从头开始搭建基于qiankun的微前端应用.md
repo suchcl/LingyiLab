@@ -81,7 +81,54 @@ yarn add @umijs/plugin-qiankun -D
 
 1. 路由绑定方式装载子应用
 
+没有集成微前端应用之前，我们的路由配置大概这样子：
 
+```ts
+// config/routes.ts
+export default {
+  routes: [
+    {
+      path: '/',
+      component: '../layouts/index.js',
+      routes: [
+        {
+          path: '/app1',
+          component: './app1/index.js',
+          routes: [
+            {
+              path: '/app1/user',
+              component: './app1/user/index.js',
+            },
+          ],
+        },
+        {
+          path: '/',
+          component: './index.js',
+        },
+      ],
+    },
+  ],
+};
+```
+
+假如现在想把app1/user路由挂载一个微前端应用,则只需要改一下路由的配置即可
+
+```ts
+{
+    path: '/subapp',
+    name: '子应用',
+    routes: [
+        {
+        path: '/subapp/subApp1',
+        name: '子应用1',
+        icon: 'smile',
+        microApp: 'sub-app1' // microApp属性是挂载微前端应用区别于其他常规路由唯一不同的地方，需要注意microApp的属性值，是主应用中注册的子应用的name属性值，二者需要保持一致
+        },
+    ],
+},
+```
+
+这样，通过路由方式装载一个子应用的方式已经完成。
 
 2. 使用<MicroApp />组件方式装载子应用
 
