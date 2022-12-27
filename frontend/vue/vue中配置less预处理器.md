@@ -5,7 +5,7 @@
 > 今天在使用@vue/cli4.5.0创建了个基于vue2的vue项目，直接使用less预处理器，结果在项目编译的时候异常，提示没有找到less-loader.
 > 我重新翻看了vue/cli文档，https://cli.vuejs.org/zh/guide/css.html,提示Vue Cli天生支持Sass、Less在内的预处理器。但是实际上并不是，起码在@vue/cli4.5版本中不是，由于提示的是找不到less-loader,我就直接根据提示安装了less-loader，安装后，可以正常使用了。我这是在.vue文件内使用，不是单独的less文件，如果是单独的less文件，可以参考[vue项目中less的配置](./vue项目中less的配置.md).
 
-> 之前vue项目应该是通过vue init webpack 项目名称 的方式创建的，今天是直接使用的vue create 项目名称 的方式创建的，不确认是否和创建项目的方式有关，不确认是否是不同的创建方式有着不同的webpack配置。
+> 之前vue项目应该是通过vue init webpack 项目名称 的方式创建的，今天是直接使用的vue create项目名称的方式创建的，不确认是否和创建项目的方式有关，不确认是否是不同的创建方式有着不同的webpack配置。
 
 > 上面的问题暂且不论，我项目中已经配置好了，但我对官方文档对vue cli天生支持sass、less等预处理器的描述产生了怀疑，还需要我继续验证。
 
@@ -70,4 +70,44 @@ module.exports = {
         }
     }
 }
+```
+
+按照上面的方式已经配置成功，最近更新了下包，基本的方式和上面方式相同，简单贴下过程和代码吧。
+
+1. 安装依赖
+
+```bash
+npm install less less-loader style-resources-loader vue-cli-plugin-style-resource-loader --save-dev
+```
+
+2. vue.config.js中配置
+
+```js
+const { defineConfig } = require('@vue/cli-service')
+module.exports = defineConfig({
+  transpileDependencies: true,
+  pluginOptions: {
+    "style-resources-loader": {
+      "preProcessor": "less",
+      patterns: [""]
+    }
+  }
+})
+```
+
+就这2步就可以了，less已经可以在vue中使用了,在style元素上配置下lang属性为less。
+
+```vue
+<style lang="less">
+.nav {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+  font-size: 16px;
+  display: flex;
+  li {
+    margin: 0 10px;
+  }
+}
+</style>
 ```

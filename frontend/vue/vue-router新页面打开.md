@@ -6,7 +6,6 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-
 ### vue-router新窗口打开
 
 在使用HTML标签a链接时，我们知道新页面打开只需要在a标签中添加target="_blank"属性就可以了，那么vue-router中怎么打开新页面呢？
@@ -16,6 +15,6 @@
 我本地vue和vue-router版本：
 
 ```javascript
-    "vue": "^3.0.11",
-    "vue-router": "^4.0.10",
+"vue": "^3.0.11",
+"vue-router": "^4.0.10",
 ```
