@@ -1,3 +1,17 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [1. 创建项目](#1-%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE)
+- [2. Vue3基础知识点](#2-vue3%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9)
+  - [2.1 组合式API Composition API](#21-%E7%BB%84%E5%90%88%E5%BC%8Fapi-composition-api)
+  - [2.2 Fragment](#22-fragment)
+- [3. 路由配置](#3-%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE)
+- [4. 几个常用API](#4-%E5%87%A0%E4%B8%AA%E5%B8%B8%E7%94%A8api)
+  - [4.1 setup](#41-setup)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ### 1. 创建项目
 
 > 可以选择自己擅长的或喜欢的脚手架工具，常用的有@vue/cli和vite，在创建项目之前，先安装下脚手架工具。
@@ -140,4 +154,43 @@ setup()函数返回一个对象，这个对象的属性是属性和方法的集�
         }
     }
 </script>
+```
+
+#### 4.2 Suspense
+
+<Suspense />是一个内置组件，用来在组件树中协调对异步依赖的处理。它让我们可以在组件树中的上层等待下层的多个嵌套组件中存在的异步依赖项解析完成，并可以在等待时渲染一个状态。
+
+> element-ui,在适配vue2的element，是2.x版本，叫做element-ui。适配vue3的element，叫做element-plus，element-plus不再支持IE11，可以在支持es2018的浏览器上运行。
+
+**vue3导入element-plus**
+
+1. 安装element-plus
+
+```bash
+npm install element-plus --save
+```
+
+2. 项目导入element-plus并装载
+
+```js
+//项目入口文件main.js
+import ElementPlus from "element-plus";
+import 'element-plus/dist/index.css';
+
+createApp(App).use(ElementPlus).use(router).mount('#app') // 通过use装载element-plus
+```
+
+element-plus已经正常导入，项目已经可以正常使用了。
+
+##### 4.2.1 异步依赖
+
+```js
+<Suspense>
+└─ <Dashboard>
+   ├─ <Profile>
+   │  └─ <FriendStatus>（组件有异步的 setup()）
+   └─ <Content>
+      ├─ <ActivityFeed> （异步组件）
+      └─ <Stats>（异步组件）
+
 ```
