@@ -244,3 +244,28 @@ export default function MyPage() {
 微前端应用项目的集成，我理解最大的重点是在登录逻辑的打通，登录态的同步，是微前端应用集成后首先需要考虑和解决的问题。
 
 比如如果主应用是通过cookie验证登录状态的，那么当从主应用跳转到子应用时，则通过cookie校验是否已经登录，如果已经登录了，则子应用直接跳转出登录逻辑而进入到相应的页面。如果主应用没有登录或者登录状态失效，那么子应用需要将没有登录状态告诉父应用，或者在跳转到子应用之前父应用先检测登录状态，如果没有登录则进行登录逻辑的处理。
+
+### 6. 样式隔离
+
+有些场景下，主应用和子应用可能会出现样式相互影响，如子应用样式影响了主应用的样式。针对这种情况，qiankun提供了沙箱模式，来进行js和样式的隔离，这里我们先说下样式隔离。
+
+沙箱(sandbox)，默认是开启的，只是有的场景仅仅将sandbox开启了，还达不到样式隔离的目标。qiankun的文档给我们提供了一个实验性的样式隔离特性，就是将主应用中sandbox的experimentalStyleIsolation属性开启，可参考如下：
+
+```ts
+// config/config.ts 或者.umirc.ts
+qiankun: {
+    // 主应用，配置到master
+    master: {
+      // apps，数组，可以注册多个子应用
+      apps: [
+        {
+          name: 'micro-react',
+          entry: 'http://localhost:8002',
+        },
+      ],
+      sandbox: {
+        experimentalStyleIsolation: true, // 样式隔离，umi中主应用可以开启此配置
+      },
+    },
+  },
+```
