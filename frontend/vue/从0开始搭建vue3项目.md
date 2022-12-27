@@ -89,3 +89,55 @@ const router = createRouter({
 ```
 
 路由模式，究竟使用哪种模式，可以根据自己的项目特点自行选择。在使用HTML5模式的时候，需要服务器的支持，如nginx、apache等web服务器作个代理配置，如果使用hash模式则不需要服务器作任何的配合，直接使用即可。
+
+### 4. 几个常用API
+
+#### 4.1 setup
+
+setup()是Composition API的入口，需要return一个对象
+
+```js
+  setup() {
+    let baseInfo = {
+      city: "北京",
+      code: "10010",
+    };
+
+    return {
+      baseInfo
+    };
+  },
+```
+
+**setup()执行顺序**
+
+setup()在beforeCreate()之前执行一次，beforeCreate()的任务就是初始化，那么在初始化之前，这个时候实例还没有被初始化，还不能调用实例，也就是说不能调用this和$el
+
+**setup()返回值**
+
+setup()函数返回一个对象，这个对象的属性是属性和方法的集合。可以简单的这么理解，setup函数的返回值，就是vue2中data函数的属性和methods中的方法列表。不是在setup()返回的数据和方法，在组件中是不能正常使用的。
+
+```vue
+<template>
+<button @click="printName">打印城市名</button>
+</template>
+<script>
+    export default{
+        setup(){
+            let baseInfo = {
+            city: "北京",
+            code: "10010",
+            };
+        }
+
+        const printName = () => {
+            console.log(baseInfo.city);
+        }
+
+        return {
+            baseInfo, // 数据，属性
+            printName // 方法
+        }
+    }
+</script>
+```

@@ -289,7 +289,7 @@ createApp(App).mount("#app");
 
          ![如果同时采用两种配置方式的 api，且有了重名的数据，那么最终就会以组合式 Api 中 setup 中的数据为准](./images/i6.png)
 
-   2. setup 不能是一个 async 函数,因为返回值不能再是 return 的对象,而是 promise,模板看不到 return 对象中的属性
+   2. setup不能是一个async函数,因为返回值不能再是return的对象,而是promise,模板看不到return对象中的属性
    
       > 正常静态引入组件且没有使用Suspense的情况下，上面的结论是没有任何问题的。
       >
