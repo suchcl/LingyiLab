@@ -12,4 +12,8 @@ npm install @nestjs/cli -g
 nest new project_name
 ```
 
-3. 
+3. 项目启动
+
+```bash
+npm run start
+```
