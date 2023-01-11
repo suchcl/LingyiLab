@@ -1,4 +1,4 @@
-### express使用html模板
+### 1. express配置模板引擎
 
 在使用expres是的时候，更多的时候因该是用来提供一些接口，偶尔的少部分场景也会用来直接渲染页面。
 
@@ -6,7 +6,7 @@
 
 现在我的项目中有一个渲染页面诉求，我期望使用html，那么在express中怎么配置使用html模板呢？
 
-### express配置使用html模板
+#### 1.1express配置使用html模板
 
 1. 安装ejs
 
@@ -30,3 +30,8 @@ app.set('view engine', 'html');
 到此，express配置使用html模板已经完成，效果如下:
 
 ![express配置使用html模板](./images/i7.png)
+
+4. html模板引擎语法
+
+#### 1.2 express配置art-template模板引擎
+
