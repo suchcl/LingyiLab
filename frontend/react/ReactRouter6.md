@@ -5,7 +5,9 @@
 - [1. 简单了解react-router](#1-%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3react-router)
 - [2. 基本使用](#2-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8)
   - [2.1 BrowserRouter](#21-browserrouter)
-  - [2.2 NavLink组件](#22-navlink%E7%BB%84%E4%BB%B6)
+  - [2.2 Link组件](#22-link%E7%BB%84%E4%BB%B6)
+  - [2.3 NavLink组件](#23-navlink%E7%BB%84%E4%BB%B6)
+  - [2.4 Routes](#24-routes)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -144,3 +146,84 @@ Routes就是将路由射射为页面组件。首先我们需要从react-router-d
 
   2.2 element: 页面导航到该路由时映射的UI元素，React应用中就是导航映射的React组件
 
+```tsx
+<Routes>
+  <Route path="/home" element={<Home />} />
+  <Route path="/newsList" element={<NewsList />} />
+  <Route path='/feedback' element={<Feedback />} />
+  <Route path='/docs' element={<Docs />} />
+  <Route path='*' element={<PageNotFound />} />
+</Routes>
+```
+
+记得最后添加一个通配的路由，当路由不存在时，就统一到这个通配组件中做托底处理。
+
+#### 2.5 路由顺序
+
+在ReactRouter 6以前版本，定义路由需要按照一定的顺序，只有这样才能得到正确的组件渲染。在React Router 6开始，路由的定义顺序已经不那么重要了.
+
+如在React Router 5中，路由使用<Switch />组件：
+
+```tsx
+<Switch>
+  <Route path="/product/:id" component={Product} />
+  <Route path="/product/new" component={NewProduct} />
+</Switch>
+```
+
+在上面的demo中，/product/new会匹配到第一个路由，并渲染Product组件。
+
+在React Router 6中，<Switch>组件改成了<Routes>组件，在React Route6中，同样的/product/new将会同时匹配两个路由，但是会渲染NewProduct组件。
+
+```tsx
+<Routes>
+  <Routes path="/product/:id" element={<Product />} />
+  <Routes path="/product/new" element={<NewProduct />} />
+</Routes>
+```
+
+### 3. 编程式导航
+
+React Router提供了两种不同的编程式导航方式：
+
+1. 声明式的导航组件<Navigate />组件
+
+2. 命令式的导航方法useNavigate Hook
+
+**<Navigate />**
+
+这是个导航组件，只要这个组件出现了，路由就会跳转到to指定的路由。
+
+> 注意这不是<Link />组件，不是在页面中用来实现路由、链接跳转的。
+
+<Navigate />组件，不能嵌套文字，这是一个声明式的导航，只要代码中渲染到了这个组件时，路由就会自动跳转到to属性指定的路由中，该组件可以用来做路由的重定向。
+
+```tsx
+<Route path='/about' element={<Navigate to='/home' />} />
+```
+
+在路由跳转到/about时，重定向到了/home路由。这里的<Navigate />做了重定向的作用。
+
+**useNavigate**
+
+useNavigate是一个react的hook。
+
+使用useNavigate，先从react-router-dom中导入。
+
+```tsx
+const Home:FC<PageProps> = (props) => {
+    // 声明一个useNavigate实例
+    const navigate = useNavigate();
+    const handleDocs = () => {
+        // 命令式的路由跳转
+        navigate('/docs');
+    }
+    return (
+        <div className={styles.home}>
+            <h3>Home</h3>
+            <button onClick={handleDocs}>产品说明</button>
+        </div>
+    )
+}
+```
+在触发按钮的点击事件时，命令式的实现路由的跳转。
