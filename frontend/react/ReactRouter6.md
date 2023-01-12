@@ -59,5 +59,20 @@ BrowserRouter(浏览器路由)是react-router中使用最频繁的路由方式�
 
 4. StaticRouter:主要用于服务端渲染；
 
-#### 2.2 NavLink组件
+#### 2.2 Link组件
 
+在react应用中，可以通过<Link />组件来创建常规链接，功能和效果类似html中的a标签。
+
+<Link />组件通过属性to来传递需要跳转的链接。
+
+```tsx
+
+```
+
+#### 2.3 NavLink组件
+
+NavLink是一个导航链接组件，类似HTML标签中的a标记。
+
+1. <NavLink />组件使用to属性指定需要跳转的链接；
+
+2. 
