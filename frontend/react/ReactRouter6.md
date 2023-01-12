@@ -130,3 +130,17 @@ className中，isActive是一个内置的属性，直接解构就可以了，固
 
 在设置style的时候，需要注意下箭头函数的使用细节，其他的，就没有什么需要注意的了，就是很常规的设置方式。
 
+#### 2.4 Routes
+
+Routes就是将路由射射为页面组件。首先我们需要从react-router-dom中导入Routes组件，Routes组件将导航映射为不同的页面组件。
+
+**Routes组件的使用方式：**
+
+1. Routes组件中使用Route组件定义路由；
+
+2. Route路由接收2个props：
+
+  2.1 path: 页面导航，和<Link />组件的to属性值一致
+
+  2.2 element: 页面导航到该路由时映射的UI元素，React应用中就是导航映射的React组件
+
