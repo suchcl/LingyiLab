@@ -11,9 +11,10 @@
   - [2.5 路由顺序](#25-%E8%B7%AF%E7%94%B1%E9%A1%BA%E5%BA%8F)
 - [3. 编程式导航](#3-%E7%BC%96%E7%A8%8B%E5%BC%8F%E5%AF%BC%E8%88%AA)
 - [4. 路由传递状态](#4-%E8%B7%AF%E7%94%B1%E4%BC%A0%E9%80%92%E7%8A%B6%E6%80%81)
-  - [4.1 <Link />组件](#41-link-%E7%BB%84%E4%BB%B6)
+  - [4.1 Link、NavLink组件](#41-linknavlink%E7%BB%84%E4%BB%B6)
   - [4.2 <Navigate />组件](#42-navigate-%E7%BB%84%E4%BB%B6)
   - [4.3 useNavigate hook](#43-usenavigate-hook)
+- [5. 动态路由](#5-%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -636,3 +637,45 @@ export default memo(UseNavigateList);
 3. useLocation在页面跳转过程中发挥着很重要的作用，里面包含了很多有价值的信息，在页面跳转场景可以多关注这个hook
 
 ![useLocation在页面跳转过程中有包含了很多有价值信息](./images/i66.png)
+
+一般情况下，Link、NavLink用来声明静态的跳转，如导航的跳转、固定连接的跳转，useNavigate用于命令式的路由跳转，如从列表跳转到详情、从一个元素的点击事件后跳转到另外一个路由等。
+### 5. 动态路由
+
+前面我们已经了解了一些和路由相关的知识点，也实现了一些路由跳转，但是前面实现的路由跳转，都是固定的路由，但是有如下如掘金文章页的url:
+
+![动态路由](./images/i67.png)
+
+类似这样的路由，路由的最后一级应该就是文章id了，或者是类似文章id的其他的唯一标识文章的属性。我们不可能提前知道每一篇文章的这个属性，而且也不太会可能会为每篇文章都去定义一个路由。其实，像这样的路由，我们只需要声明一个带有id的占位符即可。对于这种场景，我们可以这样声明路由:
+
+动态路由大多数情况下用于命令式的路由跳转，使用useNavigate的时候会多一些。
+
+在使用动态路由、通过一个占位路由情况的时候，接收这个占位路由时可用useParams这个Hook，这个Hook返回一个对象,该对象包含了该占位符的参数及其值。
+
+```tsx
+// 动态路由跳转
+const dynamicRoute = () => {
+    const id = 6;
+    navigate(`/detail/${id}`);
+}
+
+// 目标页面接收动态路由传递的动态值
+import { FC, memo } from "react";
+import { useParams } from "react-router-dom";
+
+interface PageProps{}
+const Detail:FC<PageProps> = () => {
+    const {id} = useParams();
+    return (
+        <>
+            <h3>动态路由</h3>
+            <p>文章编号: {id}</p>
+        </>
+    )
+}
+
+export default memo(Detail);
+```
+
+在目标页面接收到了动态路由的关键词后，再通过关键词做相应的处理，如去请求页面数据。
+
+在页面中有useParams和useEffect时，页面优先执行useParams再执行useEffect，所以可以放心的在获取到了路由之后再去做对应的副作用处理是没有任何问题的，不需要做相应的执行顺序或者依赖值的判断。
