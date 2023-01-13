@@ -13,6 +13,8 @@
 
 ### 1. 简单了解react-router
 
+本文档中的代码、案例可参考：https://github.com/suchcl/react2022/tree/master/reactrouter6
+
 react项目中使用react-router，主要会使用到2个方面的内容：react-router和react-router-dom.
 
 react-router：为React应用提供了路由的核心功能；
@@ -342,9 +344,83 @@ export default memo(Product);
         price: 160
     }
 }>产品2</Link>
-````
+// 通过useState设置变量,然后传值
+const [product,setProduct] = useState<ProductProps>(data);
+<Link to='/product2' state={product}>产品3</Link>
 
-* 接收数组类型值
+// 接收传递的对象的值
+import { FC, memo } from "react";
+import { useLocation } from "react-router-dom";
+
+interface PageProps { }
+const Product2: FC<PageProps> = (props) => {
+    // 实例useLocation实例
+    const location = useLocation();
+    // 从useLocation中获取的值中解构name和price
+    const { name, price } = location.state;
+    return (
+        <>
+            <h3>产品2</h3>
+            {/* 页面中正常使用接收到的值 */}
+            <p>名称: {name}</p>
+            <p>价格: {price}</p>
+        </>
+    )
+}
+export default memo(Product2);
+```
+
+**接收数组类型值**
+
+```tsx
+const data: Array<ProductProps> = [
+    {
+        id: 1,
+        name: 'Mac Pro电脑',
+        price: '13000'
+    },
+    {
+        id: 2,
+        name: 'Huawei P40',
+        price: '4999'
+    }
+];
+const [product, setProduct] = useState(data); // 商品信息
+// 传递数组值
+<Link className={styles.link} to='/productList' state={product}>产品列表</Link>
+
+// 接收数组类型值，并在组件中渲染数据
+import { FC, memo } from "react";
+import { useLocation } from "react-router-dom";
+import styles from './index.module.less';
+
+interface PageProps { }
+const ProductList: FC<PageProps> = (props) => {
+    const location = useLocation();
+    // 结构传递过来的值
+    const { state } = location;
+    return (
+        <>
+            <h3>产品列表</h3>
+            <ul>
+                {
+                  {/* 将传递过来的值遍历使用 */}
+                    state.map((item: any) => {
+                        return (
+                            <li key={item.id} className={styles['product-item']}>
+                                <p>名称: {item.name}</p>
+                                <p>价格: {item.price}</p>
+                            </li>
+                        )
+                    })
+                }
+            </ul>
+        </>
+    )
+}
+
+export default memo(ProductList);
+```
 
 2. <Navigate />组件
 
