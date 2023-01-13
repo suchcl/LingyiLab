@@ -530,6 +530,7 @@ export default memo(NavigateList);
 
 useNavigate是个hook，它和Navigate组件的功能是一致的，只是Navigate组件是声明式的，useNavigate是命令式的
 
+**useNavigate传递和接收普通类型值**
 ```tsx
 // 命令式的传递普通类型值
 // Navigate通过命令式传递普通类型值
@@ -559,8 +560,79 @@ const NavigateCmp:FC<PageProps> = (props) => {
 export default memo(NavigateCmp);
 ```
 
+**useNavigate传递和接收对象类型值**
+
+```tsx
+// 通过命令式传递对象类型值
+const sendObjData = () => {
+    navigate('/useNavigateObj', {
+        state: productObj
+    });
+}
+// 接收useNavigate传递的对象类型值
+import { FC, memo } from "react";
+import { useLocation } from "react-router-dom";
+
+interface PageProps{}
+const UseNavigateObj:FC<PageProps> = (props) => {
+    const {name,price} = useLocation().state;
+    
+    return (
+        <>
+            <h3>接收useNavigate传递的对象值</h3>
+            <p>产品名称: {name}</p>
+            <p>价格: {price}</p>
+        </>
+    )
+}
+export default memo(UseNavigateObj);
+```
+
+****useNavigate传递和接收数组类型值****
+
+```tsx
+// useNavigate通过命令式传递数组类型值
+const sendArrayData = () => {
+    navigate('/useNavigateList', {
+        state: product
+    });
+}
+
+// 目标页面接收通过useNavigate传递的数组类型值
+import { FC, memo } from "react";
+import { useLocation } from "react-router-dom";
+
+interface PageProps { }
+const UseNavigateList: FC<PageProps> = (props) => {
+    const { state } = useLocation();
+    return (
+        <>
+            <h3>接收useNavigate传递的数组类型值</h3>
+            <ul>
+                {
+                    state.map((item: any) => {
+                        return (
+                            <li key={item.id}>
+                                <p>名称: {item.name}</p>
+                                <p>价格: {item.price}</p>
+                            </li>
+                        )
+                    })
+                }
+            </ul>
+        </>
+    )
+}
+
+export default memo(UseNavigateList);
+```
+
 到此为止，通过Link组件、Navigate组件和useNavigate这个hook通信能力都已经完成，并且可以得出几个简单的几轮：
 
 1. 这几个组件的传值方式是一致的；
 
 2. 接收值：无论是使用Link组件、Navigate组件还是useNavigate hook传值，但是接收值的时候都是通过useLocation这个hook；
+
+3. useLocation在页面跳转过程中发挥着很重要的作用，里面包含了很多有价值的信息，在页面跳转场景可以多关注这个hook
+
+![useLocation在页面跳转过程中有包含了很多有价值信息](./images/i66.png)
