@@ -8,6 +8,12 @@
   - [2.2 Link组件](#22-link%E7%BB%84%E4%BB%B6)
   - [2.3 NavLink组件](#23-navlink%E7%BB%84%E4%BB%B6)
   - [2.4 Routes](#24-routes)
+  - [2.5 路由顺序](#25-%E8%B7%AF%E7%94%B1%E9%A1%BA%E5%BA%8F)
+- [3. 编程式导航](#3-%E7%BC%96%E7%A8%8B%E5%BC%8F%E5%AF%BC%E8%88%AA)
+- [4. 路由传递状态](#4-%E8%B7%AF%E7%94%B1%E4%BC%A0%E9%80%92%E7%8A%B6%E6%80%81)
+  - [4.1 <Link />组件](#41-link-%E7%BB%84%E4%BB%B6)
+  - [4.2 <Navigate />组件](#42-navigate-%E7%BB%84%E4%BB%B6)
+  - [4.3 useNavigate hook](#43-usenavigate-hook)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -423,6 +429,8 @@ export default memo(ProductList);
 ```
 
 2. <Navigate />组件
+
+
 
 3. useNavigate Hook
 #### 4.1 <Link />组件
