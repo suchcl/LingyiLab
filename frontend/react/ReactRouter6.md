@@ -242,7 +242,7 @@ const Home:FC<PageProps> = (props) => {
 
 react-router-dom中，在进行路由跳转时，可以实现状态的传递。
 
-1. <Link />、<NavLink />组件
+1. Link、NavLink组件
 
 ```tsx
 <Link to='/product' state={"产品说明"}>产品</Link>
@@ -428,9 +428,46 @@ const ProductList: FC<PageProps> = (props) => {
 export default memo(ProductList);
 ```
 
-2. <Navigate />组件
+2. Navigate组件
 
+Navigate组件和Link组件类似，也是通过state通信，可以通信的数据类型有普通的数据类型值、对象和数组。
 
+* Navigate通过state传递和接收常规类型值
+
+```tsx
+// 声明式的方式传递普通类型值
+<Route path='/feedback' element={<Navigate to='/navigateCmp' state={"从feedback重定向来的"} />} />
+// 命令式的传递普通类型值
+// Navigate通过命令式传递普通类型值
+const sendCommonTypeData = () => {
+    navigate("/navigateCmp", {
+        state: "命令式传值"
+    });
+}
+
+// 目标页面通过useLocation接收Navigate组件通过state传递的普通类型值
+import { FC, memo } from "react";
+import { useLocation } from "react-router-dom";
+import styles from "./index.module.less";
+interface PageProps{}
+const NavigateCmp:FC<PageProps> = (props) => {
+    const location = useLocation();
+    const {state} = location;
+    return (
+        <>
+            <h3>接收Navigate的普通值</h3>
+            <p>Navigate通过state携带的常规类型值: <span className={styles.fcr}>{state}</span></p>
+        </>
+    )
+}
+export default memo(NavigateCmp);
+```
+
+由案例可见，接收由Navigate组件通过state传递的普通类型值，和Link组件基本是一致的，区别就是Navigate组件有一种命令式的跳转方式，这种跳转方式带来了传值方式的区别。
+
+* Navigate组件通过state传递和接收对象类型值
+
+* Navigate组件通过state传递和接收数组类型值
 
 3. useNavigate Hook
 #### 4.1 <Link />组件
