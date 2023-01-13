@@ -227,3 +227,133 @@ const Home:FC<PageProps> = (props) => {
 }
 ```
 在触发按钮的点击事件时，命令式的实现路由的跳转。
+
+> 一般情况下，我认为<Navigate />多用于配置的场景下，而useNavigage这个Hook主要用于响应事件中。
+
+### 4. 路由传递状态
+
+react-router-dom中，在进行路由跳转时，可以实现状态的传递。
+
+1. <Link />、<NavLink />组件
+
+```tsx
+<Link to='/product' state={"产品说明"}>产品</Link>
+```
+
+state数据传递了出去，那么目标页面怎么接收呢？
+
+通过useLocation来接收,useLocation可以从react-router-dom中导入。
+
+```tsx
+import { FC, memo } from "react";
+import { useLocation } from "react-router-dom"; // 导入useLocation
+
+interface PageProps{}
+
+const Product:FC<PageProps> = (props) => {
+  // 实例化useLocation
+    const location = useLocation();
+    return (
+        <>
+            <h3>产品</h3>
+            <p>产品信息: {location.state}</p> {/*通过useLocation获取状态*/}
+        </>
+    )
+}
+
+export default memo(Product);
+```
+
+state除了传递常规类型的数值外，也可以传递对象、数组。
+
+<Link />组件传递对象数据:
+
+```tsx
+<Link 
+  to='/product2' 
+  state={
+      {
+          name: "Nichoalas Zakas",
+          price: 160
+      }
+}>产品2</Link>
+```
+
+传递数组数据:
+
+```tsx
+const data: Array<ProductProps> = [
+    {
+        id: 1,
+        name: 'Mac Pro电脑',
+        price: '13000'
+    },
+    {
+        id: 2,
+        name: 'Huawei P40',
+        price: '4999'
+    }
+];
+const [product, setProduct] = useState(data); // 商品信息
+<Link className={styles.link} to='/productList' state={product}>产品列表</Link>
+```
+
+state的状态product是一个状态，默认是一个数组类型值。
+
+**目标页面接收<link />组件通过state传递的值**
+
+<Link />组件通过state传递的数据，目标页面可以通过useLocation Hook接收。
+
+* 接收常规类型值
+
+```tsx
+// 传值
+<Link to='/product' state={"产品说明"}>产品</Link>
+// 目标文件接收值
+import { FC, memo } from "react";
+import { useLocation } from "react-router-dom";
+
+interface PageProps { }
+const Product: FC<PageProps> = (props) => {
+    // 实例化useLocation，接收传递过来的state
+    const location = useLocation();
+    return (
+        <>
+            <h3>产品</h3>
+            <div className="p1">
+                <h4>产品1</h4>
+                <p>产品信息: {location.state}</p> {/* 使用接收的state值 */}
+            </div>
+            
+        </>
+    )
+}
+
+export default memo(Product);
+```
+
+* 接收对象类型值
+
+```tsx
+// 通过state传递对象,demo中传递的值直接传递的字面量，也可以放入到一个state中
+<Link to='/product2' state={
+    {
+        name: "Nichoalas Zakas",
+        price: 160
+    }
+}>产品2</Link>
+````
+
+* 接收数组类型值
+
+2. <Navigate />组件
+
+3. useNavigate Hook
+#### 4.1 <Link />组件
+
+<Link />和<NavLink />组件除了可以通过to属性实现路由的跳转以外，还可以通过state属性实现状态的传递。
+
+#### 4.2 <Navigate />组件
+
+
+#### 4.3 useNavigate hook
