@@ -16,6 +16,8 @@
   - [4.3 useNavigate hook](#43-usenavigate-hook)
 - [5. 动态路由](#5-%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1)
 - [6. 嵌套路由](#6-%E5%B5%8C%E5%A5%97%E8%B7%AF%E7%94%B1)
+- [7. 查询参数](#7-%E6%9F%A5%E8%AF%A2%E5%8F%82%E6%95%B0)
+- [8. Route配置](#8-route%E9%85%8D%E7%BD%AE)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -684,3 +686,7 @@ export default memo(Detail);
 ### 6. 嵌套路由
 
 嵌套路由允许父路由充当包裹器并控制子路由的渲染。
+
+### 7. 查询参数
+
+### 8. Route配置
