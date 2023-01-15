@@ -15,6 +15,7 @@
   - [4.2 <Navigate />组件](#42-navigate-%E7%BB%84%E4%BB%B6)
   - [4.3 useNavigate hook](#43-usenavigate-hook)
 - [5. 动态路由](#5-%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1)
+- [6. 嵌套路由](#6-%E5%B5%8C%E5%A5%97%E8%B7%AF%E7%94%B1)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -679,3 +680,7 @@ export default memo(Detail);
 在目标页面接收到了动态路由的关键词后，再通过关键词做相应的处理，如去请求页面数据。
 
 在页面中有useParams和useEffect时，页面优先执行useParams再执行useEffect，所以可以放心的在获取到了路由之后再去做对应的副作用处理是没有任何问题的，不需要做相应的执行顺序或者依赖值的判断。
+
+### 6. 嵌套路由
+
+嵌套路由允许父路由充当包裹器并控制子路由的渲染。
