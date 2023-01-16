@@ -687,6 +687,78 @@ export default memo(Detail);
 
 嵌套路由允许父路由充当包裹器并控制子路由的渲染。
 
+引用看到过一个案例，我就还是拿来借用一下吧，不用再去设计案例了。
+
+比如有一个消息列表，可以通过/messageList路由来显示消息列表(消息列表，可以单独抽象一个组件，也可以不抽象，直接写到父组件中，案例中我也是借用了朋友的案例，不再重新设计了)，那么我设计这个路由时如下：
+
+```tsx
+<Route path="/messageList/*" element={<MessageList />} />
+```
+
+当浏览器导航到/messageList路由时渲染MessageList组件，展示消息列表，消息组件我实现如下：
+
+```tsx
+import { FC, memo, useState } from "react";
+import Conversations from "./Conversations";
+import { Routes, Route } from 'react-router-dom';
+import styles from "./message.module.less";
+import MessageDetail from "./MessageDetail";
+interface PageProps { }
+const list = [
+    {
+        id: 1,
+        title: "消息1"
+    },
+    {
+        id: 2,
+        title: "消息2"
+    }
+];
+
+const MessageList: FC<PageProps> = (props) => {
+    const [MessageList, setMessageList] = useState(list);
+    return (
+        <div className={styles['message-contaienr']}>
+            <div className={styles['message-list-container']}>
+                <h3>消息列表</h3>
+                <Conversations messageList={MessageList} />
+            </div>
+            <Routes>
+                <Route path=":id" element={<MessageDetail />} />
+            </Routes>
+        </div>
+    )
+}
+
+export default memo(MessageList);
+```
+
+案例中，我把消息列表单独抽象出来了一个组件Conversations，仅仅展示消息列表。然后在消息组件中直接嵌套了一层子路由：
+
+```tsx
+<Routes>
+    <Route path=":id" element={<MessageDetail />} />
+</Routes>
+```
+
+在父路由中嵌套的子路由的path，不用像在父路由中一样写完整的路径，只写子路由的路径即可，如案例中的path=":id",其实际的完整匹配路由为:/messageList/:id,:id为动态匹配的路由。
+
+到这里，其实就已经配置成功了，可以实现一个基本的消息列表的展示了。需要注意的是，在父路由的配置中：
+
+```tsx
+<Route path="/messageList/*" element={<MessageList />} />
+```
+
+path通配了/messageList下的所有路由*,这个通配不能省略，否则点击消息列表寻找子路由的时候，会404.
+
+上面的实现，虽然实现了父路由嵌套子路由，以及消息内容的展示，但是有不足的时候，父路由和子路由的定义不在一起。父路由定义在外层，而子路由定义在了父路由的渲染组件中，不好管理。那么有没有办法直接将父路由嵌套子路由直接定义呢？比如下面的这种方式:
+
+```tsx
+<Route path='/messageList' element={<MessageList />}>
+    <Route path=":id" element={<MessageDetail />} />
+</Route> 
+```
+
 ### 7. 查询参数
 
 ### 8. Route配置
