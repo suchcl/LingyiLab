@@ -933,10 +933,23 @@ const SearchParams: FC<PageProps> = (props) => {
 export default memo(SearchParams);
 ```
 
-demo中，已经可以正常获取到查询参数和使用了，如果需要更新查询参数，可以参考:
+demo中，已经可以正常获取到查询参数和使用了，如果需要更新查询参数，可以通过setSearchParams去更新。注意这个方法接收一个对象，该对象的key/value将作为&key=value的方式拼接到url中。
 
 ```tsx
-
+// 更新查询字符串
+const updateName = (name: string) => {
+    setSearchParams({name }); // 注意传入一个对象
+}
+<button onClick={() => updateName("JennLukas")}>更新姓名</button>
 ```
 
+原来的URL中的查询字符串:
+
+![原来URL中的查询字符串](./images/i68.png)
+
+更新为后的查询字符串只有name了，如下图效果:
+
+![更新后的查询字符串](./images/i69.png)
+
 ### 8. Route配置
+
