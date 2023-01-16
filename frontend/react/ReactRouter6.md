@@ -759,6 +759,112 @@ path通配了/messageList下的所有路由*,这个通配不能省略，否则�
 </Route> 
 ```
 
+react-router给出了解决方案，可以实现类似上面的直接配置路由的方式来实现路由的嵌套。
+
+```tsx
+<Route path='/messageOutlet' element={<MessageOutletContainer />}>
+    <Route path=":id" element={<MessageDetail />} />
+</Route>
+```
+
+父路由直接嵌套了子路由，当导航匹配到/messageOutlet路由时，react会渲染MessageOutletContainer组件，且MessageOutletContainer组件通过Outlet组件占位子路由匹配的路由的渲染组件，这时Outlet组件渲染为null；如果当导航匹配到/messageOutlet/:id时，Outlet组件就会被子路由对应的渲染组件代替。父组件MessageOutletContainer代码实现如下：
+
+```tsx
+// MessageOutletContainer.tsx 组件
+import { FC, memo, useState } from "react";
+import { MessageTypes } from "@/types";
+import ConversationsByOutlet from "./ConversationsByOutlet";
+import { Outlet } from "react-router-dom";
+import styles from "./message.module.less";
+
+interface PageProps { }
+const list: MessageTypes[] = [
+    {
+        id: 1,
+        title: "消息1"
+    },
+    {
+        id: 2,
+        title: "消息2"
+    }
+];
+const MessageOutletContainer: FC<PageProps> = (props) => {
+    const [message, setMessage] = useState<MessageTypes[]>(list);
+
+    return (
+        <div className={styles['message-contaienr']}>
+            <div className={styles['message-list-container']}>
+                <h3>通过outlet组件占位，实现嵌套路由</h3>
+                <ConversationsByOutlet messageList={message} />
+            </div>
+            <Outlet />
+        </div>
+    )
+}
+export default memo(MessageOutletContainer);
+```
+
+消息列表组件：
+
+```tsx
+// ConversationsByOutlet 消息列表组件，接收一个prop messageList 消息列表
+import { FC, memo } from "react";
+import { useNavigate } from "react-router-dom";
+import styles from "./message.module.less";
+import { MessageTypes } from "@/types";
+
+interface PageProps {
+    messageList: MessageTypes[]
+}
+
+const ConversationsByOutlet: FC<PageProps> = ({ messageList }) => {
+    const navigate = useNavigate();
+    const goDetail = (id:number) => {
+        navigate(`/messageOutlet/${id}`);
+    }
+    return (
+        <>
+            <ul className={styles['message-list']}>
+                {
+                    messageList.map((item: any) => {
+                        return (
+                            <li key={item.id} className={styles['message-item']} onClick={() => goDetail(item.id)}>{item.title}</li>
+                        )
+                    })
+                }
+            </ul>
+        </>
+    )
+}
+export default memo(ConversationsByOutlet);
+```
+
+最终的消息详情页面：
+
+```tsx
+// MessageDetail.tsx 消息详情页面 因为消息列表中是通过useNavigate导航进行的页面跳转，并传递了id参数，消息详情页面通过useParams接收了参数，并进行相应的一些操作
+import { FC, memo } from "react";
+import { useParams } from "react-router-dom";
+import styles from './message.module.less';
+
+interface PageProps{}
+
+const MessageDetail:FC<PageProps> = (props) => {
+    const {id} = useParams();
+
+    return (
+        <div className={styles['message-detail-container']}>
+            <h3>消息详情</h3>
+            <p>消息{`${id}`}</p>
+        </div>
+    )
+}
+export default memo(MessageDetail);
+```
+到此，react-router实现了路由的嵌套。
+
 ### 7. 查询参数
+
+
 
 ### 8. Route配置
