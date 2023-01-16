@@ -865,6 +865,78 @@ export default memo(MessageDetail);
 
 ### 7. 查询参数
 
+url参数传值，是页面跳转过程中使用频率很高的一种传值方式，那么怎么获取到url中的参数呢？
 
+上面在学习路由状态传递的时候学到了在使用Link、NavLink组件以及useNavigate Hook的时候，可以通过state携带一些参数，以及后面学习到了动态路由的时候，通过一个占位变量占据路由为止，实现动态传值。动态路由的值，是通过url传递的，在目标页面，我们是通过useParams Hook获取到传递的值，但是这种动态路由的值只有一个值，我们通过useParams Hook获取到了。那么如果在一些通过url传递了多个值的情况下，怎么接收到这些参数呢？
+
+比如这样的一个URL，我们怎么获取到它的查询字符串呢：
+
+```js
+168.com/search?q=react&src=typed_query&f=live&name=Nicholas&age=16
+```
+
+从V6开始，react-router支持使用URLSearchParams来处理查询字符串，URLSearchParams支持除了IE之外的所有浏览器，并支持一些很使用的查询字符串的方法。
+
+1. 通过Link组件中to属性的search来传递查询字符串:
+
+```tsx
+<Link to={{
+    pathname: '/searchParams',
+    search: '?q=react&src=typed_query&f=live&name=Nicholas&age=16'
+}}>Link组件通过在to属性中设置search属性传递查询字符串</Link>
+```
+
+2. 通过useNavigate Hook命令式跳转时携带查询字符串
+
+```tsx
+    const useNavigateWithSearchParams = () => {
+        navigate({
+            pathname: '/searchParams',
+            search: '?q=react&src=typed_query&f=live&name=Nicholas&age=17'
+        });
+    }
+
+    const useNavigateWithUrl = () => {
+        navigate('/searchParams?q=react&src=typed_query&f=live&name=Nicholas&age=18');
+    }
+```
+
+上述两种方式都可以实现useNavigate Hook在命令式导航时实现查询参数的携带。
+
+**目标页面接收URL中的查询字符串**
+
+目标页面，可以通过URLSearchParams处理查询字符串，但是使用起来有点麻烦，于是React Router自定义了一个useSearchParams Hook来处理查询字符串，使用起来较为方便。
+
+useSearchParams Hook返回一个数组，该数组的第一个元素是URLSearchParams的实例，第二个参数是更新查询参数的方法。
+
+```tsx
+import { FC, memo } from "react";
+import { useSearchParams } from "react-router-dom";
+
+interface PageProps { }
+const SearchParams: FC<PageProps> = (props) => {
+
+    // 通过useSearch获取到URLSearchParams实例和更新查询参数的方法
+    const [searchParams, setSearchParams] = useSearchParams();
+    const q = searchParams.get("q");
+    const name = searchParams.get("name");
+
+    return (
+        <>
+            <h3>获取查询字符串</h3>
+            <p>类型: {q}</p>
+            <p>姓名:{name}</p>
+        </>
+    )
+}
+
+export default memo(SearchParams);
+```
+
+demo中，已经可以正常获取到查询参数和使用了，如果需要更新查询参数，可以参考:
+
+```tsx
+
+```
 
 ### 8. Route配置
