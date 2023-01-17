@@ -953,3 +953,147 @@ const updateName = (name: string) => {
 
 ### 8. Route配置
 
+React Router V6内置了一个useRoutes的Hook，它在功能上相当于Routes，但是它是使用Js的对象，而不是通过jsx来配置的路由和组件的映射。useRouts拥有和Routes组件相同的属性，只是不需要通过JSX来配置。
+
+例如在JSX配置中有这样的路由：
+
+```tsx
+<Routes>
+          <Route path="/home" element={<Home />} />
+          <Route path='/messageOutlet' element={<MessageOutletContainer />}>
+            <Route path=":id" element={<MessageDetail />} />
+          </Route>
+          <Route path='*' element={<PageNotFound />} />
+        </Routes>
+```
+
+这样的路由，通过useRoutes Hook的配置方式如下(TS语言的，js的话，应该是去掉类型约束就可以了):
+
+1. 配置routes
+
+```tsx
+// routes/router.tsx 文件名是.tsx，因为element的属性值是ReactNode，需要能够渲染tsx
+import { RouteObject } from "react-router-dom";
+import Home from '@/pages/Home';
+import MessageOutletContainer from "@/pages/Message/MessageOutletContainer";
+import MessageDetail from "@/pages/Message/MessageDetail";
+import PageNotFound from "@/pages/Error/PageNotFound";
+
+// 声明的routes约束为了RouteObject[]类型，是因为useRoutes Hook第一个参数的routes是RouteObject []类型，有约束，我们遵守就可以了
+const router: RouteObject[] = [
+    {
+        path: '/home',
+        element: <Home />
+    },
+    {
+        // 嵌套路由
+        path: "/messageOutlet",
+        element: <MessageOutletContainer />,
+        children: [
+            {
+                path: ':id',
+                element: <MessageDetail />
+            }
+        ]
+    },
+    {
+        path: "*",
+        element: <PageNotFound />
+    }
+];
+
+
+export default router;
+```
+
+2. 根组件中导入配置的路由信息
+
+> 这么说有点不太严谨，但是大部分场景，也确实是根组件中导入和管理路由的
+
+```tsx
+// App.tsx
+import router from './routes/router';
+```
+
+3. 根组件中导入useRoutes Hook
+
+```tsx
+// useRotues是react-router中的模块，直接从react-router-dom中导出即可
+import { useRoutes } from 'react-router-dom';
+```
+
+4. 通过useRotues Hook声明router组件
+
+```tsx
+// 这里一定要使用函数，然后在组件内部通过组件方式调用
+// 这里返回的是一个路由组件，需要在组件红以组件的形式去使用,如<Router />
+const Router = () => useRoutes(router);
+```
+
+5. 在组件中渲染route组件
+
+```tsx
+return (
+    <div className="App">
+      <Header />
+      <div className='page-container'>
+        <Router />
+      </div>
+    </div>
+  );
+```
+
+到这一步，ts版本配置routes并通过useRoutes调用的方式已经实现，完整实现代码可参考如下：
+
+```tsx
+// router/router.tsx
+import { RouteObject } from "react-router-dom";
+import Home from '@/pages/Home';
+import MessageOutletContainer from "@/pages/Message/MessageOutletContainer";
+import MessageDetail from "@/pages/Message/MessageDetail";
+import PageNotFound from "@/pages/Error/PageNotFound";
+
+const router: RouteObject[] = [
+    {
+        path: '/home',
+        element: <Home />
+    },
+    {
+        path: "/messageOutlet",
+        element: <MessageOutletContainer />,
+        children: [
+            {
+                path: ':id',
+                element: <MessageDetail />
+            }
+        ]
+    },
+    {
+        path: "*",
+        element: <PageNotFound />
+    }
+];
+
+
+export default router;
+
+// App.tsx
+import React, { useState } from 'react';
+import { useRoutes } from 'react-router-dom';
+import './App.css';
+import router from './routes/router';
+
+function App() {
+  // 这里一定要使用函数，然后在组件内部通过组件方式调用
+  const Router = () => useRoutes(router);
+  return (
+    <div className="App">
+      <Header />
+      <div className='page-container'>
+        <Router />
+      </div>
+    </div>
+  );
+}
+export default App;
+```
