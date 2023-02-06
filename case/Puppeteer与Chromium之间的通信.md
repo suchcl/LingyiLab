@@ -24,5 +24,5 @@ Puppeteer是一个nodejs库，它提供了一个高级API来通过DevTools协议
 
 6. 测试浏览器扩展
 
-……
+
 
