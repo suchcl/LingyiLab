@@ -36,3 +36,17 @@ Location: //www.baidu.com
 
 ### 启用HSTS
 
+HSTS，HTTP Strict Transport Security，简单来说，就是强制客户端使用HTTPS协议访问页面。
+
+实现原理：
+
+1. 在服务器响应头中添加Strict-Transport-Security,可以设置max-age
+
+2. 用户访问时，服务器设置这个头
+
+3. 如果用户下次使用http访问，只要max-age未过期，客户端会进行内部跳转，可以看到307 Redirect Internal的响应码
+
+4. 变成https访问源服务器
+
+这种方式可以在一定程度上可以规避部分的中间人劫持，可以在chrome浏览器中打开chrome://net-internals/#hsts，进行一些域名的配置，可以达到浏览器强制对这些域名开启https，所有的http请求都会内部转到https。
+
