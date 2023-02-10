@@ -38,6 +38,46 @@ ts和js有相同的地方，也有区别，区别是技术细节上的区别，�
 
 关于静态类型和动态类型可以参考:[静态类型和动态类型](../%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/%E9%9D%99%E6%80%81%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%8A%A8%E6%80%81%E7%B1%BB%E5%9E%8B.md)
 
+**TS使用**
+
+ts是编译型语言，在使用ts之前，需要先安装、配置ts的运行环境
+
+安装ts
+
+```bash
+npm install typescript -g
+```
+
+编译ts文件
+
+因为当前浏览器不能直接直接运行ts文件，所以我们开发的ts代码需要先被编译为js
+
+```bash
+tsc main.ts
+```
+
+> tsc是typescript的编译指令，全局安装了typescript后就可以直接使用该指令
+
+**Typescript的工作流程**
+
+开发ts代码->编译为js->模块化工具如webpack模块化处理->上线部署
+
+**Typescript的主要特点**
+
+1. 强大的类型系统
+
+类型系统允许Javascript开发者在开发javascript应用时使用高效的开发工具和常用操作比如静态代码检查和代码重构
+
+2. 先进的Javascript
+
+Typescript提供最新的javascript和不断发展的javascript特性
+
+3. 终结于Javascript
+
+当前浏览器不能直接运行typescript，开发的typescript源码可以被编译为干净、简洁的js代码运行到浏览器中
+
 ### 泛型在ts中的应用
+
+**泛型是什么？**
 
 ### 泛型在react中的应用
