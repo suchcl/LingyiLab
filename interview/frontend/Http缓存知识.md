@@ -18,3 +18,23 @@ HTTP缓存可以分为强制缓存和协商缓存。
 
 现在HTTP主流有3个版本：HTTP/1.0、HTTP/1.1、HTTP/2.0.其中HTTP/1.0和HTTP/1.1应用的最广泛，HTTP/2.0因为对缓存的机制的改动有别于HTTP/1.0和HTTP/1.1，HTTP/2.0的使用范围现在还在上升阶段。
 
+HTTP/1.0和HTTP1.1根据缓存的类别，有一点区别:
+
+| HTTP版本 | 强制缓存      | 协商缓存      |
+| -------- | ------------- | ------------- |
+| HTTP/1.0 | Expires       | Last-Modified |
+| HTTP/1.1 | Cache-Control | ETag           |
+
+### 2. 主流的HTTP缓存参数
+
+#### 2.1 强制缓存
+
+1. HTTP/1.0:Expires
+
+2. HTTP/1.1：Cache-Control
+
+#### 2.2 协商缓存
+
+1. HTTP/1.0:Last-Modified
+
+2. HTTP/1.1: ETag
