@@ -102,7 +102,7 @@ const user = {
 ```typescript
 type User = {
     name: string;
-    status: number;
+    status: "在线" | "离线"; 
 };
 ```
 
