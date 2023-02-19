@@ -17,6 +17,14 @@
 
 2. as形式---推荐的方式
 
+语法:value as type,type后跟具体类型
+
+```ts
+let value:any = "Nicholas";
+let valueLength = (value as string).length;
+console.log('%c [ valueLength ]-18', 'font-size:13px; background:pink; color:#bf2c9f;', valueLength)
+```
+
 ### 7.2 断言类型
 
 1. 非空断言
