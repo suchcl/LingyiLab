@@ -29,6 +29,32 @@ console.log('%c [ valueLength ]-18', 'font-size:13px; background:pink; color:#bf
 
 1. 非空断言
 
+非空断言使用!表示，用来判断某个变量一定不是null和undefined。如果不做非空判断则代码会直接报错.
+
+如:
+
+```ts
+type TTime = () => number;
+const start = (tTime:TTime | null | undefined) => {
+    let time = tTime();
+}
+```
+
+变量tTime是一个联合类型，可能是TTime类型，也可能是null和undefine类型，在编译阶段就给出了异常提示:
+
+![类型相关引起的异常](./images/i50.png)
+
+如果对变量tTime做一个非空断言，则异常信息会消失:
+
+```ts
+type TTime = () => number;
+const start = (tTime:TTime | null | undefined) => {
+    let time = tTime!();
+}
+```
+
+就在变量后面直接跟一个!操作符即可，然后可以看到异常的提示没有了。
+
 2. 肯定断言-肯定化保证赋值
 
 3. 将任何类型断言为any
