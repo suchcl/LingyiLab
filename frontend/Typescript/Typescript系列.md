@@ -65,3 +65,7 @@ const start = (tTime:TTime | null | undefined) => {
 
 4. 调用函数时将参数和返回值断言成精确的值
 
+、
+### 8. d.ts与declare
+
+在接触ts的时候，经常会看到使用declare关键字来声明一些变量。那么declare究竟有什么用呢，以及它怎么使用呢？
