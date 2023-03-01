@@ -15,6 +15,16 @@ dva是一个基于redux和redux-saga的数据流方案。
 
 我们先简单了解下react的数据方案历史。
 
+redux:专门处理数据流向和存储，提出了store的概念，redux考虑到了数据，但是只是同步数据，没有考虑异步场景。
+
+redux-saga:弥补了redux不能处理异步数据的缺陷。
+
+dva：本质上是和redux、redux-saga和react-router的整合，没有做什么额外的功能。
+
+dva和redux、react-router的关系可参考下图:
+
+![dva和redux、react-router的关系](./images/i13.png)
+
 我们都知道，react是一个UI库，它自己本身只关注UI层面的事情，其他的周边生态如路由、数据等管理和存储等，都没有做，聚焦UI。这就是react的特点，这也就导致了react的技术社区比较活跃，每个技术团队都可以有自己的实现，在带来了技术活跃的同时，也有一点不好的地方，就是技术混乱，没有统一的标准。这对于一个前端开发者来说尤其是一个刚接触react的开发者来说，非常的不友好。
 
 由于React专注于UI，没有考虑数据存储的实现，那么社区就出现了各种各样的数据存储方案，其中比较知名的是redux ------ 很多人都以为redux是针对react的数据流方案，其实不是的。redux也可以在vue中处理好数据流问题，只是redux是在react中获得了较大的成功，再加上vue有自己的vuex数据流方案，就让很多人误以为redux就是针对react的数据流方案。
