@@ -25,7 +25,19 @@ function getUserInfo(name:string,age:number):void{
 
 #### 1.2 对象类型
 
+对象类型，这里不介绍什么是对象、怎么声明对象，主要总结下ts中怎么声明自定义对象类型数据。
 
+ts中，声明对象使用类型约束，一般不会使用、也没有现成的对象类型可用，如果有的话，那应该也是其他团队成员定义过了。一般请看下，都是需要我们自己定义对象类型的。ts可以通过interface和type声明、定义自定义的类型。
+
+**interface和type的异同点**
+
+1. 相同点
+
+interface和type都可以声明自定义的类型
+
+2. 区别
+
+interface是声明一个新的类型，但是如果使用interface声明了同名的类型会自动合并。
 
 ### class
 
