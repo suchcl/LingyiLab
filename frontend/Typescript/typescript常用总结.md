@@ -35,9 +35,37 @@ ts中，声明对象使用类型约束，一般不会使用、也没有现成的
 
 interface和type都可以声明自定义的类型
 
+```ts
+interface IUser {
+    name: string;
+    age: number;
+    salary?: number;
+}
+
+type User = {
+    name: string;
+    age: number;
+    salary?: number;
+};
+```
+
 2. 区别
 
 interface是声明一个新的类型，但是如果使用interface声明了同名的类型会自动合并。
+
+从上面1可以看出，type是对一个已经存在的类型重新起了个名字而已。如本来就有一个类型:
+
+```ts
+{
+    name: string;
+    age: number;
+    salary?: number;
+};
+```
+
+只是这个类型呢，没有名字，使用的时候如果直接使用这个类型不方便，那么type就给这个已经存在的类型重新起了个名字叫User，那么再使用这个类型的时候就可以直接使用User，有了变量使用就会方便了很多。
+
+这就是type的作用
 
 ### class
 

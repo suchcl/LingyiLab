@@ -27,7 +27,7 @@ MicroApp和qiankun的一个最外在的区别，就是基座应用。
 
 关于qiankun，可以参考[qiankun](../%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%BE%E8%AE%A1/qiankun.md)
 
-### 2.umi介入qiankkun，搭建微前端应用
+### 2.umi接入qiankkun，搭建微前端应用
 
 下面我们就逐步记录下umi项目接入qiankun搭建微前端应用的过程和步骤。
 
