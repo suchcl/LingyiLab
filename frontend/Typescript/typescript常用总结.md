@@ -151,6 +151,48 @@ const userList: Array<INewUser> = [
 
 可以发现，使用自定义类型创建数组，和使用内置类型创建数组的方式完全一致，可以使用数组泛型，也可以使用在类型后面添加[]d的方式。
 
+**数组也可以是联合类型的数组**
+
+我们知道ts中可以声明联合类型的变量，即一个变量可以是多个类型，类型与类型之间通过|分隔:
+
+```ts
+let info: number | string = "success";
+info = 16;
+```
+
+声明了一个联合类型变量info，可以是number类型也可以是string类型。那么数组也可以像声明变量一样声明为联合类型的数组，只是联合类型需要使用()括起来
+
+```ts
+const tips: (string | number)[] = [16, "success"];
+```
+
+也可以定义自定义联合类型的数组，但是实际应用中可能使用的并不多：
+
+```ts
+interface DUser {
+    name: string;
+    age: number;
+}
+
+interface IStudent {
+    class: string;
+    grade: string;
+}
+
+const p: (DUser | IStudent)[] = [
+    {
+        name: "Nicholas Zakas",
+        age: 12
+    },
+    {
+        class: 'one',
+        grade: '2'
+    }
+];
+```
+
+案例中定义了两种类型DUser和IStudent，声明了这2个类型的联合类型的数组p。
+
 ### class
 
 ### declare
