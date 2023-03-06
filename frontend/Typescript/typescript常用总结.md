@@ -51,7 +51,29 @@ type User = {
 
 2. 区别
 
-interface是声明一个新的类型，但是如果使用interface声明了同名的类型会自动合并。
+interface是声明一个新的类型，但是如果使用interface声明了同名的类型会自动合并。如：
+
+```ts
+interface IUser {
+    name: string;
+    age: number;
+    salary?: number;
+}
+
+interface IUser {
+    gender: string;
+}
+
+const uesr:IUser = {
+    name: 'Nicholas Zakas',
+    age: 12,
+    gender: '男'
+}
+```
+
+声明了两个IUser接口，
+
+> 熟悉java的朋友一定要注意，ts中的接口和java中的接口意义不同，java中的接口定义了一系列方法，是一系列方法特征的集合，但是并没有去实现。ts中的接口，可以理解为定义了一个新的数据类型。如ts中的内置的数据类型number、string、boolean等数据类型一样，interface定义了新的数据类型。
 
 从上面1可以看出，type是对一个已经存在的类型重新起了个名字而已。如本来就有一个类型:
 
@@ -65,7 +87,7 @@ interface是声明一个新的类型，但是如果使用interface声明了同�
 
 只是这个类型呢，没有名字，使用的时候如果直接使用这个类型不方便，那么type就给这个已经存在的类型重新起了个名字叫User，那么再使用这个类型的时候就可以直接使用User，有了变量使用就会方便了很多。
 
-这就是type的作用
+这就是type的作用。
 
 ### class
 
