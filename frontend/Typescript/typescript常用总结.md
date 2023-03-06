@@ -89,6 +89,68 @@ const uesr:IUser = {
 
 这就是type的作用。
 
+#### 1.3 数组类型
+
+可以说数组类型是客户端开发中使用的最为广泛的数据类型。
+
+数组类型，有两种类型声明方式：
+
+1. 在基础数据类型后面添加[]表示该类型的数组
+
+```ts
+const numArry: number[] = [1, 2, 3];
+```
+
+2. 使用数组泛型的方式声明数组
+
+```ts
+const numList: Array<number> = [4, 5, 6];
+```
+
+案例都是使用语言内置的数据类型创建的数组，在日常的开发中也可以使用自定义的类型定义数组。
+
+```ts
+interface INewUser {
+    name: string;
+    age: number;
+}
+
+const userList: INewUser[] = [
+    {
+        name: "Nicholas Zakas",
+        age: 16
+    },
+    {
+        name: "HcySunYang",
+        age: 22
+    }
+];
+```
+
+通过自定义的数据类型INewUser，以及在类型后面添加[]的方式创建了一个数组。
+
+自定义的数据类型，也可以通过数组泛型的方式定义数组:
+
+```ts
+interface INewUser {
+    name: string;
+    age: number;
+}
+
+const userList: Array<INewUser> = [
+    {
+        name: "Nicholas Zakas",
+        age: 16
+    },
+    {
+        name: "HcySunYang",
+        age: 22
+    }
+];
+```
+
+可以发现，使用自定义类型创建数组，和使用内置类型创建数组的方式完全一致，可以使用数组泛型，也可以使用在类型后面添加[]d的方式。
+
 ### class
 
 ### declare
