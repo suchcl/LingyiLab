@@ -4,6 +4,7 @@
 
 - [1. 数组常规操作方法](#1-%E6%95%B0%E7%BB%84%E5%B8%B8%E8%A7%84%E6%93%8D%E4%BD%9C%E6%96%B9%E6%B3%95)
 - [2. 数组中另外5个常用的迭代(遍历)方法](#2-%E6%95%B0%E7%BB%84%E4%B8%AD%E5%8F%A6%E5%A4%965%E4%B8%AA%E5%B8%B8%E7%94%A8%E7%9A%84%E8%BF%AD%E4%BB%A3%E9%81%8D%E5%8E%86%E6%96%B9%E6%B3%95)
+- [3. 判断数组中是否包含一个元素](#3-%E5%88%A4%E6%96%AD%E6%95%B0%E7%BB%84%E4%B8%AD%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
