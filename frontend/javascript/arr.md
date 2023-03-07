@@ -193,3 +193,67 @@ console.log(arrObj.includes(obj)); // false
 ```
 
 对于这种复杂的数据类型，是不能直接通过简单的includes()来判断是否是数组的元素。
+
+**判断数组中是否包含某个指定对象元素**
+
+我使用过两种方法来判断数组中是否包含一个对象元素，一种是通过数组的find方法，另一种是通过一种变通的方式，将对象转换为字符串后再通过字符串的方式去判断。
+
+1. 通过数组的find()方法去判断
+
+通过数组的find()方法不仅可以判断复杂的对象类型，也可以判断基础数据类型(只是我觉着不够简单，基本上不会通过find()来判断数组中是否包含一个基础数据类型的元素)。
+
+find()方法，参考MDN上的解释，find()方法，返回数组中满足提供的测试函数的第一个元素的值，否则返回undefined。
+
+```js
+const arrObj = [
+    {
+        name: "Nicholas Zakas",
+        age: 12
+    },
+    {
+        name: "池谷裕二",
+        age: 20,
+        job: "Programmer"
+    }
+];
+const obj = {
+    name: "池谷裕二",
+    age: 20
+};
+const rst = arrObj.find(item => item.name === obj.name);
+console.log(rst);
+```
+
+案例的打印结果为:
+
+```js
+{
+    name: "池谷裕二",
+    age: 20,
+    job: "Programmer"
+}
+```
+
+2. 通过变通的方式：将含有对象元素的数组和被检测的对象数据转化为字符串，然后通过字符串的indexOf()方法检测。
+
+```js
+const arrObj = [
+    {
+        name: "Nicholas Zakas",
+        age: 12
+    },
+    {
+        name: "池谷裕二",
+        age: 20
+    }
+];
+const obj = {
+    name: "池谷裕二",
+    age: 20
+};
+
+const pos = JSON.stringify(arrObj).indexOf(JSON.stringify(obj));
+console.log('pos:', pos); // 36
+```
+
+indexOf()返回指定元素的位置，如果不存在则返回-1，最终只需要判断最终返回值是否为-1即可。
