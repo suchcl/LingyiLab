@@ -1,3 +1,16 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [1. 数据类型相关](#1-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9B%B8%E5%85%B3)
+  - [1.1 基础数据类型](#11-%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B)
+  - [1.2 对象类型](#12-%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B)
+  - [1.3 数组类型](#13-%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B)
+- [class](#class)
+- [declare](#declare)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 参考链接:https://juejin.cn/post/6981728323051192357
 
 ### 1. 数据类型相关
@@ -192,6 +205,8 @@ const p: (DUser | IStudent)[] = [
 ```
 
 案例中定义了两种类型DUser和IStudent，声明了这2个类型的联合类型的数组p。
+
+[关于interface和type的关系，可以参考](./interface%E5%92%8Ctype%E7%9A%84%E5%85%B3%E7%B3%BB.md)
 
 ### class
 
