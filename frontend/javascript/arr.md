@@ -2,8 +2,8 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-- [数组](#%E6%95%B0%E7%BB%84)
-- [数组中另外5个常用的迭代(遍历)方法](#%E6%95%B0%E7%BB%84%E4%B8%AD%E5%8F%A6%E5%A4%965%E4%B8%AA%E5%B8%B8%E7%94%A8%E7%9A%84%E8%BF%AD%E4%BB%A3%E9%81%8D%E5%8E%86%E6%96%B9%E6%B3%95)
+- [1. 数组常规操作方法](#1-%E6%95%B0%E7%BB%84%E5%B8%B8%E8%A7%84%E6%93%8D%E4%BD%9C%E6%96%B9%E6%B3%95)
+- [2. 数组中另外5个常用的迭代(遍历)方法](#2-%E6%95%B0%E7%BB%84%E4%B8%AD%E5%8F%A6%E5%A4%965%E4%B8%AA%E5%B8%B8%E7%94%A8%E7%9A%84%E8%BF%AD%E4%BB%A3%E9%81%8D%E5%8E%86%E6%96%B9%E6%B3%95)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -143,3 +143,53 @@ some()：
 > 本文中学习到的<font color="#f60">所有这些方法，都可以通过常规的for循环来实现</font>，但那又为什么出了那么多的新的方法呢？技术发展了，标准也在做更新迭代，新的技术解决方案会比原来的方案代码量更少，实现更具有针对性，更加有利于我们项目性能的优化，这是内在的；还有一点是外在的，就是我们一直在使用新的技术、标准，这个时候可能还有很多人没有了解到这个技能，体现我们的代码更高大上、更具有逼格。
 
 > 另外一个共性，就是所有的这些方法，都需要传入一个必选的回调函数，以及一个可选参数。
+
+### 3. 判断数组中是否包含一个元素
+
+有多种方法可以实现判断数组中是否包含一个元素，我常用的有两种方式:
+
+1. 通过indexOf寻找数组下标
+
+2. 使用includes函数
+
+**通过indexOf寻找元素下标**
+
+通过使用数组的indexOf()函数寻找元素下标，如果要寻找的元素在当前的数组中，则返回当前元素所在数组的下标，即索引，如果要寻找的元素不存在于当前的数组，则返回-1。所以在使用indexOf()函数判断数组中是否包含有某个元素的时候，可以通过判断返回值是否为-1来判断是否包含。
+
+```js
+const arr = ["hello","delete", 12];
+const idx = arr.indexOf("hello"); // 0,说明hello存在于arr数组中
+const idx2 = arr.indexOf("world"); // -1，说明world不存在于数组arr中
+```
+
+**通过includes()函数判断数组中是否包含某个元素**
+
+可以通过数组的includes()函数判断数组中是否包含某个指定的元素，如果数组包含指定的元素，则返回true，否则返回false。
+
+```js
+const arr = ["hello","delete", 12];
+console.log(arr.includes("hello")); // true,说明数组arr中包含hello
+console.log(arr.includes("edit")); // false，说明数组arr中不包含edit
+```
+
+通过includes()方式，只能判断基础数据类型，而不能判断对象类型，如：
+
+```js
+const arrObj = [
+    {
+        name: "Nicholas Zakas",
+        age: 12
+    },
+    {
+        name: "池谷裕二",
+        age: 20
+    }
+];
+const obj = {
+    name: "池谷裕二",
+    age: 20
+};
+console.log(arrObj.includes(obj)); // false
+```
+
+对于这种复杂的数据类型，是不能直接通过简单的includes()来判断是否是数组的元素。
