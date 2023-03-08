@@ -455,9 +455,16 @@ set PORT=9000 yarn start # 设置在9000端口上启动服务
 
 上面的方式，区分了mac和windows环境，可以通过cross-env来抹平这个差异
 
+使用cross-env插件，可以通过npm或者yarn安装，然后在packge.json中的start指令中配置cross-env关键字就可以了。
+
 ```bash
 yarn add cross-env --dev
-cross-env PORT=9000 yarn start # 在windows上和mac上都生效，设置在9000端口上启动服务
+```
+
+package.json中的scripts脚本中配置启动脚本：
+
+```json
+"start": "cross-env PORT=9000 umi dev", // 在windows上和mac上都生效，设置在9000端口上启动服务
 ```
 
 2. 生成器工具  generate
