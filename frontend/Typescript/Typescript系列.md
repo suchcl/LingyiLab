@@ -12,7 +12,8 @@
 语法: <type>+value,尖括号中填写具体的类型
 
 ```ts
-
+let userName: any;
+(<string>userName).indexOf('he')
 ```
 
 2. as形式---推荐的方式
@@ -24,6 +25,8 @@ let value:any = "Nicholas";
 let valueLength = (value as string).length;
 console.log('%c [ valueLength ]-18', 'font-size:13px; background:pink; color:#bf2c9f;', valueLength)
 ```
+
+无论是尖括号还是as形式，都需要将操作数使用()括起来，保证被操作数是一个整体。
 
 ### 7.2 断言类型
 
