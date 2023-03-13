@@ -98,3 +98,28 @@ yarn start
 ```bash
 nodemon ./bin/www
 ```
+
+#### 2.2 指定html模板
+
+
+
+#### 2.3 跨域问题
+
+#### 2.4 nginx托管express服务
+
+node服务是通过localhost方式运行起来的，为了使node服务能够在一个正常的域名跑起来
+
+```bash
+server {
+    location / {
+        #  try_files $uri $uri/ /index.html;
+            proxy_pass http://localhost:3000;
+    }
+    listen      80;
+    server_name www.expressserver.com;
+
+    charset utf-8;
+    client_max_body_size 100M;
+}
+```
+
