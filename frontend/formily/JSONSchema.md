@@ -17,3 +17,9 @@
 3. JSON具有自我描述能力且易于理解；
 
 4. JSON是一门独立的语言：虽然外观和js对象很像
+
+#### 1.2 什么是JSON Schema
+
+JSON Schema，从字面意义来看，是一种和json相关的协议。
+
+JSON Schema可以理解为一种JSON模式，是一个提议的IETF标准，可以用来描述和校验JSON数据。
