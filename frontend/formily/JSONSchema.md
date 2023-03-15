@@ -1,5 +1,8 @@
 ### 1. JSON Schema基础认识
 
+JSON Schema的官方文档：https://json-schema.org/
+
+标准JSON Schema协议：https://json-schema.org/understanding-json-schema
 
 #### 1.1 认识JSON
 在了解json schema之前，先明确下对json的认识。
@@ -131,16 +134,28 @@ JSON Schema常用的关键字：
 
 **number**
 
-| 关键字           | 描述       | schema有效值                  | JSON数据验证                                  |
-| ---------------- | ---------- | ----------------------------- | --------------------------------------------- |
-| multipleOf       | 整数倍     | 大于0的JSON数                 | 当JSON实例的值是其整数倍的时候，校验通过      |
-| maximum          | 最大值     | 一个JSON数                    | 当JSON实例的值小于等于maxinum的时候，校验通过 |
-| exclusiveMaxinum | 包含最大值 | 布尔值，必须与maxinum一起使用 | 当为true的时候，JSON实例不能等于maxinum值     |
-| mininum          | 最小值     | 一个JSON数                    | 当JSON实例的值小于等于mininum的时候，校验通过 |
-| exclusiveMininum | 包含最小值 | 布尔值，必须与mininum一起使用 | 当为true的时候，JSON实例值不能等与mininum值   |
+| 关键字           | 描述       | schema有效值  | JSON数据验证                                  |
+| ---------------- | ---------- | ------------- | --------------------------------------------- |
+| multipleOf       | 整数倍     | 大于0的JSON数 | 当JSON实例的值是其整数倍的时候，校验通过      |
+| maximum          | 最大值     | 一个JSON数    | 当JSON实例的值小于等于maxinum的时候，校验通过 |
+| exclusiveMaxinum | 包含最大值 | 一个JSON数    | JSON实例值一定要小于maxinum值，不能等于       |
+| mininum          | 最小值     | 一个JSON数    | 当JSON实例的值小于等于mininum的时候，校验通过 |
+| exclusiveMininum | 包含最小值 | 一个JSON数    | JSON实例值一定要大于mininum值，不能等于       |
 
-exclusiveMaxinum属性，还需要再次验证，网络上查的文档，各自说法都不一，不好确认哪个是明确的，需要查看JSON Schema的文档。
+关于exclusiveMaxinum属性的说明，也在网上看到过一些文档，说该值应该是一个布尔值，如果是true的时候就不能等于maxinum或者mininum值。从JSON Schema官方文档上可以确认，exclusiveMaxinum和exclusiveMininum不是布尔值，而是一个number类型值。
+
+exclusiveMininum和mininum的区别是是否能等于这个极限值，exclusiveMaxinum和maxinum的区别是是否能等于这个极限值。![image-20230315152445181](/Users/a58/Library/Application Support/typora-user-images/image-20230315152445181.png)
+
+该部分的文档，可参考:https://json-schema.org/understanding-json-schema/reference/numeric.html#range
 
 **array**
+
+| 关键字          | 描述               | Schema有效值                                 | JOSON数据验证                                                |
+| --------------- | ------------------ | -------------------------------------------- | ------------------------------------------------------------ |
+| items           | 定义元素           | 必须是schema实例对象或者schema实例对象的数组 | 用于定义array中的元素类型                                    |
+| additionalItems | 额外元素           | 布尔值或schema实例对象                       | 当items为schema实例的数组，additionalItems为false的时候，json数据长度必须小于等于items长度；如果additionalItems为schema实例，则items关键字指定的schema实例数组没有匹配到的其他元素都要符合该实例 |
+| maxItems        | 长度限制，最大长度 | 大于等于0的整数                              | array实例的长度必须小于等于maxItems的值                      |
+| minItems        | 长度限制，最小长度 | 大于等于0的整数                              | array实例的长度必须大于等于minItems的值                      |
+| uniqueItems     | 唯一值             | 布尔值，默认值false                          | 当uniqueItems为true的时候，array实例不能有重复值             |
 
 **object**
