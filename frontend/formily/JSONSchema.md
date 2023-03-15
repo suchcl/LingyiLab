@@ -35,3 +35,112 @@ JSON Schema的主要作用是:
     - 自动测试；
 
     - 验证提交数据的质量
+
+#### 1.3 JSON Schema案例
+
+有如下的一个JSON数据：
+
+```json
+{
+    "productId": 1,
+    "ProductName": "An Red Apple",
+    "price": "12.99",
+    "tags": ["red","delicious"]
+}
+```
+
+这个JSON数据对应的JSON Schema可如下：
+
+```json
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://example.com/product.schema.json",
+    "title": "Product",
+    "description": "A Product",
+    "type": "object",
+    "properties": {
+        "productId": {
+            "description": "The unique identifier for a product",
+            "type": "integer"
+        },
+        "productName": {
+            "description": "Name of the product",
+            "type": "string"
+        },
+        "price": {
+            "description": "The price of the product",
+            "type": "number",
+            "execsiveMininum": 0
+        },
+        "tags": {
+            "description": "Tags for the product",
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+        }
+    },
+    "required": [
+        "productId",
+        "productName",
+        "price"
+    ]
+}
+```
+
+#### 1.4 JSON Schema关键字
+
+JSON Schema常用的关键字：
+
+1. $schema: 用来声明当前的JSON Schema使用哪个版本的JSON Schema标准，在声明JSON Schema时尽量添加该约束(该约束不是必须的)。
+
+<font color="red">如果在声明了该关键字，那么则必须使用官方提供的值，不能自定义。</font>
+
+2. $id: 为JSON Schema实例提供了一个唯一的标识符，可以用来声明一个解析ref的URI时的基础URI。最佳实践是，每个顶级的JSON Schema实例都应该将id设置为一个由你自己控制的或域内的绝对URI
+
+3. title和description:仅仅是用来描述该字段的作用，实际使用时可省略；
+
+4. type:用于验证JSON数据的约束，上述案例中，JSON数据必须是一个对象；
+
+5. required: 用来描述哪些字段是必须的，对应的值必须是数组格式。如上述案例中，schema声明了productId、productName和price字段是必须的，该3个字段是以数组的方式做为required属性的值。
+
+上面列出的4个关键字，是对Schema的一些注释和设置，针对对应的JSON数据中的每个字段的描述，都在properties属性中，具体每个字段的描述，如每个不同类型的字段对应的描述和关键字都有哪些，整理了下。
+
+1. JSON数据中的每个字段都应该包含一个type字段，用来声明该字段的数据类型。type对应的数据类型如下：
+
+| 类型    | 描述                                                |
+| ------- | --------------------------------------------------- |
+| string  | 字符串类型，双引号包裹的Unicode字符和反斜杠转义字符 |
+| number  | 数字类型，包括整型(int)和浮点类型(float)            |
+| boolean | 布尔型：true、false                                 |
+| object  | 对象类型，无序键、值对的集合                        |
+| array   | 数组类型，有序的值序列                              |
+| null    | 空值                                                |
+
+其中的string、number、array和object各自有一些相关的关键字
+
+**string**
+
+| 关键字    | 描述     | schema有效值                   | JSON数据验证                       |
+| --------- | -------- | ------------------------------ | ---------------------------------- |
+| maxLength | 最大长度 | 大于等于0的整数                | 字符串的长度必须小于等于该值       |
+| minLength | 最小长度 | 大于等于0的整数                | 字符串的长度必须大于等于该值       |
+| pattern   | 模式     | 字符串，必须是有效的证则表达式 | 当字符串符合证则表达式时，验证通过 |
+
+**number**
+
+| 关键字           | 描述       | schema有效值                  | JSON数据验证                                  |
+| ---------------- | ---------- | ----------------------------- | --------------------------------------------- |
+| multipleOf       | 整数倍     | 大于0的JSON数                 | 当JSON实例的值是其整数倍的时候，校验通过      |
+| maximum          | 最大值     | 一个JSON数                    | 当JSON实例的值小于等于maxinum的时候，校验通过 |
+| exclusiveMaxinum | 包含最大值 | 布尔值，必须与maxinum一起使用 | 当为true的时候，JSON实例不能等于maxinum值     |
+| mininum          | 最小值     | 一个JSON数                    | 当JSON实例的值小于等于mininum的时候，校验通过 |
+| exclusiveMininum | 包含最小值 | 布尔值，必须与mininum一起使用 | 当为true的时候，JSON实例值不能等与mininum值   |
+
+exclusiveMaxinum属性，还需要再次验证，网络上查的文档，各自说法都不一，不好确认哪个是明确的，需要查看JSON Schema的文档。
+
+**array**
+
+**object**
