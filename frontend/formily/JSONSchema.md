@@ -144,7 +144,7 @@ JSON Schema常用的关键字：
 
 关于exclusiveMaxinum属性的说明，也在网上看到过一些文档，说该值应该是一个布尔值，如果是true的时候就不能等于maxinum或者mininum值。从JSON Schema官方文档上可以确认，exclusiveMaxinum和exclusiveMininum不是布尔值，而是一个number类型值。
 
-exclusiveMininum和mininum的区别是是否能等于这个极限值，exclusiveMaxinum和maxinum的区别是是否能等于这个极限值。![image-20230315152445181](/Users/a58/Library/Application Support/typora-user-images/image-20230315152445181.png)
+exclusiveMininum和mininum的区别是是否能等于这个极限值，exclusiveMaxinum和maxinum的区别是是否能等于这个极限值。![exclusiveMaxinum](./images/i1.png)
 
 该部分的文档，可参考:https://json-schema.org/understanding-json-schema/reference/numeric.html#range
 
@@ -159,3 +159,26 @@ exclusiveMininum和mininum的区别是是否能等于这个极限值，exclusive
 | uniqueItems     | 唯一值             | 布尔值，默认值false                          | 当uniqueItems为true的时候，array实例不能有重复值             |
 
 **object**
+
+| 关键字               | 描述         | schema有效值                                       | json数据验证                                                 |
+| -------------------- | ------------ | -------------------------------------------------- | ------------------------------------------------------------ |
+| properties           | 属性         | 属性的值必须是有效的schema实例对象                 | 用于定义属性列表                                             |
+| maxProperties        | 最大属性个数 | 大于等于0的整数                                    | object实例的属性个数必须小于等于maxProperties的值            |
+| minProperties        | 最小属性个数 | 大于等于0的整数                                    | object实例的属性个数必须大于等于minProperties的值            |
+| required             | 必须属性     | 字符串数组，至少必须有一个元素，数组内不能有重复值 | object实例必须有所有required定义的属性                       |
+| patternProperties    | 按属性名校验 | 必须是有效的schema实例对象                         | schema实例的每一个属性的键都是一个证则表达式，值都是一个schema实例。指定符合证则表达式的属性的校验规则 |
+| additionalProperties | 额外属性校验 | schema实例对象或布尔值                             | 为false时不允许拥有除了properties和patternProperties匹配到的属性外的属性，如果为schema实例，则没有匹配到的属性要符合该schema。 |
+
+**其他一些通用关键字**
+
+| 关键字 | 描述     | schema有效值                                                 | json数据验证                                   |
+| ------ | -------- | ------------------------------------------------------------ | ---------------------------------------------- |
+| enum   | 数据枚举 | 必须是数组，而且数组里面的元素至少必须有一个而且不能有重复的值 | 当json实例的值存在于enum列表中时，校验通过     |
+| type   | 定义类型 | 可以是字符串或者字符串数组，取值必须在JSON基本类型范围内     | 校验json实例的类型是否符合定义                 |
+| allOf  | 数据验证 | 必须是schema实例对象数组，而且数组里面的元素至少必须有一个而且不能重复 | json实例满足其中所有的schema时，校验通过       |
+| anyOf  | 数据验证 | 同allOf                                                      | json实例满足其中某个schema时，校验通过         |
+| oneOf  | 数据验证 | 同allOf                                                      | json实例刚好只满足其中某一个schema时，校验通过 |
+| not    | 数据验证 | 必须是个有效的schema实例对象                                 | 如果不满足json schema的定义，校验通过          |
+| const  | 数据验证 | JSON基本类型                                                 | 如果json实例的值和关键字指定的值相同，校验通过 |
+
+JSON Schema为JSON数据提供一些描述，类似于类型约束。JSON Schema的构成主要依托于一些关键字，以此来确定一个JSON的数据结构描述。
