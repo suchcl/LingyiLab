@@ -68,11 +68,29 @@ js中有6种基本数据类型和2种引用类型：
 
 Ts中除了Js中的数据类型外，还有一些自己特有的类型，如tuple(元祖)、any、unknown、void、never、交集和并集(交集和并集，又叫做交叉类型和联合类型，可参考: [交叉类型和联合类型](./ts%E4%B8%AD%E7%9A%84%E4%BA%A4%E5%8F%89%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%81%94%E5%90%88%E7%B1%BB%E5%9E%8B.md)).
 
+关于ts的数据类型，详细内容可参考:[ts数据类型](./%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.md)
+
 1. any
 
+可以为任何类型声明为any类型，大多用于描述尚未验证的、类型未知的传入变量。
 
+如果一个变量可以追溯到准确的类型，则不建议为该变量描述为any，因为描述为any后，就相当于和js一样没有任何的类型约束，就体现不出来ts的优势了。
+
+所以，任何地方都可以使用any，但要慎重滥用any。
 
 2. unknonw
+
+unknonw，和any类似，但是我们不能对unknonw类型的数据做任何的操作，除非在做了类型检查或者类型断言后，才可以正常使用。
+
+```ts
+let username: unknown = "Nicholas Zakas";
+console.log("username:", username?.length); // 直接对unknonw类型值操作，会报错
+console.log("userName:", (username as string).length); // 
+```
+
+![不能直接对unknonw类型值进行操作](./images/i55.png)
+
+关于any和unknonw的一些详细的介绍，可参考:[unknown和any](./unknown%E5%92%8Cany.md)
 
 3. void
 
