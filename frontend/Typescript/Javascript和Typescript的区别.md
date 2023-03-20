@@ -130,4 +130,34 @@ demo中函数没有声明函数返回值类型，函数也没有返回值，那�
 
 4. never
 
+never是不应该发生的事情的返回值类型，例如异常抛出函数。正常情况下是不会出现never类型的。
+
 5. 交集和并集(交叉类型和联合类型)
+
+**交叉类型**
+
+交叉类型取并集。交叉类型，通过&符号将多个类型合并成一个新的类型，新类型的成员变量为各个类型的成员变量
+
+```ts
+interface TA {
+    name: string;
+    age: number;
+    gender?: number;
+}
+
+interface TB {
+    name: string;
+    mobile: string;
+}
+
+let info: TA & TB = {
+    name: "Nicholas Zakas",
+    age: 12,
+    gender: 1,
+    mobile: "13299098234"
+}
+```
+
+**联合类型**
+
+联合类型取交集
