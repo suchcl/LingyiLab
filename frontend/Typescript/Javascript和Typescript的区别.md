@@ -94,6 +94,40 @@ console.log("userName:", (username as string).length); //
 
 3. void
 
+void一般用于函数，当函数没有返回值时，就使用void来约束这个函数的返回值类型。
+
+ts中函数如果没有声明返回值类型且也没有返回值，则默认的返回类型为void。如果ts中函数虽然没有声明返回值类型，但是有返回值，那么函数的返回值类型则会进行类型推断，类型为返回值的类型，而不再是默认的void了。
+
+ts中函数的返回值类型声明方式:
+
+function 函数名(参数:参数类型):函数返回值类型{
+    函数处理逻辑
+}
+
+函数的返回值类型就是ts中的有效的数据类型，如string、number、boolean等。
+
+```ts
+function add(a:number,b:number):number {
+    return a + b;
+}
+```
+
+```ts
+function add(a: number, b: number) {
+    return a + b;
+}
+```
+
+demo中的函数没有声明返回值类型，但是函数有返回值，类型为number，那么函数add的返回值类型就为number。再如:
+
+```ts
+function add(a: number, b: number) {
+    console.log(a + b);
+}
+```
+
+demo中函数没有声明函数返回值类型，函数也没有返回值，那么这个函数的返回值类型就是默认的void。
+
 4. never
 
 5. 交集和并集(交叉类型和联合类型)
