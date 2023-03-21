@@ -17,6 +17,7 @@ type Direction = "North" | "South" | "West" | "East";
 type gender = "Male" | "Gemale";
 ```
 
+使用字面量类型的联合类型，可以指定我们使用的参数就是指定成员范围内的成员，
 
 ### 2. 字面量类型的使用
 
