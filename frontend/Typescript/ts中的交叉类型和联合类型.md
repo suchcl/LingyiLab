@@ -203,7 +203,82 @@ let c: C = 996;
 如demo，联合类型A和B，交叉形成交叉类型C，那么交叉类型C的值需要同时满足联合类型A和B，那么满足这个条件的就只有996，所以变量c的合法的值就只有996这一个值。
 ### 2. 联合类型
 
-联合类型和交叉类型类似，只是联合类型是通过｜符号合并链接多个类型而成的新类型。联合类型取多个类型的交集，即多个类型都有的类型才是新类型的最终类型。
+#### 2.1 联合类型的使用
+
+如果希望属性是多种类型中的一种，也可以满足所有的类型，那么这个时候就可以使用联合类型。联合类型通过|符号合并多个类型而成的新类型。联合类型取多个类型的并集，最终类型只需要满足多个类型中的某个类型即可，也可以同时满足。
+
+```ts
+let vb: string[] | string = "hello";
+let vbs: string[] | string = ["world"];
+let vbc: string | number = 12;
+let vbd: string | number = "Hello world";
+```
+
+联合类型可以合并基本的数据类型，也可以合并接口类型：
+
+```ts
+interface SS {
+    name: string;
+    age: number;
+}
+
+interface ST {
+    mobile: string;
+    code: string;
+}
+
+let sst: SS | ST = {
+    name: "Nicholas Zakas",
+    age: 12,
+    code: '10010'
+}
+```
+
+联合类型值就是几种类型之一，使用｜分隔。
+
+实践中，可以使用type类型别名来抽象联合类型。
+
+```ts
+type StrOrNum = string | number;
+let ss:StrOrNum = "hello world";
+```
+
+#### 2.2 类型缩减
+
+联合类型中，如果定义的联合类型包含了某个类型和某个类型的子类型这种情况，如定义的联合类型包含数字类型和数字字面量类型、字符串类型和字符串字面量类型、布尔类型和布尔类型字面量会怎么处理呢？
+
+由于数字字面量是数字类型的子类型、字符串字面量类型是字符串类型的子类型、布尔类型字面量也是布尔类型的子类型，那么这个时候会发生类型缩减，分别缩减为数字类型、字符串类型和布尔类型。
+
+```ts
+type UnionNum = 12 | number; // 最终类型为number
+type UnionStr = "Hello" | string; // 最终为string
+type UnionBoolean = false | boolean; // 最终为boolean
+```
+
+在这种简单的联合类型场景下，Typescript进行了类型缩减，将字面量类型缩减掉了，只保留了原始类型。
+
+但是这种缩减方式也造成了一个问题:编译器只能告诉我们定义的变量是哪个原始类型:
+
+```ts
+type Str = "hello" | "world" | "Nicholas Zakas" | string;
+let strs:Str = "May";
+```
+
+![编译器只能给我们提示类型缩减后的原始类型](./images/i56.png)
+
+**类型缩减控制**
+
+上面的联合类型经过ts的类型缩减后，缩减为只剩下了基本类型，同时ts也提供了控制类型缩减的能力,方式为在父类型后面添加& {}即可。
+
+```ts
+type Str = "hello" | "world" | "Nicholas Zakas" | string & {};
+```
+
+这样定义的Str类型的变量在赋值的时候会自动提示出来:
+
+![类型缩减控制](./images/i57.png)
+
+#### 2.3 可辨识联合类型
 
 ### 3. 交叉类型和联合类型的关系
 
