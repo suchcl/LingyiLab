@@ -280,6 +280,158 @@ type Str = "hello" | "world" | "Nicholas Zakas" | string & {};
 
 #### 2.3 可辨识联合类型
 
+可以把单例类型、联合类型、类型保护和类型别名这几种类型进行合并，来创建一个叫做可辨识联合类型，这个可辨识联合类型也可以被叫做标签联合或者代数数据类型。
+
+单例类型，可以简单的理解为符合单例模式的数据类型，比如枚举成员、字面量类型。
+
+可辨识联合类型有两个必要要素:
+
+1. 具有普通的单例类型属性；
+
+2. 一个类型别名，包含了那些类型的联合；
+
+**可辨识的联合属性是为了保证每个case都可以被处理**
+
+```ts
+interface Square {
+    kind: "square"; // 可辨识的属性
+    size: number;
+}
+
+interface Rectangle {
+    kind: "rectangle"; // 可辨识的属性
+    height: number;
+    width: number;
+}
+
+interface Circle {
+    kind: "circle"; // 可辨识的属性
+    radius: number;
+}
+
+type Shape = Square | Rectangle | Circle;
+function getArea(s: Shape) {
+    switch (s.kind) {
+        case 'square':
+            return s.size * s.size;
+        case 'rectangle':
+            return s.height * s.width;
+        case 'circle':
+            return Math.PI * s.radius * s.radius;
+    }
+}
+
+let sh: Shape = {
+    kind: 'square',
+    size: 8
+};
+console.log("面积:", getArea(sh));
+```
+
+案例中的Shape就是一个可辨识的联合类型，它是一个3个接口的联合类型，这3个接口都有一个kind属性可起到辨识作用，同时也声明了类型别名Shape。所以Shape就是一个可辨识的联合类型。
+
+案例中，函数getArea()包含了联合类型中的每个接口的可辨识属性，对每种接口提供的类型头提供了处理，那如果处理函数中没有处理完联合类型所有的场景,处理函数返回了undefined。如：
+
+```ts
+interface Square {
+    kind: "square"; // 可辨识的属性
+    size: number;
+}
+
+interface Rectangle {
+    kind: "rectangle"; // 可辨识的属性
+    height: number;
+    width: number;
+}
+
+interface Circle {
+    kind: "circle"; // 可辨识的属性
+    radius: number;
+}
+
+interface Triangle {
+    kind: "triangle",
+    bottom: number;
+    height: number;
+}
+
+type Shape = Square | Rectangle | Circle | Triangle;
+function getArea(s: Shape) {
+    switch (s.kind) {
+        case 'square':
+            return s.size * s.size;
+        case 'rectangle':
+            return s.height * s.width;
+        case 'circle':
+            return Math.PI * s.radius * s.radius;
+    }
+}
+
+let triangle: Shape = {
+    kind: 'triangle',
+    bottom: 8,
+    height: 6
+};
+console.log("面积:", getArea(triangle)); // undefined
+```
+
+联合类型中有Triangle类型，但是函数getArea()并没有对这种结构类型进行处理，结果函数返回了undefined。
+
+处理函数没有处理完所有的场景，代码在编译阶段也没有给出任何的提示，这样不符合我们的预期，我们期望在这样的场景下在编译阶段能够给出一些提示,我们可以尝试使用strictNullChecks和使用never类型。
+
+1. 使用strictNullChecks
+
+还是看这个案例:
+
+```ts
+interface Square {
+    kind: "square"; // 可辨识的属性
+    size: number;
+}
+
+interface Rectangle {
+    kind: "rectangle"; // 可辨识的属性
+    height: number;
+    width: number;
+}
+
+interface Circle {
+    kind: "circle"; // 可辨识的属性
+    radius: number;
+}
+
+interface Triangle {
+    kind: "triangle",
+    bottom: number;
+    height: number;
+}
+
+type Shape = Square | Rectangle | Circle | Triangle;
+function getArea(s: Shape) {
+    switch (s.kind) {
+        case 'square':
+            return s.size * s.size;
+        case 'rectangle':
+            return s.height * s.width;
+        case 'circle':
+            return Math.PI * s.radius * s.radius;
+    }
+}
+
+let triangle: Shape = {
+    kind: 'triangle',
+    bottom: 8,
+    height: 6
+};
+console.log("面积:", getArea(triangle));
+```
+
+函数getArea()没有处理所有的联合类型的场景，没有处理Triangle这种类型的场景，那么函数就直接返回了undefined，我们可以结合ts编译选项"strictNullChecks": true来配置来实现编译阶段的提示。
+
+这种方式简单，但是这个属性是在ts2.0版本中加入的，对以前的代码不会生效，所以在使用的时候需要留意下版本问题。
+
+2. 使用never
+
 ### 3. 交叉类型和联合类型的关系
 
 交叉类型和联合类型类似，都是通过对原来的多个类型进行一些操作，形成一个新的类型。
