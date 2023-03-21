@@ -5,7 +5,11 @@
 - [1. 交叉类型](#1-%E4%BA%A4%E5%8F%89%E7%B1%BB%E5%9E%8B)
   - [1.1 不是所有的类型都要通过&合并新的类型](#11-%E4%B8%8D%E6%98%AF%E6%89%80%E6%9C%89%E7%9A%84%E7%B1%BB%E5%9E%8B%E9%83%BD%E8%A6%81%E9%80%9A%E8%BF%87%E5%90%88%E5%B9%B6%E6%96%B0%E7%9A%84%E7%B1%BB%E5%9E%8B)
   - [1.2 合并的新类型中有重名属性时的处理逻辑](#12-%E5%90%88%E5%B9%B6%E7%9A%84%E6%96%B0%E7%B1%BB%E5%9E%8B%E4%B8%AD%E6%9C%89%E9%87%8D%E5%90%8D%E5%B1%9E%E6%80%A7%E6%97%B6%E7%9A%84%E5%A4%84%E7%90%86%E9%80%BB%E8%BE%91)
+  - [1.3 从另一个角度理解交叉类型](#13-%E4%BB%8E%E5%8F%A6%E4%B8%80%E4%B8%AA%E8%A7%92%E5%BA%A6%E7%90%86%E8%A7%A3%E4%BA%A4%E5%8F%89%E7%B1%BB%E5%9E%8B)
 - [2. 联合类型](#2-%E8%81%94%E5%90%88%E7%B1%BB%E5%9E%8B)
+  - [2.1 联合类型的使用](#21-%E8%81%94%E5%90%88%E7%B1%BB%E5%9E%8B%E7%9A%84%E4%BD%BF%E7%94%A8)
+  - [2.2 类型缩减](#22-%E7%B1%BB%E5%9E%8B%E7%BC%A9%E5%87%8F)
+  - [2.3 可辨识联合类型](#23-%E5%8F%AF%E8%BE%A8%E8%AF%86%E8%81%94%E5%90%88%E7%B1%BB%E5%9E%8B)
 - [3. 交叉类型和联合类型的关系](#3-%E4%BA%A4%E5%8F%89%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%81%94%E5%90%88%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%85%B3%E7%B3%BB)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -431,6 +435,61 @@ console.log("面积:", getArea(triangle));
 这种方式简单，但是这个属性是在ts2.0版本中加入的，对以前的代码不会生效，所以在使用的时候需要留意下版本问题。
 
 2. 使用never
+
+当函数返回一个错误或者不可能有返回值的时候，返回值类型为never。这个时候可以结合switch添加一个default分支，当前面的case都不满足条件的时候，就执行默认的default分支。
+
+```ts
+interface Square {
+    kind: "square"; // 可辨识的属性
+    size: number;
+}
+
+interface Rectangle {
+    kind: "rectangle"; // 可辨识的属性
+    height: number;
+    width: number;
+}
+
+interface Circle {
+    kind: "circle"; // 可辨识的属性
+    radius: number;
+}
+
+interface Triangle {
+    kind: "triangle",
+    bottom: number;
+    height: number;
+}
+
+type Shape = Square | Rectangle | Circle | Triangle;
+
+function assertNever(value:never):never{
+    throw new Error(value);
+}
+function getArea(s: Shape) {
+    switch (s.kind) {
+        case 'square':
+            return s.size * s.size;
+        case 'rectangle':
+            return s.height * s.width;
+        case 'circle':
+            return Math.PI * s.radius * s.radius;
+        default:
+            return assertNever(s); // 类型“Triangle”的参数不能赋给类型“never”的参数
+    }
+}
+
+let triangle: Shape = {
+    kind: 'triangle',
+    bottom: 8,
+    height: 6
+};
+console.log("面积:", getArea(triangle));
+```
+
+使用这种方式，需要额外添加一个assertNever函数，但是这种方式有一些优势，就是不仅能够在编译阶段提示遗漏的条件，也会在运行阶段报错。
+
+![使用never提示编译时错误](./images/i58.png)
 
 ### 3. 交叉类型和联合类型的关系
 
