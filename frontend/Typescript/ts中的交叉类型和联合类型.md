@@ -120,7 +120,73 @@ type Z = X & Y; // Z是never
 
 1. 合并接口类型
 
+将多个接口类型合并为一个类型是交叉类型使用较多的场景，这样就相当于实现了接口继承，也就是所谓的合并接口类型。
 
+```ts
+type Person = {
+    name: string;
+    age: number
+} & {
+    height: number;
+    weight: number;
+} & {
+    mobile: number;
+    mail: string;
+}
+```
+
+**如果被交叉合并的子接口中有定义了同名的属性，会怎么处理呢？**
+
+- 如果同名属性是同一种数据类型，则直接按照同名属性的数据类型约束
+
+```ts
+type Student = {
+    name: string;
+    age: number;
+} & {
+    age: number
+}
+```
+
+如两个类型中都定义了age属性，但是age属性都是number类型，那么age属性就是number类型。
+
+```ts
+let s: Student = {
+    name: "Nicholas Zakas",
+    age: 12
+};
+```
+
+类型Student合并的两个类型都有age属性，且都是number类型，那么合并后的age就是number类型。
+
+- 如果合并的接口中定义了不同类型的同名属性，那么合并后的类型中该属性为never类型，则不能通过该类型声明、约束变量
+
+```ts
+type Student = {
+    name: string;
+    age: number;
+} & {
+    age: string;
+}
+```
+
+合并的接口定义了不同类型但同名的age属性，那么age的类型就是number & string,一个变量永远不会满足既是number类型的同时又是string类型，所以合并后的类型Student就没有了实际价值了，因为不不会在一个值能够满足age的类型约束要求。
+
+- 如果同名属性的类型兼容，比如一个是number，另一个是number类型的子类型、数字字面量类型，那么合并后的类型是两者中的子类型.
+
+```ts
+type Student = {
+    name: string;
+    age: number;
+} & {
+    age: 16; // 该类型为number类型的子类型
+}
+
+let s: Student = {
+    name: "Nicholas Zakas",
+    age: 16 // age属性值只能是16，age属性的类型分别为number和数字字面量类型16，而字面量类型16为number的子类型，所以合并后的类型就是子类型16
+};
+```
 
 2. 合并联合类型
 
