@@ -27,4 +27,30 @@ type gender = "Male" | "Gemale";
 
 #### 2.2 数字字面量
 
+数字字面量和字符串字面量比较类似，都是为具体的类型指定了具体的值，也可以理解为指定了数字常量。
+
+```ts
+type Age = 18;
+interface UserInfo {
+    name: string;
+    age: Age
+}
+
+const user: UserInfo = {
+    name: "Nicholas Zakas",
+    age: 12 // 这里会报错，age只能赋值18，因为age是Age类型，只有一个值18
+};
+```
+
+个人感觉数字字面量就是通过type关键字声明了一个数字常量，没有太大的实用价值。
+
 #### 2.3 布尔字面量
+
+布尔字面量类型，和字符串字面量、数字字面量类型基本是一致的，也都是列出来了常量值。只不过是布尔类型只有true、false.
+
+```ts
+let value: true | false;
+let value: boolean;
+```
+
+上面2种声明变量的方式效果是相同的。
