@@ -60,6 +60,57 @@ fn2<string,number>("hello", 12); // hello, 12
 
 ### 2. 泛型接口
 
+泛型接口是一种具有泛型类型参数的接口，它可以在接口的定义中使用这些参数，从而使得接口的属性和方法能够适用于多种类型。
+
+1. 接口定义的时候使用泛型
+
+```ts
+interface IPerson<T> {
+    name: T;
+    friends: T[];
+    sayHi: (msg: T) => void;
+}
+
+const p: IPerson<string> = {
+    name: "Nicholas Zakas",
+    friends: ["Dave Herman"],
+    sayHi: (msg) => {
+        console.log(msg);
+    }
+};
+```
+
+demo中定义了一个接口IPerson，并为接口指定了一个类型参数T,在接口内声明的属性都使用到了这个类型参数。这个类型参数究竟是什么类型，在接口定义的时候不确定，在接口被调用的时候由调用者指定。案例中调用时指定了类型参数为string。
+
+2. 指定类型的默认值
+
+在定义泛型接口时，也可以像定义函数一样，参数也可以有默认值，那么定义泛型接口时参数类型也可以有默认值
+
+```ts
+interface IPerson<T = string> {
+    name: T;
+    friends: T[];
+    sayHi: (msg: T) => void;
+}
+
+const p: IPerson<number> = {
+    name: 12,
+    friends: [1, 2, 3],
+    sayHi: (msg) => {
+        console.log(msg);
+    }
+};
+
+const p2: IPerson = {
+    name: "Nicholas Zakas",
+    friends: ["Dave Herman"],
+    sayHi: (msg) => {
+        console.log();
+    }
+};
+```
+案例在定义泛型接口的时候，指定了一个默认的类型，但是在实际使用到这个接口进行类型约束的时候，如果没有显示指定类型，则使用默认的类型参数string，如p2；如果使用泛型接口时显示指定了类型参数，则使用指定的类型参数，如p。
+
 ### 3. 泛型类
 
 ### 4. 泛型约束
