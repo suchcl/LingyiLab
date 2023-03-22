@@ -17,6 +17,16 @@
 
 学习任何一门编程语言，一般都会先从学习数据类型开始，ts也不例外。
 
+Ts的出现，是为了弥补js类型的缺失。
+
+Vue2使用flow进行类型检查，新版本的vue3使用Ts进行了重构
+
+Ts代码现在还不能直接运行在浏览器中(没有类型约束的代码可以运行在浏览器端，这种ts代码仅仅是js文件改了个文件扩展名，本质上还是js，加上了类型约束的ts才有了ts的灵魂，有了灵魂的ts现在还没有办法直接运行在浏览器中)
+
+ts的数据类型包括所有的js类型如:null、undefined、string、number、boolean、bigint、Symbol、object(object属于引用类型，引用类型又包含了数组、对象、函数、日期)
+
+ts中也包含了一些js中没有的类型，如void、never、any、enum、unknown以及可以自定义类型的type、interface
+
 #### 1.1 基础数据类型
 
 常用的类型有: boolean、number、string、array、enum、any、void
