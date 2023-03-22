@@ -218,6 +218,11 @@ const p: (DUser | IStudent)[] = [
 
 [关于interface和type的关系，可以参考](./interface%E5%92%8Ctype%E7%9A%84%E5%85%B3%E7%B3%BB.md)
 
+#### 1.4 变量声明
+
+ts和js相同，支持3种变量声明方式:var、let、const
+
+注意数据类型写小写，不要写大写，大写是js的内置对象。
 ### class
 
 ### declare
