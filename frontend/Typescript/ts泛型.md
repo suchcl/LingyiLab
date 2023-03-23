@@ -115,5 +115,81 @@ const p2: IPerson = {
 
 泛型类，是一种具有泛型类型约束的类，泛型类可以在类定义的时候使用这些类型参数，从而使得类的属性和方法能够适用于多种类型。
 
+```ts
+class Point<T>{
+    x: T;
+    y: T;
+    constructor(x: T, y: T) {
+        this.x = x;
+        this.y = y;
+    }
+}
+
+const p0 = new Point(3, 4);
+const p1 = new Point<number>(2, 3);
+const p4:Point<number> = new Point(2,5);
+```
 
 ### 4. 泛型约束
+
+#### 4.1 泛型中使用extends 
+
+extends和泛型结合，可解决固定参数类型传递的需求
+
+```ts
+interface Person {
+    name: string;
+}
+
+// 这里类型参数T继承了Person类型，那么T就继承了Person的所有属性，且参数person是T类型，那么函数参数person的类型只要有name属性就可以了，其他属性也可以自定义
+function getName<T extends Person>(person: T) {
+    return person.name;
+}
+
+// 调用中，函数getName()的参数实现了继承自Person的属性name，且也实现了自定义属性age
+// name是必须的，age是可选的
+getName({
+    name: "Dave Herman",
+    age: 12
+});
+```
+
+在实际业务代码中，我们经常需要使用一个属性，但是编译器老提示我们没有这个属性，但是实际上呢是有的，比如我们获取某个数据的length属性的时候，如果参数是数组、字符串或者具有length属性的对象的时候。这个时候我们可以通过泛型继承的方式来规避表编译器对我们代码的异常信息提示.
+
+```ts
+interface ILength {
+    length: number;
+}
+
+function getLength<T extends ILength>(args: T) {
+    return args.length;
+}
+
+getLength<string>("hello");
+getLength({
+    name: "Dave Herman",
+    age: 12,
+    length: 3
+});
+
+getLength(['hello', 123]);
+
+interface IUser {
+    name: string;
+    age: number;
+}
+getLength<IUser[]>([
+    {
+        name: "Nicholas Zakas",
+        age: 18
+    },
+    {
+        name: "Dave Herman",
+        age: 21
+    }
+]);
+```
+
+#### 4.2 泛型中使用keyof
+
+#### 4.3 泛型中使用extends和keyof
