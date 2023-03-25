@@ -3,6 +3,29 @@
 
 #### 1.1 基本使用
 
+1. 使用interface定义新的自定义结构类型
+
+2. 使用type重新命名一个已经存在的类型
+
+```ts
+// interface定义一个新的结构
+interface IPerson {
+    name: string;
+    age?: number; // ?表示当前属性可选
+    readonly code: string; // readonly只读
+}
+
+// 使用type重新命名一个已经存在的类型
+type Point = {
+    x: number;
+    y: number;
+};
+```
+
+使用type定义的结构{x:number;y:number;}是一个已经存在的类型，然后通过type重新为该类型起了个新的名字Point。
+
+interface和类型之间没有=，type和类型之间通过=连接。
+
 #### 1.2 区别
 
 #### 1.3 索引签名
