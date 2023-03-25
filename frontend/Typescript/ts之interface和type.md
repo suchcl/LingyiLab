@@ -26,7 +26,17 @@ type Point = {
 
 interface和类型之间没有=，type和类型之间通过=连接。
 
-#### 1.2 区别
+#### 1.2 interface和type的区别
+
+1. interface只描述对象，type可描述所有类型(type并不是定义新的类型，而只是为已经存在的类型起一个新的名字，所以它可以描述所有的类型)
+
+```ts
+type nNumber = number;
+const n:nNumber = 12;
+const nm:number = 13;
+```
+
+2. 
 
 #### 1.3 索引签名
 
