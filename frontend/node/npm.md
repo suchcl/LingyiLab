@@ -48,6 +48,8 @@ var output = lodash.without([1,2,3],1);
 
 ## 怎么使用npm查看包(package)版本
 
+[通过npm查询依赖包的版本信息](./%E9%80%9A%E8%BF%87npm%E6%9F%A5%E7%9C%8B%E4%BE%9D%E8%B5%96%E5%8C%85%E7%9A%84%E7%89%88%E6%9C%AC%E4%BF%A1%E6%81%AF.md)
+
 可以通过npm来查询通过npm来安装的包的版本信息，包括本地的全局安装的版本信息以及当前目录项目的版本目录
 
 1. 查看本地安装包(package)的版本
@@ -67,7 +69,6 @@ npm view package versions 查看包的所有的版本列表
 ```
 
 3. npm缓存
-
 
 
 ## npm install和npm ci的区别
