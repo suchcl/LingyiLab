@@ -36,7 +36,44 @@ const n:nNumber = 12;
 const nm:number = 13;
 ```
 
-2. 
+2. interface通过extends实现接口的继承，type通过使用&实现交叉类型
+
+交叉类型，需要同时满足交叉的几个类型。
+
+```ts
+// interface通过extends实现接口的继承
+interface IPerson {
+    name: string;
+    age?: number;
+    readonly code: string;
+}
+
+interface IStudent extends IPerson {
+    class: string;
+    student_id: number;
+}
+
+const student:IStudent = {
+    name:  "Dave Herman",
+    age: 12,
+    class: '2',
+    student_id: 21,
+    code: '0940'
+};
+
+// type通过&实现交叉类型
+type NewPerson = {
+    name: string;
+    code: number;
+} & {
+    mobile: number;
+};
+const np:NewPerson = {
+    name: "Nicholas Zakas",
+    code: 1930,
+    mobile: 399405
+};
+```
 
 #### 1.3 索引签名
 
