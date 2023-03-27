@@ -141,7 +141,7 @@ interface Person {
     name: string;
 }
 
-// 这里类型参数T继承了Person类型，那么T就继承了Person的所有属性，且参数person是T类型，那么函数参数person的类型只要有name属性就可以了，其他属性也可以自定义
+// 这里类型参数T继承了Person类型，那么T就继承了Person的所有属性，且函数参数person是T类型，那么函数参数person的类型只要有name属性就可以了，其他属性也可以自定义
 function getName<T extends Person>(person: T) {
     return person.name;
 }
