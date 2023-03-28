@@ -66,3 +66,6 @@ const w:workerTye = 'salary';
 这就是ts中keyof的简单用法。
 
 keyof的使用过程中也可以使用泛型来做简单的封装，可以有更好的适用性
+
+> js中Object.keys()用来获取对象的属性，ts中的keyof用来获取类型的属性,都是获取的key。
+> Object.keys()和keyof的操作对象不同，Object.keys()操作的是对象，keyof操作的是一个类型，不能操作对象。
