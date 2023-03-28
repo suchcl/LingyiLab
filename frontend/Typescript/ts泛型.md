@@ -192,6 +192,35 @@ getLength<IUser[]>([
 
 #### 4.2 泛型中使用keyof
 
+关于ts中的keyof的详细介绍，可以参考[ts中的keyof](./ts%E4%B8%AD%E7%9A%84keyof.md)
 
+简单的信息，可以概括下。
+
+js中有Object.keys()和keyof都是用来获取key的，但是也有不同。
+
+Object.keys()：js中可用，ts中也可用，主要是用来获取对象的属性，且获取的属性列表会组成一个数组.
+
+```ts
+const worker = {
+    name: "Nicholas Zakas",
+    age: 12,
+    salary: '98987'
+};
+
+console.log("Object.keys():",Object.keys(worker)); // [ 'name', 'age', 'salary' ]
+```
+
+keyof：只能在ts中使用，js中没有该能力。且keyof只能操作类型，即由interface和type声明的类型，而不能操作对象去获取对象的属性。keyof操作自定义类型的结果是由自定义类型的key值列表做成的一个字面量联合类型。
+
+```ts
+type Workers = {
+    name: string;
+    salary: number;
+};
+type workerTye = keyof Workers;
+const w:workerTye = 'salary';
+```
+
+demo中keyof操作了自定义类型Workers，形成了一个由name和salary组成的字面量联合类型，即name | salary.所以由声明的workerTye类型的w的值就只能是name和salary中的一个。
 
 #### 4.3 泛型中使用extends和keyof
