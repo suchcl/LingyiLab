@@ -1,4 +1,7 @@
 参考链接:https://juejin.cn/post/7212622837063385125?
+https://juejin.cn/post/7064351631072526350
+https://juejin.cn/post/7209612932367532087#heading-3
+https://juejin.cn/post/7033717369663029278
 
 泛型有什么用？
 
@@ -224,3 +227,24 @@ const w:workerTye = 'salary';
 demo中keyof操作了自定义类型Workers，形成了一个由name和salary组成的字面量联合类型，即name | salary.所以由声明的workerTye类型的w的值就只能是name和salary中的一个。
 
 #### 4.3 泛型中使用extends和keyof
+
+这里的概念有点绕，暂且先放个demo，慢慢消化吧:
+
+```ts
+// 目的是获取某个对象上的属性，但是获取对象属性需要确保属性存在，那么需要建立起对象和属性之间的约束关系
+function getPersonKey<T, K extends keyof T>(person: T, key: K) {
+    return person[key];
+}
+getPersonKey({
+    name: "Nicholas Zakas",
+    age: 12,
+    gender: 'male'
+}, 'age'); // 12
+```
+### 5. 映射类型
+
+映射类型是ts中的一种高级类型，它可以用来从现有的类型中生成一个新的类型
+
+TS大部分的内置工具和类型体操都是基于映射类型实现
+
+映射类型的语法形式:{}
