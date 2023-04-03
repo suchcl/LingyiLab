@@ -1,3 +1,28 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [1. 泛型处理函数参数](#1-%E6%B3%9B%E5%9E%8B%E5%A4%84%E7%90%86%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0)
+- [2. 泛型接口](#2-%E6%B3%9B%E5%9E%8B%E6%8E%A5%E5%8F%A3)
+- [3. 泛型类](#3-%E6%B3%9B%E5%9E%8B%E7%B1%BB)
+- [4. 泛型约束](#4-%E6%B3%9B%E5%9E%8B%E7%BA%A6%E6%9D%9F)
+  - [4.1 泛型中使用extends](#41-%E6%B3%9B%E5%9E%8B%E4%B8%AD%E4%BD%BF%E7%94%A8extends)
+  - [4.2 泛型中使用keyof](#42-%E6%B3%9B%E5%9E%8B%E4%B8%AD%E4%BD%BF%E7%94%A8keyof)
+  - [4.3 泛型中使用extends和keyof](#43-%E6%B3%9B%E5%9E%8B%E4%B8%AD%E4%BD%BF%E7%94%A8extends%E5%92%8Ckeyof)
+- [5. 映射类型](#5-%E6%98%A0%E5%B0%84%E7%B1%BB%E5%9E%8B)
+- [6. 内置工具和类型体操](#6-%E5%86%85%E7%BD%AE%E5%B7%A5%E5%85%B7%E5%92%8C%E7%B1%BB%E5%9E%8B%E4%BD%93%E6%93%8D)
+  - [6.1 条件类型](#61-%E6%9D%A1%E4%BB%B6%E7%B1%BB%E5%9E%8B)
+  - [6.2 条件类型中推断(infer)和ReturnType](#62-%E6%9D%A1%E4%BB%B6%E7%B1%BB%E5%9E%8B%E4%B8%AD%E6%8E%A8%E6%96%ADinfer%E5%92%8Creturntype)
+  - [6.3 分发条件类型(Distributive Conditional Types)](#63-%E5%88%86%E5%8F%91%E6%9D%A1%E4%BB%B6%E7%B1%BB%E5%9E%8Bdistributive-conditional-types)
+  - [6.4 Partial](#64-partial)
+  - [6.5 Required](#65-required)
+  - [6.6 Readonly](#66-readonly)
+  - [6.7 Record<Keys,Type>](#67-recordkeystype)
+  - [6.8 Pick<Type,Keys>](#68-picktypekeys)
+  - [6.9 Omit<Type,Keys>](#69-omittypekeys)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 参考链接:https://juejin.cn/post/7212622837063385125?
 https://juejin.cn/post/7064351631072526350
 https://juejin.cn/post/7209612932367532087#heading-3
@@ -335,3 +360,27 @@ type R1 = MyselfType1<IPerson>;
 const p1: R1 = { // 因为设置了所有属性都可选，在实例化时没有声明属性也是可行的
 };
 ```
+
+### 6. 内置工具和类型体操
+
+ts的类型系统增加了很多功能以适配js的灵活性，以满足ts是一门支持类型编程的类型系统
+
+通常我们为代码加上类型约束，不太需要过多类型编程的能力，但是在开发一些通用框架、类库的时候考虑到各种适配就需要加上类型编程
+
+#### 6.1 条件类型
+
+#### 6.2 条件类型中推断(infer)和ReturnType
+
+#### 6.3 分发条件类型(Distributive Conditional Types)
+
+#### 6.4 Partial
+
+#### 6.5 Required
+
+#### 6.6 Readonly
+
+#### 6.7 Record<Keys,Type>
+
+#### 6.8 Pick<Type,Keys>
+
+#### 6.9 Omit<Type,Keys>
