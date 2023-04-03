@@ -275,3 +275,63 @@ const p1: R1 = {
 ```
 
 类型映射，就是通过一定的方法，将一种类型名称转换为其他的类型名称。
+
+在使用类型映射时，有两个修饰符：
+
+1. readonly: 设置属性只读
+
+2. ?: 设置属性可选
+
+-?: 去掉客选
+
++?: 都可选
+
+-readonly:去掉只读
+
+```ts
+interface IPerson {
+    name: string;
+    age?: number; // 设置age属性可选
+}
+
+type MyselfType1<T> = { [K in keyof T]: T[K] }
+
+type R1 = MyselfType1<IPerson>;
+
+// 实例化时可以不初始化age属性
+const p1: R1 = {
+    name: "Dave Herman",
+};
+```
+
+```ts
+interface IPerson {
+    name: string;
+    age?: number; // 设置age属性可选
+}
+
+type MyselfType1<T> = { [K in keyof T]-?: T[K] } // -?:表示要去掉原来类型中的可选属性
+
+type R1 = MyselfType1<IPerson>;
+
+// 实例化时原来的可选属性age不能再设置可选了
+const p1: R1 = {
+    name: "Dave Herman",
+    age: 16
+};
+```
+
+```ts
+interface IPerson {
+    name: string;
+    age?: number; // 设置age属性可选
+}
+
+type MyselfType1<T> = { [K in keyof T]+?: T[K] } // +?:表示原类型中的所有属性都可选
+
+type R1 = MyselfType1<IPerson>;
+
+// 实例化时原来的属性都可选
+const p1: R1 = { // 因为设置了所有属性都可选，在实例化时没有声明属性也是可行的
+};
+```
