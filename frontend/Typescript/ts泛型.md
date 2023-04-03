@@ -369,6 +369,28 @@ ts的类型系统增加了很多功能以适配js的灵活性，以满足ts是�
 
 #### 6.1 条件类型
 
+条件类型根据某个特定的条件，从两个类型中选择一个作为最终的类型
+
+写法：类似于三元运算符: someType extends OtherType ? TruethType : FalsyType
+
+```ts
+
+interface Dog extends Animal {
+
+}
+
+// string类型
+type Example = Dog extends Animal ? "string" : "number";
+
+// 检查类型U中是否存在类型T，也可以理解为T是否继承了类型U，如果存在则删除，如果不存在则返回
+type Filter<T, U> = T extends U ? never : T;
+type E = Filter<string | Animal | boolean | number, string | boolean>;
+```
+
+E最终为number和Animal的联合类型:
+
+![条件类型](./images/i59.png)
+
 #### 6.2 条件类型中推断(infer)和ReturnType
 
 #### 6.3 分发条件类型(Distributive Conditional Types)
