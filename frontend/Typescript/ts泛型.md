@@ -254,5 +254,24 @@ K是T的所有属性名的联合类型
 U是一个类型变换函数，它用来将T中的每个属性类型变成另外一个类型
 
 ```ts
+interface IPerson {
+    name: string;
+    age: number;
+}
 
+type MyselfType1<T> = { [K in keyof T]: T[K] }
+
+type MapType<T> = {
+    [P in keyof T]: (arg: T[P]) => boolean;
+}
+
+type R1 = MyselfType1<IPerson>;
+type R2 = MapType<IPerson>;
+
+const p1: R1 = {
+    name: "Dave Herman",
+    age: 12
+};
 ```
+
+类型映射，就是通过一定的方法，将一种类型名称转换为其他的类型名称。
