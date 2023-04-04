@@ -417,6 +417,24 @@ type rs = MyPartial<IStudent>;
 ![partial](./images/i60.png)
 #### 6.5 Required
 
+将所有的属性都变为必填属性
+
+```ts
+interface IStudent {
+    name: string;
+    age?: number;
+}
+
+type MyRequired<T> = {
+    [K in keyof T]-?: T[K]
+}
+
+type mr = MyRequired<IStudent>;
+```
+原本类型IStudent中的name为必填属性，age为可选属性，现经过映射类型转换之后，类型IStudent的别名mr类型中的属性name和age都为必填属性
+
+![require必填属性](./images/i61.png)
+
 #### 6.6 Readonly
 
 #### 6.7 Record<Keys,Type>
