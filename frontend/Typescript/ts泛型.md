@@ -393,10 +393,28 @@ E最终为number和Animal的联合类型:
 
 #### 6.2 条件类型中推断(infer)和ReturnType
 
+条件类型提供了infer关键词，可以从正在比较的类型中推断类型，然后在true分支里引用该推断结果
+
 #### 6.3 分发条件类型(Distributive Conditional Types)
 
 #### 6.4 Partial
 
+把所有属性均变为可选的类型
+
+```ts
+interface IStudent {
+    name: string;
+    age?: number;
+}
+type MyPartial<T> = {
+    [K in keyof T]?: T[K]
+}
+
+type rs = MyPartial<IStudent>;
+```
+最后的类型rs的两个属性name和age都是可选属性
+
+![partial](./images/i60.png)
 #### 6.5 Required
 
 #### 6.6 Readonly
