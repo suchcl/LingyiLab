@@ -435,7 +435,25 @@ type mr = MyRequired<IStudent>;
 
 ![require必填属性](./images/i61.png)
 
-#### 6.6 Readonly
+#### 6.6 readonly
+
+readonly属性可以让所有的属性都变为只读属性
+
+```ts
+interface IStudent {
+    name: string;
+    age?: number;
+}
+
+type MyReadOnly<T> = {
+    readonly [K in keyof T]: T[K]
+};
+
+type rr = MyReadOnly<IStudent>;
+```
+原始类型IStudent有2个属性，name属性为必选属性，age为可选属性，无论可选还是必选，但是都是可编辑的。然后在经过了类型映射之后，IStudent的别名属性rr继承了IStudent的所有属性，但是属性都变成了只读属性了
+
+![readonly只读属性](./images/i62.png)
 
 #### 6.7 Record<Keys,Type>
 
