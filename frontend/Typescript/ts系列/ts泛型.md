@@ -16,7 +16,7 @@
   - [6.3 分发条件类型(Distributive Conditional Types)](#63-%E5%88%86%E5%8F%91%E6%9D%A1%E4%BB%B6%E7%B1%BB%E5%9E%8Bdistributive-conditional-types)
   - [6.4 Partial](#64-partial)
   - [6.5 Required](#65-required)
-  - [6.6 Readonly](#66-readonly)
+  - [6.6 readonly](#66-readonly)
   - [6.7 Record<Keys,Type>](#67-recordkeystype)
   - [6.8 Pick<Type,Keys>](#68-picktypekeys)
   - [6.9 Omit<Type,Keys>](#69-omittypekeys)
@@ -24,9 +24,6 @@
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 参考链接:https://juejin.cn/post/7212622837063385125?
-https://juejin.cn/post/7064351631072526350
-https://juejin.cn/post/7209612932367532087#heading-3
-https://juejin.cn/post/7033717369663029278
 
 泛型有什么用？
 
