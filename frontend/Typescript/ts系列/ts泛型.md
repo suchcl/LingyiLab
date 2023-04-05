@@ -454,6 +454,11 @@ type rr = MyReadOnly<IStudent>;
 
 #### 6.7 Record<Keys,Type>
 
+Record,可以用来构造一个对象类型，所有的key(键)都是keys类型，所有的value(值)都是Type类型
+
+```ts
+
+```
 #### 6.8 Pick<Type,Keys>
 
 #### 6.9 Omit<Type,Keys>

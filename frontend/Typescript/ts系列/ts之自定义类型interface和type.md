@@ -31,3 +31,32 @@ type TPoint = {
 | 可以重复声明同一个类型名称 | 别名不能重复                                             |
 
 总的来说，就是type可约束的范围比interface要更广，但是在实践中，能使用interface的地方就尽量使用interface，否则再去使用type。
+
+### 索引签名
+
+```ts
+// 表示对象中满足key为number、值为string即可，k可被替换为任意单词
+interface IP {
+    [k: number]: string;
+}
+```
+
+type也可以实现同样的能力
+
+```ts
+type TP = Record<number, string>;
+```
+
+Demo:
+
+```ts
+const ic: IP = {
+    0: "javascript",
+    1: "php"
+};
+const tp: TP = {
+    0: "javascript",
+    1: "php"
+};
+```
+
