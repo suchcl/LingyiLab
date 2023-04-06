@@ -60,3 +60,39 @@ const tp: TP = {
 };
 ```
 
+### 接口继承
+
+接口和类相同，都是用extends关键词实现继承
+
+接口的继承是多继承，类是单继承
+
+```ts
+interface Animal {
+    running: () => void;
+}
+
+interface Person {
+    name: string;
+    age: number;
+}
+
+// 声明已经存在的类型，直接扩充原类型的属性
+interface Person {
+    gender: string;
+}
+
+// 通过extends继承类型
+interface IStudent extends Person, Animal {
+    id: number;
+}
+
+const stu: IStudent = {
+    name: "Have Herman",
+    age: 12,
+    gender: "male",
+    id: 123,
+    running: () => {
+        
+    },
+};
+```
