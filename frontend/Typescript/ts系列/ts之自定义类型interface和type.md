@@ -240,4 +240,14 @@ function fn2(animal: Fish | Bird){
     }
     animal.fly();
 }
+
+// instanceof 收窄
+function fn3(args: Date | string) {
+    if (args instanceof Date) {
+        return args.getDate();
+    }
+    return "args是一个字符串";
+}
 ```
+
+看了这些案例，其实类型收窄的概念说的云里雾里的，说什么将大范围的类型变成更小范围的类型，其实简单的理解就是通过类型守卫，将数据的类型范围缩小，然后有针对性的操作、管理这些数据。
