@@ -11,6 +11,8 @@
 
 语法: <type>+value,尖括号中填写具体的类型
 
+> 尖括号形式的断言方式不能使用在jsx、tsx中。
+
 ```ts
 let userName: any;
 (<string>userName).indexOf('he')

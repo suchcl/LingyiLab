@@ -273,6 +273,8 @@ if(typeof un === "string"){
 
 语法2：<类型>变量
 
+尖括号的方式不能应用在jsx、tsx中。
+
 ```typescript
 let un:unknown;
 un = 18;
