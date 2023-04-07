@@ -96,3 +96,6 @@ const stu: IStudent = {
     },
 };
 ```
+
+### 接口实现
+
