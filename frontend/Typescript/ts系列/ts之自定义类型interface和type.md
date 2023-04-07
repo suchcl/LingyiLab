@@ -176,7 +176,19 @@ p.eating();
 
 ### 5. 字面量类型
 
+字面量类型，可以参考: [ts中的字面量类型](../ts%E4%B8%AD%E7%9A%84%E5%AD%97%E9%9D%A2%E9%87%8F%E7%B1%BB%E5%9E%8B.md)
+
+简单来说，就是一些常量用来做ts的类型。字面量类型，大多场景是用来联合类型
+
+```ts
+let msg: 'hello' = 'hello';
+type Direction = 'left' | 'right';
+const d:Direction = 'left'; // Direction类型的d的值，只有2个合法的值，left和right
+```
+
 ### 6. 字面量推理
+
+
 
 ### 7. 类型收窄(Type Narrowing)
 
