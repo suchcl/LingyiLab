@@ -99,3 +99,35 @@ const stu: IStudent = {
 
 ### 接口实现
 
+定义的接口可以被类实现
+
+之后如果有需要传入接口的地方，同样也可以将类实例传入
+
+这就是所谓的面向接口开发
+
+```ts
+interface IRun {
+    running: () => void;
+}
+
+interface IEating {
+    eating: () => void;
+}
+
+class Person implements IRun, IEating {
+    running() {
+        console.log("running");
+    };
+    eating() {
+        console.log("eating");
+    };
+}
+
+function run(runner: IRun) {
+    runner.running();
+}
+
+const p = new Person();
+run(p);
+p.eating();
+```
