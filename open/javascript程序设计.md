@@ -1,5 +1,41 @@
 ### 1. Javascript基础
 
+**Javascript的发展历史**
+
+1992年，Nombas公司Cenvi项目中的ScriptEase
+
+1995年Netscape Navigator 2.0开发了LiveScript
+
+Netscape Navigator 3.0将LiveScript命名为Javascript
+
+随后微软开发出了JScript
+
+> Javascript不是由微软开发的
+
+**简单认识Javascript**
+
+Javascript是一门解释型脚本语言，不是编译型语言，开发的js代码不需要经过编译器的编译可以直接运行。
+
+Javascript是一种基于对象的语言，同时也可以理解为面向对象的语言。js编程中，可以使用自己已经创建好的对象。
+
+javascript是一门弱类型语言，具有足够的安全型，因为js不允许访问本地磁盘。
+
+**Javascript的特点**
+
+是一门脚本语言
+
+基于对象
+
+简单性
+
+安全性
+
+动态的
+
+跨平台的
+
+**数据类型**
+
 Javascript中的数据类型分为三大类:基本类型(数值型、字符串和布尔型)、引用类型(也称为对象类型)、特殊类型(undefined和null)
 
 变量的作用域指变量的可见性。javascript中的变量作用域分为全局变量和局部变量。
