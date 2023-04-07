@@ -180,3 +180,64 @@ p.eating();
 
 ### 7. 类型收窄(Type Narrowing)
 
+由1个宽泛的类型变为更小的类型，缩小声明时的类型路径(Type Narrowing)，如number | string -> number.
+
+实践中可以通过类型保护(Type Guards)来收窄类型
+
+常见的类型保护有：
+    typeof
+    switch或者一些相等运算符(===、!==)来表达相等性
+    instanceof
+    in
+
+```ts
+// typeof收窄
+function unionType(id: string | number){
+    if(typeof id === 'string'){
+        console.log("字符串类型的ID:", id);
+    }else {
+        console.log("数值型的id:", id);
+    }
+}
+ 
+// 布尔值收窄
+function getMsg(msg?: string) {
+    if (msg) {
+        console.log("可以获取到该msg:", msg);
+    }
+}
+
+// 相等性收窄
+function equal(x: string | number, y: string | number) {
+    if (x === y) {
+        console.log("相等性收窄");
+    }
+}
+
+// in收窄
+type Fish = {
+    swim: () => {}
+}
+
+type Bird = {
+    fly: () => {}
+}
+
+function fn(ani: Fish | Bird) {
+    if ('swim' in ani) {
+        return ani.swim();
+    }
+    return ani.fly();
+}
+
+function isFish(animal: Fish | Bird): animal is Fish {
+    return 'swim' in animal;
+}
+
+function fn2(animal: Fish | Bird){
+    if(isFish(animal)){
+        return animal.swim();
+    }
+    animal.fly();
+}
+```
