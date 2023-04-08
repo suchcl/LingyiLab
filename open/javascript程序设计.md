@@ -162,15 +162,42 @@ undefined、null
 
 **typeof检测变量的数据类型**
 
-未定义：undefined
+未定义：undefined --- name除外，name在部分浏览器中是window的全局属性
 
 布尔值：boolean
 
 字符串：string
 
-数值：number
+NaN、数值：number
 
-对象或null：object
+数组、对象或null：object
+
+function定义的函数、函数表达式、箭头函数等各种方式定义的函数：function
+
+```html
+<script>
+    function sum(a, b) {
+        return a + b;
+    }
+    const arr = [];
+    const add = (a, b) => {
+        return a + b;
+    }
+    const increase = function (a, b) {
+        return a + b;
+    }
+    console.log("typeof 未定义的变量username:", typeof username); // undefined
+    console.log("typeof 函数:", typeof sum); // function
+    console.log("typeof 箭头函数:", typeof add); // function
+    console.log("typeof 变量函数:", typeof increase); // function
+    console.log("typeof undefined:", typeof undefined); // undefined
+    console.log("typeof null:", typeof null); // object
+    console.log("typeof 数组:", typeof arr); // object
+    console.log("typeof NaN:", typeof NaN); // number
+</script>
+```
+
+> 这里可以关注下window的属性，window的属性都不能直接作为普通的标识符使用，window下的全局变量很多，可以通过打印window属性来查看下。
 
 #### 小结
 **数据类型**
