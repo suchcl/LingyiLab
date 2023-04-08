@@ -34,6 +34,14 @@ javascript是一门弱类型语言，具有足够的安全型，因为js不允�
 
 跨平台的
 
+**script代码的引用**
+
+javascript代码在网页中放在<script></script>标记中，<script>标记不是自闭合标签，不能通过下面方式使用。
+
+```html
+<script src="" /><!--不能通过这种方式使用，<script>不是自闭合标签-->
+```
+
 **数据类型**
 
 Javascript中的数据类型分为三大类:基本类型(数值型、字符串和布尔型)、引用类型(也称为对象类型)、特殊类型(undefined和null)
