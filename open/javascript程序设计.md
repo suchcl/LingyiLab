@@ -13,6 +13,13 @@
       - [1.3.2.3 js中一些特殊的数值常量](#1323-js%E4%B8%AD%E4%B8%80%E4%BA%9B%E7%89%B9%E6%AE%8A%E7%9A%84%E6%95%B0%E5%80%BC%E5%B8%B8%E9%87%8F)
     - [1.3.3 变量及其作用域](#133-%E5%8F%98%E9%87%8F%E5%8F%8A%E5%85%B6%E4%BD%9C%E7%94%A8%E5%9F%9F)
     - [1.3.4 运算符和表达式](#134-%E8%BF%90%E7%AE%97%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F)
+      - [1.3.4.1 算术运算符和算术表达式](#1341-%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%AC%A6%E5%92%8C%E7%AE%97%E6%9C%AF%E8%A1%A8%E8%BE%BE%E5%BC%8F)
+      - [1.3.4.2 位运算](#1342-%E4%BD%8D%E8%BF%90%E7%AE%97)
+      - [1.3.4.3 运算符优先级](#1343-%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7)
+    - [1.3.5 数据类型转换](#135-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2)
+      - [1.3.5.1 转换为数值类型](#1351-%E8%BD%AC%E6%8D%A2%E4%B8%BA%E6%95%B0%E5%80%BC%E7%B1%BB%E5%9E%8B)
+      - [1.3.5.2 转换为字符串](#1352-%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%AD%97%E7%AC%A6%E4%B8%B2)
+      - [1.3.5.3 转换为布尔类型](#1353-%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B)
   - [小结](#%E5%B0%8F%E7%BB%93)
 - [2. 流程控制与异常处理](#2-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E4%B8%8E%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86)
 - [3. javascript对象](#3-javascript%E5%AF%B9%E8%B1%A1)
@@ -559,7 +566,28 @@ js中布尔类型只有两个值：true、false
 
    > 注意空字符串和带有空格的字符串，只含有一个空格字符的字符串不是空字符串
 
-2. 
+
+#### 1.4 动态内容生成和基本交互
+
+##### 1.4.1 动态内容生成
+
+通过document.write()可以动态生成内容
+
+```js
+var username = "Nicholas Zakas";
+var age = 21;
+var isStudent = true;
+document.write("姓名:", username, '<br/>');
+document.write("年龄:", age, '<br />');
+document.write("是否为学生:", isStudent);
+```
+
+可以通过alert()、confirm()、prompt()与用户产生交互
+##### 1.4.2 alert()
+
+##### 1.4.3 confirm()
+
+##### 1.4.4 prompt()
 #### 小结
 **数据类型**
 
