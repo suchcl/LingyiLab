@@ -162,7 +162,51 @@ p.eating();
 
 #### 2.1 基本使用
 
+ts中函数声明和实现分离写法
+
+**利用type声明函数**
+
+```ts
+type F1 = (a: number, b: number) => number;
+```
+
+**利用interface声明函数**
+
+```ts
+interface F1 {
+    (a: number, b: number): number
+}
+```
+
+函数实现
+
+无论是使用type声明函数，还是通过interface声明函数，都可以通过箭头函数和函数表达式的方式实现函数，但是不能使用函数声明的方式实现函数。
+
+```ts
+// 箭头函数方式实现函数
+const f1: F1 = (a, b) => a + b;
+
+// 函数表达式的方式实现函数
+const f2: F1 = function (a, b) {
+    return a + b;
+}
+```
+
 #### 2.2 调用签名
+
+在通过interface声明函数的时候，也可以为函数声明自己的属性
+
+```ts
+interface FunctionWithAttrs {
+    username: string;
+    (msg: string): void
+}
+
+const fn4: FunctionWithAttrs = msg => {
+    console.log(msg);
+}
+fn4.username = "Nicholas Zakas";
+```
 
 #### 2.3 构造签名
 
@@ -171,6 +215,8 @@ p.eating();
 ### 3. 联合类型、交叉类型、函数重载
 
 #### 3.1 联合类型和重载
+
+
 
 ### 4. 类型、非空、常量断言
 
