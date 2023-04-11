@@ -201,6 +201,51 @@ let strLen = (str as string).length
 
 **非空断言**
 
+非空断言操作符：!。ts中特有的，js中没有该操作符。
+
+!操作符，可以用于断言当前操作数不是null和undefined。
+
+```ts
+function getMessage(msg: string | undefined){
+    let newMsg:string = msg;
+    console.log(newMsg);
+}
+```
+
+直接这么看这个代码，从视觉上是看不出有什么问题的，看截图：
+
+![赋值类型错误](./images/i1.png)
+
+提示是不能将undefined类型值赋值给一个string类型的变量。回到代码中，getMessage函数参数msg是一个联合联合类型，可能是string类型也可能是undefined，但newMsg是在函数内定义的变量，且类型是确定的string类型，所以在赋值的时候将一个不确定的类型值赋值给一个确定类型的变量，ts编译器就报错了。那么怎么解决呢？
+
+```ts
+// 通过类型收窄的方式
+function getMessage(msg: string | undefined){
+    let newMsg:string;
+
+    // 下面两种收窄方式都可以，目的都是排除掉undefined值
+    if(typeof msg === "string"){
+        newMsg = msg;
+    }
+
+    // if(msg){
+    //     newMsg = msg;
+    // }
+    console.log(newMsg);
+}
+```
+
+也可以直接通过非空断言的方式解决:
+
+```ts
+function getMessage(msg: string | undefined){
+    let newMsg:string = msg!;
+    console.log(newMsg);
+}
+```
+
+[非空断言操作符也可参考](../%E9%9D%9E%E7%A9%BA%E6%96%AD%E8%A8%80%E6%93%8D%E4%BD%9C%E7%AC%A6.md)
+
 **常量断言**
 
 ### 5. 字面量类型
