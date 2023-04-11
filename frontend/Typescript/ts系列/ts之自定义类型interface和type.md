@@ -248,6 +248,39 @@ function getMessage(msg: string | undefined){
 
 **常量断言**
 
+通过as coust将一个基本数据类型收窄到一个字面量类型，或者也可以理解将当前变量变成了常量；
+
+```ts
+let uname = "Nicholas Zakas" as const;  // 通过as const，uname已经是一个字面量类型了，其类型值为Nicholas Zakas，也只能有这么一个确认的值，不能再为变量uname赋其他的值
+uname = "Dave Herman"; // 报错，不能为一个Nicholas Zakas类型值赋一个Dave Herman类型
+```
+
+![常量断言基本数据类型](./images/i2.png)
+
+如果as const断言一个数组，那么数组会被收窄为一个只读属性的数组，不能再对该数组添加、移除元素
+
+```ts
+const userArr = ["Nicholas Zakas", "Dave Herman"] as const;
+userArr.push("");
+```
+
+![常量断言数组，数组变为readonly](./images/i3.png)
+
+如果as const断言一个对象，那么会对对象的每个属性都添加上readonly，变为只读属性
+
+```ts
+const userObj = {
+    name: "Dave Herman",
+    age: 12
+} as const;
+
+userObj.name = "";
+```
+
+![常量断言对象，为对象的每个属性都添加reasonly属性](./images/i4.png)
+
+![常量断言对象后就不能再对对象属性重新赋值](./images/i5.png)
+
 ### 5. 字面量类型
 
 字面量类型，可以参考: [ts中的字面量类型](../ts%E4%B8%AD%E7%9A%84%E5%AD%97%E9%9D%A2%E9%87%8F%E7%B1%BB%E5%9E%8B.md)
