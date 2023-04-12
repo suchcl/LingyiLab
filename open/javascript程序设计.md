@@ -690,6 +690,8 @@ case和default的顺序可以调整
 
 #### 2.2 javascript异常处理
 
+##### 2.2.1 javascript异常处理
+
 javascript从ES3开始提供了异常处理机制
 
 **js中的异常捕获机制**
@@ -733,6 +735,37 @@ try{
 }
 
 js中，如果有了finally语句，则catch语句可以省略，但是优秀的实践是永远带着catch语句。
+
+##### 2.2.2 javascript的错误类型
+
+javascript中共定义了7种错误类型
+
+1. Error: 最基本的错误类型，其他的错误类型都是继承自这个类型
+
+2. EvalError(eval错误)
+
+    eval函数没有被正确的执行
+3. RangeError:范围错误
+
+    超出有效范围，比如使用数组时下标超界
+
+4. ReferenceError:引用错误
+
+    引用了一个不存在的变量
+
+5. SyntaxError:语法错误
+
+    解析代码时发生的语法错误
+
+6. TypeError:类型错误
+
+    变量或参数不是预期类型。比如对原始类型字符串、数值、布尔值类型时使用new操作符，就会抛出这种错误，因为new操作符的参数应该是一个构造函数。调用对象不存在的方法也会发生这种错误。
+
+7. URLError:URL错误
+
+    与url相关函数的参数不正确，主要是encodeURI()、decodeURI()、encodeURIComponent()、decodeURIComponent()、escape()、unescape()这6个url相关的函数
+
+
 
 #### 2.3 函数
 
