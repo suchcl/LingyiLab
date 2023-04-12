@@ -690,7 +690,49 @@ case和default的顺序可以调整
 
 #### 2.2 javascript异常处理
 
+javascript从ES3开始提供了异常处理机制
 
+**js中的异常捕获机制**
+
+1. try……catch语句：js中处理异常的标准方式
+
+try{
+    // 可能会发生异常的代码
+}catch(err){
+    // 发生错误执行的代码
+}
+
+```js
+try{
+    console.log(b);
+    console.log("不要找我了，我不会输出的");
+}catch(err){
+    console.log("发生错误了");
+    console.log(err);
+}
+// console.log(b);
+console.log("try……catch执行后的代码");
+```
+
+执行异常捕获的一个优势是，当发生了异常后，异常后面的代码还会继续执行，如果不捕获异常，则异常后面的代码不会再继续执行，而是运行到异常部分程序终止。
+
+虽然不捕获异常，浏览器也能够报错。
+
+2. finally语句
+
+finally语句和try……catch配合使用，无论有没有发生异常，finally中的语句都要执行。
+
+比如在需要读取资源、读取缓冲区内容的时候，可能就会使用到finally语句。
+
+try{
+    // 可能会发生异常的语句
+}catch(err){
+    // 发生异常后执行的代码
+}finally{
+    // 无论是否发生异常，都要执行的代码
+}
+
+js中，如果有了finally语句，则catch语句可以省略，但是优秀的实践是永远带着catch语句。
 
 #### 2.3 函数
 
