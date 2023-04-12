@@ -792,8 +792,50 @@ js中，也可以自定义错误类型，然后抛出自定义类型的错误对
 如果要抛出自定义错误类型对象，只需要继承任何一个内置的错误类型即可，一般都是直接继承子Error。
 
 ```js
+// throw抛出自定义错误类型对象
+function MyError(message){
+    this.message = message;
+    this.name = "自定义类型错误对象";
+}
 
+MyError.prototype = new Error();
+try{
+    throw new MyError("注意：这是自定义错误类型");
+}catch(err){
+    console.log(err.message);
+}
 ```
+
+##### 2.2.4 异常处理事件
+
+javascript的window对象有一个onerror属性，可以用来处理捕获异常事件。
+
+window.onerror只能捕获系统异常，不能捕获自定义异常
+
+window.onerror可以返回一个布尔值:
+    当返回true:表示浏览器不需要再做额外的错误处理，也就是说浏览器不需要显示错误信息
+    当返回fasle:浏览器会提示错误信息
+
+当img标签的资源载入失败时，会调用onerror事件
+
+```html
+<script>
+    function fun(obj){
+        console.log("123");
+        console.log("666",obj);
+        obj.src="../images/img1.jpg";
+    }
+
+    window.onerror = function(msg,url,line){
+        console.log("Error:"+ msg + "\n" + url + ":" + line);
+        // return true
+    }
+    // console.log('异常捕获以后了');
+</script>
+<img src="https://p3-passport.byteimg.com/img/us~100x100.awebp" onerror="fun(this)" alt="">
+```
+
+在img资源调用失败时触发了onerror事件，然后替换为了默认图片
 
 #### 2.3 函数
 
