@@ -765,7 +765,35 @@ javascript中共定义了7种错误类型
 
     与url相关函数的参数不正确，主要是encodeURI()、decodeURI()、encodeURIComponent()、decodeURIComponent()、escape()、unescape()这6个url相关的函数
 
+##### 2.2.3 使用throw主动抛出异常
 
+1. 抛出javascript内置错误类型的对象
+
+通过throw抛出异常后，异常后面的代码终止执行
+
+```js
+function foo(num){
+    if(typeof num === "number"){
+        return num * num;
+    }else {
+        throw new TypeError("类型错误，请传入一个数字");
+    }
+}
+foo("12");
+console.log("2223");
+```
+
+案例中通过throw抛出了异常后，那么抛出异常后的代码console.log("2223");是不会再被执行到的
+
+2. 抛出自定义类型的错误对象
+
+js中，也可以自定义错误类型，然后抛出自定义类型的错误对象，
+
+如果要抛出自定义错误类型对象，只需要继承任何一个内置的错误类型即可，一般都是直接继承子Error。
+
+```js
+
+```
 
 #### 2.3 函数
 
