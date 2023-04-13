@@ -906,6 +906,61 @@ max(3,5);
 
 ##### 2.3.3 函数的参数传递
 
+js中函数参数的传递有两种传递方式：值传递和引用传递。
+
+1. 值传递
+
+值传递是指实参的值以副本复制的方式传递给形参，改变形参的值不会影响到实参的值,就是说参数传递给函数以后，实际上是将传递给函数的参数做了一个复制，然后只是将复制的新值传递给了函数，而传递给函数的参数的原值是不变的。
+
+js中，Number、String、Boolean、Undefined、Null类型的参数都是通过值传递的。
+
+```js
+// 值传递
+function increse(num) {
+for (var i = 0; i < 5; i++) {
+    num++;
+    console.log(num);
+}
+}
+
+var baseNum = 10;
+
+increse(baseNum); // 11,12,13,14,15
+console.log("原始参数baseNum值:", baseNum); // 10
+```
+
+传递给函数的参数baseNum，传递给函数increse的参数实际上是变量baseNum的一个复制出来的新值，无论函数increse中参数怎么变，原始参数baseNum始终保持不变。
+
+2. 引用传递
+
+引用传递是指实参会以引用的方式传递给形参，函数中对形参的操作会影响到实参的值 ---- 就是传递给函数的参数是以原来的值直接传递过去的，函数中形参的处理、操作就直接操作了参数的原来的值
+
+js中，对函数类型、对象类型变量的参数传递都是引用传递方式。
+
+```js
+function updateObj(obj){
+obj.name = "Nicholas Zakas";
+}
+var obj = new Object();
+console.log(obj.name); // undefined
+updateObj(obj);
+console.log(obj.name); // Nicholas Zakas
+```
+
+案例中可以看到，引用传值方式，函数中对参数的操作影响到了参数的原来的值，所以可以理解为对参数的直接调用。
+
+3. 隐含参数arguments
+
+arguments是一个表示当前所执行的函数的参数和调用它的函数的对象。
+
+在定义函数的时候即使不定义参数列表，也仍然可以通过arguments引用到所获得的参数，这给编程带来了极大的灵活性。
+
+arguments仅在开始函数执行函数时可调用
+
+arguments对象不是数组，但访问各个参数的形式与访问数组元素的方式相同，因此也称为类数组。
+
+![arguments参数](./images/i5.png)
+
 #### 2.4 闭包
 
 ### 3. javascript对象
