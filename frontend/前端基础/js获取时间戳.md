@@ -29,3 +29,23 @@ js中，在某个数据类型前面使用+，这个操作的目的是为了将�
 +new Date()
 ```
 案例的意思是将new Date()的值转换为Number类型，那么就会调用Date的valueOf()方法，获取到Date对象的原始值。所以，+new Date()获取到的值，和new Date().valueOf()的值，是一样的。
+
+### 时间格式化
+
+根据时间戳将时间格式化为：2023-04-14 16:41:52格式
+
+```js
+// 目标格式：2023-04-14 16:41:52
+function timeFormat(timestamp) {
+    //时间戳为10位需*1000，时间戳为13位的话不需乘1000 
+    var date = new Date(timestamp);
+    var year = date.getFullYear(),
+        month = ("0" + (date.getMonth() + 1)).slice(-2),
+        sdate = ("0" + date.getDate()).slice(-2),
+        hour = ("0" + date.getHours()).slice(-2),
+        minute = ("0" + date.getMinutes()).slice(-2),
+        second = ("0" + date.getSeconds()).slice(-2);
+    var result = year + "-" + month + "-" + sdate + " " + hour + ":" + minute + ":" + second;
+    return result;
+}
+```
