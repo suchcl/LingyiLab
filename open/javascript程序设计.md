@@ -980,6 +980,97 @@ function outerFun() {
 outerFun();
 ```
 
+#### 2.4.1 闭包的用途
+
+1. 限定变量、函数的使用范围
+
+> 函数中定义的函数是不能被外部调用的，也不能被当前函数在外部的实例对象调用
+
+```js
+function f1() {
+    var n = 999;
+    function f2() {
+        console.log("内部函数调用外部函数的n:", n);
+    }
+    var f3 = function () {
+        console.log("内部函数f3中调用外部函数，以及外部可以通过属性的方式调用:", n);
+    };
+    // return f2;
+}
+var rs = f1();
+// rs.f2(); // 异常，不能这么调用，类型错误，peError: Cannot read properties of undefined (reading 'f2'),因为f2不是f1的属性
+rs.f3(); // 同样也是类型错误
+```
+
+**匿名函数(函数表达式的方式也可以得到闭包)**
+
+```js
+var f4 = function(){
+    var m = 12;
+    function f5(){
+        console.log(m);
+    }
+    return f5();
+}
+f4(); // f4的执行结果，也是得到了一个闭包,然后再通过()执行函数，内部函数f5执行
+```
+
+**采用立即执行函数得到闭包**
+
+```js
+(function () {
+    var n = 1000;
+    function f2() {
+        console.log(n);
+    }
+    window.result = f2;
+})();
+result();
+```
+
+> 立即执行函数上下文环境中，;一定不能省
+
+**使用闭包封装工具函数**
+
+```js
+(function () {
+    function _$(param) {
+        if (param.substring(0, 1) == "#") {
+            return document.getElementById(param.substring(1));
+        } else if (param.substring(0, 1) == ".") {
+            return document.getElementsByClassName(param.substring(1))[0];
+        } else if (param.substring(0, 5) == "name:") {
+            return document.getElementsByName(param.substring(5))[0];
+        } else {
+            return document.getElementsByTagName(param)[0];
+        }
+    }
+    window.MyTools = {};
+    window.MyTools.$ = _$;
+})();
+```
+
+应用:
+
+```html
+<script>
+    MyTools.$("#box").innerHTML = "box";
+</script>
+```
+
+2. 结果缓存
+
+有一些场景处理过程需要很长时间，那么我们在实践中就可以将这个结果缓存起来，当再次调用这个处理过程的时候，首先寻找缓存，如果没有再去重新计算，否则就使用缓存中的值。
+
+#### 2.4.2 使用闭包注意事项
+
+1. 不能滥用闭包
+
+闭包都保存在内存中，使用闭包会对内存有一定的消耗，在IE中有可能导致内存泄漏。
+
+解决办法:在退出函数之前，将不再使用的局部变量全部删除
+
+2. 闭包会在父函数外部改变父函数内部变量的值，所以在将符函数当作对象使用、将闭包当作符父函数的私有属性使用时一定要小心，不要随便更改父函数内部变量的值
 ### 3. javascript对象
 
 ### 4. 文档对象模型
