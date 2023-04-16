@@ -963,6 +963,23 @@ arguments对象不是数组，但访问各个参数的形式与访问数组元�
 
 #### 2.4 闭包
 
+闭包是一个拥有许多变量和绑定了这些变量的环境的表达式(多数情况下是一个函数)
+
+必报，较多情况的表现是嵌套函数，嵌套函数中内部函数可以访问外部函数中的变量，但是外部函数不能访问内部函数的变量。
+
+```js
+function outerFun() {
+    var a = 1;
+    function innerFun() {
+        var b = 2;
+        console.log("内部调用外部函数变量a:", a); // 1
+    }
+    innerFun();
+    console.log("外部函数调用内部函数中的b:", b); // 异常：引用错误  ferenceError: b is not defined，外部函数不能调用内部函数中的变量
+}
+outerFun();
+```
+
 ### 3. javascript对象
 
 ### 4. 文档对象模型
