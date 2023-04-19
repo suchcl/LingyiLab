@@ -1124,11 +1124,159 @@ result();
 
 #### 3.1 对象概述
 
+学习javascript对象，主要学习：
+
+1. 字符串、Math对象的常用方法
+
+2. 创建和使用自定义对象
+
+3. 掌握Date对象的使用
+
+4. 掌握数组的定义和使用
+
+5. 理解JSON及应用
+
+6. 理解正则表达式的基本语法、验证表单
+
 ##### 3.1.1 对象的概念
+
+**什么是对象**
+
+一个对象经常对应于现实世界中的一个实体，如钢笔、黑板、窗户、电脑等
+
+这个实体封装了一些属性和方法，通过使用这些方法和属性来改变对象的状态来完成某种功能
 
 ##### 3.1.2 创建和使用自定义对象
 
+**创建对象的方式**
+
+1. 使用new Object()的方式创建对象
+
+```js
+var person = new Object();
+person.name = "Bill";
+person.age = 28;
+person.job = "teacher";
+person.showName = function(){
+    console.log(this.name);
+}
+person.showName();
+```
+
+2. 使用{}的方式创建对象,也称为对象字面量的方式创建对象
+
+```js
+var person2 = {
+    name: "Bill Gates",
+    age: 28,
+    job: "Teacher",
+    showName:function(){
+        console.log(this.name);
+    }
+};
+
+person2.showName();
+```
+
+3. 通过函数(构造函数)来创建对象
+
+使用构造函数创建对象，相当于创建了一个类。
+
+```js
+function Person(name,age,job){
+    this.name = name;
+    this.age = age;
+    this.job = job;
+    this.showName = function(){
+        console.log(this.name);
+    }
+}
+var p = new Person("Nicholas Zakas", 12, "Tearcher");
+p.showName();
+```
+通过这种构造函数，可以使用构造函数创建多个对象。
+
+通过构造函数创建好了对象之后，也可以为当前对象添加新的属性和方法，只是这种方式新增的属性和方法只能被当前对象所拥有，其他对象不能共享。
+
+```js
+p.showAge = function(){
+    console.log(this.age);
+}
+p.showAge();
+```
+
+**怎么为类型添加新的成员呢？**
+
+通过原型prototype
+
+```js
+Person.prototype.showJob = function(){
+    console.log(this.job);
+}
+p.showJob();
+```
+
+4. 使用构造函数与原型相结合的方式创建对象
+
+使用构造函数定义实例的属性，使用原型定义方法。这样，每个实例都会拥有一份自己的实例属性的副本，同时又共享着对方法的引用，最大限度的节省内存
+
+```js
+function Person2(name,age,job){
+    this.name = name;
+    this.age = age;
+    this.job = job;
+}
+
+Person2.prototype = {
+    constructor: Person2,
+    showName:function(){
+        console.log(this.name);
+    },
+    showAge: function(){
+        console.log(this.age);
+    }
+};
+
+var p1 = new Person2("Jack", 16, "Programmer");
+var p2 = new Person2("Nicholas", 22, "Teacher");
+p1.showName();
+p2.showAge();
+```
+
+5. 对象的使用
+
+对象成员的使用，通过两种方式：点语法和[]语法。
+
+```js
+var person2 = {
+    name: "Bill Gates",
+    age: 28,
+    job: "Teacher",
+    showName:function(){
+        console.log(this.name);
+    }
+};
+
+console.log(person2.age); // 28
+console.log(person2['name']); // Bill Gates
+```
+
 ##### 3.1.3 关于this对象
+
+this在对象定义的时候是没有确定的，只有在函数被调用的时候this的指向才会明确，谁调用this就指向谁
+
+```js
+var name = "The Window";
+var obj2 = {
+    name: "MyObject",
+    getFunction: function(){
+        return function(){
+            return this.name;
+        }
+    }
+};
+console.log(obj2.getFunction()()); // The Window
+```
 
 #### 3.2 字符串
 
