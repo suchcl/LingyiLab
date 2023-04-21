@@ -35,6 +35,20 @@ name:异常的类型
 
 **异常类型**
 
+本文我们暂且不把Error作为一种异常类型，而是讨论具体的异常类型。
+
+1. SyntaxError 语法错误
+
+2. ReferenceError 引用错误
+
+3. TypeError 类型使用错误
+
+4. RangeError 范围错误
+
+5. URIError 编码解码异常
+
+6. EvalError Eval函数内部错误
+
 ### 3. 抛出异常
 
 ### 4. 异常捕获、处理
