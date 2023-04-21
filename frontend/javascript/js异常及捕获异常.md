@@ -54,6 +54,23 @@ const name age = 12; // 变量声明错误
 
 2. ReferenceError 引用错误
 
+当代码中的变量引用不正确发声的异常。如先访问变量后声明、访问了不存在的变量、访问了没有权限访问的变量等。
+
+```js
+console.log(username); // 访问了一个不存在的变量
+function testReference(){
+    // console.log(uname); // 先访问后声明
+    const uname = "Dave Herman";
+    console.log(age); // 访问了没有权限访问的内部函数中的变量
+    return function(){
+        const age = 12;
+    }
+}
+testReference();
+```
+
+![引用错误](./images/i10.png)
+
 3. TypeError 类型使用错误
 
 4. RangeError 范围错误
