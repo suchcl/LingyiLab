@@ -73,6 +73,22 @@ testReference();
 
 3. TypeError 类型使用错误
 
+当js程序中某些变量得不到预期的值就会抛出这个类型的异常
+
+```js
+const arr = "Hello World!";
+function getArrEle(arr) {
+    arr.forEach(item => {
+        console.log(item);
+    });
+}
+getArrEle(arr);
+```
+
+![类型异常](./images/i11.png)
+
+getArrEle函数需要一个数组，然后打印数组的数组项，但是在函数调用中传递给函数的是一个字符串，结果就报了类型异常。
+
 4. RangeError 范围错误
 
 5. URIError 编码解码异常
