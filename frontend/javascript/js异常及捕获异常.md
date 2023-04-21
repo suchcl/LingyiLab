@@ -91,6 +91,19 @@ getArrEle函数需要一个数组，然后打印数组的数组项，但是在�
 
 4. RangeError 范围错误
 
+当变量设置的值超出其合法范围的时候就会报该异常。
+
+```js
+const ar = new Array(4294967296);
+console.log('%c [ ar ]-49', 'font-size:13px; background:pink; color:#bf2c9f;', ar)
+```
+
+数组的长度超出了数组正常的长度值。
+
+js中数组的长度值范围为:0-2<sub>32</sub>-1。
+
+![范围异常](./images/i12.png)
+
 5. URIError 编码解码异常
 
 6. EvalError Eval函数内部错误
