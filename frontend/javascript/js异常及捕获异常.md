@@ -158,6 +158,82 @@ testError();
 
 #### 4.2 异步异常处理
 
+异步异常主要是指异步事件中的异常处理，浏览器中的异步事件主要包括Promise、定时器、ajax、事件等。
+
+异步中的异常不能通过try/catch来处理。
+
+**事件**
+
+事件中的异常，主要是指注册绑定的事件处理程序，如onClick、addEvenetListener等事件的处理函数。因为它们是异步的，所以它们的异常不能通过try/catch来处理。
+
+事件中的异常，可以通过onerror事件进行捕获。
+
+方式：
+
+```js
+window.onerror = function(message, source, lineno, colno, error){}
+// message: 错误信息
+// source: 发生错误的脚本
+// lineno: 行号
+// colno: 列号
+// error: Error对象
+```
+
+demo:
+```js
+window.onerror = function (msg, url, line, colnum, error) {
+    console.log("msg:", msg);
+    console.log("url:", url);
+    console.log("line:", line);
+    console.log("列号:", colnum);
+    console.log("错误信息:", error);
+}
+const btnSubmit = document.querySelector("#btn");
+btnSubmit.addEventListener("click", function () {
+    const arr = new Array(4294967296);
+    console.log("123");
+}, false);
+```
+
+![全局捕获了响应事件处理程序异常信息](./images/i14.png)
+
+事件处理程序是异步程序，但是事件处理程序内部是同步执行的，所以事件处理函数的内部也可以使用try/catch去捕获异常
+
+```js
+btnSubmit.addEventListener("click", function () {
+    try {
+        const arr = new Array(4294967296);
+        console.log("123456");
+    } catch (e) {
+        console.log(e);
+    }
+}, false);
+```
+
+响应事件本身是异步函数，但是函数内部的代码还是同步的，是依次顺序执行的，所以也可以在函数内部使用try/catch捕获异常。
+
+即使同时有window监听了onerror事件，事件处理程序内部也有try/catch方式捕获异常，那么究竟哪种方式会被谁捕获到呢？
+
+异常信息具有冒泡的特性，如果处理函数内部通过try/catch方式捕获了异常，但是然后在函数内部做了异常处理，而并没有通过throw将异常抛出，那么就不会再执行外部的window上的onerror事件了。但是如果通过throw将异常抛出了，那么就还是会执行外部顶层的window的onerror事件的。
+
+```js
+btnSubmit.addEventListener("click", function () {
+    try {
+        const arr = new Array(4294967296);
+        console.log("123456");
+    } catch (e) {
+        throw e;
+    }
+}, false);
+```
+函数内部通过catch捕获到了异常后通过throw抛出了，那么这个异常信息就会被最外层的window上的onerror捕获到，结果如下：
+
+![函数内部通过try/catch捕获异常并throw抛出，外部顶层window的onerror可以监听到](./images/i15.png)
+
+**定时器**
+
+**Promise**
+
 ### 5. 捕获的异常的有效利用
 
 在开发领域，不要还跑异常，能够把抛出来的异常有效的利用起来，也是异常的一大价值。
