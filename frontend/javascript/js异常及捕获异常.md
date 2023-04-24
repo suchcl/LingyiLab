@@ -230,10 +230,6 @@ btnSubmit.addEventListener("click", function () {
 
 ![函数内部通过try/catch捕获异常并throw抛出，外部顶层window的onerror可以监听到](./images/i15.png)
 
-**定时器错误捕获**
-
-
-
 **Promise**
 
 promise中catch是用来处理错误的。
@@ -295,6 +291,32 @@ window.addEventListener("unhandledrejection", function(err){
 ```
 
 ![promise出发unhandledrejection事件](./images/i16.png)
+
+**定时器错误捕获**
+
+由于定时器是异步事件，所以不能直接通过try/catch的方式来捕获定时器错误，可以通过使用promise来封装定时器。
+
+```js
+function csetTimeout(fn, wait) {
+    return new Promise((resolve, reject) => {
+        try {
+            setTimeout(fn(), wait)
+        } catch (err) {
+            reject(err);
+        }
+    });
+}
+
+function testError() {
+    throw new TypeError("类型错误");
+}
+
+csetTimeout(testError, 1000).catch(err => {
+    console.log("err:", err);
+})
+```
+
+![定时器异常捕获](./images/i17.png)
 
 ### 5. 捕获的异常的有效利用
 
