@@ -230,9 +230,71 @@ btnSubmit.addEventListener("click", function () {
 
 ![函数内部通过try/catch捕获异常并throw抛出，外部顶层window的onerror可以监听到](./images/i15.png)
 
-**定时器**
+**定时器错误捕获**
+
+
 
 **Promise**
+
+promise中catch是用来处理错误的。
+
+```js
+function getImage(url) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+
+        img.src = url;
+        img.onerror = function(){
+            reject(new Error("获取图片错误!"));
+        }
+        img.onload = function(){
+            resolve(img);
+        }
+    });
+}
+
+getImage("https://pics2.baidu.com/feed/e4dde71190ef76c6d99b68f6c516f2f6ae5167aa.jpeg@f_auto?token=7dca33653b403e518e940d5ec215c997").then((img) => {
+    console.log("img:",img);
+}).catch(err => {
+    console.log(err);
+})
+```
+
+- promise中的错误对象具有冒泡的性质，会一直向外传递，直到被catch捕获。
+
+- promise中的异常捕获跟传统try/catch捕获异常不同的是，如果没有使用catch方法指定错误处理的回调函数，Promise对象抛出的错误对象不会被传递到最外层代码，不会又任何反应。Promise会吃掉错误，不会终止脚本的继续执行
+
+- unhandledrejection事件
+
+当Promise被reject但是没有reject处理器的时候就会触发unhandledrejection事件
+
+```js
+function getImage(url) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+
+        img.src = url;
+        img.onerror = function(){
+            reject(new Error("获取图片错误!"));
+        }
+        img.onload = function(){
+            resolve(img);
+        }
+    });
+}
+
+console.log("开始获取图片了");
+getImage("").then((img) => {
+    console.log("img:",img);
+})
+console.log("图片获取完了");
+
+window.addEventListener("unhandledrejection", function(err){
+    console.log('%c [ err ]-37', 'font-size:13px; background:pink; color:#bf2c9f;', err)
+}, false);
+```
+
+![promise出发unhandledrejection事件](./images/i16.png)
 
 ### 5. 捕获的异常的有效利用
 
