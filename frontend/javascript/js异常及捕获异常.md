@@ -1,3 +1,17 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [1. Error对象](#1-error%E5%AF%B9%E8%B1%A1)
+- [2. js中的异常类型](#2-js%E4%B8%AD%E7%9A%84%E5%BC%82%E5%B8%B8%E7%B1%BB%E5%9E%8B)
+- [3. 抛出异常](#3-%E6%8A%9B%E5%87%BA%E5%BC%82%E5%B8%B8)
+- [4. 异常捕获、处理](#4-%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7%E5%A4%84%E7%90%86)
+  - [4.1 同步异常处理](#41-%E5%90%8C%E6%AD%A5%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86)
+  - [4.2 异步异常处理](#42-%E5%BC%82%E6%AD%A5%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86)
+- [5. 捕获的异常的有效利用](#5-%E6%8D%95%E8%8E%B7%E7%9A%84%E5%BC%82%E5%B8%B8%E7%9A%84%E6%9C%89%E6%95%88%E5%88%A9%E7%94%A8)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 参考链接:https://juejin.cn/post/7224068169341648955?utm_source=gold_browser_extension#heading-4
 
 ### 1. Error对象
@@ -121,6 +135,28 @@ throw new ReferenceError("引用错误");
 错误一旦被抛出，就会在程序调用堆栈中冒泡，直到被捕获，否则将终止程序的正常执行。需要注意的是，在Promise中发生的错误如果没有被捕获，浏览器会打印出错误提示，但是不会退出进程、终止脚本执行，即Promise内部的错误不会被影响到外部代码的执行，有时被称为"Promise会吃掉错误"。
 
 ### 4. 异常捕获、处理
+
+为了保证线上产品的正常运行，在开发过程中合理设计代码可能会发生的错误并捕获是非常重要的环节。
+
+#### 4.1 同步异常处理
+
+同步代码按照编写的顺序执行，在可能发生异常的部分使用try/catch/finally处理。
+
+```js        
+function testError() {
+    try {
+        const tom = tomName;
+    }catch(e){
+        console.log(e.stack); // 异常信息的堆栈信息，比较多
+        console.log(e.name); // ReferenceError
+        console.log(e.message); // tomName is not defined
+    }
+}
+testError();
+```
+![同步异常处理](./images/i13.png)
+
+#### 4.2 异步异常处理
 
 ### 5. 捕获的异常的有效利用
 
