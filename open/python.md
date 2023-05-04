@@ -270,6 +270,8 @@ Python核心团队已于2020.1.1正式停止Python2的官方支持，建议从Py
 
 #### 1.4 Python解释器和集成开发环境的安装及使用
 
+windows下，ANACONDA安装方式
+
 #### 1.5 编写运行一个python程序
 
 ### 2. Python编程基础一:数值的表示
