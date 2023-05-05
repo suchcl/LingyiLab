@@ -87,3 +87,13 @@ export const flag:boolean = false;
 ```
 
 异常提示消失
+
+#### 命名空间语法
+
+```markdown
+namespace 命名{
+
+}
+```
+
+#### 引入命名空间
