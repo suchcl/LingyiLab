@@ -1,4 +1,16 @@
-参考链接：https://juejin.cn/post/7229193250904752188
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Typescript的模块和命名空间](#typescript%E7%9A%84%E6%A8%A1%E5%9D%97%E5%92%8C%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4)
+  - [模块](#%E6%A8%A1%E5%9D%97)
+  - [导出](#%E5%AF%BC%E5%87%BA)
+- [命名空间](#%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4)
+  - [命名空间语法](#%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E8%AF%AD%E6%B3%95)
+  - [引入命名空间](#%E5%BC%95%E5%85%A5%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ### Typescript的模块和命名空间
 
 #### 模块
@@ -96,4 +108,52 @@ namespace 命名{
 }
 ```
 
+- 命名空间可以直接导出
+
+- 命名空间内可以定义变量，也可以将变量导出；
+
+- 命名空间内通过export向外暴露内容，如变量、函数、类、接口等
+
+当命名空间和命名空间内的变量都有导出的时候，就可以在其他文件中通过导入命名空间，然后通过命名空间.变量名的方式使用。
+
+```ts
+// modC.ts 声明并导出命名空间、导出命名空间中的一个变量
+export namespace ModC {
+    const username: string = "Youyyyy";
+    export const age: number = 12; // 命名空间内的变量导出
+}
+
+// modD.ts 导入命名空间，并引用其内的变量
+```
+
 #### 引入命名空间
+
+前面我们已经使用过export导出命名空间，然后在需要使用的文件中通过import关键字导入，和普通变量、方法、接口等变量的使用方式相同，但是也有介绍可以通过三斜杠(///)的方式导入命名空间
+
+使用三斜杠的方式导入命名空间的时候,三斜杠指令必须在文件的最开始,且命名空间不需要使用export导出
+
+```ts
+// modC.ts
+namespace ModC {
+    const username: string = "Youyyyy";
+    export const age: number = 12;
+}
+
+// modD.ts
+///<reference path="./modC.ts" />
+console.log("🚀 ~ file: modD.ts:8 ~ ModC.age:", ModC.age)
+```
+
+虽然有些文档曾这么介绍过，但我测试没有成功，各种方式都曾尝试过，都没有成功。
+
+> 对于命名空间的引用，直接使用export、import即可，对于三斜杠(///)的使用方式，了解即可。
+
+**模块和命名空间**
+
+当一个项目规模变大以后，我们就可能会大范围的使用模块和命名空间，那么就意味着向外暴露的内容增多。为了文件数量和文件质量的合理规划，我们有可能会在一个命名空间中导出多个模块，也可能会在一个模块中导出多个命名空间，具体使用哪种方式，根据实际场景灵活应用即可。
+
+命名空间，主要是为了解决变量的命名冲突；
+
+模块，主要为了实现代码复用。
+
+命名空间和模块的目标不同。
