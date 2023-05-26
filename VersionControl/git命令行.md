@@ -56,3 +56,9 @@ git checkout branchname  #切换到分支branchName
 git log --committer 'xxx' --name-status # 查看xxx提交代码信息
 git log --committer='xxx' --name-status # 和上一条指令意义相同，只有一个=的差别
 ```
+
+7. 查看远程服务器地址
+
+```bash
+git remote -v # 可以查看当前目录下git仓库的远程服务器地址
+```
