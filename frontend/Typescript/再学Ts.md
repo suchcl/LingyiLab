@@ -101,7 +101,7 @@ function b(y){
 
 ```java
 import java.io.*;
-class test  
+class test
 {
 	public static void main (String[] args) throws java.lang.Exception
 	{
