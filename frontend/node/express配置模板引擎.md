@@ -6,7 +6,7 @@
 
 现在我的项目中有一个渲染页面诉求，我期望使用html，那么在express中怎么配置使用html模板呢？
 
-#### 1.1express配置使用html模板
+#### 1.1 express配置使用html模板
 
 1. 安装ejs
 
@@ -35,3 +35,53 @@ app.set('view engine', 'html');
 
 #### 1.2 express配置art-template模板引擎
 
+
+### 2. express配置njk模板引擎
+
+njk,全称nunjucks，是一款功能强大的javascript模板引擎。
+
+模板引擎文档:https://nunjucks.bootcss.com/getting-started.html
+
+1. 安装模板引擎
+
+```bash
+npm install nunjucks
+```
+
+2. express中配置
+
+```javascript
+// app.js
+var express = require('express');
+const nunjucks = require("nunjucks");
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+// 配置模板引擎
+nunjucks.configure("views",{
+  autoescape: true,
+  express: app
+});
+// 扩展名一定要写上njk,否则找不到这个文件名报错
+app.set("view engine", "njk");
+```
+3. 配置完成，使用吧
+
+```njk
+<h1>{{title}}</h1>
+<p>Welcome to {{title}}</p>
+<h4>{{content}}</h4>
+```
+
+render的值：
+
+```js
+router.get("/", function (req, res, next) {
+  res.render("index", {
+    title: "Express",
+    content: "Welcom to Express's World!哈哈好",
+  });
+});
+```
+效果如下:
+
+![express配置nunjucks成功](./images/i14.png)
