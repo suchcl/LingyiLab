@@ -22,7 +22,32 @@ res.render("index", {str:str});
 
 #### 对象
 
+看案例。
 
+```js
+router.get("/", function (req, res, next) {
+  const str = "Apple";
+  const data = {
+    code: 200,
+    message: "success",
+    title: "Express",
+    content: "Welcom to Express's World!哈哈好",
+  };
+  res.render("index", data);
+});
+```
+
+案例是说在请求根路径的时候，会渲染index.njk模板，同时把data数据传递给index.njk模板。从代码中可以看到，数据data是一个对象，没有通过{}封装。在模板中的使用方式如下：
+
+```html
+<h1>{{title}}</h1>
+<p>{{code}}</p>
+<p>{{message}}</p>
+<p>Welcome to {{title}}</p>
+<h4>{{content}}</h4>
+```
+
+通过对象传递给模板的数据，在模板中可以直接使用
 
 #### 字符串传递
 
@@ -56,3 +81,13 @@ nunjucks.configure("views",{
 ```
 
 不同的技术方案组织方式可能配置的地方不同，但是本质上是在nunjucks的配置中添加上watch，并设置为true即可。
+
+### 模板中引入公共模板
+
+在nunjucks模板中，也可以像动态语言一样直接引入一个公共文件，方式如下：
+
+```html
+{% include "./header.njk" %}
+```
+
+可以看到，在nunjucks中，可以在一对大括号中通过两个百分号%包裹的地方写表达式，然后通过include关键词引入了一个公共的文件，公共文件可以使用相对路径和绝对路径。
