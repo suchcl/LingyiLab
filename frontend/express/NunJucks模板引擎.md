@@ -35,3 +35,24 @@ res.render("index", {str:str});
 
 默认情况下，当修改了nunjucks模板后刷新页面，发现页面并没有同步更新，发现只有在有数据更改的情况下才能实现页面的同步更改，但很多场景下是只会修改样式或者页面结构，并不会涉及到数据的更改，那么这种情况下怎么实现模板和页面的同步更改呢？
 
+实现这个效果，可以借助chokidar包通过2个步骤实现：
+
+1. 安装chokidar包
+
+这是一个监听文件变化的插件
+
+```bash
+npm install chokidar --save
+```
+
+2. 在nunjucks的配置中配置watch: true
+
+```js
+nunjucks.configure("views",{
+  autoescape: true,
+  express: app,
+  watch: true // 监听nunjucks模板的变化，实现模板和页面同步更新
+});
+```
+
+不同的技术方案组织方式可能配置的地方不同，但是本质上是在nunjucks的配置中添加上watch，并设置为true即可。
