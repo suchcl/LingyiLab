@@ -154,8 +154,24 @@ router.get("/list", (req, res, next) => {
 
 ### 条件判断
 
+看案例，识语法：
 
+```html
+{% if code === 200 %}
+    <p>{{profile.name}}</p>
+    <p>{{profile.job}}</p>
+{% elseif code===100 %}
+    <p>code是100</p>
+{% else %}
+    <p>没有信息</p>
+{% endif %}
+```
 
+if可以使用真值判断，和js中的判断标准完全相同。
+
+js中的真值可参考:https://developer.mozilla.org/zh-CN/docs/Glossary/Truthy
+
+js中的假值可参考：https://developer.mozilla.org/zh-CN/docs/Glossary/Falsy
 
 ### 模板修改后页面渲染效果同步更新配置
 
