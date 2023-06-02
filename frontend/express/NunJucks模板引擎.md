@@ -80,7 +80,81 @@ router.get("/", function (req, res, next) {
 
 #### 数组遍历
 
+数组是一种特殊的对象，在js中是这么理解的，本质上也是这么实现的。
+
+看案例：
+
+```js
+router.get("/list", (req, res, next) => {
+  const list = ["橘子", "桃子", "苹果"];
+  res.render("list", { list });
+});
+```
+
+在路由为/list时，会渲染list.njk模板，同时为模板传递了数据list.
+
+细节为数据传递的方式为:{list}，使用{}包裹了数据。
+
+模板中的应用：
+
+```html
+<ul>
+    {% for item in top %}
+        <li class="list-item">
+            {{item}}
+        </li>
+    {% endfor %}
+</ul>
+```
+
+看到了新的关键字和语法：for、endfor。nunjucks中，结束遍历要通过指定的关键字去结束:endfor
+
+虽然在js中，数组被认为是一种特殊的对象，但是在传递过程中还是被{}包裹封装了一层，本质上是把数据当作了对象中的一个属性了，完整的方式如下:
+
+```js
+router.get("/list", (req, res, next) => {
+  const list = ["橘子", "桃子", "苹果"];
+  res.render("list", { list:list });
+});
+```
+
+再来看个案例:
+
+```js
+router.get("/list", (req, res, next) => {
+  const list = ["橘子", "桃子", "苹果"];
+  const top = {
+    code: 200,
+    message: "success",
+    city: [
+      { title: "北京", action: true },
+      { title: "天津", action: false },
+      { title: "上海", action: true },
+      { title: "广州", action: true },
+      { title: "深圳", action: false },
+      { title: "珠海", action: false },
+    ],
+  };
+  res.render("list", top);
+});
+```
+
+大多数场景的数据结构应该这样的，来看下模板中的调用方式：
+
+```html
+<ul>
+    {% for item in city %}
+        <li class="list-item">
+            <div class="th">{{item.title}}</div>
+            <div class="td">{{item.action}}</div>
+        </li>
+    {% endfor %}
+</ul>
+```
+
 ### 条件判断
+
+
 
 
 ### 模板修改后页面渲染效果同步更新配置
