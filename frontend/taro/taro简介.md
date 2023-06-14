@@ -90,6 +90,12 @@ Taro的原理主要体现在以下几个方面：
 
 Taro3.x开始，Taro支持使用原生的小程序页面、组件和插件，但是需要注意的是，如果在Taro项目中使用了原生小程序的页面、组件和插件，那么该项目就不再具备多端转换的能力了。如在Taro项目中使用了微信小程序的原生组件，那么该Taro项目就只能转换成微信小程序，转为其他平台小程序时无效。同理，如果是用了其他平台小程序的组件也是同样的问题。
 
+### 创建指定taro版本的taro项目
+
+```bash
+taro init proName@2.2.6 # 创建一个taro版本为2.2.6的taro项目
+```
+
 ### 项目基本目录
 
 ```md
@@ -122,9 +128,57 @@ prod.js：打包时配置
 
 app.js中引入的样式就是全局样式，局部样式会覆盖全局样式
 
+### Taro开发规范
+
 **文件命名**
 
 taro项目中的js、ts文件以小写字母，多个单词之间使用下划线连接，如util_helper.js
 
 组件名：组件以大驼峰格式命名
+
+**标签**
+
+当标签没有子元素时，始终使用自闭合标签
+
+```jsx
+<Food className="stuff" />
+```
+
+**jsx属性名始终使用小驼峰命名法**
+
+```jsx
+<Foo userName="Nicholas Zakas"
+    phoneNumber="123345"
+/>
+```
+
+**Taro中代码书写顺序**
+
+Taro组件中会包含类静态属性、类属性、生命周期等类成员，其书写顺序遵循以下约定：
+
+1. static静态方法
+
+2. constructor
+
+3. componentWillMount
+
+4. componentDidMount
+
+5. componentWillReceiveProps
+
+6. shouldComponentUpdate
+
+7. componentWillUpdate
+
+8. componentDidUpdate
+
+9. componentWillUnmount
+
+10. 点击回调事件或者事件回调如onClickSubmit、onChangeDescription
+
+11. render
+
+**通用约束**
+
+所有内置组件均需要先引入再使用
 
