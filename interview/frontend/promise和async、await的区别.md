@@ -1,5 +1,7 @@
 ### Promise和async/await的区别
 
+async表示将当前函数定义为异步函数，await表示将暂停当前异步的执行。也就是说一遇到await，就会终止当前代码的执行，直到当前代码执行完成，然后再去执行下面的代码。async/await需要配对使用，它们的配合使用，让异步的操作有了同步代码执行的编码感觉了。
+
 #### Promise和async中的立即执行
 
 我们应该知道，Promise中的异步，是体现在then和catch中，所以在Promise对象被实例化中的代码都是被当做同步任务被立即执行的。而在async/await中，在出现await之前的代码也是被同步、立即执行的。那么出现了await之后呢？
