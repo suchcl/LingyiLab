@@ -102,6 +102,8 @@ yarn add package --optional # 安装到optionalDependencies
 yarn global add package # 全局安装，注意不能是yarn add package global
 ```
 
+yarn和yarn install，是执行同一个指令，都是根据当前项目的package.json去安装依赖，有的人可能是使用npm习惯了，克隆了一个新的项目之后就yarn install，其实install这个指令可以省略，只执行yarn就可以了。
+
 查看安装列表
 
 ```bash
