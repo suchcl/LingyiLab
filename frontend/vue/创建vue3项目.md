@@ -15,7 +15,7 @@ npm install @vue/cli -g
 ```bash
 PS D:\> vue --version
 @vue/cli 4.5.12
-````
+```
 
 有了类似这样版本的输出后，表明@vue/cli已经安装成功。
 
