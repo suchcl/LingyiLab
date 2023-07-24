@@ -37,3 +37,20 @@ router.get("/appList", cors(), OaController.getAppList);
 
 ### 关于cors的一些简单介绍
 
+cors(Cross-Origin Resource Sharing)是一个nodejs包，用于解决跨域资源共享问题，它为express应用程序提供了一个中间件，可以轻松的添加跨域支持。
+
+使用cors中间件可以允许其他域名下的客户端向指定的express服务器发情http请求，从而实现跨域请求，cors中间件会自动添加cors相关的headers到HTTP响应中，以便浏览器可以理解和处理它们。
+
+cors常用的中间件选项：
+
+- origin: 指定允许的源。可以是字符串、正则表达式、函数或数组。默认为*，表示允许所有的源
+
+- methods: 指定允许的HTTP方法。可以是字符串或数组，默认为GET、HEAD、POST
+
+- allowedHeaders: 指定允许的headers。可以是字符串或数组，默认为*，表示允许所有的headers
+
+- exposedHeaders: 指定客户端可以访问的headers。可以是字符串或者数组
+
+- credentials: 指定是否允许发送和接收身份验证数据，默认为false
+
+- maxAge: 指定预检请求的有效期，单位为秒
