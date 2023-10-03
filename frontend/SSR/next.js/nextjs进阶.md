@@ -149,13 +149,13 @@ https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Modules#.mjs_%E4%B
 
 ### 13. 部署
 
-常用的有 3 种部署方式
+常用的有3种部署方式
 
 1. vervel
 
 这种方式最为简单，但是国内网络环境原因，不太适合，不做过多介绍。
 
-2. node.js 服务器
+2. node.js服务器
 
 这种方式也比较简单，只要是支持 nodejs 的服务器，都可以，这种方式稍微有点麻烦。nodejs 服务器，可以通过 pm2 来管理，一般情况下，nodejs 服务会弄人占用 3000 端口，然后再使用诸如 nginx、apache 等之类的 web 服务器做一个反向代理，因为我们不能让我们的 localhost:3000 这样跑在客户端的机器上。
 
