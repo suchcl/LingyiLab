@@ -26,6 +26,8 @@ brew install python # 安装最新版本的python
 
 ![重新安装python，提示已经安装过了](./images/i10.png)
 
+> [https://www.python.org/downloads/macos/](https://www.python.org/downloads/macos/)这个地址，也是python官网上的下载链接，但是我下载了后安装失败，提示找不到安装文件。
+
 确认系统中已经安装过了，但是在终端命令找不到，那应该就是环境变量的问题了，将python的可执行文件写入到zsh的配置文件.
 
 ```bash
