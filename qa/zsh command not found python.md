@@ -16,8 +16,13 @@ brew list
 
 ```bash
 brew install python # 安装最新版本的python
-brew install python@2 # 安装2.x版本的python
 ```
+
+**安装python2.x**
+
+按道理来说，在mac环境中使用brew也应该可以安装指定版本的python，但是实际上是不行的。在使用brew安装python2.x的时候，提示找不到指定的版本。那就下载安装包吧。
+
+下载地址：[https://www.python.org/downloads/release/python-2717/](https://www.python.org/downloads/release/python-2717)
 
 ![重新安装python，提示已经安装过了](./images/i10.png)
 
