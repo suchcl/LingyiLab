@@ -15,7 +15,8 @@ brew list
 既然系统已经有了，但是又找不到指令。那可能是我总是瞎折腾，可能是把系统给折腾坏了吧，直接重新安装下吧
 
 ```bash
-brew install python
+brew install python # 安装最新版本的python
+brew install python@2 # 安装2.x版本的python
 ```
 
 ![重新安装python，提示已经安装过了](./images/i10.png)
