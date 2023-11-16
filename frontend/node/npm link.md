@@ -36,6 +36,14 @@ npm link countnumber
 
 这时在npm项目中开发的新功能，就都可以正常的使用了，也不影响线上的稳定版本，非常实用。
 
+> 在实际中，可以使用npm link packagename来创建链接，也可以通过npm link package_path的方式来创建链接
+
+```bash
+npm link ../count
+```
+
+其实这种方式比前面的方式更加简洁、遍历，如果npm包项目和应用项目的目录组织的优秀的话，可以减少脏数据、脏文件的产生。
+
 3. 移除链接 npm unlink
 
 npm包的功能开发、测试都已经完成，可以发布到线上了，我们正常发布即可，新的版本发布后我们就需要移除项目中引用的开发版本的npm包了，可以执行npm unlink packageName
@@ -46,7 +54,24 @@ npm unlink packagename
 
 npm unlink countnumber
 
-
 在执行了npm unlink packagename后，本地的引用的npm包会被移除掉，之前引用的线上的稳定版本的依赖也会被清理掉，其实就相当于执行了一个npm uninstall指令。在执行了unlink指令后，需要重新install下npm包。
 
+### 可行的link方式
 
+除了npm link可以提供链接的方式之外，其他常用的包管理工具如pnpm、yarn也都提供了类似的能力；
+
+```bash
+npm link packagename
+
+npm link package_path
+
+npm install --no-save package_path # 通过路径安装，不会在package.json中留下安装路径
+
+npx link package_path # 比较推荐的一种方式，也被认为是一种更安全、更强壮的link版本，https://www.yarnpkg.cn/package/link
+
+pnpm link # https://www.pnpm.cn/cli/link
+```
+
+### npm link的弊端
+
+有多种npm包link的方式，但是在使用npm link的是可能会存在一些弊端，具体可参考：https://hirok.io/posts/avoid-npm-link
