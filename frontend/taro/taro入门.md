@@ -8,9 +8,9 @@ taro 开发入门，可以从 4 个方面去着手，分别为：环境准备、
 
 **Taro 命令行工具安装**
 
-taro 开发环境依赖 nodejs，在 taro 开发之前，先在机器上安装 nodejs，建议使用 LTS 版本的 node.js，现在最新的稳定版为 V16.13.1。关于 nodejs 的安装，可以参考：[node.js 环境搭建](../node/nodejs环境搭建.md)
+taro 开发环境依赖 nodejs，在taro开发之前，先在机器上安装 nodejs，建议使用 LTS 版本的 node.js，现在最新的稳定版为 V16.13.1。关于 nodejs 的安装，可以参考：[node.js 环境搭建](../node/nodejs环境搭建.md)
 
-当 node.js 环境准备好之后，就可以安装 Taro 的命令行工具了
+当 node.js环境准备好之后，就可以安装Taro的命令行工具了
 
 ```bash
 npm install @tarojs/cli -g
