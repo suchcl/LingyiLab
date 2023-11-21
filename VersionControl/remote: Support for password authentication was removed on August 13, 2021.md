@@ -72,3 +72,6 @@ Github建议尽可能的使用fine-grained personal access token，而不是去�
 我这生成了一个classic的personal access token，页面刷新后看不到了。
 
 [刷新页面后看不到token了，需要妥善保存](./images/i11.png)
+
+
+> 使用personal access token校验感觉还是有点麻烦，干脆使用ssh连接方式吧。
