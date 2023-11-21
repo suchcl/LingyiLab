@@ -74,4 +74,16 @@ Github建议尽可能的使用fine-grained personal access token，而不是去�
 [刷新页面后看不到token了，需要妥善保存](./images/i11.png)
 
 
+8. 使用生成的token进行鉴权
+
+```bash
+git remote set-url origin https://<token>@github.com/<username>/<repo>.git
+```
+
+token: 你自己生成的personal access tokens
+
+username:你生成personal access tokens的用户名
+
+repo:你的资源仓库的名称
+
 > 使用personal access token校验感觉还是有点麻烦，干脆使用ssh连接方式吧。
