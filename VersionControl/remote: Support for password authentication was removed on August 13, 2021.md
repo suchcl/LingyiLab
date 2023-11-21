@@ -29,6 +29,14 @@ fatal: 'https://github.com/xxxx/xxxxxxxx.git/' 鉴权失败
 
 4. 随机:
 
+### personal access token的类型
+
+Github当前支持两种类型的personal access token：fine-grained personal access token和personal access token(classic).
+
+Github建议尽可能的使用fine-grained personal access token，而不是去使用personal access token(classic).
+
+所有的fine-grained personal access token和personal access token(classic)都和生成它们的用户相关联，如果用户失去了对资源的访问权限，则该token就会变成非活跃状态，也会失去对资源的访问权。
+
 ### 什么场景下才会需要个人令牌(personal access token)鉴权呢？
 
 当使用HTTPS的方式连接远程仓库的时候，需要使用个人令牌(personal access token)的鉴权方式(2021年8月13日之后，之前可以使用账号、密码的鉴权方式)；当使用ssh的方式连接远程仓库的时候，不需要使用个人令牌的方式鉴权，ssh的连接方式使用ssh keys的鉴权方式。
