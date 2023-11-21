@@ -17,18 +17,6 @@ fatal: 'https://github.com/xxxx/xxxxxxxx.git/' 鉴权失败
 
 根据提示，查看https://docs.github.com/en/get-started/getting-started-with-git/about-remote-repositories#cloning-with-https-urls，原来鉴权机制变了，之前是密码鉴权，从2021年8月13日开始变成了个人访问令牌(personal access token)鉴权了，就是通过personal access token替换掉密码.
 
-### 那么为什么要使用personal access token呢，它相对密码来说有什么优势吗？
-
-更多的应该还是安全优势吧，虽然这个最重要，但是日常中我确实是没有怎么重视过，自己应该做个检查了。
-
-1. 唯一: 令牌特定于github，
-
-2. 可撤销:
-
-3. 有限:
-
-4. 随机:
-
 ### personal access token的类型
 
 Github当前支持两种类型的personal access token：fine-grained personal access token和personal access token(classic).
@@ -45,3 +33,42 @@ Github建议尽可能的使用fine-grained personal access token，而不是去�
 
 ### 生成个人令牌(personal access token)
 
+无论是fine-grained personal access token，还是personal access token(classic)，它们都是与生成它们的账号相关联的。要生成这个token，首先要有github账号去登录github。
+
+1. 登录github网页版
+
+2. 找到个人设置
+
+[个人设置](./images/i3.png)
+
+3. 找到开发者设置
+
+[开发者设置](./images/i4.png)
+
+4. 依次选择"Personal access tokens -> Fine-grained tokens"
+
+这里也可以根据个人需要选择Tokens(classic)。
+
+[选择个人需要的tokens](./images/i5.png)
+
+5. 点击"生成新token"
+
+[点击生成新token](./images/i6.png)
+
+6. 根据实际情况和创建要求，填写信息
+
+[基本信息](./images/i7.png)
+
+[仓库选择](./images/i8.png)
+
+[为仓库设置权限](./images/i9.png)
+
+7. 生成token
+
+[生成token](./images/i10.png)
+
+生成的token后要妥善保存，页面刷新后token就看不到了。
+
+我这生成了一个classic的personal access token，页面刷新后看不到了。
+
+[刷新页面后看不到token了，需要妥善保存](./images/i11.png)
