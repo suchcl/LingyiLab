@@ -10,6 +10,11 @@
 
 4. 安装插件的打包和发布工具vsce
 
+```bash
+npm install yo generator-code -g
+npm install vsce -g
+```
+
 #### nodejs
 
 可以安装一个版本相对较高的版本，如果全局安装了yo和generator-code之后，在通过yo脚手架创建项目的时候提示找不到mem-fs模块，大概如下的信息，则说明nodejs的版本低了，切换到一个高版本的nodejs即可。
@@ -104,3 +109,24 @@ contributes：通过扩展注册contributes来扩展vscode中的各项功能，�
 
 发布到应用市场，插件包不需要被审核，但是插件名不能和已有的插件重名，保持插件名唯一
 
+**打包vsix插件**
+
+1. 安装vsce
+
+如果没有安装过则进行安装，如果已经安装过了，则不需要重复安装
+
+```bash
+npm install vsce -g
+```
+
+2. 使用vsce进行打包
+
+```bash
+vsce package
+```
+
+3. 安装到vscode
+
+**发布应用市场**
+
+参考https://cloud.tencent.com/developer/article/2200774最下面的“发布到应用市场”部分 
