@@ -13,6 +13,8 @@
 
 ### 1. git的安装
 
+Github文档:[https://docs.github.com/zh](https://docs.github.com/zh)
+
 windows的话，直接从官网下载安装文件下载即可；Mac的话，系统已经内置了git，如果想要更新版本或者重新安装的话，可以通过homebrew来安装，git官方推荐的也是使用Homebrew进行安装；linux的话，根据不同的发型版使用各自的包管理器去安装，方式都比较简单；git的官网上都给出了很详细的方法。
 
 git的下载链接：https://git-scm.com/downloads
