@@ -80,3 +80,10 @@ contributes：通过扩展注册contributes来扩展vscode中的各项功能，�
 
 文档中都给出了详细的介绍。
 
+**extension.js**
+
+该文件是插件的入口文件，即package.json中main字段对应的文件。该文件主要导出2个方法：activate和deactivate，两个方法分别有自己的执行世时机。
+
+1. activate:插件被激活时执行
+
+2. deactivate:插件被销毁时执行，如可以释放内存等。
