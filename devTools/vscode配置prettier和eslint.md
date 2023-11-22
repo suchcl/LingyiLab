@@ -14,6 +14,8 @@ Prettier，是一个支持 js、jsx、ts、html、css、less、vue、JSON等前�
 
 官网：https://eslint.org
 
+中文文档: [https://zh-hans.eslint.org/](https://zh-hans.eslint.org/)、[https://eslint.nodejs.cn/](https://eslint.nodejs.cn/)
+
 上面的Prettier和这里的Eslint，一上来就贴上了官网，我认为官方给出的文档，应该是最具有权威性和实时性最好的，只是我们每个人的精力不同，都把自己经历过的、遇到过的问题分享出来，减少学习的成本。
 
 ESLint，和上面的Prettier不同的是，ESLint是语法检查的工具，不是语法格式化的工具。ESLint配置一些规则，检测我们的代码是否符合我们配置的规则。如果我们编写的代码不符合既定的规则，那么ESLint就会给出提示或者警告，严重的就可能是阻断性的流程中断。但是ESLint并不负责代码的格式化。
