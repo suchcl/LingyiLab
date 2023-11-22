@@ -13,9 +13,25 @@ nvm原来只有linux版本(Mac版本)，是没有window版本的，后来有了�
 nvm常用命令
 
 ```bash
-nvm ls 已经安装的nodejs版本列表
+nvm ls # 查看本机上已经通过nvm安装的额nodejs版本列表
 
-nvm ls-remote：linux(mac)版本的查看远程服务器可用的nodejs列表
+nvm ls-remote # linux(mac)版本的查看远程服务器可用的nodejs列表
 
-nvm ls available：windows版本查看远程服务器的可用的nodejs列表
+nvm ls available # windows版本查看远程服务器的可用的nodejs列表
+
+nvm --version  # 查看nvm版本
+
+nvm install version  # 如 nvm install v15.0.0  安装v15.0.0版本的nodejs
+
+nvm uninstal version  # 卸载指定版本的nodejs
+
+nvm use version # 切换到指定版本的nodejs
+
+nvm current # 显示当前使用的nodejs版本
+
+nvm cache dir # 展示nvm的缓存目录
+
+nvm cache clear # 清除nvm缓存
+
+nvm alias default version # 使用指定版本的node作为默认版本
 ```
