@@ -51,4 +51,41 @@ eslint-plugin-et
 |  |   └no-html-tags.md
 ```
 
-主要的是lib目录中rules下的no-html-tags.js文件，该文件是规则的源文件。
+主要的是lib目录中rules下的no-html-tags.js文件，该文件是规则的源文件,需要重点关注。
+
+下面来主要分析下该规则文件:
+
+```js
+"use strict";
+/** @type {import('eslint').Rule.RuleModule} */
+module.exports = {
+  meta: {
+    // messages字段元信息是脚手架没有生成的，需要手动添加下，否则项目会提示：`meta.messages` must contain at least one violation,就是说至少要有一个异常提示信息
+    messages: {
+      someMessageId: "使用了html标签了",
+    },
+    type: "problem", // `problem`, `suggestion`, or `layout`
+    docs: {
+      description: "检测html标签的使用情况",
+      recommended: false,
+      url: null,
+    },
+    fixable: null,
+    schema: [],
+  },
+
+  create(context) {
+    return {
+      // 下面代码是脚手架没有生成的，需要手动添加一下
+      CallExpression(node) {
+        context.report({
+          node,
+          messageId: "someMessageId",
+        });
+      },
+    };
+  },
+};
+```
+
+可以从文件中看到规则主要就是包含了一个meta对象和一个create函数，mate主要包含了规则的元数据，create函数返回一个访问器对象,该对象的属性为选择器，ESLint在遍历Javascript代码的抽象语法树时会执行所有监听了该选择器的回调函数，
