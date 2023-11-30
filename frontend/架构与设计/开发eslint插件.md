@@ -27,3 +27,28 @@ yo eslint:plugin
 ```bash
 yo eslint:rule
 ```
+
+### 基础知识
+
+通过yo创建的eslint项目的结构如下：
+
+```markdown
+eslint-plugin-et
+├─.eslintrc.js
+├─README.md
+├─package-lock.json
+├─package.json
+├─tests
+|   ├─lib
+|   |  ├─rules
+|   |  |   └no-html-tags.js
+├─lib
+|  ├─index.js
+|  ├─rules
+|  |   └no-html-tags.js
+├─docs
+|  ├─rules
+|  |   └no-html-tags.md
+```
+
+主要的是lib目录中rules下的no-html-tags.js文件，该文件是规则的源文件。
