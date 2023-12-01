@@ -116,7 +116,7 @@ schema:指定了配置选项，以便eslint可以防止无效的属性。
 
 ### ESLint运行原理
 
-1. 将代码解析为AST
+#### 1. 将代码解析为AST
 
 AST：Abstract Syntax Tree的建成，称为抽象语法树。
 
@@ -134,3 +134,22 @@ AST：Abstract Syntax Tree的建成，称为抽象语法树。
 
 3. ESLint完全是插件式的，每个规则都是一个插件，你可以在运行时添加更多插件
 
+以[AST在线解析网站](https://astexplorer.net/)为例，我们在左侧输入代码，右侧就可以根据所选择的解析器将代码解析为AST了：
+
+![js代码解析为AST](./images/i7.png)
+
+出了借助AST在线解析站点工具外，也可以借助[https://www.jointjs.com/demos/abstract-syntax-tree](https://www.jointjs.com/demos/abstract-syntax-tree)这个可视化工具将es代码解析为树，可以清晰的看到代码在解析过程中生成了多少个节点和tokens.
+
+#### 2. 遍历AST各个节点
+
+在生成AST之后，ESLint会先“从上到下”再“从下到上”的顺序遍历每个选择器两次。
+
+#### 3. 触发监听AST选择器的rule规则回调
+
+每一条ESLint规则都会用AST节点选择器对AST树中的节点进行监听，在遍历AST过程中，如果命中ESLint规则的选择器就会触发该规则的回调
+
+#### 4. 再将AST生成代码
+
+命中之后，在触发回调的过程中，我们可以对AST做一些修改，然后再重新生成代码，比如eslint的自助修复能力就是依赖于此。整个过程可以参考如下图所示：
+
+![ESLint工作过程](./images/i8.png)
