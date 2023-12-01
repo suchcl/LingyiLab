@@ -88,4 +88,29 @@ module.exports = {
 };
 ```
 
-可以从文件中看到规则主要就是包含了一个meta对象和一个create函数，mate主要包含了规则的元数据，create函数返回一个访问器对象,该对象的属性为选择器，ESLint在遍历Javascript代码的抽象语法树时会执行所有监听了该选择器的回调函数，
+可以从文件中看到规则主要就是包含了一个meta对象和一个create函数，mate主要包含了规则的元数据，create函数返回一个访问器对象,该对象的属性为选择器，ESLint在遍历Javascript代码的抽象语法树时会执行所有监听了该选择器的回调函数。
+
+#### meta对象
+
+meta对象中有一些信息，具体如下：
+
+**type: 字符串，表示规则的类型，值：null、problem、suggestion、layout之一**
+
+problem：意味着该规则正在识别将导致错误或者行为混乱的代码，开发人员应该把这部分代码作为一个高度优先的事情来解决。
+
+suggestion：意味着该规则制定了一些可以用更好的方式去完成的事情，但是如果不修改代码，也不会发生错误。
+
+layout：意味着该规则主要关心决定外观的代码部分，如空格、逗号、分号等，而不是代码的执行方式，这些规则没有在AST中指定的部分起作用。
+
+**docs(对象):是eslint的核心规则所需要的**
+
+description(string):在规则索引中提供规则的简短描述
+
+recommended(boolean):表示在配置文件中是否使用"extends":"eslint:recommended"来启用该规则
+
+url(string):指定可以访问完整文档的链接，使代码编辑器可以在突出显示的规则违反上提供一个有用的链接。
+
+fixable:
+
+schema:指定了配置选项，以便eslint可以防止无效的属性。
+
