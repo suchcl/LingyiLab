@@ -114,3 +114,23 @@ fixable:
 
 schema:指定了配置选项，以便eslint可以防止无效的属性。
 
+### ESLint运行原理
+
+1. 将代码解析为AST
+
+AST：Abstract Syntax Tree的建成，称为抽象语法树。
+
+首先将源码解析为AST，解析AST的过程需要借助解析器，解析器有很多，现在为了学习方便，我们可以参考[AST在线解析网站](https://astexplorer.net/),如图：
+
+![AST在线解析](./images/i6.png)
+
+上图中红框内是常用的js语法解析器，可以将JS/TS解析为AS。eslint默认使用espree这个解析器。
+
+> ESLint是一个根据方案识别并报告es代码问题的工具，其目的是使代码风格更加一致并避免错误。在很多地方与JSLint和JSHint类似，除了下面3个方面:
+
+1. ESLint使用Espree对代码进行解析；
+
+2. ESLint在代码中使用AST评估方案；
+
+3. ESLint完全是插件式的，每个规则都是一个插件，你可以在运行时添加更多插件
+
