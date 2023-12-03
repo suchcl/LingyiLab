@@ -153,3 +153,7 @@ AST：Abstract Syntax Tree的建成，称为抽象语法树。
 命中之后，在触发回调的过程中，我们可以对AST做一些修改，然后再重新生成代码，比如eslint的自助修复能力就是依赖于此。整个过程可以参考如下图所示：
 
 ![ESLint工作过程](./images/i8.png)
+
+### AST选择器
+
+AST时
