@@ -14,6 +14,8 @@ eslint的配置，通常是使用.eslintrc.js或者.eslintrc来配置的，也�
 
 ![eslint主要配置](./images/i10.png)
 
+<img src="./images/i10.png" width="300" />
+
 #### 2.1 parse
 
 parse用来定义eslint所使用的解析器，eslint默认使用的是Espree(https://github.com/eslint/espree)
