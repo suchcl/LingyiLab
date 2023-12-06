@@ -18,6 +18,10 @@ eslint的配置，通常是使用.eslintrc.js或者.eslintrc来配置的，也�
 
 parse用来定义eslint所使用的解析器，eslint默认使用的是Espree(https://github.com/eslint/espree).解析器的作用就是将代码转化成一种AST抽象语法树，ESLint中叫做ESTree。我们也可以简单的理解为解析器就是一个翻译，将我们写的代码翻译成ESLint能看的懂、听得懂的语言。
 
+AST的样式可参考如下图：
+
+<img src="./images/i11.png" width="300" />
+
 eslint默认的解析器是espree，但是也还有其他几种常用的解析器：
 
 1. Esprima：前面提到的espree就是基于Esprima改良的
