@@ -29,3 +29,15 @@ eslint默认的解析器是espree，但是也还有其他几种常用的解析�
 2. Babel-eslint：一个对Babel解析器的包装，当我们的项目中使用了babel，babel解析器就会把我们的代码转换为AST，然后该解析器会将其转换ESLint能读的懂的ESTree。这个解析器目前使用的比较多，当前已经不再维护，升级为@babel/eslint-parser.
 
 3. @typescript-eslint/parser: 将Typescript转换成estree的兼容形式，以便在ESLint中使用。
+
+对于AST的模拟生成，可以参考astexplorer.net去在线观察
+
+<img src="./images/i12.png" width="400" />
+
+在astexplorer.net我们模拟AST生成的时候，可以选择使用各种解析器，但是无论选用何种选择器，最终的目的都是为了将我们的代码转换为ESLint可以理解语言ESTree。
+
+#### 2.2 parserOption
+
+parserOptions是parser解析器的配置参数，主要包括以下几个参数属性：
+
+1. 
