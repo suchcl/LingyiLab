@@ -6,15 +6,17 @@
 
 2. Node.js是一个功能强大的前端开发框架,能够满足各种类型应用的开发.
 
-这是在很多开发者甚至是前端开发者脑海中的概念
+这是很多业内人士的认知,在日常的工作交流中以及在留存的文档中也是这样记录并传播,那么这两种认知是否准确呢?我们去查询node.js文档,从根源上、从基础认知上去剖析node.js,从而让我们更加清晰的去认识node.js,去使用node.js.
 
 ### Node.js是什么?
 
-Node.js是一个开源的、跨平台的Javascript运行时环境,它实现了开发者使用javascript开发语言来开发服务器端应用和命令行工具.与传统的运行在浏览器的javascript不同,Nodejs可以在服务器端运行javascript代码,基于此,Nodejs被广泛的应用于构建高性能、可扩展的网络应用和后端服务.
+我们打开官网首页,首页正文的第一句话,就对node.js做了一个阐述:Node.js is an open-source,cross-platform Javascript runtime environment,就是说Node.js是一个开源的、跨平台的jascript的运行时环境.
 
-Nodejs构建在Chrome V8 Javascript引擎之上,提供了一组用于处理文件系统、网络请求、操作系统API等的内置库,采用事件驱动、非阻塞式的I/O模型,使得它在处理高并发请求时有出色的表现.
+简单分析一下,Node.js是一个开源的、跨平台的、构建在Chrome V8 Javascript引擎之上的Javascript运行时环境,提供了一组用于处理文件系统、网络请求、操作系统APId内置库,采用事件驱动、非阻塞式的I/O模型,它实现了开发者可以使用javascript开发语言来开发服务器端应用和命令行工具.与传统的运行在浏览器的javascript不同,Nodejs可以在服务器端运行javascript代码,基于此,Nodejs被广泛的应用于构建高性能、可扩展的网络应用和后端服务,使得它在处理高并发请求时有出色的表现.
 
-### Node.js的特点
+
+
+### Node.js有什么特点及优势
 
 1. 跨平台
 
