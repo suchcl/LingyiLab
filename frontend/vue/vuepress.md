@@ -34,3 +34,41 @@ yar dev
 ```
 
 > vuepress项目,更推荐使用yarn而不是npm,因为低版本的npm可能会生成错误的版本依赖树.
+
+### 目录结构
+
+Vuepress遵循“约定优于配置”的原则,Vuepres是项目推荐的目录结构如下:
+
+```markdown
+vuepress
+├─package.json
+├─yarn.lock
+├─docs
+|  ├─README.md
+|  ├─config.md
+|  ├─guide
+|  |   └README.md
+|  ├─.vuepress(可选)
+|  |     ├─config.js(可选)
+|  |     ├─enhanceApp.js(可选)
+|  |     ├─theme(可选)
+|  |     |   └Layout.vue
+|  |     ├─templates(可选,谨慎配置)
+|  |     |     ├─dev.html
+|  |     |     └ssr.html
+|  |     ├─styles(可选)
+|  |     |   ├─index.styl
+|  |     |   └palette.styl
+|  |     ├─public(可选)
+|  |     ├─components(可选)
+```
+
+* docs/.vuepress:用于存放全局的配置、组件、静态资源等
+
+* docs/.vuepress/components:该目录中的Vue组件将会被自动注册为全局组件
+
+* docs/.vuepress/theme: 用于存放本地主题
+
+* docs/.vuepress/styles:用于存放样式相关的文件
+
+### 配置
