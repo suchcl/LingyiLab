@@ -87,4 +87,17 @@ vuepress
 
 * docs/.vueperss/enhanceApp.js:客户端应用的增强
 
+### 默认的页面路由
+
+默认的页面理由,是根据package.json中的dev和build配置来确定的,如下的配置:
+
+```json
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs"
+  },
+```
+
+这个配置的默认参考路由就是docs,docs就是targetDir,下面所有文件的相对路径都是相对于docs.
+
 ### 配置
