@@ -71,4 +71,20 @@ vuepress
 
 * docs/.vuepress/styles:用于存放样式相关的文件
 
+* docs/.vuepress/styles/index.styl:将会被自动应用到全局的样式文件,会最终生成css文件,比默认样式的优先级要高
+
+* docs/.vuepress/styles/palette.styl:用于重写默认颜色常量,或者设置新的stylus颜色常量
+
+* docs/.vueprss/public:静态资源目录
+
+* docs/.vuepress/templates: 存储HTML模板文件
+
+* docs/.vuepress/templates/dev.html: 用于开发环境的html模板文件
+
+* docs/.vuepress/templates/ssr.html:构建时基于Vue SSR的HTML模板文件
+
+* docs/.vuepress/configjs:配置文件的入口文件,也可以是YML或toml
+
+* docs/.vueperss/enhanceApp.js:客户端应用的增强
+
 ### 配置
