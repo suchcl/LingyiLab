@@ -100,4 +100,28 @@ vuepress
 
 这个配置的默认参考路由就是docs,docs就是targetDir,下面所有文件的相对路径都是相对于docs.
 
-### 配置
+### 基本配置
+
+#### 配置文件
+
+为了使vuepress站点有强大的功能,就需要对站点进行各种各样的功能配置,一个大概的配置文件结构大概如下:
+
+```markdown
+vuepress
+├─package.json
+├─yarn.lock
+├─docs
+|  ├─README.md
+|  ├─.vuepress
+|  |     ├─config.js
+```
+
+一个VuePress站点必要的配置文件是.vuepress/config.js,它需要导出一个javascript对象:
+
+```js
+
+```
+
+#### 主题配置
+
+#### 应用级别的配置
