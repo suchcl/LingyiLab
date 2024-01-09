@@ -23,4 +23,17 @@ Tailwind Css工作原理是扫描所有html、javascript文件以及任何模板
 npm install tailwindcss --dev
 # or
 npx tailwindcss init
+
+# 创建配置文件
+tailwind.config.js
+
+# 在tailwind.config.js配置文件中添加所有模板文件的路径
+module.exports = {
+    content: ["./src/**/*.{html,js}"],
+    theme: {
+        extends:{}
+    },
+    plugins:[]
+};
 ```
+
