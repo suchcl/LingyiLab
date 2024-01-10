@@ -18,4 +18,12 @@
 
 反正这些语法提示不影响到代码逻辑的执行.虽然可以,但不是最优方案
 
-2. 修改
+2. 修改模块化标准
+
+在tsconfig.json中,修改"moduleResolution": "Bundler",值为node
+
+```json
+"moduleResolution": "node",
+```
+
+问题解决,在编辑器中不再提示异常了
