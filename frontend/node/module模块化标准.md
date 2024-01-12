@@ -12,7 +12,41 @@
 
 CommonJS和AMD都是社区推出的模块化方案,并不是语言上的标准.
 
+Node采用CommonJS模块规范,每个文件就是一个模块,每个模块有自己的作用域,在一个文件(模块)内定义的变量、函数、类等都是私有的,对模块外部的文件不可见.在服务器端,模块的加载时同步运行的;在浏览器端,模块需要提前编译打包处理.
 
+**特点**
+
+所有代码都运行在当前的模块作用域,不会污染全局作用域.
+
+模块可以被多次加载,但是只会在第一次加载时运行一次,然后运行结果被缓存,以后再次加载的时候就直接读取缓存数据.如果想要模块再次运行,需要手动清除缓存.
+
+模块的加载顺序,按照其在代码中出现的先后顺序
+
+**基本语法**
+
+暴露模块: module.exports = value、exports.xxx = value;
+
+导入模块: require(xxx); xxx为第三方模块名或者文件路径
+
+**CommonJS模块规范暴露的对象**
+
+CommonJS模块中,每个文件就是一个模块,在每个模块的内部,都有一个module属性代表当前模块,这个属性module是一个固定的名称,该属性是一个对象,这个对象又有一个exports属性是对外的接口.在CommonJS规范下,加载某个模块,其实就是加载了该模块的module.exports属性.
+
+另外,CommonJS规范中还有一个exports属性,该属性默认是对module.exports的引用,即exports和module.exports指向了内存的同一个模块,相当于在每个模块的头部,都加了这样一个指令:
+
+```js
+var exports = module.exports;
+```
+
+在CommonJS规范下:
+
+- 当通过exports修改内存中的内容时,module.exports的值会跟着改变
+
+- 当通过module.exports修改内存中的内容时,exports的值也会跟着改变
+
+- 当module.exports的值本身被改变的时候,exports不会被改变
+
+- 当exports本身的值被改变时,module.exports也不会被改变
 
 #### AMD
 
