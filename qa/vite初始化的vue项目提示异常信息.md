@@ -27,3 +27,5 @@
 ```
 
 问题解决,在编辑器中不再提示异常了
+
+有关moduleResolution可参考:[moduleResolution](../frontend/node/moduleResolution.md)
