@@ -8,7 +8,11 @@
 
 #### CommonJS
 
+服务器端使用,即主要在nodejs中使用
+
 CommonJS和AMD都是社区推出的模块化方案,并不是语言上的标准.
+
+
 
 #### AMD
 
@@ -244,6 +248,28 @@ addtion(3,5);
 ES6使用import导入path模块时,只会加载path模块中的3个方法,其他的方法不会加载,这就是编译时加载.ES6可以在编译时就完成模块的加载,当ES6遇到import时,不会像CommonJS去完整的执行一遍这个被引入的模块,然后把这个模块去缓存下来,而是生成一个动态的只读引用,当真正需要的时候再去模块里去取相应的值.
 
 ES6中每个文件是一个模块,或者说一个模块就是一个独立的文件,但是该文件不可被直接引用,因为ex6中通过export导出的并不是模块本身,而是模块中的变量.该变量包括函数、方法、类、定义的变量、常量等.
+
+总结起来,就是:
+
+1. CommonJS模块输出的是一个值的拷贝,ES6模块输出的是值的引用;
+
+2. CommonJS模块是运行时加载,ES6模块是编译时输出接口;
+
+看个简单的例子吧,有点没有想明白:
+
+```js
+// lib.js
+export let counter = 3;
+export function incCounter() {
+  counter++;
+}
+
+// main.js
+import { counter,incCounter } from "./lib.js";
+console.log(counter) // 3
+incCounter();
+console.log(counter) // 4
+```
 
 ### UMD和SystemJS
 
