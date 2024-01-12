@@ -156,6 +156,77 @@ export default userAge;
 
 **import**
 
+1. 通过export导出的,需要时import {}的方式导入
+
+```js
+import {userAge} from "./md.js"
+```
+
+2. 通过export default方式导出的模块,导入的名字可以任意
+
+```js
+// 导出
+const age = 16;
+export default age;
+
+// 导入
+import aa from "./md.js"
+console.log(aa)
+```
+
+3. import * as 的方式导入整个模块导出的变量
+
+导入导出文件内所有的导出变量,然后可以通过点(.)的方式访问导出变量
+
+```js
+// 导出文件 ma.js
+// 导出变量
+export const firstName = "Nicholas";
+export const lastName = "Zakas";
+export const year = 2012;
+
+// 导出函数
+export function add(a, b) {
+  return a + b;
+}
+
+// 导出类
+export class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  setName(name){
+    this.name = name;
+  }
+  getName(){
+    return this.name;
+  }
+}
+
+// as别名
+function multiply(a, b) {
+  return a * b;
+}
+export { multiply as multiplyTwo }
+
+// 导入&使用
+import * as info from "./ma.js"
+info.multiply(3,4);
+```
+
+<img src="./images/i17.png" width="500" />
+
+4. 别名导入
+
+es6模块可以通过export as的语法导出模块别名,import也可以通过import 变量名 as 新变量名 的方式为导入的模块重命名
+
+```js
+import {add as addtion } from "./ma.js";
+addtion(3,5);
+```
+
 ##### 特点
 
 - ES6的模块化自动开启严格模式,无论模块顶部是否加入了"use strict"声明;
