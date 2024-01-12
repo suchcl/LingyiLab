@@ -22,6 +22,82 @@ ES6模块的设计思想是尽量的静态化,在代码编译阶段就能确定�
 
 ES的模块化分为导出(export)和导入(import)两个模块
 
+ES6中,一个模块就是一个独立的文件,该文件内部所有的变量,包括函数、方法、变量、常量,外部都无法获取.如果希望外部文件使用该文件内的变量,就必须使用export关键字导出该变量.
+
+export在导出变量的时候,通常情况下导出的就是变量本来的、原来的名字,但是也可以为export通过as关键字起别名导出.
+
+**export**
+
+```js
+// 导出变量
+export const firstName = "Nicholas";
+export const lastName = "Zakas";
+export const year = 2012;
+
+// 导出函数
+export function add(a, b) {
+  return a + b;
+}
+
+// 导出类
+export class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  setName(name){
+    this.name = name;
+  }
+  getName(){
+    return this.name;
+  }
+}
+
+/**
+ * as别名
+ * 通过as为变量起别名的方式导出、输出
+ */
+function multiply(a, b) {
+  return a * b;
+}
+export { multiply as multiplyTwo }
+```
+上面的案例,使用export直接导出类变量,也可以使用大括号指定一组要输出变量.这两种导出变量的作用是等效的,但是使用大括号集中输出变量的方式可以更加直观的看出该模块中输出了哪些变量,个人推荐使用大括号集中输出变量的写法.但是不反对使用export直接导出变量的方式.
+
+```js
+// 默认导出
+const firstName = "Nicholas";
+const lastName = "Zakas";
+const year = 2012;
+
+// 导出函数
+function add(a, b) {
+  return a + b;
+}
+
+// 导出类
+class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  setName(name) {
+    this.name = name;
+  }
+
+  getName() {
+    return this.name;
+  }
+}
+
+// 使用as为变量别名导出后,通过import导入的是就需要使用别名导入,不能使用变量原来的名了
+export { firstName as xing, lastName as ming, year, add as jia, Person };
+```
+
+**import**
+
 ##### 特点
 
 - ES6的模块化自动开启严格模式,无论模块顶部是否加入了"use strict"声明;
@@ -31,10 +107,6 @@ ES的模块化分为导出(export)和导入(import)两个模块
 - 每个模块都有自己的上下文,每个模块内部声明的变量都是局部变量,不会污染全局作用域;
 
 - 每个模块只加载一次(单例模式),如果再次加载同一个目录下的同一个文件,那么会直接从内存中读取;
-
-#### 疑惑/待确认
-
-ES6每个文件都是一个模块
 
 **ES6模块与CommonJS模块有什么不同?**
 
