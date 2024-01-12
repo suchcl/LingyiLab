@@ -96,6 +96,19 @@ class Person {
 export { firstName as xing, lastName as ming, year, add as jia, Person };
 ```
 
+> export指令必须与模块内的变量是一一对应的关系,不能通过export直接导出模块内的值.
+
+```js
+/**
+ * export需要与模块内的变量一一对应,不能直接导出值
+ */
+export 1; // 直接导出值,报错
+const m = 1;
+export m; // 还是直接导出值,报错
+```
+
+<img src="./images/i16.png" alt="export直接导出值,报错" width="500" />
+
 **import**
 
 ##### 特点
