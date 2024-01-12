@@ -117,6 +117,43 @@ export m; // 还是直接导出值,报错
 
 <img src="./images/i16.png" alt="export直接导出值,报错" width="500" />
 
+默认导出  export default
+
+```js
+// 1. 先声明,后导出
+function add(a,b){
+  return a + b;
+}
+export default add;
+
+// 先声明后导出,也可以是厦下面的这种写法
+export default function add(a,b){
+  return a + b;
+}
+
+// 2. 导出的函数可以匿名
+export default function(a,b){
+  return a + b;
+}
+
+// 3. export default 后不能直接导出const|let|var 声明变量的,变量声明和导出需要分开两个步骤
+export default const age = 12; // 这样是不可以的,会报错,可按照如下方式修改
+
+const age = 12;
+export default age;
+```
+
+1. 一个模块只能有一个默认导出,即一个文件中只能使用一次export default
+
+2. 一个文件可以导出包含expert default在内的多个成员变量
+
+3. export default后不能直接导出const|let|var 声明变量,变量声明和导出需要分开为2个步骤;如果需要导出多个变量,可以封装到一个对象中
+
+```js
+const userAge = 16;
+export default userAge;
+```
+
 **import**
 
 ##### 特点
