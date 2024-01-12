@@ -28,6 +28,14 @@ export在导出变量的时候,通常情况下导出的就是变量本来的、�
 
 **export**
 
+export导出模块的要求:
+
+1. 先声明后导出;
+
+2. 要和模块内的变量一一对应;
+
+3. 不能直接导出值;
+
 ```js
 // 导出变量
 export const firstName = "Nicholas";
