@@ -94,6 +94,40 @@ Person.getNum(); // 类中的第二个静态方法
 console.log(Person.b); // 13
 ```
 
+**static修饰符**
+
+class中通过static修饰的成员变量称为静态成员,如静态属性、静态方法,静态成员只有类本身可以访问,类的实例是不可以访问的.
+
+```js
+class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  static height = 180;
+  static getWeight() {
+    return 130;
+  }
+
+  setName(name) {
+    this.name = name;
+  }
+
+  getName() {
+    return this.name;
+  }
+}
+
+module.exports = Person;
+```
+
+<img src="./images/i20.png" width="500" />
+
+从编辑器的提示中,我们可以看到,类Person中声明的静态成员height和getWeight都被类Person本身索引了出来,而实例方法setName和getName都没有被类本身Person给索引出来,也说明了静态成员只有类本身可以访问,实例成员只有类的实例可以访问.
+
+<img src="./images/i21.png" alt="类的实例可以索引到实例成员" width="500" />
+
 #### 4. 继承
 
 ##### 4.1 基础继承
