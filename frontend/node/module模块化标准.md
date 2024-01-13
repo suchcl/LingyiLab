@@ -87,6 +87,10 @@ console.log(module.exports)
 
 <img src="./images/i19.png" width="500" />
 
+所以在实际编码中,推荐统一采用module.exports方式导出模块.
+
+在一个文件中,可能会有exports或者module.exports多次,但是在另外一个文件从该文件导入模块的时候,只需要require一次,就把该文件整个模块全部导入了进来,即便是只需要该模块中的某部分成员,那么require过来的也是整个模块,该模块是一个对象,模块内部的成员通过对象访问成员的方式去访问、调用.
+
 #### AMD
 
 #### CMD
