@@ -25,6 +25,8 @@
 
 参考链接:https://juejin.cn/post/7212622837063385125?
 
+ts文档:https://www.typescriptlang.org/
+
 泛型有什么用？
 
 ### 1. 泛型处理函数参数
