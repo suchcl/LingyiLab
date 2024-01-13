@@ -91,6 +91,28 @@ console.log(module.exports)
 
 在一个文件中,可能会有exports或者module.exports多次,但是在另外一个文件从该文件导入模块的时候,只需要require一次,就把该文件整个模块全部导入了进来,即便是只需要该模块中的某部分成员,那么require过来的也是整个模块,该模块是一个对象,模块内部的成员通过对象访问成员的方式去访问、调用.
 
+**require模块的命名**
+
+在CommonJS规范下,通过require导入的模块名可以自定义,和模块导出的时候任何变量、类、函数等都没有关系.
+
+```js
+const ee = require("./ee.js");
+console.log(ee(2,3))
+```
+
+导入模块的模块名称ee是可以自定义、任意命名的.
+
+module.exports、exports导出的内容只有一个模块的时候,函数名可以是匿名的,也可以导出常量,其实就是给modules.exports重新赋了个值.
+
+```js
+module.exports = function (a, b) {
+  return a + b;
+};
+
+// or
+module.exports = 12
+```
+
 #### AMD
 
 #### CMD
