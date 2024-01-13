@@ -38,6 +38,10 @@ CommonJS模块中,每个文件就是一个模块,在每个模块的内部,都有
 var exports = module.exports;
 ```
 
+<img src="./images/i18.png" width="600" />
+
+从打印的信息中也可以看出,在nodejs中,一个模块即module,有很多个属性,exports只是module众多属性的一个.
+
 在CommonJS规范下:
 
 - 当通过exports修改内存中的内容时,module.exports的值会跟着改变
@@ -47,6 +51,41 @@ var exports = module.exports;
 - 当module.exports的值本身被改变的时候,exports不会被改变
 
 - 当exports本身的值被改变时,module.exports也不会被改变
+
+**module.exports和exports指向内存中的同一地址**
+
+```js
+// 这种场景,它们指向了内存中的同一地址
+module.exports.a = 100;
+exports.a = 200;
+```
+
+上述案例,module.exports和exports它们指向了内存中的同一地址,无论修改了module.exports还是exports,都会彼此影响对方的结果.
+
+```js
+module.exports.a = 100;
+exports.a = 200;
+exports.b = 300;
+const c = 400;
+exports.c = c;
+const d = 500;
+module.exports.d = d;
+```
+
+这种方式的改变,无论是exports改变了属性值,还是module.exports改变了属性值,它们两个都会彼此影响到对方.
+
+但是如果exports或者module.exports本身的值改变了的时候,它们就会中断和对方的链接,如:
+
+```js
+module.exports.a = 100;
+exports.a = 200;
+exports = "hello";
+module.exports.b = 666;
+console.log(exports);
+console.log(module.exports)
+```
+
+<img src="./images/i19.png" width="500" />
 
 #### AMD
 
