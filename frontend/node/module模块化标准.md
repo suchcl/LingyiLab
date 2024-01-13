@@ -117,6 +117,34 @@ module.exports = 12
 
 同一个文件中多次导入了一个同一个模块,那么这个模块只会在第一次被导入的时候执行,然后被缓存,之后再次被导入的时候,也只是从缓存中取值,不会重新执行一次导入动作;
 
+**CommonJs模块的加载机制**
+
+CommonJS模块的加载机制是:输入的是被输出的值的拷贝.就是说,一旦导出一个值,模块内部的变化就影响不到这个值.
+
+> 因为导出的模块,就是复制了一个新的模块,原模块和新模块是2个完全独立的模块,没有任何关系了
+
+```js
+// lib.js
+let counter = 12;
+function updateCouter() {
+  counter++;
+  return counter;
+}
+module.exports = {
+  counter,
+  updateCouter,
+};
+
+// main.js
+const counter = require("./ee.js");
+console.log(counter.counter) // 12
+const newCounter = counter.updateCouter();
+console.log(newCounter) // 13
+console.log(counter.counter) // 12
+```
+
+可以看到,在通过函数updateCounter更新了counter后,最初的counter没有变.虽然没有变,但是原理上,还是有些模糊,留下继续分析
+
 #### AMD
 
 #### CMD
