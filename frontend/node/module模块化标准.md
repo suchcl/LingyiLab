@@ -1,3 +1,5 @@
+Nodejs中文文档:https://nodejs.cn、https://dev.nodejs.cn/
+
 ### 前端模块化四大规范
 
 在js发展的早期,一直都没有自己的模块化方案,没有办法将一个大的程序、文件拆分成若干个小文件,然后再用简单的方法拼接.其他众多开发语言都有类似功能,如Ruby有require机制,Python有import机制,css也有@import.但是js没有类似的支持,在一些大型、复杂的项目中形成了很大的障碍.
