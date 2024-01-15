@@ -1,4 +1,5 @@
 
+参考文档:https://zhuanlan.zhihu.com/p/458207931
 ### nodejs的模块系统
 
 nodejs有2个模块系统:CommonJS(简称cjs)模块和ECMAScript(简称mjs)模块.
@@ -20,4 +21,14 @@ nodejs有2个模块系统:CommonJS(简称cjs)模块和ECMAScript(简称mjs)模�
 Node.js是运行在服务器端的,在服务器端运行的环境,相比于浏览器的运行时环境,缺少了script标签引入js文件,于是Node.js遵循CommonJS规范实现了一套模块系统.
 
 > 注意node.js不是一门新的语言,也不是一门旧的语言,它就不是一门开发语言,只是一个js的运行时环境,提供了js在服务器端运行的环境.
+
+### CommonJS模块化规范
+
+CommonJS规范有2个基本概念;
+
+1. 通过module.exports/exports对外暴露接口
+
+> module.exports和exports指向了内存中的同一地址,从编码实践上推荐使用module.exports
+
+2. 通过require引入接口
 
