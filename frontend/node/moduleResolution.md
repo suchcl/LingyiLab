@@ -44,14 +44,28 @@ Typescript5.3已经发布,tscofnig的moduleResolution选项支持5个值:
 
 > 具体可参考:https://www.typescriptlang.org/docs/handbook/modules/theory.html#module-resolution
 
-- classic
+- classic:Typescript最经典、最古老的模块解析策略.当module设置为node16、nodenext或commonjs以外选项的默认策略.在新的项目中尽量不要使用这种解析策略,Typescript团队计划在Typescript6.0中弃用这个选项.
 
-- node10(node)
+- node10(node):以前称为node,当module设置为commonjs时的默认值.该模块解析策略支持从node_modules中查找包、加载目录的index.js文件以及在相关模块说明符中省略.js扩展名.由于Node V12为ES模块引入了不同的模块解析规则,易经不建议在新项目中使用这个解析策略了.
 
-- node16
+- node16:nodejs v12起同时支持CJS和ESM,每种模块解析策略都使用自己的模块解析策略.nodejs中,import调用模块不允许省略文件扩展名,require导入模块方式允许省略文件扩展名
 
-- nodenext
+- nodenext:当前与node16相同,它旨在成为一种前瞻性模式,支持新添加的nodejs模块解析功能.
 
-- bundler
+- bundler:nodejs v12引入了一些用于导入npm包的新模块解析功能(package.json的"exports"和"imports"字段),许多打包构建工具采用了这些功能,但是没有采用严格的ESM导入规则,这种模块解析策略为针对打包工具的代码提供了基本的算法支持.
 
 [tsconfig的moduleResolution支持的选项值](./images/i20.png)
+
+classic和node10(node)是ts就支持的解析策略,但是它们不支持exports,后来新增的node16、nodenext和bundler都支持.
+
+### 小结
+
+模块解析策略随着exports的出现有了统一并且能够满足各种场景需求的标准,估计再过一段时间发布npm包的时候main字段也可以省略掉了.
+
+- exports是一个强大并且被各种前端工具广泛支持的模块解析标准,我们发布npm包时,应该使用exports来管理它的解析规则;
+
+- exports的解析规则较为复杂,社区的很多第三方的实现或多或少都有些bug,尤其是和优先级相关的;
+
+- 对于很多不想写扩展名的typescript项目来说,应该使用bundler解析策略,这样第三方库就可以只写exports而不需要写typeVersions了;
+
+- typescript的很多设计都是对现实妥协的产物,粗了bundler解析策略,还有装饰器,早期的装饰器并没有达到ECMAScript stage3标准,TS自己实现了一套.换句话说,就是Ts在开发效率和ECMAScript标准之间选择了开发效率;
