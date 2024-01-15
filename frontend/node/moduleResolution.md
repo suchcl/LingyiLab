@@ -38,3 +38,20 @@ console.log('%c [ lodash ]-2', 'font-size:13px; background:pink; color:#bf2c9f;'
 
 - rspack用的rust模块[nodejs_resolve](https://github.com/web-infra-dev/nodejs_resolver)
 
+### ts中的moduleResolution
+
+Typescript5.3已经发布,tscofnig的moduleResolution选项支持5个值:
+
+> 具体可参考:https://www.typescriptlang.org/docs/handbook/modules/theory.html#module-resolution
+
+- classic
+
+- node10(node)
+
+- node16
+
+- nodenext
+
+- bundler
+
+[tsconfig的moduleResolution支持的选项值](./images/i20.png)
