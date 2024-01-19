@@ -52,6 +52,8 @@ npm run dev
 ```
 <img src="./images/i14.png" width="500" />
 
+以vite为打包工具时的react项目,和vue完全一样,只是在创建项目的时候将模板设置为react就可以了.
+
 #### 3.2 自定义样式
 
 ### 4. 总结
