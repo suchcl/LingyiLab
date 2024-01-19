@@ -17,23 +17,40 @@ Tailwind Css工作原理是扫描所有html、javascript文件以及任何模板
 
 ### 3. 环境搭建
 
+以vue项目中的使用为例
+
 #### 3.1 安装tailwindcss
 
 ```bash
-npm install tailwindcss --dev
+# 创建项目
+npm create vite@latest demo -- --template vue
+# 安装依赖
+npm install tailwindcss postcss autoprefixer --save-dev
 # 创建tailwindcss配置文件 tailwind.config.js
 npx tailwindcss init
 
 # 在tailwind.config.js配置文件中添加所有模板文件的路径
 
 module.exports = {
-    content: ["./src/**/*.{html,js}"],
+    content: ["./src/**/*.{html,js,ts,jsx,tsx,vue}"],
     theme: {
         extends:{}
     },
     plugins:[]
 };
+# style.css中引入tailwindcss指令和基础类库
+# style.css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+# 运行开发环境
+npm run dev
+
+# 在vue中使用内置的class
+<div class=" text-red-500 text-ellipsis text-6xl">测试一下</div>
 ```
+<img src="./images/i14.png" width="500" />
 
 #### 3.2 自定义样式
 
