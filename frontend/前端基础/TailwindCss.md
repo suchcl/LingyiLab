@@ -7,6 +7,8 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+参考文档:https://www.levenx.com/guide/how-to-using-tailwindcss
+
 ### 1. 工作原理
 
 Tailwind Css工作原理是扫描所有html、javascript文件以及任何模板中的css类(class)名,然后生成相应的样式代码并写入到一个css文件中.
@@ -63,3 +65,5 @@ npm run dev
 这个类库,就是bootstrap库的一个升级吧,在几年前bootsctrap可以直接通过script、link的方式引入到项目中,现在的tailwindcss可以通过npm、配置的方式注入到项目中了,比bootstrap在技术上有了提升,但是本质上是一样的UI库.
 
 bootstrap几个主要的大版本如bootstrap3、bootstrap4、bootstrap5,其每个版本的大功能的变化并不是很大,变的是一些功能在技术上的实现细节.如bootstrap3依赖jquery,bootstrap4不再依赖jquery了,bootstrap5开始就不再支持IE了,其发展方向根据当前的技术发展的趋势,而不是说去实现了一个大而全的能真正满足用户各种需求的库.
+
+> 在后台系统类的项目中可以适当的使用tailwindcss,在C端类的项目中,不适合使用这些UI库.C端项目都是追求本身的差异化的,不要和其他项目一样千篇一律,不符合c端项目的设计风格.
