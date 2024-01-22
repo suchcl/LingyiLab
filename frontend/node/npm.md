@@ -46,9 +46,7 @@ var output = lodash.without([1,2,3],1);
 
 当我们运行node index.js指令输出[2,3]时说明lodash安装正常并被正确的引入和使用了，但是如果抛出了异常“Cannot find module ‘lodash’”则说明lodash没有被正常的引用，或者包的安装出了问题。
 
-## 怎么使用npm查看包(package)版本
-
-[通过npm查询依赖包的版本信息](./%E9%80%9A%E8%BF%87npm%E6%9F%A5%E7%9C%8B%E4%BE%9D%E8%B5%96%E5%8C%85%E7%9A%84%E7%89%88%E6%9C%AC%E4%BF%A1%E6%81%AF.md)
+## 通过npm查看包(package)版本信息
 
 可以通过npm来查询通过npm来安装的包的版本信息，包括本地的全局安装的版本信息以及当前目录项目的版本目录
 
@@ -67,6 +65,8 @@ npm view package version 查看包的最新的版本
 
 npm view package versions 查看包的所有的版本列表
 ```
+
+> npm可以通过ls、view查看包的版本信息,通过ls指令查看的是包本地的版本信息,通过view查看的是包的服务器端的信息.
 
 3. npm缓存
 

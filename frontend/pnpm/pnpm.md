@@ -63,11 +63,7 @@ pnpm,全文为performant npm,意为高性能的npm。
    corepack prepare pnpm@7.0.0 --activate
    ```
 
-   > 查询某依赖包的版本：可以通过npm来查看
-   >
-   > 只查看最新版本：npm view pck version
-   >
-   > 查看所有的版本列表： npm view pck versions
+   [查看npm包的版本信息,可以参考](../node/npm.md)
 
 3. 使用npm安装
 
