@@ -16,12 +16,63 @@ package.json是node项目中的一个描述文件,在通过npm创建新项目或
 
 #### keywords
 
+#### scripts
+
+#### bin
+
+#### dependencies
+
+#### devDependencies
+
+#### peerDependencies
+
+#### bundledDependencies
+
+#### optionalDependencies
+
+#### engines
+
+#### engineStrict
+
+现在已经没有这个配置了,npm3.0.0中移除了这个配置.
+
+#### os
+
+#### cpu
+
+#### preferGlobal
+
+#### private
+
+#### publishConfig
+
 #### homepage
+
+#### bugs
+
+#### license
+
+#### author
+
+#### contributors
+
+#### funding
+
+#### files
+
+#### main
+
+#### man
+
+#### directories
+
+#### browser
+
+#### repository
+
+#### config
 
 ### package.json demo
 
-```json
-
-```
 
 关于package.json的详细介绍,可以参考:https://docs.npmjs.com/cli/v6/configuring-npm/package-json
