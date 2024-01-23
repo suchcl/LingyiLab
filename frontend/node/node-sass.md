@@ -12,6 +12,10 @@ LibSass是用C/C++实现的Sass引擎.其核心特点是简单、快速、易于
 
 项目中怎么选择使用DartSass引擎呢?
 
+关于DartSass的介绍可以参考:https://sass.bootcss.com/dart-sass.html
+
+<span color="red">关于DartSass的应用方式,还没有研究明白,后续补充</span>
+
 LibSass只是一个工具库,如果需要在本地运行(即编译sass代码),我们就需要安装一个LibSass的封装.当前,已经有很多针对LibSass的封装了:
 
 - Sass C:用c语言开发的封装
