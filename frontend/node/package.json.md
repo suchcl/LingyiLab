@@ -64,6 +64,18 @@ npm包的版本号是由node-semver模块解析的,格式一般采用{major}.{fe
 
 #### keywords
 
+字符串数组,数组中可以只有一个项,也可以有多个项
+
+```json
+{
+  "keywords": ["postcss", "css", "postcss-plugin", "pxtransform"]  
+}
+```
+or
+```json
+"keywords": [ "taro" ]
+```
+
 #### scripts
 
 #### bin
