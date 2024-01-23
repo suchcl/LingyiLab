@@ -6,6 +6,18 @@ package.json是node项目中的一个描述文件,在通过npm创建新项目或
 
 ### package.json属性详解
 
+#### name
+
+字符串,项目名称,如果项目要发布到npm服务器上,那么这个name属性值不能和npm服务器上已经有的包名相同.可以简单的理解为name是
+
+#### version
+
+#### description
+
+#### keywords
+
+#### homepage
+
 ### package.json demo
 
 ```json
