@@ -36,6 +36,22 @@ package.json是node项目中的一个描述文件,在通过npm创建新项目或
 
 #### version
 
+字符,版本号,和包名一起唯一确认一个npm包.
+
+npm包的版本号是由node-semver模块解析的,格式一般采用{major}.{feature}.{patch}即主版本.次要版本.补丁版本模式.
+
+- major: 大版本号
+
+- feature: 迭代版本号
+
+- patch: 当前迭代版本的发布次数,即当前迭代的版本号
+
+```json
+{
+    "version": "3.6.23"
+}
+```
+
 #### description
 
 #### keywords
