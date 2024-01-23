@@ -35,4 +35,4 @@ cnpm install --save-dev node-sass
 
 ### node-sass和平台有关系吗?
 
-node-sass对应到指定的nodejs版本,因此在使用node-sass的时候,经常会遇到各种奇怪的问题.
+node-sass需要和指定的node版本相对应,否则在安装或者编译的时候会出现各种问题.即便是同一个node-sass版本,在不同的平台上也可能会对应不同的node版本,所以在安装node-sass的时候,可以关注下node-sass和node的对应关系.具体可参考:https://github.com/sass/node-sass/releases
