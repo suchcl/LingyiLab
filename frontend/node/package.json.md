@@ -54,6 +54,14 @@ npm包的版本号是由node-semver模块解析的,格式一般采用{major}.{fe
 
 #### description
 
+字符串,对当前包的一个简单的描述,以帮助用户更好、更快的了解当前的这个npm包.
+
+```json
+{
+    "description": "cli tool for taro"
+}
+```
+
 #### keywords
 
 #### scripts
