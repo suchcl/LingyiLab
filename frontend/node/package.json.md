@@ -279,6 +279,42 @@ devDependencies管理的依赖包不会被打包编译到生产环境.
 
 #### funding
 
+基金捐助地址.可以是一个字符串、对象、数组.
+
+字符串
+```json
+{
+    "funding": "http://example.com/xxxx"
+}
+```
+
+对象
+```json
+{
+    "funding": {
+        "type" : "patreon",
+        "url" : "https://www.xxxx.com/xxxx"
+    }
+}
+```
+
+数组
+```json
+{
+    "funding": [
+      {
+        "type" : "individual",
+        "url" : "http://example.com/xxxx"
+      },
+      "http://example.com/xxxx",
+      {
+        "type" : "patreon",
+        "url" : "https://www.xxxx.com/xxxx"
+      }
+    ]
+}
+```
+
 #### files
 
 #### main
