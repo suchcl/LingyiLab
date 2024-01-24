@@ -333,7 +333,34 @@ devDependencies管理的依赖包不会被打包编译到生产环境.
 
 #### main
 
+字符串,项目的入口文件,浏览器环境和node环境都可正常使用.
+
+```json
+{
+    "main": "./src/index.js"
+}
+```
+
 #### man
+
+项目的说明文档(手册)地址,配置项可以是字符串,也可以是一个数组.
+
+字符串
+```json
+{
+    "man": "../doc/index.md"
+}
+```
+
+数组
+```json
+{
+    "main": [
+        "../doc/index.md",
+        "https://docs.taro.zone/docs/"
+    ]
+}
+```
 
 #### directories
 
