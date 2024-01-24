@@ -383,7 +383,34 @@ devDependencies管理的依赖包不会被打包编译到生产环境.
 
 #### browser
 
+指定包的入口文件,同main,browser用在浏览器环境中.如果只用在浏览器环境中,则使用browser不使用main,如果同时配置了main和browser,则browser的优先级高.
+
+```json
+{
+    "browser": "dist/index.js"
+}
+```
+
 #### repository
+
+指定代码仓库的地址.值有两种形式:字符串和对象.值为对象时可以显示的指定版本控制系统类型.
+
+字符串
+```json
+{
+    "repository": "https://github.com/NervJS/taro"
+}
+```
+
+对象
+```json
+{
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NervJS/taro.git"
+  }
+}
+```
 
 #### config
 
