@@ -91,6 +91,16 @@ scripts是一个由脚本指令组成的对象,该对象的键值是事件名称
 
 #### bin
 
+指定一些可执行命令对应的可执行文件的地址
+
+```json
+{
+    "bin": {
+        "taro-convert": "bin/taro-convert"
+    }
+}
+```
+
 #### dependencies
 
 依赖管理,在生产环境需要的依赖可以安装到dependencies下进行管理.
@@ -449,5 +459,81 @@ devDependencies管理的依赖包不会被打包编译到生产环境.
 }
 ```
 
+### package.json文件案例
+
+```json
+{
+  "name": "@tarojs/cli-convertor",
+  "version": "3.6.23",
+  "description": "cli tool for taro-convert",
+  "main": "index.js",
+  "scripts": {
+    "build": "pnpm run clean && pnpm run prod",
+    "dev": "tsc -w",
+    "prod": "tsc",
+    "clean": "rimraf dist",
+    "lint": "eslint src --ext .js --ext .jsx --ext .ts --ext .tsx",
+    "format": "prettier --write \"{src, __tests__}/**/*.{ts,tsx,js,jsx}\" && eslint src  __tests__ --ext .js --ext .jsx --ext .ts --ext .tsx --fix"
+  },
+  "files": [
+    "bin",
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NervJS/taro.git"
+  },
+  "bin": {
+    "taro-convert": "bin/taro-convert"
+  },
+  "keywords": [
+    "taro",
+    "weapp"
+  ],
+  "engines": {
+    "node": ">=12"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testEnvironmentOptions": {},
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/taro-cli-convertor/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "testPathIgnorePatterns": [
+      "node_modules",
+      "/data/"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/__tests__/*"
+    ],
+    "transformIgnorePatterns": [
+      "@taro-helper/node_modules/"
+    ]
+  },
+  "author": "O2Team",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/traverse": "^7.20.0",
+    "@babel/types": "^7.20.0",
+    "@tarojs/binding": "workspace:*"
+    "fs-extra": "^8.0.1"
+  },
+  "devDependencies": {
+    "@babel/parser": "^7.14.5",
+    "@tarojs/taro": "workspace:*",
+    "jest": "^29.7.0",
+    "jest-cli": "^29.3.1"
+  }
+}
+```
 
 关于package.json的详细介绍,可以参考:https://docs.npmjs.com/cli/v6/configuring-npm/package-json
