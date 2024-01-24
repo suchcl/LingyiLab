@@ -200,9 +200,34 @@ devDependencies管理的依赖包不会被打包编译到生产环境.
 
 #### preferGlobal
 
+用来触发一个警告信息.如果希望包被安装到全局的命令行应用程序,但实际上是只安装到了本地,那么就会触发一个警告.虽然触发了警告,但并不会组织将包安装到本地.
+
+```json
+{
+    "preferGlobal": true
+}
+```
+
 #### private
 
+可以设置当前包不被发布到npm服务器.如果设置为true,则npm会拒绝发布这个包,主要是为了防止意外的将私有包发布到npm服务器.
+
+```json
+{
+    "private": true
+}
+```
+
 #### publishConfig
+
+包在发布时的一些配置集合,如果希望将包发布到指定的服务器等的一些信息,可以在这里做一些配置.详细的具体配置项可以参考:https://docs.npmjs.com/cli/v6/using-npm/config
+
+```json
+"publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+}
+```
 
 #### homepage
 
@@ -414,7 +439,15 @@ devDependencies管理的依赖包不会被打包编译到生产环境.
 
 #### config
 
-### package.json demo
+对象,可以用来配置一些变更频率较低、npm脚本用到的一些参数
+
+```json
+{
+  "config": {
+    "port": 3000
+  }
+}
+```
 
 
 关于package.json的详细介绍,可以参考:https://docs.npmjs.com/cli/v6/configuring-npm/package-json
