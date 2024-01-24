@@ -317,6 +317,20 @@ devDependencies管理的依赖包不会被打包编译到生产环境.
 
 #### files
 
+一个包含项目文件列表的数组.如果命中了一个文件夹,那么文件夹下的文件也会被提交(除非被其他的限制条件忽略了).
+
+可以通过.npmignore文件来限制一些指定的文件不被提交
+
+```json
+"files": [
+    "dist",
+    "src",
+    "index.d.ts",
+    "CHANGELOG.md",
+    "README.md"
+]
+```
+
 #### main
 
 #### man
