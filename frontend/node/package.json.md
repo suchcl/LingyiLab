@@ -364,6 +364,23 @@ devDependencies管理的依赖包不会被打包编译到生产环境.
 
 #### directories
 
+对象,用来描述各个功能模块存放的路径
+
+```json
+{
+  "directories" : {
+    "lib" : "./lib",
+    "bin" : "./bin",
+    "man" : "./man",
+    "doc" : "./doc",
+    "example" : "./example",
+    "test" : "./test"
+  }
+}
+```
+
+如果外部已经指定了bin字段,那么directories中的bin目录配置将无效
+
 #### browser
 
 #### repository
