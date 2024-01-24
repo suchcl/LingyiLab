@@ -78,6 +78,17 @@ or
 
 #### scripts
 
+scripts是一个由脚本指令组成的对象,该对象的键值是事件名称,值为事件要执行的指令
+
+```json
+{
+  "scripts": {
+    "build:weapp": "taro build --type weapp",
+    "dev:weapp": "npm run build:weapp -- --watch"
+  }
+}
+```
+
 #### bin
 
 #### dependencies
@@ -114,7 +125,31 @@ or
 
 #### author
 
+字符串或者对象,当前包的作者信息.
+
+当是字符串时,格式可以为: 作者 <邮箱>
+
+```json
+{
+    "author": "xxxxxx <xxxx@xx.com>"
+}
+```
+
 #### contributors
+
+数组,可以有多个贡献者,每个贡献者信息和author字段类似.
+
+```json
+{
+    "contributors": [
+        {
+            "name": "xxxxxx",
+            "email": "xxxxx@xx.com",
+            "url": "https://www.xxxx.com" // 个人主页、站点信息
+        }
+    ]
+}
+```
 
 #### funding
 
