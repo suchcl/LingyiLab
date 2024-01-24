@@ -93,13 +93,45 @@ scripts是一个由脚本指令组成的对象,该对象的键值是事件名称
 
 #### dependencies
 
+依赖管理,在生产环境需要的依赖可以安装到dependencies下进行管理.
+
+```bash
+npm install package --save # 会安装到dependencies管理项下
+```
+
+```json
+"dependencies": {
+    "@tarojs/binding": "workspace:*",
+    "@tarojs/helper": "workspace:*",
+    "@tarojs/service": "workspace:*",
+    "adm-zip": "^0.4.13",
+    "cli-highlight": "^2.1.11",
+    "download-git-repo": "^2.0.0",
+    "envinfo": "^7.8.1"
+}
+```
+
 #### devDependencies
 
-#### peerDependencies
+如果一些npm只需要在开发环境使用,生产环境并不需要依赖时,就可以安装到devDependencies管理项下
 
-#### bundledDependencies
+```bash
+npm install pakcage --save-dev
+```
 
-#### optionalDependencies
+```json
+"devDependencies": {
+    "@babel/core": "^7.14.5",
+    "babel-jest": "^29.5.0",
+    "jest": "^29.3.1",
+    "jest-cli": "^29.3.1",
+    "jest-environment-node": "^29.5.0",
+    "ts-jest": "^29.0.5",
+    "typescript": "^4.7.4"
+}
+```
+
+devDependencies管理的依赖包不会被打包编译到生产环境.
 
 #### engines
 
