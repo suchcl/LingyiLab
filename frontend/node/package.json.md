@@ -206,9 +206,48 @@ devDependencies管理的依赖包不会被打包编译到生产环境.
 
 #### homepage
 
+项目的主页,字符串.
+
+```json
+{
+    "homepage": "https://github.com/NervJS/taro#readme"
+}
+```
+
 #### bugs
 
+项目提交bug的地址,值为一个对象,可以配有提交bug的url地址和反馈bug的邮箱.
+
+该配置项也可以简单的理解为github上的issues地址
+
+```json
+{
+   "bugs": {
+    "url": "https://github.com/NervJS/taro/issues",
+    "email": "xxxxxx@xx.com"
+  }
+}
+```
+
 #### license
+
+软件的开源协议.
+
+开源协议表达了其他人获取到代码后拥有的权利,不同的协议指定了代码可以用于什么样的场景、什么样的目的、可以做什么样的操作等等.
+
+常见的开源协议有下面几个:
+
+- MIT:只要用户在自己的代码副本中包含了版权声明和许可声明,就可以用这部分代码做任何的事情,而不需要负法律责任(只针对对当前代码的使用场景)
+
+- GPL:修改项目代码的用户再次分发源码或者其他目标形式的代码时,也需要公布他自己的修改的部分
+
+- Apache:和MIT类似,同时也包含了贡献者向用户提供专利授权相关的条款
+
+```json
+{
+    "license": "MIT"
+}
+```
 
 #### author
 
