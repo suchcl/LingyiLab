@@ -376,6 +376,23 @@ devDependencies管理的依赖包不会被打包编译到生产环境.
 }
 ```
 
+#### exports
+
+exports可以配置不同环境对应的入口文件,优先级较高.当package.json文件中存在exports配置时,main字段配置失效.
+
+```json
+  "exports": {
+    ".": {
+      "react-server": "./react.react-server.js",
+      "default": "./index.js"
+    },
+    "./package.json": "./package.json",
+    "./jsx-runtime": "./jsx-runtime.js",
+    "./jsx-dev-runtime": "./jsx-dev-runtime.js",
+    "./src/*": "./src/*"
+  }
+```
+
 #### man
 
 项目的说明文档(手册)地址,配置项可以是字符串,也可以是一个数组.
