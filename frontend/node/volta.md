@@ -17,8 +17,45 @@ curl https://get.volta.sh | bash
 
 # 安装指定版本的node
 volta install node@18.18.0
+
+# 在当前项目中锁定包版本
+volta pin node@14.16.0 # 当前项目将会锁定14.16.0这个版本,并且会在package.json中添加volta配置项
+volta pin yarn@1.22.18
 ```
 
+```json
+	"volta": {
+		"node": "14.16.0",
+		"yarn": "1.22.18"
+	}
+```
+
+### 使用volta管理包的依赖
+
+项目中使用了volta以后,项目中npm包的管理就可以通过volta来管理
+
+```bash
+# 安装
+volta install package
+# 卸载
+volta uninstall package
+
+# 安装不需要指定精确版本的包
+volta install node@14 # volta会装一个大版本为14的node,但是精确版本volta会根据自己的判断来选一个合适的版本
+# 安装精确的版本
+volta install node@14.16.0 # 安装一个精确的指定版本
+
+# 查看当前项目中使用volta管理的工具列表
+volta list
+```
+
+项目中没有安装volta,则会使用最新的全局的包来进行项目的管理.
+
+**切换node版本**
+
+volta并没有提供显示切换node版本的指令,不过可以通过volta pin指令来实现版本切换的目的.
+
+> volta就是指定package版本的作用,随说不是切换版本的功能,但实现了版本切换的目的.
 
 ### 和nvm的区别
 
@@ -29,8 +66,4 @@ volta install node@18.18.0
 | 范围                         | 全局生效                                                  | 项目级别的node版本管理                                   |
 | 支持package.json配置         | 不支持                                                    | 支持,通过package.json中的配置,实现项目级别的node版本管理 |
 
-**volta**
-
-默认全局安装
-
-如果安装时默认打开了多个命令行标签,则其他标签也会同时使用最新安装的node版本
+volta感觉是比nvm更加灵活,nvm管理全局,volta可以精确到当前项目.
