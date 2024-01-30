@@ -64,7 +64,7 @@ Javascript解析器通常包含4个部分:
 
 #### 词法解析器
 
-词法分析器首先扫描代码,通过switch case把源码转换为一个个的小语法单元.JS代码的语法单元大体上有以下这些:
+词法分析器首先扫描代码,通过switch case语法把源码转换为一个个的小语法单元.JS代码的语法单元大体上有以下这些:
 
 - 空白:js中连续的空格、换行、缩进等这些如果不在一个字符串里面,则它们就没有实际的逻辑意义,于是就把这些连续的空白符直接组合在一起作为一个整体的语法单元
 
@@ -80,7 +80,66 @@ Javascript解析器通常包含4个部分:
 
 - 括号:主要用来标识运算的优先级、函数的调用.在分词阶段并不关心括号标识什么逻辑意义,仅仅把它当作一种基本的语法单元
 
+参考一段@babel/parse的源码实现案例:
+
+```ts
+  getTokenFromCode(code: number): void {
+    switch (code) {
+      case charCodes.dot:
+        this.readToken_dot();
+        return;
+      // Punctuation tokens.
+      case charCodes.leftParenthesis:
+        ++this.state.pos;
+        this.finishToken(tt.parenL);
+        return;
+      case charCodes.rightParenthesis:
+        ++this.state.pos;
+        this.finishToken(tt.parenR);
+        return;
+      case charCodes.semicolon:
+        ++this.state.pos;
+        this.finishToken(tt.semi);
+        return;
+      case charCodes.comma:
+        ++this.state.pos;
+        this.finishToken(tt.comma);
+        return;
+      // 省略了很多case ……
+      case charCodes.backslash:
+        this.readWord();
+        return;
+
+      default:
+        if (isIdentifierStart(code)) {
+          this.readWord(code);
+          return;
+        }
+    }
+
+  readToken_dot(): void {
+    const next = this.input.charCodeAt(this.state.pos + 1);
+    if (next >= charCodes.digit0 && next <= charCodes.digit9) {
+      this.readNumber(true);
+      return;
+    }
+
+    if (
+      next === charCodes.dot &&
+      this.input.charCodeAt(this.state.pos + 2) === charCodes.dot
+    ) {
+      this.state.pos += 3;
+      this.finishToken(tt.ellipsis);
+    } else {
+      ++this.state.pos;
+      this.finishToken(tt.dot);
+    }
+  }
+```
+
 #### 语法解析器
+
+
 
 #### 字节码生成器
 
