@@ -43,3 +43,30 @@ function test(){
 - ……
 
 webpack、eslint等工具的原理都是通过javascript解析器将代码转换为AST(抽象语法树),通过操作这棵树,实现代码的精准定位、语句赋值、语句运算等,实现对代码的分析、优化、变更等操作.
+
+### javascript解析器
+
+Javascript解析器,就是把javascript语法解析成AST语法树.
+
+js很大的使用场景是在浏览器上,浏览器就是把js源码通过解析器转换成AST,然后再进一步转换为字节码或者直接生成机器码,最后进行渲染和执行.
+
+一般来说,每个js引擎都会有自己的抽象语法树格式,常见的js引擎有Chrome的V8引擎、firefox的Spider Monkey、Safari的JSC(JavaScript Core)等等.
+
+Javascript解析器通常包含4个部分:
+
+- 词法解析器(Lexical Analyser)
+
+- 语法解析器(Syntax Parser)
+
+- 字节码生成器(Bytecode generator)
+
+- 字节码解释器(Bytecode interpreter)
+
+#### 词法解析器
+
+#### 语法解析器
+
+#### 字节码生成器
+
+#### 字节码解释器
+
