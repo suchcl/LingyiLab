@@ -1,3 +1,5 @@
+参考链接:https://juejin.cn/post/7179481462050127931#heading-7
+
 ### AST
 
 AST,抽象语法树.
@@ -193,3 +195,32 @@ Javascript解析器通常包含4个部分:
 
 ### 常用/常见的解析器
 
+1. [esprima](https://esprima.org/)
+
+这是第一个使用js实现的符合EsTree规范的js解析器,后续的多个解析器都受它的影响.
+
+> 关于EsTree规范,可参考:[EsTree](https://github.com/estree/estree)
+
+2. [acorn](https://github.com/acornjs/acorn)
+
+acorn是一个和esprima类似的解析器,目前webpack的AST解析器用的是acorn.
+
+3. [@babel/parser(babylon)](https://github.com/babel/babel/tree/master/packages/babel-parser)
+
+babel官方的解析器,最初fork于acorn,后来自主开发了,其构建的插件体系非常庞大;
+
+4. [uglify-js](https://github.com/mishoo/UglifyJS)
+
+主要用于混淆和压缩代码,uglify-js自己实现了一套AST规范,因为它是自己实现的AST规范,是私有的,并不是符合EsTree标准规范的AST解析器,所以ES6之后新语法的AST它都不支持,所以它没有办法压缩最新的es6代码.如果需要压缩的时候,需要先将代码转换为es5,然后再进行压缩.
+
+5. [esbuild](https://github.com/evanw/esbuild/)
+
+esbuild是用go实现的下一代的web打包工具,它拥有目前最快的打包和压缩记录,snowpack和vite使用它作为打包工具.为了追求卓越的性能,目前没有将AST暴露出来,也没有办法修改AST,无法用做解析对应的js.
+
+### babel
+
+可以先了解一下babel提下的工具库,对babel有一个大概的了解,然后再去深入研究babel本身.
+
+- [@babel/parser](https://github.com/babel/babel/tree/main/packages/babel-parser):可以把js源码转换为AST
+
+- [@babel/traverse](https://www.npmjs.com/package/babel-traverse):用于对AST的遍历,维护整棵树的状态,并且负责替换、移除和添加节点
