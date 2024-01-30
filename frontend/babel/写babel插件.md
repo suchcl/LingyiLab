@@ -224,3 +224,19 @@ esbuild是用go实现的下一代的web打包工具,它拥有目前最快的打�
 - [@babel/parser](https://github.com/babel/babel/tree/main/packages/babel-parser):可以把js源码转换为AST
 
 - [@babel/traverse](https://www.npmjs.com/package/babel-traverse):用于对AST的遍历,维护整棵树的状态,并且负责替换、移除和添加节点
+
+- [@babel/generate](https://github.com/babel/babel/tree/master/packages/@babel/generate):可以把AST生成源码,同时生成sourcemap
+
+- [@babel/types](https://github.com/babel/babel/tree/master/packages/babel-types):用于AST节点的Lodash式工具库,它包含了构造、验证以及变换AST节点的方法,对编写处理AST逻辑非常有用
+
+- [@babel/template](https://www.npmjs.com/package/@babel/template):可以简化AST的创建逻辑
+
+- [@babel/code-frame](https://www.npmjs.com/package/@babel/code-frame):可以打印代码位置
+
+- [@babel/core](https://www.npmjs.com/package/@babel/core):Babel的编译器,核心API都在这里,如常见的transform、parse,并实现了插件功能
+
+- [babylon](https://www.npmjs.com/package/babylon):Babel的解析器,以前叫babel parser,基于acorn扩展而来,扩展了很多语法,可以支持es2020、jsx、typescript等语法
+
+- [babel-types-api](https://babeljs.io/docs/babel-types)
+
+- [babel插件手册](https://github.com/brigand/babel-plugin-handbook/blob/master/translations/zh-Hans/README.md#asts)
