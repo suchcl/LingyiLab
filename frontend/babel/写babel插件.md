@@ -240,3 +240,15 @@ esbuild是用go实现的下一代的web打包工具,它拥有目前最快的打�
 - [babel-types-api](https://babeljs.io/docs/babel-types)
 
 - [babel插件手册](https://github.com/brigand/babel-plugin-handbook/blob/master/translations/zh-Hans/README.md#asts)
+
+#### visitor
+
+#### path
+
+- node:当前AST节点
+
+- parent:父AST节点
+
+- parentPath:父AST节点的路径
+
+- scope: 作用域
