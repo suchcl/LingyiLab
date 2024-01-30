@@ -139,7 +139,49 @@ Javascript解析器通常包含4个部分:
 
 #### 语法解析器
 
+将上一步中词法解析生成的数组,根据语法规则,转换为抽象语法树(AST)
 
+下面可以参考戏@babel/parser在变量声明时的实现案例:
+
+```ts
+    parseVarStatement(
+      node: N.VariableDeclaration,
+      kind: "var" | "let" | "const" | "using",
+      allowMissingInitializer: boolean = false,
+    ) {
+      const { isAmbientContext } = this.state;
+      const declaration = super.parseVarStatement(
+        node,
+        kind,
+        allowMissingInitializer || isAmbientContext,
+      );
+
+      if (!isAmbientContext) return declaration;
+
+      for (const { id, init } of declaration.declarations) {
+        // Empty initializer is the easy case that we want.
+        if (!init) continue;
+
+        // var and let aren't ever allowed initializers.
+        if (kind !== "const" || !!id.typeAnnotation) {
+          this.raise(TSErrors.InitializerNotAllowedInAmbientContext, init);
+        } else if (
+          !isValidAmbientConstInitializer(init, this.hasPlugin("estree"))
+        ) {
+          this.raise(
+            TSErrors.ConstInitiailizerMustBeStringOrNumericLiteralOrLiteralEnumReference,
+            init,
+          );
+        }
+      }
+
+      return declaration;
+    }
+```
+
+如声明一个常量const a = 1;可转换为如下的AST:
+
+<img src="./images/i2.png" width="500" />
 
 #### 字节码生成器
 
