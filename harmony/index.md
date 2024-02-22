@@ -22,7 +22,7 @@
 
 ## 术语
 
-- Ability
+1. Ability
 
 应用的重要组成部分,是应用所具备能力的抽象.一个应用可以具备多种能力(即可以包含多个Ability),HarmonyOS支持应用以Ability为单位进行部署.
 
@@ -30,8 +30,8 @@
 
 Ability分为两种类型,Featrue Ability(简称FA)和Particle Ability(简称PA).
 
-FA支持Page模板,用于提供与用户交互的能力
+- FA支持Page模板,用于提供与用户交互的能力
 
-PA支持Service模板和Data模板,Service用于提供后台运行任务的能力,Data用于对外提供统一的数据访问抽象.
+- PA支持Service模板和Data模板,Service用于提供后台运行任务的能力,Data用于对外提供统一的数据访问抽象.
 
 <img src="./images/i1.png" width="600" />
