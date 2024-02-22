@@ -67,3 +67,9 @@ volta并没有提供显示切换node版本的指令,不过可以通过volta pin�
 | 支持package.json配置         | 不支持                                                    | 支持,通过package.json中的配置,实现项目级别的node版本管理 |
 
 volta感觉是比nvm更加灵活,nvm管理全局,volta可以精确到当前项目.
+
+### 默认版本
+
+通过volta install node@16.16.0 方式安装的node版本就是node的全局版本
+
+具体的项目中node版本,可以通过前面介绍的pin指令来锁死当前项目需要使用的node的版本.
