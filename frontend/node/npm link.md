@@ -63,7 +63,7 @@ npm unlink countnumber
 ```bash
 npm link packagename
 
-npm link package_path
+npm link package_path # 只需要link到npm包的路径即可,不需要对应到具体的文件,npm link ../eslint-cli
 
 npm install --no-save package_path # 通过路径安装，不会在package.json中留下安装路径
 
