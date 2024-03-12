@@ -37,6 +37,24 @@ bunx jsr add @emish89/smile2emoji
 import * as mod from "@emish89/smile2emoji";
 ```
 
+```js
+import { debounce } from "@yuci/utils";
+
+useEffect(() => {
+    window.addEventListener("scroll", debounce(scroll, 50));
+    return () => {
+        window.removeEventListener("scroll", debounce(scroll, 50))
+    }
+},[]);
+```
+
+Deno原生支持JSR,可以不需要安装,直接使用jsr:说明符即可使用.
+
+```js
+import { capitalizeFirstLetter } from "jsr:@yuci/utils";
+capitalizeFirstLetter('yuci');
+```
+
 ### 发包到JSR
 
 
