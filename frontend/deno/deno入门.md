@@ -14,5 +14,34 @@ Deno是一个Javascript/Typescript的运行时,默认使用安全环境执行代
 
 - 脚本代码能被打包为一个单独的javascript文件
 
+### Deno安装
+
+deno是一个跨平台的javascript、typescript、WebAssembly的运行时环境,即基于Chrome V8引擎的运行时环境,该运行时环境是使用rust语言开发的,并使用Tokio库来构建事件循环系统.Deno建立在V8、Rust和Tokio的基础上.
+
+```bash
+# MacOS
+curl -fsSL https://x.deno.js.cn/install.sh | sh
+
+# windows
+irm https://x.deno.js.cn/install.ps1 | iex
+
+# Linux
+curl -fsSL https://x.deno.js.cn/install.sh | sh
+```
+
+检测是否安装成功:通过执行deno --version查看deno版本的方式可以确认deno是否被正常安装
+
+```bash
+[jsr]$ deno --version
+deno 1.41.1 (release, x86_64-apple-darwin)
+v8 12.1.285.27
+typescript 5.3.3
+```
+
+执行了deno --version后,有关于deno、v8和ts版本的输出,就说明deno已经被正常安装了.
+
+### 快速构建一个deno项目
+
 ### Deno和Node的区别?
+
 
