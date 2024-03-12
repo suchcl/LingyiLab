@@ -61,7 +61,27 @@ capitalizeFirstLetter('yuci');
 
 #### 1. 创建项目
 
+可以通过npm init或者deno init来初始化项目.
 
+```bash
+[xxxxx jsr]$ deno init
+✅ Project initialized
+
+Run these commands to get started
+
+  # Run the program
+  deno run main.ts
+
+  # Run the program and watch for file changes
+  deno task dev
+
+  # Run the tests
+  deno test
+```
+
+通过deno init初始化的项目结构,如下图:
+
+<img src="./images/i2.png" width="300" />
 
 #### 2. 开发
 
