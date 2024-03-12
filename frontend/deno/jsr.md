@@ -57,4 +57,14 @@ capitalizeFirstLetter('yuci');
 
 ### 发包到JSR
 
+在官网([https://jsr.io](https://jsr.io))登录,点击publish a package进行发布即可,根据要求填写相应信息即可.
 
+#### 1. 创建项目
+
+
+
+#### 2. 开发
+
+#### 3. 发布
+
+#### 4. 自动发布
