@@ -40,7 +40,7 @@ PS D:\deno> deno run .\index.js
 deno
 
 # 运行ts文件
-PS D:\WebStudy\deno> deno run .\index.ts
+PS D:\deno> deno run .\index.ts
 Check file:///D:/WebStudy/deno/index.ts
 Ts deno
 ```
