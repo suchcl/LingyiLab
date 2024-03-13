@@ -40,7 +40,33 @@ typescript 5.3.3
 
 执行了deno --version后,有关于deno、v8和ts版本的输出,就说明deno已经被正常安装了.
 
-### 快速构建一个deno项目
+### 快速构建一个deno程序
+
+```ts
+// Hello.ts
+interface Person {
+    firstName: string;
+    lastName: string;
+}
+
+function sayHello(p: Person): string {
+    return `Hello, ${p.firstName} ${p.lastName}`;
+}
+
+const ada: Person = {
+    firstName: "Ada",
+    lastName: "Lovelace"
+};
+console.log(sayHello(ada));
+```
+
+通过deno来执行这个程序
+
+```bash
+deno run -A Hello.ts # Hello, Ada Lovelace
+```
+
+执行deno后,Hello.ts代码被正常的执行了.第一个入门的deno程序已经完成.
 
 ### Deno和Node的区别?
 
