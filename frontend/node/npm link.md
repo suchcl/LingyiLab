@@ -75,3 +75,21 @@ pnpm link # https://www.pnpm.cn/cli/link
 ### npm link的弊端
 
 有多种npm包link的方式，但是在使用npm link的是可能会存在一些弊端，具体可参考：https://hirok.io/posts/avoid-npm-link
+
+### 常见问题
+
+1. Could not locate the package '../../xxx/xxx/'
+
+在使用npm link指令链接到某个本地开发包时提示如上面的信息,大意是说没有办法定位到链接的包.详细信息如下:
+
+```bash
+Volta error: Could not locate the package '../../xxxx/xxx'
+
+Please ensure it is available by running `npm link` in its source directory.
+```
+
+提示信息中注意“Volta”这个关键词,可能是由于本地项目中使用了volta进行了node版本管理导致的npm link指令失败,那么我们再通过nvm切换下node版本就可以了
+
+解决方案:
+
+使用了volta管理node版本的情况下,使用nvm切换下node版本即可.
