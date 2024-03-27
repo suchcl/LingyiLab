@@ -25,3 +25,5 @@ npm install typescript ts-node @types/node --dev
 ```bash
 npx tsc --init # 生成tsconfig.json文件
 ```
+
+使用指令初始化的tsconfig.json文件
