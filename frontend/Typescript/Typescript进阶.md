@@ -764,6 +764,18 @@ m = 4;
         * strict
 
           * 所有严格检查的总开关，如果设置为true，所有的严格检查都将打开，默认为false
+        
+        * declaration
+        
+            * 是否自动生成d.ts文件
+
+            * 值类型:boolean, true:自动生成.d.ts文件;false: 不自动生成.d.ts文件
+
+        * emitDeclarationOnly
+
+            * 是否只生成声明文件
+
+            * 值类型:boolean,true:只生成声明文件,不生成js文件
 
 ### 5. webpack整合TS
 
