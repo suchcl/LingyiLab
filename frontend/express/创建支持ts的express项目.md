@@ -47,3 +47,4 @@ npx tsc --init # 生成tsconfig.json文件
     "tsc": "tsc --watch"
   }
 ```
+
