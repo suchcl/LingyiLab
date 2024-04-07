@@ -131,6 +131,6 @@ class ColorPoint extends Point{
 }
 ```
 
-如题所说,如果子类中显示声明了构造函数,那么构造函数中要先调用super,然后再使用this
+如题所说,如果子类中显示声明了构造函数,那么构造函数中要先调用super,然后再使用this.主要原因是子类实例的构建基于父类,需要super去调用父类的实例.
 
 <img src="./images/i24.png" width="200" />
