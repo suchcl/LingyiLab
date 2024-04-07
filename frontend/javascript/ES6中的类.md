@@ -115,3 +115,22 @@ class ColorPoint extends Point{
 }
 ```
 在类ColorPoint中,该类继承了Point,那么ColorPoint就是一个子类,虽然在子类ColorPoint中没有显示定义constructor构造方法,但是该类中也是有构造方法的.也可以使用new来实例化一个对象.
+
+**如果子类中显示定义了构造函数,那么构造函数中要先调用super,然后再使用this**
+
+```js
+class ColorPoint extends Point{
+    constructor(x,y,color){
+        // this.color = color; // 先调用this,后调用super,会报错
+        super(x,y); // super指向父类的构造函数、构造器
+        this.color = color;
+    }
+    getX(){
+        return this.x;
+    }
+}
+```
+
+如题所说,如果子类中显示声明了构造函数,那么构造函数中要先调用super,然后再使用this
+
+<img src="./images/i24.png" width="200" />
