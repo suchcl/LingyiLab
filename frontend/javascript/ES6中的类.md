@@ -134,3 +134,58 @@ class ColorPoint extends Point{
 如题所说,如果子类中显示声明了构造函数,那么构造函数中要先调用super,然后再使用this.主要原因是子类实例的构建基于父类,需要super去调用父类的实例.
 
 <img src="./images/i24.png" width="200" />
+
+### super原理
+
+1. super被当作函数执行
+
+这种场景就是在子类的构造函数中调用super.
+
+```js
+constructor(x,y,color){
+    super(x,y); // super指向父类的构造函数、构造器
+    this.color = color;
+}
+```
+
+那么在子类的构造函数中,super做了什么呢?
+
+super首先是调用了父类的构造起,然后再将父类构造函数中的this指向了子类.
+
+2. super被当作对象使用
+
+作为对象,指向父类的原型对象.
+
+### 继承相关
+
+```js
+class Point{
+    constructor(x,y){
+        this.x = x;
+        this.y = y;
+    }
+
+    toString(){
+        return `${this.x} - ${this.y}`
+    }
+}
+
+
+class ColorPoint extends Point{
+    constructor(x,y,color){
+        super(x,y); // super指向父类的构造函数、构造器
+        this.color = color;
+    }
+    getX(){
+        return this.x;
+    }
+}
+```
+
+在类的继承中,子类的__proto__永远执行自己的父类
+
+```bash
+ColorPoint.__proto__ === Point # true
+```
+
+<img src="./images/i25.png" width="200" />
