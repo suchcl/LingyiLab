@@ -206,3 +206,14 @@ Object.setPrototypeOf()是一个静态方法,其功能是为一个指定的对�
 
 <img src="./images/i26.png" width="320" />
 
+1. prototype
+
+每个函数都会自动创建一个prototype属性,prototype属性是函数所特有的.prototype的含义是函数的原型对象,也就是这个函数(js中,所有的函数都可以作为构造函数)所创建的实例的原型对象.
+
+```js
+function Person(){}
+const p = new Person();
+console.log(p.__proto__ === Person.prototype); // true
+```
+
+因为p的__proto__指向构造函数的prototype,所以p.__proto__ === Person.prototype为true,因为它们都指向了同一个对象.
