@@ -182,7 +182,7 @@ class ColorPoint extends Point{
 }
 ```
 
-在类的继承中,子类的__proto__永远执行自己的父类
+在类的继承中,子类的__proto__永远指向自己的父类
 
 ```bash
 ColorPoint.__proto__ === Point # true
