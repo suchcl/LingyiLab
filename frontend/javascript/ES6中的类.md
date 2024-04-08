@@ -208,6 +208,7 @@ Object.setPrototypeOf()是一个静态方法,其功能是为一个指定的对�
 
 1. prototype
 
+1.1 定义
 每个函数都会自动创建一个prototype属性,prototype属性是函数所特有的.prototype的含义是函数的原型对象,也就是这个函数(js中,所有的函数都可以作为构造函数)所创建的实例的原型对象.
 
 ```js
@@ -217,3 +218,16 @@ console.log(p.__proto__ === Person.prototype); // true
 ```
 
 因为p的__proto__指向构造函数的prototype,所以p.__proto__ === Person.prototype为true,因为它们都指向了同一个对象.
+
+1.2 作用
+
+prototype的作用就是包含由特定类型的所有实例所共享的属性和方法,也就是让该函数的所有实例化对象都可以找到公用的属性和方法.
+
+> 任何函数在创建的时候,都会默认同时创建该函数的prototype对象
+
+1.3 总结
+
+prototype属性是函数所特有的,任何函数在创建的时候,都会默认的同时创建该函数的prototype属性,该属性是一个对象,保存了该函数的所有实例对象所共享的属性和方法.
+
+参考:https://blog.csdn.net/xiaolinlife/article/details/119291940
+https://blog.csdn.net/qq505955846/article/details/124370270
