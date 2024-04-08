@@ -189,3 +189,15 @@ ColorPoint.__proto__ === Point # true
 ```
 
 <img src="./images/i25.png" width="200" />
+
+#### 类的继承
+
+类的继承,可以通过Object.setPrototypeOf()来进行实现
+
+```js
+Object.setPrototypeOf(A,B)
+```
+
+Object.setPrototypeOf()是一个静态方法,其功能是为一个指定的对象的原型(即对象内部的[[Prototype]]属性)设置为一个新的对象或者null,也可以理解为指定一个对象为另一个对象的原型.Object.setPrototypeOf(A,B)就是设置对象B为对象A的原型.
+
+> 由于现代Javascript引擎优化属性访问所带来的特殊性问题,更改对象的[[Prototype]]在各个浏览器和Javascript引擎上都是一个很慢的操作.此外,修改继承的影响是微妙和广泛的,并不仅仅局限在Object.setPrototypeOf()语句时间上的花费,而是可能扩展到任何已更改[[Prototype]]属性对象的代码,可以在这里[https://mathiasbynens.be/notes/prototypes](https://mathiasbynens.be/notes/prototypes)了解更多的信息.在引擎开发人员解决修改[[Prototype]]的性能问题之前,应该尽量避免设置对象的[[Prototype]]属性,而是使用Object.create()创建一个具有所需[[Prototype]]属性的新对象.
