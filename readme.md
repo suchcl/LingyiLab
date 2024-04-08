@@ -125,7 +125,7 @@
 
 #### 5.1 微信小程序
 
-1. [微信小程序](./frontend/wxmini/index.md)
+1. [微信小程序](./frontend/miniprogram/wxmini/index.md)
 
 #### 5.2 百度小程序
 
@@ -134,6 +134,8 @@
 #### 5.4 QQ 小程序
 
 #### 5.5 支付宝小程序
+
+1. [支付宝小程序清除缓存数据](./frontend/miniprogram/alipay/支付宝小程序清除缓存.md)
 
 ### 6. 快应用
 
