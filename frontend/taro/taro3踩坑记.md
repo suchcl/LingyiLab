@@ -17,3 +17,9 @@ Taro3中: process.env.TARO_ENV
 - componentDidShow(){}
 
 该组件,抖音小程序中该周期钩子不生效,其他小程序中生效.
+
+- 获取路由参数
+
+taro2: this.$router.params
+
+taro3: getCurrentInstance().router.params
