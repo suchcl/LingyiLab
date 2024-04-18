@@ -977,7 +977,7 @@ export default function ConditionRender() {
 
 js会自动将&&左侧的值转换为boolean类型的值再判断条件成立与否.然而当左侧值为0的时候,整个表达式将变成左侧的值0,React此时则会渲染为0而不是不渲染后面的组件.
 
-<img src="./images/i70.png" width="300" />
+<img src="./images/i70.png" width="600" />
 
 参考文档:[https://zh-hans.react.dev/learn/conditional-rendering](https://zh-hans.react.dev/learn/conditional-rendering)
 
