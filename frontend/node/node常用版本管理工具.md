@@ -1,6 +1,6 @@
 ### node常用版本管理工具
 
-nvm、n、volta
+nvm、n、volta、nvs、fnm、nodenv
 
 [nvm](./nvm.md)
 
