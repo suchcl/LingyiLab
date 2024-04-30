@@ -93,3 +93,57 @@ Please ensure it is available by running `npm link` in its source directory.
 解决方案:
 
 使用了volta管理node版本的情况下,使用nvm切换下node版本即可.
+
+2. npm ERR! code ERESOLVE
+npm ERR! ERESOLVE could not resolve
+
+在执行npm link的的时候,报多,具体信息如下:
+
+```bash
+npm ERR! code ERESOLVE
+npm ERR! ERESOLVE could not resolve
+npm ERR! 
+npm ERR! While resolving: @xxx/xxx-taro-plugin@4.0.2
+npm ERR! Found: @tarojs/helper@3.6.20
+npm ERR! node_modules/@tarojs/helper
+npm ERR!   @tarojs/helper@"3.6.20" from babel-preset-taro@3.6.20
+npm ERR!   node_modules/babel-preset-taro
+npm ERR!     dev babel-preset-taro@"3.6.20" from the root project
+npm ERR!   @tarojs/helper@"3.6.20" from @tarojs/cli@3.6.20
+npm ERR!   node_modules/@tarojs/cli
+npm ERR!     dev @tarojs/cli@"3.6.20" from the root project
+npm ERR!   8 more (@tarojs/plugin-framework-react, ...)
+npm ERR! 
+npm ERR! Could not resolve dependency:
+npm ERR! peer @tarojs/helper@"^3.6.25" from @xxx/xxx-taro-plugin@4.0.2
+npm ERR! node_modules/@xxx/xxx-taro-plugin
+npm ERR!   @xxx/xxx-taro-plugin@"^4.0.2" from the root project
+npm ERR! 
+npm ERR! Conflicting peer dependency: @tarojs/helper@3.6.28
+npm ERR! node_modules/@tarojs/helper
+npm ERR!   peer @tarojs/helper@"^3.6.25" from @xxx/xxx-taro-plugin@4.0.2
+npm ERR!   node_modules/@xxx/xxx-taro-plugin
+npm ERR!     @xxx/xxx-taro-plugin@"^4.0.2" from the root project
+npm ERR! 
+npm ERR! Fix the upstream dependency conflict, or retry
+npm ERR! this command with --force or --legacy-peer-deps
+npm ERR! to accept an incorrect (and potentially broken) dependency resolution.
+npm ERR! 
+npm ERR! 
+npm ERR! For a full report see:
+npm ERR! /Users/xxx/.npm/_logs/2024-04-30T09_37_57_902Z-eresolve-report.txt
+
+npm ERR! A complete log of this run can be found in: /Users/xxx/.npm/_logs/2024-04-30T09_37_57_902Z-debug-0.log
+```
+
+大概的原因是npm的版本问题
+
+解决方案:
+
+在指令后面添加-legacy-peer-deps参数
+
+```bash
+npm link ../../project/project-001 -legacy-peer-deps
+```
+
+添加上该参数之后,npm link指令执行成功.
