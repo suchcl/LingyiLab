@@ -147,3 +147,5 @@ npm link ../../project/project-001 -legacy-peer-deps
 ```
 
 添加上该参数之后,npm link指令执行成功.
+
+> pnpm和npm有着同样的指令,但是速度比npm快了不知道多少倍,在npm不行的时候,就直接使用pnpm吧.或者也不用等了,直接切为pnpm吧.
