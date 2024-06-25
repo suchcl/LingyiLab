@@ -97,7 +97,19 @@ extends: [
 
 ##### 插件(plugins)
 
+插件,可以自定义,也可以使用现有的,开发自定义插件,可以参考:[ESLint中文文档](https://eslint.nodejs.cn/docs/latest/),插件名一般情况下为eslint-plugin-xxx.
 
+```js
+  plugins: [
+    'babel',
+    'ft-flow',
+    'jest',
+    'no-for-of-loops',
+    'no-function-declare-after-return',
+    'react',
+    'react-internal',
+  ]
+```
 
 ##### 规则(rules)
 
@@ -108,3 +120,60 @@ eslint已有的规则,可以直接通过开启或关闭来启用.
 - "warn"或1: 警告,不满足规则要求会发出警告,但是不会阻塞程序的执行
 
 - "erros"或2: 错误,不满足规则后直接阻塞代码的执行
+
+```js
+"rules": {
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off"
+}
+```
+
+### Husky+ESLint整体配置案例
+
+ESLint9.x的配置方式,和之前的版本有些区别,之前版本的配置文件可以为以下几种格式:.eslintrc、.eslintrc.json、.eslintrc.yml等格式,但ESLint升级到9.0版本以后其配置文件进行了统一,配置文件名为eslint.config.js.下面可参考一个ESLint9.x的配置demo:
+
+eslint.config.js
+
+```js
+import globals from "globals";
+import pluginJs from "@eslint/js";
+import pluginReactConfig from "eslint-plugin-react/configs/recommended.js";
+import { fixupConfigRules } from "@eslint/compat";
+import { FlatCompat } from "@eslint/eslintrc";
+import { fileURLToPath } from "url";
+import path from "path";
+import js from "@eslint/js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const flatCompat = new FlatCompat({
+  baseDirectory: __dirname,
+  resolvePluginsRelativeTo: __dirname,
+  recommendedConfig: js.configs.recommended,
+});
+export default [
+  { files: ["**/*.{js,mjs,cjs,jsx}"] },
+  { languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } } },
+  { languageOptions: { globals: globals.browser } },
+  pluginJs.configs.recommended,
+  ...fixupConfigRules(
+    flatCompat.config({
+      extends: [
+        
+      ],
+      plugins: [
+
+      ],
+      rules: {
+        camelcase: "error",
+        "no-console": "warn",
+      },
+    })
+  ),
+];
+```
+
+项目中配置了husky和eslint之后,在执行git commit的时候,执行效果如下:
+
+<img src="./images/i19.png" width="400" />
