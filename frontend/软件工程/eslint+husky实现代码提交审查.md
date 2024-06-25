@@ -84,6 +84,17 @@ npx husky init
 
 ##### 扩展(extends)
 
+扩展,包含了一系列的规则配置文件,扩展能力一般的情况下不需要自己开发,社区有很多可用的、优秀的配置文件,如eslint:all、google、airbnb,也有各个框架提供的一些扩展如plugin:react/jsx-runtime、plugin:react-hooks/recommended、plugin:@typescript-eslint/recommended等等,大多数情况下,我们只需要将需要的、对应的规则进行配置即可.
+
+```js
+extends: [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:react/jsx-runtime",
+]
+```
+
 ##### 插件(plugins)
 
 
