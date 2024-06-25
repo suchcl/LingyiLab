@@ -58,6 +58,10 @@ npx husky init
 
 <img src="./images/i17.png" width="300" title="packages.json更新指令脚本" />
 
+### 配置
+
+#### Husky简单配置
+
 替换.husky/pre-commit中的指令:pnpm exec lint-staged
 
 自动创建的pre-commit内容是npm test,需要替换为我们需要执行脚本
@@ -66,15 +70,25 @@ npx husky init
 
 > 也可以替换为其他我们希望的脚本,这里不对测试脚本的功能完善做讨论,暂且讨论工具的使用方式.
 
-### 配置
+**package.json中添加lint-staged配置**
 
-#### 扩展(extends)
+```json
+  "lint-staged": {
+    "*.{js,vue,ts}": [
+      "pnpm exec eslint --fix"
+    ]
+  },
+```
 
-#### 插件(plugins)
+#### ESLint配置
+
+##### 扩展(extends)
+
+##### 插件(plugins)
 
 
 
-#### 规则(rules)
+##### 规则(rules)
 
 eslint已有的规则,可以直接通过开启或关闭来启用.
 
