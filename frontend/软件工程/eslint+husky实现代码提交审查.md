@@ -29,7 +29,7 @@ ESLint在进行代码扫描的时候,都会进行一个全局的扫描,那么如
 > 可以通过nvm来管理node版本,以满足不同项目对不同node版本的要求.
 
 ```bash
-// 查看node版本
+# 查看node版本 
 node -v
 v20.9.0
 ```
@@ -38,7 +38,33 @@ v20.9.0
 
 **安装ESLint、Husky、lint-staged**
 
+```bash
+# 安装eslint 
+pnpm install -D eslint @eslint/js
 
+# 安装husky、lint-staged
+pnpm install -D husky lint-staged
+
+# 命令行中执行
+pnpm exec husky init
+
+# npm执行
+npx husky init
+```
+
+以上的指令,会安装eslint、husky,并在项目的根目录下创建.husky目录,并在其中创建预提交脚本(pre-commit),同时更新packages.json中的脚本指令.
+
+<img src="./images/i16.png" width="300" title="项目根目录下创建了.husky目录,并创建预提交脚本" />
+
+<img src="./images/i17.png" width="300" title="packages.json更新指令脚本" />
+
+替换.husky/pre-commit中的指令:pnpm exec lint-staged
+
+自动创建的pre-commit内容是npm test,需要替换为我们需要执行脚本
+
+<img src="./images/i18.png" width="300" title="替换pre-commit中的执行脚本" />
+
+> 也可以替换为其他我们希望的脚本,这里不对测试脚本的功能完善做讨论,暂且讨论工具的使用方式.
 
 ### 配置
 
