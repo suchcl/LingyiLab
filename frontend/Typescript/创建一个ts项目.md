@@ -24,7 +24,7 @@ npm install typescript -D
 npx tsc --init
 ```
 
-5. 修改配置文件：配置文件输出目录、experimentalDecorators设置为truee(这个配置是为了使用装饰器)
+5. 修改配置文件：配置文件输出目录、experimentalDecorators设置为true(这个配置是为了使用装饰器)
 
 ```json
 {
