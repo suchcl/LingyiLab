@@ -39,6 +39,11 @@ tsconfig.json
 #### 2.1 普通装饰器
 
 ```ts
+interface Person {
+    name: string;
+    age: string;
+}
+
 function enhancerDecorator(target: any) {
     target.prototype.name = "Nicholas Zakas";
     target.prototype.age = "16";
@@ -64,3 +69,57 @@ function HomeController(req: any, res: any) {
 从代码和执行结果中可以看出,装饰器函数enhancerDecorator通过修改原型的方式成功的给类Person新增了2个属性name和age.
 
 #### 2.2 装饰器工厂
+
+```ts
+interface Person {
+    name: string;
+    age: string;
+}
+
+// 利用函数柯里化解决传参问题,向装饰器传递一些参数,也叫做参数注解
+function enhancerDecorator(name: string) {
+    // name为装饰器的元数据,外界传递进来的参数
+    return function enhancerDecorator(target: any){
+        target.prototype.name = name;
+        target.prototype.age = 21;
+    }
+}
+
+@enhancerDecorator("Rusira Jayatilake")
+class Person {
+    
+}
+
+function HomeController(req: any, res: any) {
+    const p = new Person();
+    const obj = {
+        name: p.name,
+        age: p.age
+    };
+    res.send(obj);
+}
+```
+
+### 3.装饰器分类
+
+#### 3.1 类装饰器
+
+类装饰器在类声明之前声明,即紧靠着类声明,用来监听、修改或者替换类定义
+
+- 类装饰器不能用在声明文件中(.d.ts),也不能用在任何外部上下文中如declare的类
+
+- 类装饰器表达式会在运行时当作函数调用,类的构造函数作为其唯一的参数
+
+- 如果类装饰器返回一个值,它会使用提供的构造函数来替换类的声明
+
+#### 3.2 属性装饰器
+
+#### 3.3 方法装饰器
+
+#### 3.4 参数装饰器
+
+#### 3.5 装饰器执行顺序
+
+### 4. 装饰器原理
+
+#### 4.1 执行步骤
