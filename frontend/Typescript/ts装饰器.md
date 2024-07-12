@@ -1,4 +1,4 @@
-### 简介
+### 1. 简介
 
 装饰器,是一种特殊类型的声明,它能够被作用到类(class)、方法、属性和参数上.
 
@@ -33,3 +33,34 @@ tsconfig.json
     * 普通装饰器:无法传参
 
     * 装饰器工厂:可以传参
+
+### 2. 装饰器的写法
+
+#### 2.1 普通装饰器
+
+```ts
+function enhancerDecorator(target: any) {
+    target.prototype.name = "Nicholas Zakas";
+    target.prototype.age = "16";
+}
+
+@enhancerDecorator
+class Person {
+    
+}
+
+function HomeController(req: any, res: any) {
+    const p = new Person();
+    const obj = {
+        name: p.name,
+        age: p.age
+    };
+    res.send(obj);
+}
+```
+
+<img src="./images/i66.png" width="300" />
+
+从代码和执行结果中可以看出,装饰器函数enhancerDecorator通过修改原型的方式成功的给类Person新增了2个属性name和age.
+
+#### 2.2 装饰器工厂
