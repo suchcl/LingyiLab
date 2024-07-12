@@ -8,3 +8,28 @@
 
 装饰器,当前在ECMAScript标准中还仅仅是一个提议,目前已进入到stage3阶段,在javascript语言中还没有实现这个标准.但是Ts将它作为一个实验性特性做了实现.所以,javascript里面,目前还不支持装饰器,typescript里是支持的.也就是说,在js里面不能使用装饰器,在ts里面可以使用.
 
+- 语法:装饰器使用@expression形式,expression求值后必须为一个函数,它会在运行时被调用,被装饰的声明信息作为参数传入
+
+- 若要在ts项目中启用装饰器这个实验性特性,需要手动配置下experimentalDecorators为true
+
+tsconfig.json
+
+```json
+{
+    "compilerOptions": {
+        // ……
+        "experimentalDecorators": true,
+        // ……
+    },
+}
+```
+
+不过现在大部分的脚手架搭箭项目,该属性都是自动配置为true的.
+
+- 常用的装饰器类型:类装饰器、属性装饰器、方法装饰器、参数装饰器
+
+- 装饰器的写法:
+
+    * 普通装饰器:无法传参
+
+    * 装饰器工厂:可以传参
