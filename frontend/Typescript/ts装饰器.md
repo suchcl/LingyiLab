@@ -112,6 +112,32 @@ function HomeController(req: any, res: any) {
 
 - 如果类装饰器返回一个值,它会使用提供的构造函数来替换类的声明
 
+```ts
+interface Person {
+    name: string;
+    age: string;
+}
+
+// 定义一个普通类装饰器
+function enhancerDecorator(target: any) {
+    target.prototype.name = "Joseph Savona";
+    target.prototype.age = "18";
+}
+
+@enhancerDecorator
+class Person { }
+
+function ClassDecoratorController(req, res, next) {
+    const p = new Person();
+    const obj = {
+        name: p.name,
+        age: p.age
+    };
+
+    res.send(obj);
+}
+```
+
 #### 3.2 属性装饰器
 
 #### 3.3 方法装饰器
