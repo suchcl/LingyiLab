@@ -25,3 +25,17 @@
 import classNames from "classNames";
 <div className={classNames('icon_row', styles.icon_row)}></div>
 ```
+
+#### 通过一种变通的方式
+
+可以通过在{}内可以执行js的能力,去通过一种变通的方式去实现在一个元素中添加多个class的能力.
+
+```tsx
+<View className={["detail-page", isFlag ? "detail-show" : ""].join(" ")}></View>
+```
+
+实现了在一个元素中根据状态值去配置多个class的能力.
+
+#### 总结
+
+以上三种方式都可以实现在一个元素中添加多个class的能力，可以根据实际需求选择使用哪种方式。
