@@ -23,3 +23,7 @@ Taro3中: process.env.TARO_ENV
 taro2: this.$router.params
 
 taro3: getCurrentInstance().router.params
+
+- taro3默认不支持dataset自定义模板属性
+
+详情可参考[Taro3创建自定义模板属性](./Taro3创建自定义模板属性.md)
