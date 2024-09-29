@@ -1,6 +1,8 @@
-### Nunjucks模板的常规使用
+### Nunjucks模板在nodejs项目中的简单使用
 
 ### 1. 简介
+
+Nunjucks是一个功能丰富且强大的模板引擎，用于在Node.js服务器端渲染HTML和其他文本格式的模板。它类似于Python的Jinja2模板引擎，但是被设计用于JavaScript环境，特别是Express和Koa这样的Web框架.Nunjucks的高性能、模板语法丰富、可扩展、自动转移、异步加载等特点,使得它在Node.js项目中有着广泛的应用.
 
 ### 2. 快速上手
 
