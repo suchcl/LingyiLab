@@ -231,18 +231,24 @@ for便利语法:
 
 #### 3.6 set
 
+在Nunjucks模板中,可以通过set来设置和修改变量.
+
+```js
+{% set cities = data.cities %}
+<ul>
+{% for city in cities %}
+    <li id={{city.id}}>{{city.name}}</li>
+{% endfor %}
+```
+
 #### 3.7 include
 
-#### 3.8 import
+include可以用来引入其他模板.在模板中,可以将一些具有共性的模块抽离一个模板,然后在其他模板中引入,实现模板的共享.
+
+```js
+{% include "./components/header.njk" %}
+```
 
 ### 4 小结
 
-
-
-逻辑非 not
-
-```js
-{% if not flag %}
-    <p>来来来</p>
-{% endif %}
-```
+Nunjucks本质上是一个为js环境设计的模板引擎,基于这种得天独厚的优势,很多类js的特性,可以直接在Nunjucks模板中使用,如变量、表达式、函数等.但是,Nunjucks模板也有自己的特性,如宏、set、include等,以及模板引擎提供了丰富的api,可以让我们在模板中实现更加复杂的功能.
