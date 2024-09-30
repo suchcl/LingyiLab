@@ -165,9 +165,45 @@ if表达式语法格式:
 
 ##### 3.3.3 比较表达式
 
+Nunjucks模板中的比较表达式操作符有:
 
+- == 等于
+
+- ===  全等于
+
+- != 不等于
+
+- !== 不全等于
+
+- < 小于
+
+- <= 小于等于
+
+- \> 大于
+
+- \>= 大于等于
+
+基本用法和js基本一致,不再赘述.
 
 #### 3.4 for循环
+
+Nunjucks模板中可以通过for循环来遍历数据进行展示.遍历对象可以是数组和对象.
+
+for便利语法:
+
+```js
+{% for item in items %}
+    <li id={{item.id}}>{{item.name}}</li>
+{% endfor %}
+```
+
+```js
+<ul>
+{% for city in cities %}
+    <li id={{city.id}}>{{city.name}}</li>
+{% endfor %}
+</ul>
+```
 
 #### 3.5 宏(macro)
 
