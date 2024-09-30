@@ -207,6 +207,28 @@ for便利语法:
 
 #### 3.5 宏(macro)
 
+宏(macro)可以用来定义可重复使用的模块,类似编程语言中的函数.其语法格式和使用方式,可参考如下案例:
+
+定义宏:
+
+```js
+{% macro city(id,name) %}
+    <div>
+        <p>城市id:{{id}}</p>
+        <p>城市名:{{name}}</p>
+    </div>
+{% endmacro %}
+```
+
+宏的应用:
+```js
+{{city(cities[0].id, cities[0].name)}}
+
+{% for cityItem in cities %}
+    {{city(cityItem.id,cityItem.name)}}
+{% endfor %}
+```
+
 #### 3.6 set
 
 #### 3.7 include
