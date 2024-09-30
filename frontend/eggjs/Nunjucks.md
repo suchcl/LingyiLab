@@ -108,15 +108,64 @@ npm dev
 
 <img src="./images/i12.png" width="120" />
 
+> 如果当变量值为undefined或者null时不希望展示包裹该变量的DOM元素,可以通过if语句来实现.下面会有介绍,也可以简单看下面的demo.
+
+```html
+{% if data.userName %}
+    <h2>{{data.userName}}</h2>
+{% endif %}
+```
+
 #### 3.2 过滤器
+
+过滤器,就是可以执行的函数,和js函数类型,只是执行方式略有不同.js中,函数通过点操作符来调用,在Nunjucks模板中,通过管道操作符(|)来调用.
+
+```html
+<!--原数据: foo: ["Apple","Potato","Tomato","Banana"] -->
+<p>{{foo | join("-")}}</p>
+```
+
+模板中,会将数组变量foo转换为字符串,并以-分隔的方式输出到页面中.
 
 #### 3.3 表达式
 
+在Nunjucks中,可以像js一样使用表达式.同样它和js也类似,拥有运算表达是、比较表达是、逻辑表达式、条件判断表达式、函数调用表达式和正则表达式.虽然Nunjucks拥有如此强大的能力,但是为了性能和安全性考虑,有些表达式尽量减少使用,如运算表达式.我们可以重点关注模板渲染中最常用的if表达式、逻辑表达式和比较表达式.
+
+Nunjucks模板中,表达式书写在{%  %}中.
+
 ##### 3.3.1 if表达式
+
+if表达式,就是我们常用的条件判断语句,在Nunjucks模板中,if表达式的书写方式和js中的if语句类似.
+
+if表达式语法格式:
+
+```javascript
+{% if variable %}
+    <p>条件分支</p>
+{% elif variable2 %}
+    <p>条件分支2</p>
+{% else %}
+    <p>条件分支3</p>
+{% endif %}
+```
 
 ##### 3.3.2 逻辑表达式
 
+逻辑表达式,有and、or、not3个操作符,可以使用小括号进行分组.
+
+```js
+{% if vip and isShow %}
+    <p>vip并展示了</p>
+{% if vip or flag %}
+    <p>vip或者被标识</p>
+{% elif vip and not flag %}
+    <p>vip且没有被标识</p>
+{% endif %}
+```
+
 ##### 3.3.3 比较表达式
+
+
 
 #### 3.4 for循环
 
