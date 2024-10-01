@@ -605,11 +605,13 @@ umi默认支持了less预处理器，如果想使用css，则直接将.less修�
 
 > umi本身没有内置sass和stylus，如果有需要，可以通过chainWebpack或者umi插件的形式进行配置。一般请下，less就满足需求了，没有必要再去进行配置sass或者stylus了。
 
-1. global.less  全局样式
+1. global.less 全局样式
 
 umi中约定src/global.less为全局样式，如果存在该文件，则会被自动引入到入口文件最前面，自动生效，不需要开发者手动引入。
 
-> 如果项目在运行期间新增了global.css,那么需要重新启动一下服务器以使全局global.css生效；
+> 如果项目在运行期间新增了global.less,那么需要重新启动一下服务器以使全局global.css生效；
+
+> 在低版本的umi项目,如果是在项目运行期间新增了global.less,可能会需要重启服务,我没有遇到过这种情况.但是在较新版本的umi项目中,如果是在项目期间新增了global.less,则不需要重启服务,新增的全局样式会自动生效.
 
 2. CSS Modules
 
