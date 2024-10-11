@@ -70,6 +70,9 @@ npm view package versions 查看包的所有的版本列表
 
 3. npm缓存
 
+```bash
+npm cache clean --force # 清除npm缓存
+```
 
 ## npm install和npm ci的区别
 
