@@ -45,7 +45,7 @@
 import * as Icon from "@ant-design/icons"; // 这里我选择了全部导入了，如果我们已经确定了使用的icon，也可以导入指定的icon
 ```
 
-2. 编写创建ReactNode的的方法
+2. 编写创建ReactNode的方法
 
 ```tsx
 // 创建icon图标元素
