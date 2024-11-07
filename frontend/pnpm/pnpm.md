@@ -134,4 +134,34 @@ packages:
 
 **pnpm安装依赖包常用参数**
 
+--prod,-P,生产环境时依赖
+
+--dev,-D,开发环境时依赖
+
+dependencies: 生产环境时依赖
+
+devDependencies:开发环境时依赖
+
+```bash
+pnpm install pkg --dev
+
+pnpm install pkg -D
+
+pnpm install pkg --prod
+
+pnpm install pkg --P
+```
+
 **npm安装**
+
+--save参数等同于-S,安装包信息保存在dependencies参数中,生产环境阶段的依赖,就是说程序上线后仍需要该依赖
+
+--save-dev等同于-D,安装包信息会保存在devDependencies参数中,该参数指定的安装依赖包,只会在开发过程中需要,上线后即生产环境就不再需要该依赖了
+
+```bash
+npm install pkg --save # 等同于 npm install pkg -S
+
+npm install pkg --save-dev # 等同于 npm install pkg -D
+```
+### 7. 安装依赖项管理
+
