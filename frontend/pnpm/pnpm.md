@@ -114,8 +114,20 @@ pnpm ls -g # 查看通过pnpm安装的全局依赖包
 
 ### 6. pnpm常用指令
 
-pnpm支持多包仓库,可以在一个命令中安装所有工作区的依赖
+**根目录下执行pnpm install,所有工作区都安装依赖**
+
+pnpm支持多包仓库,可以在一个命令中安装所有工作区的依赖,有多种方式:
+
+方式一,install指令添加recursive参数:
 
 ```bash
 pnpm install --recursive # 可以安装所有工作区的依赖
+```
+
+方式二,在项目根目录下,通过pnpm-workspace.yaml配置文件指定工作区:
+
+```js
+// pnpm-workspace.yaml,内容可参考如下,也可以参考taro-ui或者taro代码仓库
+packages:
+  - "packages/**"
 ```
