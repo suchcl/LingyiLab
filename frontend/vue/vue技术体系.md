@@ -4310,7 +4310,7 @@ node中有一个包管理工具：npm（node package manager），管理node各�
 
 ```bash
 npm install webpack -g // 以全局方式安装最新版本的webpack
-npm install webpack --save-dev // 本地安装
+npm install webpack --save-dev // 本地安装,开发阶段依赖,安装在devDependencies参数中,上线后不依赖该模块
 webpack --version 查看webpack版本
 ```
 

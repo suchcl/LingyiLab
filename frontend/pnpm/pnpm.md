@@ -131,3 +131,7 @@ pnpm install --recursive # 可以安装所有工作区的依赖
 packages:
   - "packages/**"
 ```
+
+**pnpm安装依赖包常用参数**
+
+**npm安装**
