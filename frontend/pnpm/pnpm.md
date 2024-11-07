@@ -165,3 +165,12 @@ npm install pkg --save-dev # 等同于 npm install pkg -D
 ```
 ### 7. 安装依赖项管理
 
+在现在的前端项目中,基本上都会构建在node.js的包管理机制的基础上.每个项目的package.json中,通过dependencies和devDependencies来管理依赖包.
+
+**dependencies**
+
+dependencies用来管理生产环境的依赖项.当我们将应用程序部署到生产环境时,这些依赖也将被安装到生产环境的应用服务器上,以被应用去调用,确保应用的正常运行.在项目的开发过程中,这些依赖也是必不可少的,它们为应用提供了核心的功能.例如在构建一个使用了express的应用时,应用需要安装express作为依赖项来提供处理http的请求和响应、router的管理等等一些在开发环境和生产环境都必不可少的能力.
+
+**devDependencies**
+
+devDependencies用来管理开发环境的依赖项.当我们开发一个前端应用时,一些辅助开发、测试和构建应用的依赖项,都可以通过devDependencies来管理.这些依赖项,仅在开发环境起到一定作用,在生产环境,这些应用不会被安装.例如在构建一个使用了webpack的应用时,应用需要安装webpack作为devDependencies来提供构建应用的能力.
