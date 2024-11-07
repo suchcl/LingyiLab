@@ -112,3 +112,10 @@ pnpm ls -g # 查看通过pnpm安装的全局依赖包
 
 > pnpm,依赖nodejs版本，nodejs版本不能低于14.19.0.所以在安装pnpm的时候，需要先确认下nodejs的版本。
 
+### 6. pnpm常用指令
+
+pnpm支持多包仓库,可以在一个命令中安装所有工作区的依赖
+
+```bash
+pnpm install --recursive # 可以安装所有工作区的依赖
+```
