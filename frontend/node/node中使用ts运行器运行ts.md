@@ -76,6 +76,8 @@ esno是一个基于esbuild的ts运行时,该库会针对不同的模块化标准
 - esno:Node in CJS mode - by esbuild-register
 - esmo:Node in ems node - by esbuild-node-loader
 
+关于esno的更多介绍,可以参考:[esno](./esno.md)
+
 #### node原生支持运行
 
 自v22.6.0以来，node提供了某些对ts语法的实验性支持，这样，可以在node中直接运行ts代码了。
