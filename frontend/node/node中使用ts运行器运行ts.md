@@ -34,7 +34,7 @@ node中常用的有ts-node和tsx。
 
 Node.js环境带有ES Module运行ts文件
 
-- t s-node
+- ts-node
 - tsx/esno
 
 ```json
@@ -75,8 +75,6 @@ esno是一个基于esbuild的ts运行时,该库会针对不同的模块化标准
 
 - esno:Node in CJS mode - by esbuild-register
 - esmo:Node in ems node - by esbuild-node-loader
-
-
 
 #### node原生支持运行
 
