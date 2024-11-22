@@ -69,6 +69,67 @@ vite --config my-config.js # 指定了一个自定义的配置文件
 
 #### vite-plugin-html
 
+- vite-plugin-html是一个旨在提供对html提供灵活控制的插件,通过该插件,开发者可以在html模板中插入动态数据、自定义meta标签、甚至可以根据不同的环境进行HTML的定制,它使得vite项目中的html文件处理的更加灵活和可定制化,极大的提升了开发效率
+- 该插件需要单独安装
+
+```bash
+pnpm install vite-plugin-html -D # 开发时依赖即可
+```
+
+- 功能
+
+  - 动态注入变量:通过将数据注入到HTML中,开发者可以灵活的控制页面标题、描述等元数据
+
+  - 环境特定内容:支持根据不同环境动态注入不同的内容,例如在开发和生产环境注入不同的meta内容
+
+  - 模板解析:该插件支持基于ejs等模板引擎对HTML文件进行解析、从而在HTML中使用条件逻辑和循环
+
+  - 通过vite创建的react项目,使用案例可参考如下:
+
+    ```js
+    // vite.config.js
+    import { defineConfig } from 'vite'
+    import react from '@vitejs/plugin-react-swc'
+    import { createHtmlPlugin } from 'vite-plugin-html'
+    
+    // https://vite.dev/config/
+    export default defineConfig({
+      plugins: [
+        react(),
+        createHtmlPlugin({
+          inject: {
+            data: {
+              title: "自定义title",
+              description: "Hooks原理作为一种改变组件状态、处理组件副作用的方式，Hooks这个概念最早由React提"
+            }
+          }
+        })
+      ],
+    })
+    ```
+
+    ```html
+    <!-- 项目根目录下的index.hmtl模板文件 -->
+    <!doctype html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title><%= title %></title>
+        <meta name="description" content="<%= description %>" />
+      </head>
+      <body>
+        <div id="root"></div>
+        <script type="module" src="/src/main.tsx"></script>
+      </body>
+    </html>
+    ```
+
+    效果如下:
+
+    <img src="./images/i2.png" width="500" />
+
 #### 别名配置
 
 #### 打包配置
