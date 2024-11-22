@@ -1,5 +1,7 @@
 ## vite搭建前端工程
 
+参考链接:[https://blog.csdn.net/qq_40289557/article/details/140666526](https://blog.csdn.net/qq_40289557/article/details/140666526)
+
 ### vite简介
 
 #### 预构建
@@ -131,6 +133,26 @@ pnpm install vite-plugin-html -D # 开发时依赖即可
     <img src="./images/i2.png" width="500" />
 
 #### 别名配置
+
+- vite对静态资源开箱即用
+- 路径别名配置
+
+```js
+resolve: {
+  alias: {
+    '@': path.resolve(__dirname, './src'),
+      '@components': path.resolve(__dirname, './src/components')
+  }
+}
+```
+
+如果是ts项目,除了在vite.config.js中配置了别名,在tsconfig.json中也需要配置下paths属性,否则在组件中不能直接进行文件的关联
+
+```json
+"paths": {
+  "@components/*": ["./src/components/*"]
+}
+```
 
 #### 打包配置
 
