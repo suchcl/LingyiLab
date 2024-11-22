@@ -19,7 +19,23 @@
 
 #### 缓存
 
+- 在vite中,缓存是一个非常重要的概念,因为缓存可以明显提升开发服务器热重载的速度
+- vite使用了两级缓存:一级是内存中的模块缓存,二级是基于文件系统的缓存
+  - 内存中的模块缓存:vite会将每个模块的转换结果保存在内存中,以便在开发中快速访问
+  - 基于文件系统的缓存:vite会将转换过的文件存储在node_modules/.vite/文件夹中,并且会在文件系统中缓存这些文件的依赖和变化
+- packge.json中的依赖项、包管理器中的package-lock.json和vite.config.js中的相关字段发生变化时,vite均会进行重新预构建
+- 更改缓存位置的配置方式:
+
+```json
+// vite.config.js
+export default defineConfig({
+  cacheDir: "./.cache"
+})
+```
+
 #### 模块热重载HMR
+
+- 
 
 ### 基础配置
 
