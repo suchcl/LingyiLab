@@ -30,15 +30,51 @@ node中常用的有ts-node和tsx。
 
 通过使用运行器，也可以直接在node项目中运行ts了。
 
-那么ts-node和tsx有什么区别呢?
+**那么ts-node和tsx有什么区别呢?**
+
+Node.js环境带有ES Module运行ts文件
+
+- t s-node
+- tsx/esno
+
+```json
+{
+    "scripts": {
+        "dev::tsnode": "ts-node src/index.ts",
+        "dev::tsnode::esm": "ts-node-esm src/index.ts",
+        "dev::tsx": "tsx src/index.ts",
+        "dev::esno": "esno src/index.ts"
+    },
+}
+```
+
+前端项目中,可以通过简单配置,使用node环境自带的es模块去执行ts文件.
 
 参考链接: [https://juejin.cn/post/7163685872750034981](https://juejin.cn/post/7163685872750034981)
 
-|      |      |
-| ---- | ---- |
-|      |      |
-|      |      |
-|      |      |
+| ts-node                    | tsx               | esno              |
+| -------------------------- | ----------------- | ----------------- |
+| 区分es module和非es module | 原生支持es module | 原生支持es module |
+| 默认运行commonjs模块       |                   |                   |
+| 使用swc形式运行            |                   |                   |
+
+tsx和esno基于esbuild,原生支持es module,无需指定环境,package.json中不需要指定type: "module"
+
+```json
+{
+  "scripts": {
+    "dev:tsx": "tsx src/index.ts",
+    "dev:esno": "esno src/index.ts"
+  }
+}
+```
+
+**esno是什么?**
+
+esno是一个基于esbuild的ts运行时,该库会针对不同的模块化标准,采用不同的方案.
+
+- esno:Node in CJS mode - by esbuild-register
+- esmo:Node in ems node - by esbuild-node-loader
 
 
 
