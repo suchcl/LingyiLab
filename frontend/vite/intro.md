@@ -26,7 +26,7 @@
 - packge.json中的依赖项、包管理器中的package-lock.json和vite.config.js中的相关字段发生变化时,vite均会进行重新预构建
 - 更改缓存位置的配置方式:
 
-```json
+```js
 // vite.config.js
 export default defineConfig({
   cacheDir: "./.cache"
