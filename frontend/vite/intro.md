@@ -35,11 +35,37 @@ export default defineConfig({
 
 #### 模块热重载HMR
 
-- 
+- HMR全称叫做Hot Module Replacement,即热模块替换或者热模块更新
+- HMR的作用就是在页面更新的时候,直接把页面中发生变化的模块替换为新的模块,同时不会影响其他模块的工作
+- vite本身实现了一套HMR系统,它是基于原生ESM模块规范来实现的,在文件发生变化时vite会侦测到相应ES模块的变化,从而触发相应的api,实现模块的局部刷新
+- vite通过import.meta.hot对象暴露手动HMR API
 
 ### 基础配置
 
 #### 配置文件
+
+- vite会自动解析项目根目录下的vite.config.js配置文件(也支持ts扩展名)
+- 基础的配置: vite.config.js
+
+```js
+// vite.config.js
+import { defineConfig } from "vite"; // 从vite导入defineConfig工具函数做配置,可以和开发工具配合做智能提示
+export default defineConfig({
+  // 配置项
+})
+// 也可以是另外一种写法
+export default {
+  // 配置项
+}
+```
+
+配置文件,两种定义方式,都可以
+
+- vite指令也可以通过--config显示的指定配置文件,而不是必须使用默认的vi te.config.js配置文件
+
+```bash
+vite --config my-config.js # 指定了一个自定义的配置文件
+```
 
 #### vite-plugin-html
 
