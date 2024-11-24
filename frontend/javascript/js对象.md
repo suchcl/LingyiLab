@@ -82,6 +82,24 @@ js对象有两种属性:数据属性和访问器属性
 
 数据属性,就是普通的变量属性,访问器属性,是通过getter和setter函数来读取和设置属性值的方式.
 
+```js
+const user = {
+    name: "John",
+    surname: "Smith",
+    get fullName(){
+        return this.name + " " + this.surname;
+    },
+
+    set fullName(value){
+        this.name = value;
+    }
+};
+user.fullName = "Pete Parker";
+const uname = user.fullName;
+```
+
+demo中,fullName是访问器属性,当为fullName属性赋值的时候,调用了set方法,当读取fullName值的时候,调用的是get方法.
+
 js中，对象读取属性有两种方式：
 
 1. 点语法
