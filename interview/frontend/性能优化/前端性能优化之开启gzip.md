@@ -17,3 +17,7 @@
 - 加快了网页中数据的首次呈现速度
 
 虽然很多时候说到性能优化时都说前端部分开启gzip压缩，但是实际启用和配置gzip都是在后端，或者是运维。
+
+所以结论就是：如果要做性能优化，前端开发需要知道、了解有gzip压缩这一种优化手段，同服务端开发或者运维沟通即可,前端开发可以不用太过于关注gzip的配置方式，个别要求高的除外。
+
+参考链接：[https://mp.weixin.qq.com/s/rQz1AOWvbt1i7rvR56KViw](https://mp.weixin.qq.com/s/rQz1AOWvbt1i7rvR56KViw)
