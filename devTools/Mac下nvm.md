@@ -42,4 +42,49 @@ nvm cache dir 展示nvm的缓存目录
 
 nvm cache clear 清除nvm缓存
 
+nvm alias 别名 version 设置某个别名，并指定node版本
+
+```bash
+nvm alias dd v10.16.0 设置一个别名dd，并为其指定一个node版本10.16.0
+```
+
 nvm alias default version 使用指定版本的node作为默认版本
+
+nvm unalias 别名 删除别名
+
+### nvm unalias 别名
+
+一般情况下，我们使用nvm ls查看已经安装的node列表的时候，会列出已经安装的node列表，也会通过nvm alias 版本的方式制定新的别名，有的时候，我们不想要这个别名了，想把它删除掉，那么就可以通过nvm unalias 别名的方式。
+
+
+```bash
+nvm ls
+v10.16.0
+       v12.16.2
+       v14.18.0
+->     v18.18.0
+dd -> v10.16.0
+default -> stable (-> v18.18.0)
+node -> stable (-> v18.18.0) (default)
+stable -> 18.18 (-> v18.18.0) (default)
+iojs -> N/A (default)
+lts/* -> lts/jod (-> N/A)
+lts/argon -> v4.9.1 (-> N/A)
+lts/boron -> v6.17.1 (-> N/A)
+lts/carbon -> v8.17.0 (-> N/A)
+lts/dubnium -> v10.24.1 (-> N/A)
+lts/erbium -> v12.22.12 (-> N/A)
+lts/fermium -> v14.21.3 (-> N/A)
+lts/gallium -> v16.20.2 (-> N/A)
+lts/hydrogen -> v18.20.5 (-> N/A)
+lts/iron -> v20.18.1 (-> N/A)
+lts/jod -> v22.11.0 (-> N/A)
+```
+如通过nvm ls查看当前的一些node版本列表，其中有一个dd -> v10.16.0这么一项，这项对我们来说没有实际价值或者是某个错误操作出来的结果，那么我们想删除它，怎么删除呢?这个时候就可以通过nvm unalias 别名的方式删除掉该项
+
+```bash
+nvm unalias dd
+Deleted alias dd - restore it with `nvm alias "dd" "v10.16.0"`
+```
+
+这样就已经删除了dd这项不希望出现的项。
