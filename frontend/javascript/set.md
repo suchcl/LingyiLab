@@ -77,7 +77,37 @@ const uniqueArr = [...new Set(set)];
 
 3. 高效查找
 
+Set可以用来高效查找某个数据是否存在。
+
+```js
+const fruits = new Set(['apple', 'banana', 'orange']);
+console.log('%c [  ]-85', 'font-size:13px; background:pink; color:#bf2c9f;', set.has("orange"))
+```
+
 4. 集合操作
+
+并集
+
+```js
+function union(setA,setB){
+    return new Set([...setA, ...setB]);
+}
+const setA = new Set([1, 2, 3]);
+const setB = new Set([3, 4, 5]);
+console.log('%c [  ]-98', 'font-size:13px; background:pink; color:#bf2c9f;', union(setA, setB));
+```
+
+交集
+
+```js
+
+```
+
+差集
+
+```js
+
+```
 
 5. 临时数据结构
 
