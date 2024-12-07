@@ -128,7 +128,20 @@ entries()遍历Set的案例参考如下：
 
 **forEach()**
 
+Set结构实例的forEach方法是对Set的每个成员执行一些操作，没有返回值。
 
+```js
+const colors = ["red", "blue", "green", "orange"];
+const colorsSet = new Set(colors);
+colorsSet.forEach((value,key) => {
+    console.log('%c [ key ]-42', 'font-size:13px; background:pink; color:#bf2c9f;', key)
+    console.log('%c [ value ]-43', 'font-size:13px; background:pink; color:#bf2c9f;', value)
+});
+```
+
+Set的forEach操作，效果如下：
+
+<img src="./images/i32.png" width="500" />
 
 ### Set的使用场景
 
