@@ -53,6 +53,26 @@ set.clear();
 set.size()
 ```
 
+### Set遍历
+
+Set结构有4个遍历方法，可用于遍历Set成员：
+
+1. keys(): 返回键名
+
+2. values(): 返回键值
+
+3. entries(): 返回键值对
+
+4. forEach(): 使用回调函数遍历成员
+
+**keys()**
+
+**values()**
+
+**entries()**
+
+**forEach()**
+
 ### Set的使用场景
 
 Set作为一种高效的数据结构，具有很多可用的场景。
