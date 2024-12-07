@@ -81,6 +81,20 @@ for(let color of colorsSet.keys()){
 
 **values()**
 
+```js
+const colors = ["red", "blue", "green", "orange"];
+const colorsSet = new Set(colors);
+for(let color of colorsSet.values()){
+    console.log('%c [ color ]-30', 'font-size:13px; background:pink; color:#bf2c9f;', color)
+}
+```
+
+使用values()遍历set后的结果如下：
+
+<img src="./images/i29.png" width="500" />
+
+> 由于keys()、values()方法和entries()方法返回的都是遍历器对象，另外Set结构没有键名，只有键值，或者说Set结构键名和键值是同一个值，所以keys()和values()方法的行为在遍历Set结构时行为完全一致。
+
 **entries()**
 
 **forEach()**
