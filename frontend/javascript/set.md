@@ -95,6 +95,21 @@ for(let color of colorsSet.values()){
 
 > 由于keys()、values()方法和entries()方法返回的都是遍历器对象，另外Set结构没有键名，只有键值，或者说Set结构键名和键值是同一个值，所以keys()和values()方法的行为在遍历Set结构时行为完全一致。
 
+
+> 由于Set本身就是可遍历的数据结构，其默认遍历器生成的函数就是它的values()方法,那么也就意味着可以直接使用for……of循环去遍历Set
+
+```js
+const colors = ["red", "blue", "green", "orange"];
+const colorsSet = new Set(colors);
+for(let color of colorsSet){
+    console.log('%c [ color ]-38', 'font-size:13px; background:pink; color:#bf2c9f;', color);
+}
+```
+
+直接使用for……of去遍历Set的效果如下：
+
+<img src="./images/i31.png" width="500" />
+
 **entries()**
 
 entries()返回的是遍历器的键名和键值，所以每次返回的是一个数组，这个数组包括了键名和键值，只不过在set结构中键名和键值相同。
@@ -112,6 +127,8 @@ entries()遍历Set的案例参考如下：
 <img src="./images/i30.png" width="500" />
 
 **forEach()**
+
+
 
 ### Set的使用场景
 
