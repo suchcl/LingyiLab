@@ -97,6 +97,20 @@ for(let color of colorsSet.values()){
 
 **entries()**
 
+entries()返回的是遍历器的键名和键值，所以每次返回的是一个数组，这个数组包括了键名和键值，只不过在set结构中键名和键值相同。
+
+```js
+const colors = ["red", "blue", "green", "orange"];
+const colorsSet = new Set(colors);
+for(let color of colorsSet.entries()){
+    console.log('%c [ color ]-34', 'font-size:13px; background:pink; color:#bf2c9f;', color);
+}
+```
+
+entries()遍历Set的案例参考如下：
+
+<img src="./images/i30.png" width="500" />
+
 **forEach()**
 
 ### Set的使用场景
