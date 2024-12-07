@@ -67,6 +67,18 @@ Set结构有4个遍历方法，可用于遍历Set成员：
 
 **keys()**
 
+```js
+const colors = ["red", "blue", "green", "orange"];
+const colorsSet = new Set(colors);
+for(let color of colorsSet.keys()){
+    console.log('%c [ color ]-25', 'font-size:13px; background:pink; color:#bf2c9f;', color)
+}
+```
+
+使用keys遍历效果：
+
+<img src="./images/i28.png" width="500" />
+
 **values()**
 
 **entries()**
