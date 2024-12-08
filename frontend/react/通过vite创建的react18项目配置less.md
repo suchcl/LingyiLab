@@ -8,6 +8,8 @@ yarn add --dev less less-loader
 npm install less less-loader --save-dev
 ```
 
+> 经过实践，less和less-loader不是必须安装的依赖，也就是说，less和less-loader可以不用安装了
+
 2. 配置vite.cofnig.ts
 
 ```ts
