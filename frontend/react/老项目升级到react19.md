@@ -44,7 +44,29 @@ yarn add --exact @types/react@^19.0.0 @types/react-dom@^19.0.0
 npm config set registry https://registry.npmmirror.com/
 ```
 
-2. 
+2. 项目根目录下新建.npmrc文件，然后在.npmrc文件中指定镜像源
+
+```bash
+# .npmrc
+registry=https://registry.npmmirror.com/
+```
+
+3. 通过nrm来管理镜像源
+
+关于nrm的详细介绍可参考[nrm](../node/nrm.md)
+
+```bash
+nrm use tabao
+nrm ls
+  npm ---------- https://registry.npmjs.org/
+  yarn --------- https://registry.yarnpkg.com/
+  tencent ------ https://mirrors.tencent.com/npm/
+  cnpm --------- https://r.cnpmjs.org/
+* taobao ------- https://registry.npmmirror.com/
+  npmMirror ---- https://skimdb.npmjs.com/registry/
+  huawei ------- https://repo.huaweicloud.com/repository/npm/
+```
+<img src="./images/i72.png" width="500" />
 
 #### 修改代码
 
