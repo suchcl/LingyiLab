@@ -72,6 +72,35 @@ nrm ls
 
 #### 重大变更
 
+1. 删除了已经弃用的React API
+
+- 删除了propTypes和defaultProps函数
+
+PropTypes已经在2017年4月份(v15.5.0)中弃用了。
+
+React19将在包中删除propType检查，并且使用了的这些检查将被忽略。如果项目中有在使用propType做类型检查，那么可以迁移到Typescript或其他的类型检查。
+
+另外还将在函数组件中删除ES6默认参数。现在暂时还没有ES6默认参数的替代方案，因此defaultProps将继续支持类组件。
+
+> 无论是PropType还是defaultProps，我在项目中几乎都没有使用到过，因为项目中都使用到了ts，所以个人感觉，这2个属性，可以忽略不计。如果接手了老项目，使用到了这2个接口的地方，可以升级下ts吧。
+
+- 删除了ReactDOM.render()
+
+ReactDOM.render()已于2022年3月(v18.0.0)弃用。在React19中，在代码中移除了ReactDOM.render(),需要在使用到这个api的地方更改为ReactDOM.createRoot().
+
+这个API大多使用在项目的入口文件中
+
+```tsx
+// ReactDOM.render()
+import {render} from "react-dom";
+render(<App />, document.getElementById("root"));
+
+// ReactDOM.createRoot()
+import { createRoot } from "react-dom/client";
+const root = createRoot(document.getElementById("root"));
+root.render(<App />);
+```
+
 #### 新的弃用
 
 #### 显著变化
