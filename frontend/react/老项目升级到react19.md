@@ -26,6 +26,26 @@ npm install --save-exact @types/react@^19.0.0 @types/react-dom@^19.0.0
 yarn add --exact @types/react@^19.0.0 @types/react-dom@^19.0.0
 ```
 
+> 安装之前，可以先指定一下npm镜像的源。
+
+默认情况下，npm使用的是https://registry.npmjs.org/这个源，有的时候国内的网络环境对这个镜像可能会很慢，导致依赖安装失败。淘宝技术团队搭建了一个镜像https://npmmirror.com/，网络环境相对较好，平常可以使用这个镜像源。
+
+**淘宝镜像源**
+
+网站地址：https://npmmirror.com/
+
+这是一个完整都npmjs.com镜像，这是一个npmjs.com的只读版本，大多数情况下是与官方保持同步的，可以放心使用。
+
+可以通过以下方式指定镜像源
+
+1. 使用npm配置更改镜像源
+
+```bash
+npm config set registry https://registry.npmmirror.com/
+```
+
+2. 
+
 #### 修改代码
 
 #### 重大变更

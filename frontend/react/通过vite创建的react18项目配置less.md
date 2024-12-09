@@ -77,3 +77,5 @@ export default memo(Header);
 pnpm install less -D
 ppm install sass -D
 ```
+
+> 遇到一种情况，同是vite6,react18的时候，没有安装less预处理器，可以正常使用，但是升级到了react19后，没有了less预处理器后，开始报错了。总之，就是loaders是vite已经内置了，less或者sass等预处理器的依赖根据运行情况去安装与否吧。只需安装即可，不需要做任何配置。
