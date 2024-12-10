@@ -1,3 +1,12 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [react项目中接入react-router](#react%E9%A1%B9%E7%9B%AE%E4%B8%AD%E6%8E%A5%E5%85%A5react-router)
+- [react项目中导入react-router](#react%E9%A1%B9%E7%9B%AE%E4%B8%AD%E5%AF%BC%E5%85%A5react-router)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ### react项目中接入react-router
 
 react-router官网：[https://reactrouter.com/](https://reactrouter.com/)
@@ -29,3 +38,13 @@ pnpm install react-router-dom # 不能添加-D参数，生产环境也需要路�
 2. 
 
 **创建类似umi中layout的布局文件**
+
+### react相关生态
+
+1. [react官网](https://react.dev/)
+
+[react中文](https://zh-hans.react.dev/)
+
+2. [脚手架工具vite](https://cn.vitejs.dev/)
+
+3. [路由管理库react-router](https://reactrouter.com/)
