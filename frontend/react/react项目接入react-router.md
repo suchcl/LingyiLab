@@ -217,10 +217,10 @@ react-router支持两种路由传参方式：
 
 ### react相关生态
 
-1. [react官网](https://react.dev/)
+1. react官网: [https://react.dev/](https://react.dev/)
 
-[react中文](https://zh-hans.react.dev/)
+   react中文: [https://zh-hans.react.dev/](https://zh-hans.react.dev/)
 
-2. [脚手架工具vite](https://cn.vitejs.dev/)
+2. 脚手架工具vite: [https://cn.vitejs.dev/](https://cn.vitejs.dev/)
 
-3. [路由管理库react-router](https://reactrouter.com/)
+3. 路由管理库react-router: [https://reactrouter.com/](https://reactrouter.com/)
