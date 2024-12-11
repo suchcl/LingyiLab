@@ -211,9 +211,101 @@ react-router支持多种路由跳转方式，命令式路由跳转和声明式�
 
 react-router路由跳转，可参考：[https://reactrouter.com/start/framework/navigating](https://reactrouter.com/start/framework/navigating)
 
+**命令式跳转**
+
+**声明式跳转**
+
+声明式跳转，简单来说就是利用react-router提供都组件去做路由跳转，有两个组件：NavLink、Link
+
+1. NavLink
+
+NavLink可以自动为导航添加激活状态，即为当前导航添加一个active的class。
+
+```tsx
+// 导入NavLink组件
+import { NavLink } from "react-router-dom";
+<ul className="menu">
+    <li>
+        <NavLink to="/">首页</NavLink>
+    </li>
+    <li>
+        <NavLink to="/list">列表</NavLink>
+    </li>
+    <li>
+        <NavLink to="/detail">详情</NavLink>
+    </li>
+</ul>
+```
+
+NavLink自动的为当前路由导航添加了激活状态。
+
+<img src="./images/i74.png" width="500" />
+
+NavLink除了可以自动添加激活状态以外，它还为className、style和子元素提供了回调函数，在内联样式或某种状态下去渲染元素。说的白话一些，就是react-router为className、style和子元素提供了回调函数，回调函数在当前导航被选中时可以做逻辑处理。
+
+```tsx
+<ul>
+    <li>
+        <NavLink to="/detail" className={({ isActive, isPending }) => [
+            isActive ? "isActive" : "",
+            isPending ? "isPending" : ""
+        ].join(" ")}>详情</NavLink>
+    </li>
+    <li>
+        <NavLink to="/about" style={({ isActive, isPending }) => {
+            return {
+                fontWeight: isActive ? "bold" : "",
+                color: isPending ? "red" : "#369"
+            }
+        }}>关于我们</NavLink>
+    </li>
+    <li>
+        <NavLink to="/user">
+            {
+                ({ isActive, isPending }) => (
+                    <span className={isActive ? "active" : ""}>用户中心</span>
+                )
+            }
+        </NavLink>
+    </li>
+</ul>
+```
+isActive、isPending都是固定的参数，不可修改，不可自定义。除了这2个参数之外还有一个isTransitioning参数。
+
+2. Link
+
+普通的跳转，不需要激活状态，可以使用Link组件。
+
+```tsx
+// 组件导入
+import { Link } from "react-router-dom";
+
+// 组件跳转，组件可以添加query参数
+<ul className="menu">
+    <li>
+        <Link to="/">首页</Link>
+    </li>
+    <li>
+        <Link to="/list">列表</Link></li>
+    <li>
+        <Link to="/detail">详情</Link>
+    </li>
+</ul>
+```
+
+3. NavLink和Link的区别
+
+NavLink提供了当前激活状态的样式，Link没有提供这个能力。
+
+如果一个跳转需要有激活状态，那么就使用NavLink,如果一个跳转没有激活状态的诉求，那么使用Link即可。
+
 #### 路由跳转时传参
 
+1. 路由传参
+
 react-router支持两种路由传参方式：
+
+2. 参数接收
 
 ### react相关生态
 
