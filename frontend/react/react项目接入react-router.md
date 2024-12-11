@@ -172,6 +172,8 @@ export default App
 
 导航链接，可以根据实际项目添加到header、menu或者sidebar组件中，本案例中，将导航链接加到了header组件中了。
 
+导航链接，可以通过Link组件去实现。
+
 ```tsx
 import { memo } from "react";
 import { Link } from "react-router-dom";
@@ -198,9 +200,20 @@ const Header = () => {
 export default memo(Header);
 ```
 
-### react-router进行路由跳转时传参
+### react-router路由跳转
 
 
+#### 路由跳转方式
+
+react-router支持多种路由跳转方式，命令式路由跳转和声明式路由跳转。
+
+<img src="./images/i73.png" width="500" />
+
+react-router路由跳转，可参考：[https://reactrouter.com/start/framework/navigating](https://reactrouter.com/start/framework/navigating)
+
+#### 路由跳转时传参
+
+react-router支持两种路由传参方式：
 
 ### react相关生态
 
