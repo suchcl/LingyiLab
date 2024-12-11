@@ -198,7 +198,9 @@ const Header = () => {
 export default memo(Header);
 ```
 
-**创建类似umi中layout的布局文件**
+### react-router进行路由跳转时传参
+
+
 
 ### react相关生态
 
