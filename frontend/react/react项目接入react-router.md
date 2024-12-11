@@ -35,7 +35,168 @@ react-router有多种实现，可以在web中，也就是常见的单页面(SPA)
 pnpm install react-router-dom # 不能添加-D参数，生产环境也需要路由跳转
 ```
 
-2. 
+2. 创建layout布局组件
+
+该组件为一个公用的布局组件，如页面的公共的组件、基本的布局，都可以在这个组件中去实现。如果使用过umi，则就是umi中的layouts中的BasicLayout.tsx文件，都是起到了一个基本布局的作用。
+
+```tsx
+// src/layouts/layout.tsx
+import { FC } from "react";
+import { Outlet } from "react-router-dom";
+import Header from "../components/Header";
+
+const Layout: FC = () => {
+    return (
+        <>
+            <Header />
+            <Outlet />
+        </>
+    );
+};
+
+export default Layout;
+```
+
+在layout组件中，使用Outlet作为一个占位符，用来渲染子组件,这个组件是在react-router6开始引入的，之前是好像children。
+
+3. 创建页面组件
+
+创建几个页面组件作为路由组件。
+
+```tsx
+// src/pages/home/index.tsx
+import { memo } from "react";
+import { useNavigate } from "react-router-dom";
+import "./index.less";
+
+const Home = () => {
+    const navigate = useNavigate();
+    // 通过url传参
+    const btnHandleClick = () => {
+        navigate(`/list?id=16&name=NicholasZakas`);
+    };
+
+    // 通过对象传参
+    const btnHandleObj = () => {
+        navigate("/detail", {
+            state: {
+                id: 12,
+                fromHome: true
+            }
+        });
+    }
+    return (
+        <>
+            <div>Home 首页</div>
+            <button className="btn" onClick={btnHandleClick}>url传参</button>
+            <button className="btn" onClick={btnHandleObj}>对象传参</button>
+        </>
+    )
+}
+
+export default memo(Home);
+
+// src/pages/list/index.tsx
+import { memo } from "react"
+import { useLocation, useSearchParams } from "react-router-dom";
+
+const List = () => {
+    const location = useLocation();
+    console.log('%c [ location ]-6', 'font-size:13px; background:pink; color:#bf2c9f;', location)
+
+    const [searchParams] = useSearchParams();
+    
+    const username = searchParams.get("name");
+    console.log('%c [ username ]-11', 'font-size:13px; background:pink; color:#bf2c9f;', username)
+    return (
+        <div>List</div>
+    )
+}
+
+export default memo(List);
+
+// src/pages/detail/index.tsx
+import { memo } from "react";
+import { useLocation, useSearchParams } from "react-router-dom";
+
+const Detail = () => {
+    const location = useLocation();
+    console.log('%c [ location ]-6', 'font-size:13px; background:pink; color:#bf2c9f;', location)
+
+    const [searchParams] = useSearchParams();
+    const id = searchParams.get("id");
+    console.log('%c [ id ]-10', 'font-size:13px; background:pink; color:#bf2c9f;', id)
+
+    return (
+        <div>Detail</div>
+    )
+};
+
+export default memo(Detail);
+```
+
+4. 配置路由
+
+在应用的主文件中，一般为入口文件，如main.tsx、App.tsx。
+
+在应用的主文件中配置路由，并将layout组件包裹在需要共享布局的路由之上。
+
+```tsx
+import Layout from './layouts/layout';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/home';
+import List from "./pages/list";
+import Detail from './pages/detail';
+import './App.css'
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path='/' element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/list" element={<List />} />
+          <Route path="/detail" element={<Detail />} />
+        </Route>
+      </Routes>
+    </Router>
+  )
+}
+
+export default App
+```
+
+本案例的入口文件为main.tsx，然后在该组件中导入App.tsx，所以本质上也可以直接将路由的配置放在main.tsx中。
+
+5. 添加导航链接
+
+导航链接，可以根据实际项目添加到header、menu或者sidebar组件中，本案例中，将导航链接加到了header组件中了。
+
+```tsx
+import { memo } from "react";
+import { Link } from "react-router-dom";
+import "./index.less";
+
+const Header = () => {
+    return (
+        <>
+            <div className="header">Header</div>
+            <ul className="menu">
+                <li>
+                    <Link to="/">首页</Link>
+                </li>
+                <li>
+                    <Link to="/list">列表</Link></li>
+                <li>
+                    <Link to="/detail">详情</Link>
+                </li>
+            </ul>
+        </>
+    )
+}
+
+export default memo(Header);
+```
 
 **创建类似umi中layout的布局文件**
 
