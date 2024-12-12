@@ -26,6 +26,8 @@
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
+> 安装过程中，如果出现关于githubusercontent.com的网络连接问题，可以尝试修改下DNS，可以修改为Google的公共DNS(8.8.8.8、8.8.4.4)或者阿里云的公共DNS(223.5.5.5、223.6.6.6)试试
+
 #### 编辑器安装
 
 常用的编辑器有vscode和Cursor
