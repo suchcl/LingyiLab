@@ -56,3 +56,73 @@ git有多种安装方式，在mac中，最常用的是通过homebrew安装和安
 git没有提供单独针对M芯片的安装文件，而是通过集成xcode命令行工具去使用git。
 
 2. 终端中显示分支名
+
+- 在低版本的mac中，然后使用的bash，可以通过下列方式去修改
+
+```bash
+# 在bash的配置文件中末尾添加如下内容
+vi ~/.bash_profile
+function git_branch {
+   branch="`git branch 2>/dev/null | grep "^\*" | sed -e "s/^\*\ //"`"
+   if [ "${branch}" != "" ];then
+       if [ "${branch}" = "(no branch)" ];then
+           branch="(`git rev-parse --short HEAD`...)"
+       fi
+       echo " ($branch)"
+   fi
+}
+export PS1='\u@\h \[\033[01;36m\]\W\[\033[01;32m\]$(git_branch)\[\033[00m\] \$ '
+```
+
+然后重载配置文件
+
+```bash
+source ~/.bash_profile
+```
+
+如果使用的是zsh，那么就在zsh的配置文件末尾添加上面的内容，然后重载下配置文件即可
+
+```bash
+vi ~/.zshrc
+function git_branch {
+   branch="`git branch 2>/dev/null | grep "^\*" | sed -e "s/^\*\ //"`"
+   if [ "${branch}" != "" ];then
+       if [ "${branch}" = "(no branch)" ];then
+           branch="(`git rev-parse --short HEAD`...)"
+       fi
+       echo " ($branch)"
+   fi
+}
+export PS1='\u@\h \[\033[01;36m\]\W\[\033[01;32m\]$(git_branch)\[\033[00m\] \$ '
+
+# 重载配置文件
+source ~/.zshrc
+```
+
+- 较新版本的mac系统中，上面的方式失效了，默认的终端也从bash改为了zsh，对于这些较新版本系统来说，可以使用下面的方式来修改配置
+
+> 具体的系统版本好像是Big Sur吧
+
+首先下载这个脚本到本地，可以存储到当前用户目录下，并命名为.git-prompt.sh
+
+[https://gitcode.com/gh_mirrors/gi/git/blob/master/contrib/completion/git-prompt.sh](https://gitcode.com/gh_mirrors/gi/git/blob/master/contrib/completion/git-prompt.sh)
+
+然后将下的配置添加到.zshrc文件的末尾
+
+```bash
+GIT_PS1_SHOWUPSTREAM="auto"
+GIT_PS1_SHOWCOLORHINTS="yes"
+source ~/.git-prompt.sh
+setopt PROMPT_SUBST
+PS1='[%n@%m %c$(__git_ps1 " (%s)")]\$ '
+```
+
+最后重载配置文件
+
+```bash
+bash ~/.zshrc
+```
+
+到此，mac终端应该就会正常显示分支名称了,看起来直观了，不用再担心修改错代码了。
+
+<img src="./images/i25.png" width="300" />
