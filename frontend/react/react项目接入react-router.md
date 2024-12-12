@@ -309,6 +309,8 @@ react-router支持两种路由传参方式：
 
 2. state传参
 
+3. search传参
+
 **参数接收**
 
 ### react相关生态
