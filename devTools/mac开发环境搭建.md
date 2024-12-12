@@ -9,12 +9,15 @@
   - [nvm安装](#nvm%E5%AE%89%E8%A3%85)
   - [nrm安装](#nrm%E5%AE%89%E8%A3%85)
   - [Git安装](#git%E5%AE%89%E8%A3%85)
+  - [chales安装配置](#chales%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE)
+  - [postman](#postman)
+  - [nginx](#nginx)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ### Mac开发环境搭建
 
-主要是前端开发环境搭建
+主要是前端开发环境搭建,前端的开发场景，主要会涉及到下面的一些环境。
 
 #### Homebrew的安装
 
@@ -170,3 +173,9 @@ bash ~/.zshrc
 到此，mac终端应该就会正常显示分支名称了,看起来直观了，不用再担心修改错代码了。
 
 <img src="./images/i25.png" width="300" />
+
+#### chales安装配置
+
+#### postman
+
+#### nginx
