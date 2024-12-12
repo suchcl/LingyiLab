@@ -1,3 +1,17 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Mac开发环境搭建](#mac%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA)
+  - [Homebrew的安装](#homebrew%E7%9A%84%E5%AE%89%E8%A3%85)
+  - [编辑器安装](#%E7%BC%96%E8%BE%91%E5%99%A8%E5%AE%89%E8%A3%85)
+  - [host管理应用switchhosts安装](#host%E7%AE%A1%E7%90%86%E5%BA%94%E7%94%A8switchhosts%E5%AE%89%E8%A3%85)
+  - [nvm安装](#nvm%E5%AE%89%E8%A3%85)
+  - [nrm安装](#nrm%E5%AE%89%E8%A3%85)
+  - [Git安装](#git%E5%AE%89%E8%A3%85)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ### Mac开发环境搭建
 
 主要是前端开发环境搭建
@@ -41,7 +55,27 @@ mac作为开发者的利器，开发者离不开终端命令行工具，对于vs
 
 #### nvm安装
 
+nvm的相关介绍，可以参考github主页: [https://github.com/nvm-sh/nvm](https://github.com/nvm-sh/nvm)
+
+安装方式：
+
+```bash
+# 通过curl安装，mac中推荐使用curl方式安装
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+
+# 通过wget方式安装，因为mac默认没有安装wget，所以可以优先使用curl方式去下载
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+```
+
+[wget介绍](../电脑应用/wget.md)
+
 #### nrm安装
+
+```bash
+npm install nrm -g
+```
+
+nrm本身就是一个npm包，可以直接通过npm包管理器安装。更多关于nrm的介绍，可以参考[nrm](../frontend/node/nrm.md)
 
 #### Git安装
 
@@ -50,6 +84,12 @@ mac作为开发者的利器，开发者离不开终端命令行工具，对于vs
 git有多种安装方式，在mac中，最常用的是通过homebrew安装和安装包直接安装。
 
 - 通过homebrew安装
+
+```bash
+brew install git
+```
+
+homebrew就合前端开发领域中的包管理工具npm一个概念，只不过不是管理node的开发工具包的，而是管理mac的应用的，功能类似。
 
 - 下载安装文件直接安装
 
