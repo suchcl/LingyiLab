@@ -34,6 +34,8 @@
 
 1. vscode安装和配置
 
+官网: [https://code.visualstudio.com/](https://code.visualstudio.com/)
+
 vscode是绿色应用，无需安装，下载解压后可直接使用。
 
 mac中，最好是把下载后的应用移动到应用程序目录中，这样可以应用可以被添加到启动台中，之后就可以直接通过启动台来找应用去启动了。
