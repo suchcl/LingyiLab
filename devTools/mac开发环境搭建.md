@@ -6,6 +6,8 @@
   - [Homebrew的安装](#homebrew%E7%9A%84%E5%AE%89%E8%A3%85)
   - [编辑器安装](#%E7%BC%96%E8%BE%91%E5%99%A8%E5%AE%89%E8%A3%85)
   - [host管理应用switchhosts安装](#host%E7%AE%A1%E7%90%86%E5%BA%94%E7%94%A8switchhosts%E5%AE%89%E8%A3%85)
+  - [pnpm安装](#pnpm%E5%AE%89%E8%A3%85)
+  - [yarn安装](#yarn%E5%AE%89%E8%A3%85)
   - [nvm安装](#nvm%E5%AE%89%E8%A3%85)
   - [nrm安装](#nrm%E5%AE%89%E8%A3%85)
   - [Git安装](#git%E5%AE%89%E8%A3%85)
