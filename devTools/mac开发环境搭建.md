@@ -59,6 +59,31 @@ mac作为开发者的利器，开发者离不开终端命令行工具，对于vs
 
 #### host管理应用switchhosts安装
 
+#### pnpm安装
+
+中文网站: [https://www.pnpm.cn/](https://www.pnpm.cn/)
+
+也可以参考另外一个文档站点: [https://pnpm.nodejs.cn/](https://pnpm.nodejs.cn/),这个站点有一点不好的地方，就是有广告，但是内容相对来说更新更快、更及时，和英文官网数据同步的更快。根据需要查看文档吧。
+
+pnpm没有集成在node.js中，pnpm有多种安装方式，可以通过npm、yarn等包管理工具安装，也可以通过corepack。通过corepack安装有一个优势，就是可以将pnpm直接添加到系统的环境变量path中，永远使用pnpm的最新版本。使用npn、yarn等包管理工具安装，也是可以正常使用。
+
+pnpm需要node的最低版本：18.12
+
+```bash
+npm install pnpm -g
+```
+
+#### yarn安装
+
+中文网站：[https://www.yarnpkg.cn/](https://www.yarnpkg.cn/)
+
+```bash
+npm install yarn -g
+```
+
+> pnpm和yarn按说都是一个包管理工具而已，node已经内置了npm，这2个其实有没有必要安装，各位可以根据自己的事情情况去选择。pnpm确实存在一些npm和yarn不具备的优势。
+
+自node.js的v16.13开始，node.js发布了用于管理包管理工具的corepack，可参考[https://pnpm.nodejs.cn/installation#using-corepack](https://pnpm.nodejs.cn/installation#using-corepack),不过这个corepack是一项实验性的性能，因此可能不太稳定。
 
 #### nvm安装
 
