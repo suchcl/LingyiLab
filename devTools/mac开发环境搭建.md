@@ -61,6 +61,16 @@ mac作为开发者的利器，开发者离不开终端命令行工具，对于vs
 
 #### host管理应用switchhosts安装
 
+官网: [https://switchhosts.vercel.app/](https://switchhosts.vercel.app/)
+
+由于网络环境的原因，国内的网络环境最近一直打不开。
+
+github:[https://github.com/oldj/SwitchHosts/releases](https://github.com/oldj/SwitchHosts/releases)
+
+github的网络环境，比它官网的网络环境稍好，国内偶尔可以打开。
+
+> 版本简单说明：arm：apple芯片，M1-M4的，没有arm标识的，为Intel芯片的。近几年的Macbook好像没有了Intel的设备了。
+
 #### pnpm安装
 
 中文网站: [https://www.pnpm.cn/](https://www.pnpm.cn/)
