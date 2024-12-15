@@ -228,3 +228,61 @@ ts和js相同，支持3种变量声明方式:var、let、const
 ### declare
 
 declare关键字是专门为ts而设计、专门为ts而服务的。
+
+我们都知道浏览器不能直接运行ts文件，需要先将ts文件编译为js后才可以执行，并且在编译阶段会进行类型检查。但是在ts中并不支持js可识别的所有类型，例如我们项目中使用的第三方库jQuery，我们可以通过id选择器获取id为foo的元素。
+
+```js
+$("#foo");
+// or
+jQuery("#foo");
+```
+可是如果在ts中，如果使用这样的语法，那么会提示异常。
+
+<img src="./images/i67.png" width="600" />
+
+这个时候，可以通过declare关键字来声明一个标识符，告诉typescript编译器，这个标识符已经存在了，可以在ts中使用了。然后就不会有异常提示了。
+
+**定义**
+
+在ts中，declare告诉ts编译器存在一个对象(可以在代码中使用的一个对象)，它向ts编译器声明该对象，简而言之，就是说它允许开发人员在项目中使用这个在其他地方声明的对象。
+
+> 编译器不会将declare语句编译为javascript
+
+看demo：
+
+```ts
+// declare声明了一个名为myGlobal的全局变量，并指定其类型为any
+// 该声明不会生成真正的js代码，而只是告诉ts编译器该变量的存在，以便在ts文件中使用该变量时不会进行异常提示
+declare var myGlobal:any;
+
+// 为声明的myGlobal变量赋值
+myGlobal = 32;
+console.log('%c [ myGlobal ]-256', 'font-size:13px; background:pink; color:#bf2c9f;', myGlobal); // 32
+```
+
+看另一个demo：
+
+```ts
+// 直接通过var关键字声明了一个全局的变量myGlobal，这一行代码会生成js代码
+var myGlobal:any;
+
+// 为myGlobal变量赋值
+myGlobal = 32;
+console.log('%c [ myGlobal ]-269', 'font-size:13px; background:pink; color:#bf2c9f;', myGlobal); // 32
+```
+
+**declarea关键字的使用**
+
+- declare var 声明一个全局变量
+
+- declare function 声明全局方法
+
+- declare class 声明全局类
+
+- declare enum 声明全局枚举类型
+
+- declare namespace 声明(含有子属性)全局对象
+
+- declare global 扩展全局变量
+
+- declare module 扩展模块
