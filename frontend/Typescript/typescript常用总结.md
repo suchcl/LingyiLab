@@ -226,3 +226,5 @@ ts和js相同，支持3种变量声明方式:var、let、const
 ### class
 
 ### declare
+
+declare关键字是专门为ts而设计、专门为ts而服务的。
