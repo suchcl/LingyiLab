@@ -68,7 +68,38 @@ React会把这段tsx转换为虚拟DOM，即用Javascript对象的方式描述DO
 </div>
 ```
 
+**为什么组件的tsx元素要放在一对<></>里面？**
 
+Home组件是使用tsx编写的，浏览器没有办法直接识别。React的构建如webpack或者vite会把tsx代码编译为js代码，如果组件的代码不使用<></>包裹，会如下表现形式：
+
+```tsx
+functin Home() {
+    return (
+        <div>Home 首页</div>
+        <h3>Home组件</h3>
+    )
+}
+export default Home;
+```
+
+运行代码，则会产生一个报错：
+
+```bash
+Adjacent JSX elements must be wrapped in an enclosing tag. Did you want a JSX fragment <>...</>
+```
+
+因为去掉包裹的元素后，编译的结果是：
+
+```ts
+function home(){
+    return (
+        React.createElement("div", null, "Home 首页"),
+        React.createElement("h3", null, "Home组件")
+    );
+}
+```
+
+而在js中，一个函数只允许有一个返回值。所以在一个组件中需要返回多个元素的时候，需要使用一个公共的容器去包裹一下。
 
 ### 2.2 更新渲染
 
