@@ -105,7 +105,59 @@ function home(){
 
 React的更新机制可以用一个函数来表示：view=f(state)，view表示页面，state表示数据。在初次渲染以后，state的变化会引起view的变化，也就是说state的变化会引起组件的重新渲染，更深一层的是当且仅有state变化时才会引起组件的重新渲染。当一个组件冲洗渲染时，它的所有的字组件也会重新渲染。
 
+```tsx
+// Child.tsx
+import { FC } from "react";
+interface IChild {
+    num: any;
+}
+const Child: FC<IChild> = ({ num }) => {
+    console.log('%c [ 子组件 num ]-6', 'font-size:13px; background:pink; color:#bf2c9f;', num);
+    return (
+        <h3>
+            子组件中:{num}
+        </h3>
+    )
+}
 
+export default Child;
+
+// test.tsx
+import { useState } from "react";
+import Child from "./components/Child";
+
+function Test() {
+    const [num, setNum] = useState<number>(0);
+    const [flag, setFlag] = useState<boolean>(false);
+
+    const handleNumChange = () => {
+        setNum(num + 1);
+    }
+
+    const handleNoRelChange = () => {
+        console.log('%c [  ]-14', 'font-size:13px; background:pink; color:#bf2c9f;', flag);
+        setFlag(!flag);
+    }
+    return (
+        <>
+            <h1>组件测试页面</h1>
+            <Child num={num} />
+            <h2>Flag: {flag}</h2>
+            <button onClick={handleNumChange}>关联子组件的数字变更</button>
+            <br />
+            <button onClick={handleNoRelChange}>不关联子组件的state变更</button>
+        </>
+    )
+}
+
+export default Test;
+```
+
+最后我们点击和子组件有关联props的按钮和没有关联props的按钮，发现子组件都被重新渲染了
+
+<img src="./images/i75.png" width="600" />
+
+没有做动态图，用箭头做了下指向，大家应该可以想象出来这个效果。
 
 ## 3. 如何避免不必要的渲染？
 
