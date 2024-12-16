@@ -30,3 +30,20 @@ FingerprintJS通过收集浏览器信息、设备信息、屏幕分辨率、操�
 
 ### 使用方式
 
+1. 安装fingerprintjs
+
+有两种安装方式，一种是通过npm等包管理工具安装，一种是通过cdn的方式以script标签的形式引入
+
+- 通过npm等包管理工具安装
+
+```bash
+npm install @fingerprintjs/fingerprintjs
+```
+
+- 通过script标签引入
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@latest/dist/fp.min.js"></script>
+```
+
+2. 
