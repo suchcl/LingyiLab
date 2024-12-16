@@ -6,8 +6,9 @@
   - [1.1 基础数据类型](#11-%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B)
   - [1.2 对象类型](#12-%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B)
   - [1.3 数组类型](#13-%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B)
-- [class](#class)
-- [declare](#declare)
+  - [1.4 变量声明](#14-%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E)
+- [2. class](#2-class)
+- [3. declare](#3-declare)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -223,9 +224,9 @@ const p: (DUser | IStudent)[] = [
 ts和js相同，支持3种变量声明方式:var、let、const
 
 注意数据类型写小写，不要写大写，大写是js的内置对象。
-### class
+### 2. class
 
-### declare
+### 3. declare
 
 declare关键字是专门为ts而设计、专门为ts而服务的。
 
@@ -304,4 +305,3 @@ console.log('%c [ myGlobal ]-269', 'font-size:13px; background:pink; color:#bf2c
 ```bash
 npm install @types/loadsh --save-dev
 ```
-
