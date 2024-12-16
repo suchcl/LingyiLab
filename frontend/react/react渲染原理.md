@@ -10,9 +10,65 @@
 
 ## 2. 渲染过程
 
-
-
 ### 2.1 初次渲染
+
+首先，我们来定义一个组件:
+
+```tsx
+functin Home() {
+    return (
+        <>
+            <div>Home 首页</div>
+            <h3>Home组件</h3>
+        </>
+    )
+}
+export default Home;
+```
+
+当页面初次渲染或者项目初次启动时，React会先创建一个根节点，用来绑定组件,并且使用render函数渲染具体的组件：
+
+```tsx
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)
+```
+
+由于我们已经在App组件中引入了Home组件，所以就得到了Home组件中的tsx：
+
+```tsx
+<>
+    <div>Home 首页</div>
+    <h3>Home组件</h3>
+</>
+```
+
+React会把这段tsx转换为虚拟DOM，即用Javascript对象的方式描述DOM元素：
+
+```js
+{
+    type: React.Fragment,
+    props: {
+        children: [
+            {type: "div", props: { children: "Home 首页"}},
+            {type: "h3", props: { children: "Home组件"}}
+        ]
+    }
+}
+```
+
+那么在首次渲染时React会将虚拟DOM转换为真实DOM：
+
+```html
+<div id="root">
+    <div>Home 首页</div>
+    <h3>Home组件</h3>
+</div>
+```
+
+
 
 ### 2.2 更新渲染
 
