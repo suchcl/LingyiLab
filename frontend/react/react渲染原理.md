@@ -159,9 +159,71 @@ export default Test;
 
 没有做动态图，用箭头做了下指向，大家应该可以想象出来这个效果。
 
+1. 父组件的重新渲染，为什么会引起子组件的重新渲染呢？
+
+通过上面的示例后，我们发现当父组件中state变化了以后，也带来了子组件的重新渲染。
+
+我们可以再通过一组没有使用props的子组件，来确认是否因为父组件中影响到了子组件中props而引起了子组件的变化。
+
+```tsx
+// Child2.tsx
+const Child2 = () => {
+    console.log('%c [ 没有props的子组件 ]-3', 'font-size:13px; background:pink; color:#bf2c9f;', "没有props的子组件");
+    return (
+        <>
+            <h3>没有props的子组件</h3>
+        </>
+    )
+}
+
+export default Child2;
+
+// Test.tsx
+import { useState } from "react";
+import Child from "./components/Child";
+import Child2 from "./components/Child2";
+
+function Test() {
+    const [num, setNum] = useState<number>(0);
+    const [flag, setFlag] = useState<boolean>(false);
+
+    const handleNumChange = () => {
+        setNum(num + 1);
+    }
+
+    const handleNoRelChange = () => {
+        console.log('%c [  ]-14', 'font-size:13px; background:pink; color:#bf2c9f;', flag);
+        setFlag(!flag);
+    }
+    return (
+        <>
+            <h1>组件测试页面</h1>
+            <Child num={num} />
+            <Child2 />
+            <h2>Flag: {flag}</h2>
+            <button onClick={handleNumChange}>关联子组件的数字变更</button>
+            <br />
+            <button onClick={handleNoRelChange}>不关联子组件的state变更</button>
+        </>
+    )
+}
+
+export default Test;
+```
+
+<img src="./images/i76.png" width="600" />
+
+发现没有使用props的子组件，在父组件重新渲染的时候，子组件也重新渲染了。那么就可以得出一个结论，就是子组件的重新渲染与是否使用props是没有关系的。
+
+到这里，我们就会有一个疑问，明明子组件Child2没有发生任何变化，为什么要对它重新渲染呢？<font color="#f20">因为React没有办法知道子组件中是否使用了变化的state。</font>
+
 ## 3. 如何避免不必要的渲染？
 
+既然我们知道了一些场景是不需要子组件重新渲染的，那么有没有办法阻止它们重新渲染呢？
+
 ### 3.1 React.memo
+
+
 
 ### 3.2 useMemo和useCallback
 
