@@ -46,4 +46,37 @@ npm install @fingerprintjs/fingerprintjs
 <script src="https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@latest/dist/fp.min.js"></script>
 ```
 
-2. 
+2. 基本用法
+
+- npm方式
+
+```tsx
+import FingerprintJSfrom from "@fingerprintjs/fingerprintjs";
+// 通过IIFE的方式获取设备指纹
+(async () => {
+    // 设置指纹
+    const fp = await FingerprintJSfrom.load();
+    const result = await fp.get();
+    const visitorId = result.visitorId;
+    console.log('%c [ visitorId ]-11', 'font-size:13px; background:pink; color:#bf2c9f;', visitorId);
+})();
+```
+
+- cdn方式
+
+CDN的方式，也需要使用IIFE的方式获取
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@latest/dist/fp.min.js"></script>
+<script>
+    (async () => {
+        const fp = await FingerprintJS.load();
+        const result = await fp.get();
+        const visitorId = await result.visitorId;
+        console.log('%c [ visitorId ]-13', 'font-size:13px; background:pink; color:#bf2c9f;', visitorId);
+    })();
+</script>
+```
+
+> 正常情况下，应该是这种使用方式，但是由于网络原因，CDN的方式暂时没有办法测试，还没有验证其通顺性。
+
