@@ -144,3 +144,27 @@ document.body.removeChild(btn);
 6. 忘记清理Set/Map中的键或值
 
 7. 闭环引用
+
+- 两个对象互相引用，导致垃圾回收机制无法判断它们是否可以释放
+
+- 结果：循环引用导致内存泄漏
+
+```js
+function CircularReference(){
+    const obj1 = {};
+    const obj2 = {};
+    obj1.ref = obj2;
+    obj2.ref = obj1;
+}
+```
+
+如果可以的话，可以使用WeakMap/WeakSet来避免相互引用
+
+```js
+function CircularReference(){
+    const obj1 = {};
+    const obj2 = {};
+    obj1.ref = obj2;
+    obj2.ref = obj1;
+}
+```
