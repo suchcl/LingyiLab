@@ -244,6 +244,69 @@ export default memo(Child2);
 
 ### 3.2 useMemo和useCallback
 
+看一段代码：
+
+```tsx
+// Child.tsx
+import { FC, memo } from "react";
+interface IChild {
+    num?: any;
+    arr?: string [];
+}
+const Child: FC<IChild> = ({ arr }) => {
+    console.log('%c [ 子组件 ]-8', 'font-size:13px; background:pink; color:#bf2c9f;', "子组件中～～～～～～");
+    return (
+        <>
+            <h3>Child 子组件</h3>
+            <ul>
+                {
+                    arr && arr.map((item,index) => (
+                        <li key={index}>{item}</li>
+                    ))
+                }
+            </ul>
+        </>
+    )
+}
+
+export default memo(Child);
+
+// test.tsx
+import { useState } from "react";
+import Child from "./components/Child";
+
+function Test() {
+    console.log('%c [ 父组件 ]-7', 'font-size:13px; background:pink; color:#bf2c9f;', "父组件～～～～～");
+    const arr = ["one", "two", "three", "four", "five", "six"];
+    const [num, setNum] = useState<number>(0);
+
+    const handleClick = () => {
+        console.log('%c [ num ]-11', 'font-size:13px; background:pink; color:#bf2c9f;', num);
+        setNum(num + 1);
+    }
+    return (
+        <>
+            <h1>组件测试页面</h1>
+            <Child arr={arr} />
+            <div>数字: {num}</div>
+            <button onClick={handleClick}>关联子组件的数字变更</button>
+        </>
+    )
+}
+
+export default Test;
+```
+
+看下运行结果：
+
+<img src="./images/i78.png" width="700" />
+
+按理说呢，点击了按钮，子组件Child是没有props的变化的，那么它就不应该被重新渲染。但事实上，父组件state变更之后，子组件也跟着重新渲染了。代码中呢，子组件Child也是被memo包裹了的，但是该子组件接收了一个props：arr。
+
+这个和之前的父组件更新子组件不重新渲染有一个区别，就是子组件有没有传递props。
+
+<img src="./images/i79.png" width="200" />
+
 ## 4. 总结
 
 React渲染组件时，首先会执行函数组件，生成一个虚拟DOM树，以描述组件的结构。接着会将其与旧的虚拟DOM树对比，找到需要更新的部分，修改页面。只有state的改变会引起组件的重新渲染，并且它的所有子组件也会被重新渲染。如果想优化这一过程，可以使用React.memo、useDemo或者useCallback这3种方法对应不同的场景。深入理解React的渲染原理，有助于我们快速定位性能瓶颈，解决复杂场景中的问题。
