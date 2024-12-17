@@ -223,7 +223,24 @@ export default Test;
 
 ### 3.1 React.memo
 
+我们可以通过React.memo，让只有props变化的组件去重新渲染，具体方法如下：
 
+```tsx
+const MemoizedComponent = React.memo(Child2);
+export default MemoizedComponent;
+// 也可以是
+export default memo(Child2);
+```
+
+<img src="./images/i77.png" width="700" />
+
+点击按钮，无论是有关联state的变更，还是没有有关联的state的按钮，使用了memo的子组件都没有重新渲染。
+
+当把组件使用React.memo包裹之后，就相当于开启了React的记忆功能。React在初次渲染之后会记住当前组件的返回值，当父组件重新渲染时，如果传递过来的props值没有改变，则该组件就不需要重新渲染。
+
+那有另外一个问题，为什么要开启React的记忆功能，让没有变更props的子组件不重新渲染，那么为什么不直接只更新有props变更的子组件呢？这样对性能来说不是更友好吗？
+
+当我们使用React.memo后，React每次渲染前，都会比较props值是否发生了变化，假设一个父组件拥有很多个子组件，那么在每次渲染该组件时，要单独对比每个字组件的props值是否有更新。此外，React还需要记住每个组件的返回值，因此，虽然节省了组件重新渲染的消耗，但是也增加了许多其他的负担。也可能是因此React没有默认开启这一次策略吧。
 
 ### 3.2 useMemo和useCallback
 
