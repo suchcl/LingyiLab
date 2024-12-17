@@ -117,6 +117,30 @@ leak2();
 
 5. 事件监听器未清理
 
+- 场景：在DOM元素上绑定了事件监听器，但是没有在元素销毁时移除
+
+- 结果：监听器仍然存在，阻止DOM元素被回收
+
+```js
+const button = document.getElementById("btn");
+button.addEventListener("click", () => {
+    console.log('%c [ clickhandle ]-42', 'font-size:13px; background:pink; color:#bf2c9f;', "点击事件click");
+});
+document.body.removeChild(button); // 这段代码存在一个内存泄漏风险：button已经被移除了，但是button和监听器仍然在被引用
+```
+
+可以显示的移除事件监听器
+
+```js
+const btn = document.getElementById("btn");
+const handler = () => {
+    console.log('%c [ handler ]-48', 'font-size:13px; background:pink; color:#bf2c9f;', "点击事件");
+};
+btn.addEventListener("click", handler);
+btn.removeEventListener("click", handler); // 事件完成之后，要及时销毁事件监听器
+document.body.removeChild(btn);
+```
+
 6. 忘记清理Set/Map中的键或值
 
 7. 闭环引用
