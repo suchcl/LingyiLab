@@ -368,6 +368,112 @@ useMemo可以接收2个参数，第一个参数是函数，第2个参数是一�
 
 2. useCallback
 
+useCallback是一个与useMemo功能类似的hook，它可以用来缓存函数。在组件中，会定义很多函数，有时候需要把某些函数传递给子组件，如果不对函数进行缓存，也可能会导致子组件进行无谓的重新渲染。因为子组件在比较传递过来的函数时，也是通过比较引用地址的。
+
+```tsx
+// import React, { FC } from "react";
+
+interface IChild2 {
+    onClick?: any;
+}
+
+const Child2: FC<IChild2> = ({ onClick }) => {
+    console.log('%c [ 没有props的子组件 ]-3', 'font-size:13px; background:pink; color:#bf2c9f;', "没有props的子组件2222222");
+    return (
+        <>
+            <h3>没有props的子组件22222</h3>
+            <button>子组件中的按钮</button>
+        </>
+    )
+}
+
+const MemoizedComponent = React.memo(Child2);
+
+export default MemoizedComponent;
+
+
+// test.tsx
+import { useMemo, useState } from "react";
+import Child from "./components/Child";
+import MemoizedComponent from "./components/Child2";
+
+function Test() {
+    console.log('%c [ 父组件 ]-7', 'font-size:13px; background:pink; color:#bf2c9f;', "父组件～～～～～");
+    // const arr = ["one", "two", "three", "four", "five", "six"];
+    const arr = useMemo(() => ["one", "two", "three", "foue", "five"], []);
+
+    const [num, setNum] = useState<number>(0);
+
+    const handleClick = () => {
+        console.log('%c [ num ]-11', 'font-size:13px; background:pink; color:#bf2c9f;', num);
+        setNum(num + 1);
+    }
+
+    const handleChildClick = () => {
+        
+    };
+    return (
+        <>
+            <h1>组件测试页面</h1>
+            <Child arr={arr} />
+            <MemoizedComponent onClick={handleChildClick} />
+            <div>数字: {num}</div>
+            <button onClick={handleClick}>关联子组件的数字变更</button>
+        </>
+    )
+}
+
+export default Test;
+```
+
+在demo中，我们把原来没有接收props组件的子组件，接收了1个函数prop，然后在点击父组件中按钮的时候，子组件也重新渲染了。
+
+<img src="./images/i81.png" width="700" />
+
+然后我们尝试把传递给子组件的函数使用useCallback包裹起来，看下效果：
+
+```tsx
+import { useCallback, useMemo, useState } from "react";
+import Child from "./components/Child";
+import MemoizedComponent from "./components/Child2";
+
+function Test() {
+    console.log('%c [ 父组件 ]-7', 'font-size:13px; background:pink; color:#bf2c9f;', "父组件～～～～～");
+    const arr = useMemo(() => ["one", "two", "three", "foue", "five"], []);
+
+    const [num, setNum] = useState<number>(0);
+
+    const handleClick = () => {
+        console.log('%c [ num ]-11', 'font-size:13px; background:pink; color:#bf2c9f;', num);
+        setNum(num + 1);
+    }
+    const handleChildClick = useCallback(() => {
+        
+    }, []);
+    return (
+        <>
+            <h1>组件测试页面</h1>
+            <Child arr={arr} />
+            <MemoizedComponent onClick={handleChildClick} />
+            <div>数字: {num}</div>
+            <button onClick={handleClick}>关联子组件的数字变更</button>
+        </>
+    )
+}
+
+export default Test;
+```
+
+我们将传递给子组件的函数使用useCallback包裹了起来，看下效果：
+
+<img src="./images/i82.png" width="700" />
+
+我们发现当使用了useCallback之后，子组件就没有再重新渲染了。
+
+**什么时候使用useMemo和useCallback这2个hooks呢？**
+
+useMemo常用于缓存复杂计算的结果，以免重复计算；useCallback用于缓存函数实例，适合在将回调函数传递给子组件的时候使用，以避免子组件不必要的重复渲染。在平时的开发中，不需要把每一个对象或者函数都用这些hooks包裹起来，因为React本身有很多优化措施。当网站的性能出现问题时，或者子组件渲染过多时，可以考虑使用这些hooks进行优化。
+
 ## 4. 总结
 
 React渲染组件时，首先会执行函数组件，生成一个虚拟DOM树，以描述组件的结构。接着会将其与旧的虚拟DOM树对比，找到需要更新的部分，修改页面。只有state的改变会引起组件的重新渲染，并且它的所有子组件也会被重新渲染。如果想优化这一过程，可以使用React.memo、useDemo或者useCallback这3种方法对应不同的场景。深入理解React的渲染原理，有助于我们快速定位性能瓶颈，解决复杂场景中的问题。
