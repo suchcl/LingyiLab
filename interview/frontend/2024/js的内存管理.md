@@ -95,6 +95,26 @@ const closure = createClosure();
 
 4. 全局变量或未声明变量
 
+- 场景：未使用var、let、const定义变量，导致变量挂载到全局作用域；
+
+- 结果：全局变量生命周期与页面一致，无法被垃圾机制回收
+
+```js
+function leak(){
+    leakedVariable = "I am a leak"; // leakedVariable是一个隐式的全局变量，其声明周期不随函数，而随页面的声明周期一起变动
+}
+leak();
+```
+
+可以使用var、let或者const关键字来约束变量的作用域
+
+```js
+function leak2(){
+    const leakedVariable = "I am a leak"; // leakedVariable被限定在了leak2的函数作用域
+}
+leak2();
+```
+
 5. 事件监听器未清理
 
 6. 忘记清理Set/Map中的键或值
