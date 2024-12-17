@@ -20,8 +20,27 @@ js与许多其他现代的编程语言一样，使用自动内存管理，即js�
 
 1. 未清理的定时器或者回调
 
-```js
+- 场景：使用setInterval或setTimeout，但在组件清理或者不再需要时没有清理
 
+- 结果：定时器还在，引用被保留，导致无法释放内存
+
+```js
+function startTimer(){
+    setInterval(() => {
+        console.log("定时器");
+    }, 1000);
+}
+```
+
+如果调用函数后不清理定时器，那么就会造成内存泄漏。
+
+可按照如下方式进行优化：
+
+```js
+const timer = setInterval(() => {
+    console.log("定时器");
+}, 1000);
+clearInterval(timer); // 使用完成后，要及时清理
 ```
 
 2. DOM引用未释放
