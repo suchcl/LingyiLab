@@ -45,6 +45,23 @@ clearInterval(timer); // 使用完成后，要及时清理
 
 2. DOM引用未释放
 
+- 场景：保留对已经移除的DOM元素的引用
+
+- 结果：虽然DOM节点从页面上被移除，但是js中仍有对它的引用，导致内存泄漏
+
+```js
+const ele = document.getElementById("leak");
+document.body.removeChild(ele); // 因为id为leak的元素已经被删除，但是js中仍然存在对其的引用，导致了内存没有办法被释放
+```
+
+可以通过下面的方式进行优化:
+
+```js
+ele = null;
+```
+
+显示的将其置空，内存得到释放。
+
 3. 闭包中多余的引用
 
 4. 全局变量或未声明变量
