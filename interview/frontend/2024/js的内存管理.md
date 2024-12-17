@@ -64,6 +64,35 @@ ele = null;
 
 3. 闭包中多余的引用
 
+- 场景：闭包中的变量保留了对外部对象的引用，导致对象无法被垃圾机制回收
+
+- 结果：长时间的引用链阻止了内存释放
+
+```js
+function createClosure(){
+    const largeObject = new Array(1000).fill("leak");
+    return function(){
+        console.log('%c [ largeObject ]-20', 'font-size:13px; background:pink; color:#bf2c9f;', largeObject);
+    }
+}
+
+const closure = createClosure(); // 这里有个漏洞，就是closure使用完了以后，不再被继续使用了，largeObject也依然存在
+```
+
+可以优化一下，在使用完成后主动释放内存：
+
+```js
+function createClosure(){
+    const largeObject = new Array(1000).fill("leak");
+    return function(){
+        console.log('%c [ largeObject ]-20', 'font-size:13px; background:pink; color:#bf2c9f;', largeObject);
+        largeObject = null; // 这样，显示的释放了内存
+    }
+}
+
+const closure = createClosure();
+```
+
 4. 全局变量或未声明变量
 
 5. 事件监听器未清理
