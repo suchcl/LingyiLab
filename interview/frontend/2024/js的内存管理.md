@@ -143,6 +143,25 @@ document.body.removeChild(btn);
 
 6. 忘记清理Set/Map中的键或值
 
+- 场景：Map或者Set中的键/值对象没有手动移除
+
+- 结果：即使这些对象不再需要，也会因其被引用而无法回收
+
+```js
+const map = new Map();
+const obj = { key: "value" };
+map.set(obj, "data"); // 即使obj不再使用后，map仍然在引用着它
+```
+
+可以在使用完obj后，手动将其释放
+
+```js
+const map = new Map();
+const obj = { key: "value" };
+map.set(obj, "data"); // 即使obj不再使用后，map仍然在引用着它
+map.delete(obj); // 手动释放map对obj的引用
+```
+
 7. 闭环引用
 
 - 两个对象互相引用，导致垃圾回收机制无法判断它们是否可以释放
