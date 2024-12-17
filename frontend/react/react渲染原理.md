@@ -307,6 +307,65 @@ export default Test;
 
 <img src="./images/i79.png" width="200" />
 
+为什么子组件差了个props之后，memo的作用就没有了呢？
+
+看下面的案例：
+
+```js
+function newArr() {
+    const arr = ["one", "two", "three", "foue", "five"];
+    return arr;
+}
+
+const res1 = newArr();
+const res2 = newArr();
+console.log('%c [  ]-11', 'font-size:13px; background:pink; color:#bf2c9f;', res1 === res2); // false
+```
+
+从结论上来看，同一个函数返回相同的值的数组，但是确不相等。这是因为js中使用===比较对象时，比较的不是对象的值，而是它们的引用地址。每当我们调用newArr函数时，都会创建一个新的数组的实例，这个新的数组的实例会被分配到不同的内存地址。即使这些数组的值完全相同，但是它们在不同的内存地址，所以对它们做全等性比较的时候，也是不同的。
+
+而在React中，组件的本质就是js函数，对组件的引用就是对函数的调用。因此每当父组件重新渲染时，在这个组件中定义的所有的数据都会被重新创建一遍。那么回到我们的案例，每当Test组件重新渲染时，都会创建一个新的数组arr，那么其子组件Child从父组件中获取的props arr也是新的数据，所以子组件Child重新渲染了。
+
+**为了这种没有本质上的更新导致的重新渲染，可以使用useMemo来避免该问题。**
+
+1. useMemo
+
+我们在父组件中将需要传递给子组件的数据，使用useMemo包裹起来：
+
+```tsx
+import { useMemo, useState } from "react";
+import Child from "./components/Child";
+import MemoizedComponent from "./components/Child2";
+
+function Test() {
+    console.log('%c [ 父组件 ]-7', 'font-size:13px; background:pink; color:#bf2c9f;', "父组件～～～～～");
+    // 使用useMemo将数据包裹起来
+    const arr = useMemo(() => ["one", "two", "three", "foue", "five"], []);
+
+    const [num, setNum] = useState<number>(0);
+
+    const handleClick = () => {
+        console.log('%c [ num ]-11', 'font-size:13px; background:pink; color:#bf2c9f;', num);
+        setNum(num + 1);
+    }
+    return (
+        <>
+            <button onClick={handleClick}>关联子组件的数字变更</button>
+        </>
+    )
+}
+
+export default Test;
+```
+
+看运行结果:
+
+<img src="./images/i80.png" width="700" />
+
+然后，我们没有看到子组件的重新渲染。
+
+2. useCallback
+
 ## 4. 总结
 
 React渲染组件时，首先会执行函数组件，生成一个虚拟DOM树，以描述组件的结构。接着会将其与旧的虚拟DOM树对比，找到需要更新的部分，修改页面。只有state的改变会引起组件的重新渲染，并且它的所有子组件也会被重新渲染。如果想优化这一过程，可以使用React.memo、useDemo或者useCallback这3种方法对应不同的场景。深入理解React的渲染原理，有助于我们快速定位性能瓶颈，解决复杂场景中的问题。
