@@ -58,4 +58,47 @@ JSON5项目始于2012年，截止2024年，JSON5每周的下载量超过了8500�
 
 - 支持更多的空白字符
 
+```json
+  // 这里是注释内容
+  unquoted: '你可以引用我的话',
+  singleQuotes: '这里可以使用 "双引号"',
+  lineBreaks: "看呐，妈妈！ \
+没有 \\n 的换行！",
+  hexadecimal: 0xdecaf,
+  leadingDecimalPoint: .8675309, andTrailing: 8675309.,
+  positiveSign: +1,
+  trailingComma: '在对象中',
+  andIn: ['数组中',],
+  "backwardsCompatible": "兼容 JSON",
+```
+
 ### 安装使用
+
+安装依赖
+
+```bash
+npm install JSON5
+```
+
+JSON同时支持CommonJS规范和ES Module规范
+
+```js
+const JSON5 = require("JSON5");
+import JSON5 from "JSON5"
+```
+
+JSON额两个方法stringify()和parse()对于JSON5同样适用
+
+JSON5.stringify()将js对象转换为JSON5字符串
+
+```js
+JSON5.stringify()
+```
+
+JSON5.parse()将JSON5字符串转换js对象
+
+```js
+JSON5.parse()
+```
+
+虽然JSON5在能力上相对于JSON有了一些提升，但是个人感觉有点累赘了。
