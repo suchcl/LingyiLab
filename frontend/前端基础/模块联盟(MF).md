@@ -35,3 +35,5 @@
 3. rsbuild：需要安装插件 @module-federation/rsbuild-plugin
 
 4. vite：需要安装插件 @module-federation/vite，不支持dts、dev配置选项
+
+详细demo，可参考：[https://mp.weixin.qq.com/s/r2cysn-THgvdDb4a4gms4w](https://mp.weixin.qq.com/s/r2cysn-THgvdDb4a4gms4w)
