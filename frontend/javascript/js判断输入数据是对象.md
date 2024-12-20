@@ -61,6 +61,18 @@ instanceof是另外一种判断对象的方式：
 
 3. Array.isArray()
 
+Array.isArray()可以判断数组，比较精准。这是ES6中新增的api,返回值是一个布尔值。
+
+
+```js
+const arr = [2, 3];
+console.log('%c [  ]-47', 'font-size:13px; background:pink; color:#bf2c9f;', Array.isArray(arr)); // true
+const obj = {};
+console.log('%c [  ]-49', 'font-size:13px; background:pink; color:#bf2c9f;', Array.isArray(obj)); // false
+```
+
+只有在数组的时候，才会返回true。
+
 4. Object.prototype.toString()方法
 
 5. 使用第三方库如lodash提供的方法
