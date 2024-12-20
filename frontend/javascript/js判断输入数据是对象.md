@@ -102,7 +102,7 @@ if(Object.prototype.toString.call(obj) === "[Object Object]"){
 
 5. 使用第三方库如lodash提供的方法
 
-
+lodash库提供了很多功能强大的工具库函数，可以根据需要使用。
 
 **总结**
 
