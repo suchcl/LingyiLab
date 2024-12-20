@@ -36,6 +36,29 @@ return false;
 
 2. instanceof关键字
 
+instanceof是另外一种判断对象的方式：
+
+```js
+    const a: any = undefined;
+    console.log('%c [ a ]-27', 'font-size:13px; background:pink; color:#bf2c9f;', a instanceof Object); // false
+    const b: any = "abcd";
+    console.log('%c [ b ]-29', 'font-size:13px; background:pink; color:#bf2c9f;', b instanceof Object);  // false
+    const c: any = 1;
+    console.log('%c [ c ]-31', 'font-size:13px; background:pink; color:#bf2c9f;', c instanceof Object);  // false
+    const d = [1, 2];
+    console.log('%c [ d ]-33', 'font-size:13px; background:pink; color:#bf2c9f;', d instanceof Object);  // true
+    const e = { a: 12 };
+    console.log('%c [ e ]-35', 'font-size:13px; background:pink; color:#bf2c9f;', e instanceof Object);  // true
+    const f: any = null;
+    console.log('%c [ f ]-37', 'font-size:13px; background:pink; color:#bf2c9f;', f instanceof Object);  // false
+    const g = function () { };
+    console.log('%c [ g ]-39', 'font-size:13px; background:pink; color:#bf2c9f;', g instanceof Object); // true
+```
+
+从案例中可以看到：
+
+使用instanceof关键字的时候，数组、普通对象和数组会被判定为Object。null不会被判定为Object，它是一个独立的类型。
+
 3. Array.isArray()
 
 4. Object.prototype.toString()方法
