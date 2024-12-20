@@ -73,9 +73,36 @@ console.log('%c [  ]-49', 'font-size:13px; background:pink; color:#bf2c9f;', Arr
 
 只有在数组的时候，才会返回true。
 
-4. Object.prototype.toString()方法
+4. Object.prototype.toString方法
+
+```ts
+const a: any = undefined;
+console.log('%c [ a ]-54', 'font-size:13px; background:pink; color:#bf2c9f;', Object.prototype.toString.call(a)); // [object Undefined]
+const b: any = "abcd";
+console.log('%c [ b ]-56', 'font-size:13px; background:pink; color:#bf2c9f;', Object.prototype.toString.call(b)); // [object String]
+const c: any = 1;
+console.log('%c [ c ]-58', 'font-size:13px; background:pink; color:#bf2c9f;', Object.prototype.toString.call(c)); // [object Number]
+const d = [1, 2];
+console.log('%c [ d ]-60', 'font-size:13px; background:pink; color:#bf2c9f;', Object.prototype.toString.call(d)); // [object Array]
+const e = { a: 12 };
+console.log('%c [ e ]-62', 'font-size:13px; background:pink; color:#bf2c9f;', Object.prototype.toString.call(e)); // [object Object]
+const f: any = null;
+console.log('%c [ f ]-64', 'font-size:13px; background:pink; color:#bf2c9f;', Object.prototype.toString.call(f)); // [object Null]
+const g = function () { };
+console.log('%c [ g ]-66', 'font-size:13px; background:pink; color:#bf2c9f;', Object.prototype.toString.call(g)); // [object Function]
+```
+
+当且仅当是普通对象的时候，返回了字符串[object Object],所以如果需要判断对象类型的时候，可以通过如下方式：
+
+```js
+if(Object.prototype.toString.call(obj) === "[Object Object]"){
+    return true;
+}
+```
 
 5. 使用第三方库如lodash提供的方法
+
+
 
 **总结**
 
