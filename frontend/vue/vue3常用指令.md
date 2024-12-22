@@ -105,3 +105,28 @@ v-show：也会根据条进行判断，只不过false的时候，DOM元素也会
     }
 </script>
 ```
+
+4. v-for遍历
+
+v-for遍历数据列表
+
+```vue
+<ul class="list">
+    <li v-for="item in data" key="{item.id}" class="item">
+        <div class="name">{{ item.name }}</div>
+        <div class="age">{{ item.age }}</div>
+    </li>
+</ul>
+<script lang="ts">
+import { ref } from 'vue';
+import { data } from './testData';
+export default {
+    setup() {     
+        return {
+            data
+        };
+    }
+}
+</script>
+```
+
