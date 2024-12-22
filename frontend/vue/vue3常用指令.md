@@ -27,3 +27,59 @@ vue3提供了强大的工具指令来操作DOM，常用的如v-bind、v-model、
 </script>
 ```
 
+2. v-model: 数据双向绑定
+
+v-model使得表单输入和响应式属性之间的双向绑定成为可能，非常适合表单的数据输入场景。
+
+```vue
+<form @submit.prevent="handleSubmit">
+    <ul class="ul-list">
+        <li>
+            <label for="username">姓名:</label>
+            <input type="text" id="username" v-model="username">
+        </li>
+        <li>
+            <label for="age">年龄:</label>
+            <input type="text" id="age" v-model="age">
+        </li>
+    </ul>
+    <button type="submit">提交</button>
+</form>
+<ul class="user-info">
+    <li>姓名: {{ username }}</li>
+    <li>年龄: {{ age }}</li>
+</ul>
+
+<script lang="ts">
+    import { ref } from 'vue';
+    export default{
+        setup(){
+            const username = ref("");
+            const age = ref("");
+            
+            const handleSubmit = () => {
+                const user = {
+                    username: username.value,
+                    age: age.value
+                };
+                console.log('%c [ user ]-36', 'font-size:13px; background:pink; color:#bf2c9f;', user);
+            }
+            return {
+                username,
+                age,
+                handleSubmit
+            };
+        }
+    }
+</script>
+```
+
+3. v-if、v-else-if、v-else:条件渲染
+
+除了v-if之外，还有另外一个指令v-show也是用来做条件渲染的判断的。
+
+v-if: 条件为真，则渲染，否则DOM元素不渲染
+
+v-show：也会根据条进行判断，只不过false的时候，DOM元素也会渲染，只不过是给元素加了个diaplay:none;的样式，用视觉的方式欺骗了我们。
+
+> 如果没有特殊的要求，在做条件渲染的时候使用v-if，因为不渲染这部分不必要的DOM，可以减小页面的质量，提升加载速度，在性能上有一定的提升；
