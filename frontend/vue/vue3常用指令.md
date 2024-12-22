@@ -83,3 +83,25 @@ v-if: 条件为真，则渲染，否则DOM元素不渲染
 v-show：也会根据条进行判断，只不过false的时候，DOM元素也会渲染，只不过是给元素加了个diaplay:none;的样式，用视觉的方式欺骗了我们。
 
 > 如果没有特殊的要求，在做条件渲染的时候使用v-if，因为不渲染这部分不必要的DOM，可以减小页面的质量，提升加载速度，在性能上有一定的提升；
+
+```vue
+<div class="login" v-if="isLogined">登录</div>
+<div class="login" v-show="isLogined">登录v-show</div>
+<button @click="login">去登录</button>
+<script lang="ts">
+    import { ref } from 'vue';
+    export default{
+        setup(){
+            let isLogined = ref(false);
+            
+            const login = () => {
+                isLogined.value = !isLogined.value;
+            };
+            return {
+                isLogined,
+                login
+            };
+        }
+    }
+</script>
+```
