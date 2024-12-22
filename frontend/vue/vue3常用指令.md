@@ -130,3 +130,28 @@ export default {
 </script>
 ```
 
+5. v-on事件处理
+
+v-on，简写为@
+
+```vue
+<!-- button绑定click事件 -->
+<button @click="login">去登录</button>
+<!-- or -->
+<button v-on:click="login">去登录</button>
+<script lang="ts">
+    import { ref } from 'vue';
+    export default{
+        setup(){
+            let isLogined = ref(false);
+            const login = () => {
+                isLogined.value = !isLogined.value;
+            };
+            return {
+                isLogined,
+                login
+            };
+        }
+    }
+</script>
+```
