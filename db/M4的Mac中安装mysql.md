@@ -60,4 +60,34 @@ navicat是收费的，如果大家米够了，那就不需要往下看了，直�
 
 <img src="./images/i15.png" width="500" />
 
-2. 
+2. 关闭系统的SIP(系统的完整性保护)
+
+关于系统的SIP(System Integrity Protection,系统的完整性保护),可以参考[Mac开启与关闭SIP](../devTools/mac开启与关闭SIP.md)
+
+SIP,是为了保护系统文件和进程免受未经授权的访问和修改而采取的一套保护措施，从而提高系统的安全性和稳定性。所以，虽然有能力和方案去修改SIP服务的开启与关闭，但是还是需要慎重选择，只有在需要开启的时候再去开启。
+
+- 检查SIP的开启或关闭状态
+
+```bash
+csrutil status
+```
+
+如果出现了类似"System Integrity Protection status: disabled"的提示表示SIP服务已经关闭，如果出现类似"System Integrity Protection status: enabled"的提示，表示SIP服务已经开启。
+
+> 接下来说的几个指令，都是在终端命令行中去执行
+
+- 开启或者关闭SIP服务
+
+开机时同时按住Command+R(Intel芯片)或者长按开机键(M芯片)，直到出现Apple标志
+
+然后进入系统后，在菜单中选择“终端”进入,根据需要进行相应的操作就可以了
+
+```bash
+csrutil enable # 开启SIP
+csrutil disable # 关闭SIP
+csruti status # 查看SIP的服务状态
+```
+
+修改完成并确认后，重启，正常进入系统即可。
+
+> 尽量只在需要的时候才去关闭SIP，或者是不去关闭这项服务。
