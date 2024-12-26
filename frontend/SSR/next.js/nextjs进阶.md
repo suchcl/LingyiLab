@@ -29,7 +29,7 @@
 
 ### 3. next.js 应用的页面
 
-next.js 应用，和其他形式的应用稍有不同。next.js应用是围绕页面来构造的，next.js中，页面的文件格式可以是.js、.jsx、.ts、.tsx,因为 next.js 应用是基于react的框架，组件也是可以是类式组件，也可以是函数式组件，当然了，现在使用函数式组件相对流行，主要是因为 hooks 么。
+next.js应用，和其他形式的应用稍有不同。next.js应用是围绕页面来构造的，next.js中，页面的文件格式可以是.js、.jsx、.ts、.tsx,因为next.js 应用是基于react的框架，组件也是可以是类式组件，也可以是函数式组件，当然了，现在使用函数式组件相对流行，主要是因为hooks么。
 
 next.js 应用的 view（视图）是在pages目录中的，pages目录名不许更改，有特别配置的另说。如首页就是 pages/index.js。
 
@@ -157,7 +157,7 @@ https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Modules#.mjs_%E4%B
 
 2. node.js服务器
 
-这种方式也比较简单，只要是支持 nodejs 的服务器，都可以，这种方式稍微有点麻烦。nodejs 服务器，可以通过 pm2 来管理，一般情况下，nodejs 服务会弄人占用 3000 端口，然后再使用诸如 nginx、apache 等之类的 web 服务器做一个反向代理，因为我们不能让我们的 localhost:3000 这样跑在客户端的机器上。
+这种方式也比较简单，只要是支持 nodejs 的服务器，都可以，这种方式稍微有点麻烦。nodejs 服务器，可以通过pm2来管理，一般情况下，nodejs服务会弄人占用3000端口，然后再使用诸如nginx、apache等之类的web服务器做一个反向代理，因为我们不能让我们的 localhost:3000 这样跑在客户端的机器上。
 
 3. docker
 
