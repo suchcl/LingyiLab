@@ -86,6 +86,30 @@ export default {
 
 ### 7. 路由
 
+路由模式：vue3中有3中路由模式：createMemoryHistory、createWebHistory、createWebHashHistory。
+
+hash模式，就是路由中会有#，不太美观。
+
+createWebHistory：vue2中就直接叫history模式，路由中不会有#，美观，但是在部署服务的时候，需要web服务器做一些支持，做一个反向代理。
+
+```bash
+server {
+	location / {
+		 try_files $uri $uri/ /index.html;
+	}
+    listen        80;
+    server_name dev.mainapp.com;
+
+    root /Users/xxx/Documents/workspace/project/xxxxx/dist;
+    index index.html index.php index.htm;
+
+    charset utf-8;
+    client_max_body_size 100M;
+}
+```
+
+createWebHashHistory:这种路由模式，本质上是history模式，但是和webhistory模式区别是路由上不会有任何变化，应该是内存中保存的吧，没有用过，暂时不说那么多。
+
 #### 7.1 路由跳转
 
 两种路由跳转方式：生命式路由跳转和命令式路由跳转
