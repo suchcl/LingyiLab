@@ -1,3 +1,20 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [1. 项目创建](#1-%E9%A1%B9%E7%9B%AE%E5%88%9B%E5%BB%BA)
+- [2. 基本语法](#2-%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95)
+- [3. setup](#3-setup)
+- [4. 生命周期钩子函数](#4-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90%E5%87%BD%E6%95%B0)
+- [5. 组件](#5-%E7%BB%84%E4%BB%B6)
+  - [1. 父子组件引用](#1-%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E5%BC%95%E7%94%A8)
+  - [2. 父子组件通信](#2-%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1)
+- [6. slot](#6-slot)
+- [7. 路由](#7-%E8%B7%AF%E7%94%B1)
+  - [7.1 路由跳转](#71-%E8%B7%AF%E7%94%B1%E8%B7%B3%E8%BD%AC)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 > 本文没有什么章法，就是一些关键信息的集合
 
 ### 1. 项目创建
@@ -79,6 +96,103 @@ export default {
 
 #### 2. 父子组件通信
 
+1. props
+
+```vue
+<!-- 父组件 -->
+<template>
+    <div>
+        <UserItem v-for="item in userList" :item="item" :key="item.id"></UserItem>
+    </div>
+</template>
+
+<script lang="ts">
+import { ref,onBeforeMount } from "vue";
+import UserItem from "./components/userItem.vue";
+import request from "@/service/request";
+export default {
+    name: "UserList",
+    components:{
+        UserItem
+    },
+    setup() {
+        const userList:any = ref([]);
+        const getUserList = () => {
+            request.get("/uesrs/getTestUserList").then((res) => {
+                const data = res.data.data;
+                userList.value = data.userList;
+            });
+        }
+        onBeforeMount(() => {
+            getUserList()
+        });
+        return {
+            userList
+        }
+    }
+}
+</script>
+
+<!-- 子组件UserItem.vue -->
+<template>
+    <div class="user-item">
+        <div class="pic">
+            <img :src="item.imgUrl" :alt="item.name">
+        </div>
+        <div class="user-info">
+            <div class="name">姓名:{{ item.name }}</div>
+            <div class="birthday">生日: {{ item.birthday }}</div>
+            <div class="mobile">电话:{{ item.mobile }}</div>
+            <div class="email">邮箱:{{ item.email }}</div>
+            <div class="address">住址:{{ item.address }}</div>
+        </div>
+    </div>
+</template>
+
+<script lang="ts">
+import { defineComponent, PropType } from 'vue';
+
+export default defineComponent({
+    name: 'UserItem',
+    props: {
+        // 声明props，类型约束
+        item: {
+            type: Object as PropType<{ id: number, name: string, birthday: string, mobile: string, email: string, address: string, imgUrl: string }>, // 根据实际的 item 结构定义类型
+            required: true
+        }
+    },
+    setup() {
+        return {
+            message: "用户信息"
+        }
+    }
+});
+</script>
+```
+
+子组件接收props的时候，需要声明props，并进行类型约束
+
+```vue
+<script lang="ts">
+import { defineComponent, PropType } from 'vue';
+
+export default defineComponent({
+    name: 'UserItem',
+    props: {
+        // 声明props，类型约束
+        item: {
+            type: Object as PropType<{ id: number, name: string, birthday: string, mobile: string, email: string, address: string, imgUrl: string }>, // 根据实际的 item 结构定义类型
+            required: true
+        }
+    },
+    setup() {
+        return {
+            message: "用户信息"
+        }
+    }
+});
+</script>
+```
 
 ### 6. slot
 
