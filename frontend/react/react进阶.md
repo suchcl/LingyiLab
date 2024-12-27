@@ -2615,6 +2615,10 @@ checked：初次渲染状态和修改的时候都可用，但是需要和onChang
 
 #### 5.2 axios库
 
+axiox作为http网络请求库，有很多便利的地方
+
+参考链接: [https://www.axios-http.cn/](https://www.axios-http.cn/)
+
 #### 5.3 配置代理
 
 我们知道，异步的ajax请求，存在跨域问题，那么react应用怎么处理跨域问题呢？非常常见的一种做法是使用代理的方式。

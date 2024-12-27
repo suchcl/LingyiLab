@@ -83,3 +83,55 @@ pnpm store prune # pnpm清理缓存
 3. npm ci只可以一次性的安装整个项目依赖，但无法单独添加某个依赖项
 4. npm ci安装之前，会删除掉node_modules目录，不需要检查、校验已下载文件版本和控制版本的关系，也不用校验是否存在最新的版本库，下载速度更快
 5. npm安装时，不会修改package.json和package-lock.json
+
+### 各种包管理工具清除缓存：npm、yarn、pnpm
+
+不管时哪个包管理工具要清理缓存，都要知道它们的缓存路径在在哪里。不同的工具查看方式不同
+
+```bash
+# npm查看缓存路径
+npm config get cache
+
+# yarn查看缓存路径
+yarn cache dir
+
+# pnpm查看缓存路径
+pnpm store path
+```
+
+在清理缓存的时候，都要慎重。在查询到了缓存路径以后，可以通过手动的方式去删除当前缓存目录，但是不建议这么做。因为在删除这些缓存后，未来再次安装依赖的时候，有可能会变慢，因为这些被删除的依赖需要重新下载。
+
+但是还是建议定期清理下缓存，因为可能每过一段时间都有可能会有一些依赖不再使用了，通过工具提供的方式清除缓存，清除的是没有被引用的、孤立的包，对应用不会有什么影响。
+
+1. npm清理缓存
+
+```bash
+# 查看缓存目录
+npm config get cache
+
+# 清除缓存
+npm cache clean --force
+```
+
+2. yarn清理缓存
+
+```bash
+# 查看yarn的缓存列表
+yarn cache list
+
+# 查看缓存目录
+yarn cache dir
+
+# 清理缓存
+yarn cache clean
+```
+
+3. pnpm清理缓存
+
+```bash
+# 查看缓存目录
+pnpm store path
+
+# 清理缓存
+pnpm store prune
+```
