@@ -8,6 +8,11 @@
 
 参考文档：[https://www.npmjs.com/package/treer](https://www.npmjs.com/package/treer)
 
+```bash
+# 安装
+npm install treer -g
+```
+
 目录生成方式：
 
 ```bash
