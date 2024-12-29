@@ -140,6 +140,26 @@ export default function DashBoardlayout({ children }: Readonly<{ children: React
 }
 ```
 
+路由的激活状态，也可以把实现部分模拟下真实环境，因为路由信息，一般都是从接口下发的：
+
+```tsx
+const linkData = [
+    {
+        name: "Settings",
+        path: "/dashboard/settings"
+    }, {
+        name: "About",
+        path: "/dashboard/about"
+    }
+];
+// tsx部分
+{
+    linkData.map( link => (
+        <Link key={link.name} href={link.path} className={`${styles.link} ${pathname === link.path ? styles.active : ""}`}>{link.name}</Link>
+    ))
+}
+```
+
 7. 组件：客户端组件和服务器组件
 
 **服务端组件**
