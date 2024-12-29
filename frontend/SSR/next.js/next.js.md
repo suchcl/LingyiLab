@@ -32,7 +32,41 @@ pnpm add sass -D
 
 3. 默认的项目目录结构
 
+```markdown
+next.js
+├─README.md
+├─eslint.config.mjs
+├─next-env.d.ts
+├─next.config.ts
+├─package-lock.json
+├─package.json
+├─pnpm-lock.yaml
+├─tsconfig.json
+├─src
+|  ├─app
+|  |  ├─favicon.ico
+|  |  ├─globals.css
+|  |  ├─layout.tsx
+|  |  ├─page.module.css
+|  |  ├─page.tsx
+|  |  ├─template.tsx
+|  |  ├─dashboard
+|  |  |     ├─dashboard.module.scss
+|  |  |     ├─layout.tsx
+|  |  |     ├─page.tsx
+|  |  |     ├─settings
+|  |  |     |    └page.tsx
+├─public
+|   ├─file.svg
+|   ├─globe.svg
+|   ├─next.svg
+|   ├─vercel.svg
+|   └window.svg
+```
 
+上面目录中，dashboard目录是我新增上的，app目录下的template.tsx我新增的，其他的都是默认的。这基本就是一个完整的next.js项目的目录结构。
+
+每个文件的意义，不必赘述。
 
 4. 路由：应用路由和页面路由
 
