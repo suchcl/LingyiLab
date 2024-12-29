@@ -149,7 +149,24 @@ export default function DashBoardlayout({ children }: Readonly<{ children: React
 
 - 编程式跳转
 
+8. 开发环境下，代码默认执行2次
 
+因为next.js默认开启了react的严格模式，开发环境，函数组件的函数体本身会被调用2次，useEffect和useLayoutEffect的回调函数也会执行2次。
+
+在next.js中关闭react严格模式的方式：reactStrictMode: false
+
+```ts
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+  reactStrictMode: false // 关闭react的严格模式
+};
+
+export default nextConfig;
+```
+
+> 严格模式下的部分代码执行2次，仅存在开发环境，生产环境不会执行2次。开发环境执行2次，是为了发现潜在的风险。
 
 ### 常见问题
 
