@@ -81,4 +81,19 @@ next.js
 
 不太理解什么算是应用路由，什么算是页面路由。
 
-5. 
+5. 路由跳转
+
+路由跳转，可分为声明式跳转和编程式跳转。
+
+- 声明式跳转
+
+需要从next.js中导入Link组件
+
+```tsx
+<div className={styles.nav}>
+    <Link href="/dashboard/settings" className={styles.link}>Settings</Link>
+    <Link href="/dashboard/about" className={styles.link}>About</Link>
+</div>
+```
+
+- 编程式跳转
