@@ -1,5 +1,7 @@
 ### 搭建项目
 
+项目demo地址: [https://gitee.com/ya5969/nextssr](https://gitee.com/ya5969/nextssr)
+
 官方文档: [https://nextjs.org/](https://nextjs.org/)
 
 > 在有语言基础的情况下，尽量看官方文档，因为官方文档是最权威的。翻译的文档，带有译者的一些个人观点，可能不会那么客观，理解起来特别费劲，如果你和译者产生不了共鸣，就有可能会误入歧途。但是Next.js的官方文档呢，确实也不够争气，点哪个哪个不动，使用起来特别不顺手。
@@ -96,7 +98,49 @@ next.js
 </div>
 ```
 
-6. 组件：客户端组件和服务器组件
+6. 设置当前路由激活状态
+
+next.js中提供了usePathname，可以获取当前路由，可以以次来设置当前路由的激活状态。
+
+> next.js的官方文档，没有提供usePathname这个说明，中文的翻译文档有这个说明，可以记录下.虽然文档不同，但是在next.js@15.1.3这个版本中，usePathname这个钩子函数是生效的。
+
+next.js的官方文档:[https://nextjs.org/docs](https://nextjs.org/docs)
+
+next.js的中文参考文档:[https://next.nodejs.cn/docs/app/building-your-application/routing/layouts-and-templates#active-nav-links](https://next.nodejs.cn/docs/app/building-your-application/routing/layouts-and-templates#active-nav-links)
+
+```tsx
+"use client";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import styles from "./dashboard.module.scss";
+import { useState } from "react";
+
+export default function DashBoardlayout({ children }: Readonly<{ children: React.ReactNode}>){
+    // usePathname 可以获取当前路径
+    const pathname = usePathname();
+    const [count,setCount] = useState<number>(0);
+    const increment = () => {
+        setCount(count + 1);
+    }
+    return (
+        <div className={styles.dashboard}>
+            <div className={styles.nav}>
+                {/* 通过usePathname与当前路由的相等性判断，来确认是否为当前路由，设置激活标签样式 */}
+                <Link href="/dashboard/settings" className={`${styles.link} ${pathname === "/dashboard/settings" ? styles.active : ""}`}>Settings</Link>
+                <Link href="/dashboard/about" className={`${styles.link} ${pathname === "/dashboard/about" ? styles.active : ""}`}>About</Link>
+            </div>
+            <h2>我是dashboard目录的布局文件</h2>
+            <div className={styles.count}>
+                dashboard中layout中的数字:{count}
+            </div>
+            <button className={styles.btn} onClick={increment}>increment</button>
+            {children}
+        </div>
+    )
+}
+```
+
+7. 组件：客户端组件和服务器组件
 
 **服务端组件**
 
