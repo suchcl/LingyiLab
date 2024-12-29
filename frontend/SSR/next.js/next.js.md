@@ -96,4 +96,47 @@ next.js
 </div>
 ```
 
+6. 组件：客户端组件和服务器组件
+
+**服务端组件**
+
+**客户端组件**
+
+
 - 编程式跳转
+
+
+
+### 常见问题
+
+1. hooks不能在服务器组件中使用
+
+像useState、useEffect等hooks不能直接在服务器组件中使用，这类hooks只能在客户端组件中使用。
+
+当希望在服务端组件中使用如useState、useEffect等hooks时，可以直接在页面顶部添加"use client";这个指令
+
+```tsx
+"use client";
+import Link from "next/link";
+import styles from "./dashboard.module.scss";
+import { useState } from "react";
+
+export default function DashBoardlayout({ children }: Readonly<{ children: React.ReactNode}>){
+
+    const [count,setCount] = useState<number>(0);
+    const increment = () => {
+        setCount(count + 1);
+    }
+    return (
+        <div className={styles.dashboard}>
+            <div className={styles.count}>
+                dashboard中layout中的数字:{count}
+            </div>
+            <button className={styles.btn} onClick={increment}>increment</button>
+            {children}
+        </div>
+    )
+}
+```
+
+页面顶部加上了"use client";指令，就可以在当前这个服务器组件中使用useState、useEffect等hooks了。
