@@ -210,6 +210,89 @@ export default nextConfig;
 
 > 严格模式下的部分代码执行2次，仅存在开发环境，生产环境不会执行2次。开发环境执行2次，是为了发现潜在的风险。
 
+9. 404页面
+
+next.js中有两种模式的404页面：
+
+- 全局的404页面
+
+- 具体路由下的404页面
+
+404页面，在项目中的文件名为not-found.js,该文件为可选，如果没有该文件，next.js会自动使用框架提供的默认的404页面。
+
+自定义的全局404页面，在app目录下
+
+自定义的局部404页面，在具体的路由目录下
+
+```markdown
+next.js
+├─README.md
+├─eslint.config.mjs
+├─next-env.d.ts
+├─next.config.ts
+├─package-lock.json
+├─package.json
+├─pnpm-lock.yaml
+├─tree.md
+├─tsconfig.json
+├─src
+|  ├─data
+|  |  └menu.ts
+|  ├─components
+|  |     ├─TopBar
+|  |     |   ├─index.module.scss
+|  |     |   └index.tsx
+|  |     ├─Header
+|  |     |   ├─index.module.scss
+|  |     |   └index.tsx
+|  |     ├─Footer
+|  |     |   ├─index.module.scss
+|  |     |   └index.tsx
+|  ├─app
+|  |  ├─favicon.ico
+|  |  ├─globals.css
+|  |  ├─layout.tsx
+|  |  ├─not-found.tsx
+|  |  ├─page.module.css
+|  |  ├─page.tsx
+|  |  ├─template.tsx
+|  |  ├─test
+|  |  |  ├─not-found.tsx
+|  |  |  └page.tsx
+|  |  ├─tech
+|  |  |  └page.tsx
+|  |  ├─society
+|  |  |    └page.tsx
+|  |  ├─news
+|  |  |  ├─page.tsx
+|  |  |  └template.tsx
+|  |  ├─finance
+|  |  |    └page.tsx
+├─public
+|   ├─.DS_Store
+|   ├─file.svg
+|   ├─globe.svg
+|   ├─next.svg
+|   ├─vercel.svg
+|   ├─window.svg
+|   ├─images
+|   |   └logo.webp
+```
+
+<!-- 具体路由下的not-found.tsx 404 -->
+```tsx
+import { notFound } from "next/navigation";
+export default function Test() {
+    // 需要主动触发notFount函数，才会渲染当前路由下的404页面
+    notFound();
+    return (
+        <div>
+            <h1>我是全局自定义的NotFound!</h1>
+        </div>
+    )
+}
+```
+
 ### 常见问题
 
 1. hooks不能在服务器组件中使用
