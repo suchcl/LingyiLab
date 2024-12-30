@@ -15,6 +15,8 @@ pm2 restart app #重启服务，pm2 restart bin/www
 
 pm2 stop app # 停止服务， pm2 stop bin/www
 
+pm2 delete id # 删除服务
+
 pm2 logs # 查看日志,所有的
 
 pm2 logs app # 查看指定服务的日志

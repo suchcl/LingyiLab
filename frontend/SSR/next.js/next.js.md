@@ -98,6 +98,28 @@ next.js
 </div>
 ```
 
+- 编程式路由跳转
+
+通过useRouter钩子函数实现编程式路由跳转
+
+```tsx
+"use client";
+import { useRouter } from "next/navigation";
+
+export default function News() {
+  const router = useRouter()
+  
+  const goTech = () => {
+    router.push('/tech')
+  }
+  return (
+    <div>
+      <button className="btn" onClick={goTech}>科技</button>
+    </div>
+  )
+}
+```
+
 6. 设置当前路由激活状态
 
 next.js中提供了usePathname，可以获取当前路由，可以以次来设置当前路由的激活状态。
