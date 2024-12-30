@@ -27,6 +27,8 @@ layout.tsx: 布局文件，每个路由下都可以有这么一个布局文件�
 
 template.tsx: 模板文件，每个路由下也可以有这么一个模板文件，文件名固定，不可更改，这个文件是可选的。
 
+layout.tsx是一个服务端组件，该组件不能访问路由名，也不能设置"use client"，否则报错。
+
 2. 集成scss
 
 next.js默认不能使用scss，需要安装依赖，安装依赖之后，即可直接使用。
@@ -292,6 +294,51 @@ export default function Test() {
     )
 }
 ```
+
+10. 路由组
+
+next.js是基于文件系统的路由，即文件夹会被识别为路由。
+
+next.js中有一个路由组的概念，可以添加一层路径，这一层路径还不被识别为路由，就是路由组。
+
+next.js中，将文件夹名用小括号括起来，就是路由组。
+
+一个路由组中，可以laytout.tsx布局文件，也可以有tempalte.tsx模板文件，也可以有not-found.tsx 404页面。
+
+```markdown
+app
+├─favicon.ico
+├─globals.css
+├─layout.tsx
+├─not-found.tsx
+├─page.module.css
+├─template.tsx
+├─(home)
+|   ├─layout.tsx
+|   ├─page.tsx
+|   ├─test
+|   |  ├─not-found.tsx
+|   |  └page.tsx
+|   ├─tech
+|   |  └page.tsx
+|   ├─society
+|   |    └page.tsx
+|   ├─news
+|   |  ├─page.tsx
+|   |  └template.tsx
+|   ├─finance
+|   |    └page.tsx
+```
+
+app目录中，(home)是一个路由组，该路由组下面有test、tech、society、news、finance这几个路由，这几个路由还是/test、/tech、/society、/news、/finance这几个路由，没有因为新增了(home)路由组而受到影响。
+
+11. 代码部署
+
+如果是个人站点，那么可以部署到vercel.com这个网站上，免费的。
+
+可以通过github.com的账号去登录，然后把自己的项目代码上传到github上，然后在vercel.com上，选择github.com的账号，然后把自己的项目代码上传到vercel.com上，就可以部署了。
+
+项目有了更新以后，只需要将代码推送到github仓库即可，不需要手动重新部署vercel，这一点做的非常不错。
 
 ### 常见问题
 
