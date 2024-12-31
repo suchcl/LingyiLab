@@ -100,6 +100,14 @@ next.js
 </div>
 ```
 
+> 可以简单理解为Link标签，就是a标签，只是换了个名字而已
+
+Link标签跳转，也可以设置新标签打开,通过target属性设置，也可以设置动态目标链接
+
+```tsx
+    <Link href={`/news/${item.id}`} className={styles.link} target="_blank">{item.title}</Link>
+```
+
 - 编程式路由跳转
 
 通过useRouter钩子函数实现编程式路由跳转
