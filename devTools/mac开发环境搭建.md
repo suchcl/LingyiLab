@@ -83,6 +83,8 @@ pnpm没有集成在node.js中，pnpm有多种安装方式，可以通过npm、ya
 
 pnpm需要node的最低版本：18.12
 
+如果使用npm、yarn全局安装的pnpm，或者其他的全局依赖，都不会添加到系统的环境变量path中，所以需要手动添加。也可以通过在新的node版本中重新安装全局依赖的方式解决。
+
 ```bash
 npm install pnpm -g
 ```
