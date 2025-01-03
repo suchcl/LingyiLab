@@ -28,6 +28,43 @@
 
     1. styled-components
 
+        - 安装
+
+        ```bash
+        npm install styled-components   // 安装styled-components库
+        ```
+
+        - 使用
+
+        需要先导入styled-components依赖
+
+        ```tsx
+        import { FC } from "react";
+        import styled from "styled-components";
+
+        interface IProps {
+            disabled?: boolean;
+        }
+
+        const ButtonComp:FC<IProps> = (props) => {
+            const Button = styled.button`
+            background: ${props.disabled ? '#999' : '#1e80ff'};
+            height: 36px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            border: 0;
+        `;
+            return (
+                <>
+                    <Button disabled={props.disabled}>css-in-js ButtonComp</Button>
+                </>
+            )
+        }
+
+        export default ButtonComp;
+        ```
+
     2. Emotion
 
 ### 3. css-in-js的优缺点
