@@ -65,6 +65,48 @@
         export default ButtonComp;
         ```
 
+        css-in-js也可以继承已经定义好的样式：
+
+        ```tsx
+        import { FC } from "react";
+        import styled from "styled-components";
+
+        interface IProps {
+            disabled?: boolean;
+        }
+
+        const ButtonComp: FC<IProps> = (props) => {
+            const Button = styled.button`
+            background: ${props.disabled ? '#999' : '#1e80ff'};
+            height: 36px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            border: 0;
+        `;
+
+            // styled-compoents样式继承
+            const BigButton = styled(Button)`
+                height: 48px;
+                font-size: 26px;
+                fweight: bold;
+            `;
+
+            return (
+                <>
+                    <Button disabled={props.disabled}>css-in-js ButtonComp</Button>
+                    <BigButton>BigButton</BigButton>
+                </>
+            )
+        }
+
+        export default ButtonComp;
+        ```
+        
+        效果如下：
+
+        <img src="./images/i83.png" width="200" />
+
     2. Emotion
 
 ### 3. css-in-js的优缺点
