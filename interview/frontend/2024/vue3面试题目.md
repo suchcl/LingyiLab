@@ -149,7 +149,61 @@ const concatStr = `${str1},${str2}`; // 预字符串化
 
 ### 2.3 缓存事件处理函数(Cache Event Handler Functions)
 
+vue3对事件处理函数进行了缓存优化
+
+- 函数重用：在组件更新时，重复的事件处理函数不会被重新创建，而是复用之前创建的函数
+
+- 提升性能：通过函数重用，减少了内存开销和函数创建的次数，提高了性能和效率
+
+```vue
+<template>
+    <div class="home">
+        <button @click="handleClick">Click me!</button>
+    </div>
+</template>
+
+<script setup lang="ts">
+// vue3中事件处理函数handleClick只会被创建1次，然后被缓存，当组件更新时函数不会被重新创建
+const handleClick = () => {
+    console.log('%c [  ]-22', 'font-size:13px; background:pink; color:#bf2c9f;', "Hello Vue3!");
+}
+</script>
+```
+
 ### 2.4 块树(Block Tree)
+
+块树是指在虚拟DOM中引入一种新的数据结构，用于优化渲染
+
+- 组件分块：将组件分为多个块，每个块独立处理自己的更新，提升了更新时的颗粒度
+
+- 控制渲染：通过高效管理不同块之间的逻辑关系，vue3可以精准的控制哪些部分需要更新渲染，从而提升渲染性能
+
+> 这个说的就比较抽象了，其实这就是虚拟DOM的优势，只更新变化的部分，源码部分没有看过，总觉着这个地方说的优点牵强了
+
+```vue
+<template>
+    <div class="home">
+        <h3>{{ title }}</h3>
+        <p v-for="item in terms" key="item.id">{{ item.text }}</p>
+    </div>
+</template>
+
+<script setup lang="ts">
+// <h3>和<p>标签分别组成了不同的块，vue3可以分别处理它们的更新，如title的变更则只会重新渲染h3标签，而p标签的更新则只会重新渲染p标签
+import { ref, reactive } from 'vue';
+const title = ref("Home ");
+const terms = reactive([
+    {
+        id: 1,
+        text: "Item 1"
+    },
+    {
+        id: 2,
+        text: "Item 2"
+    }
+]);
+</script>
+```
 
 ### 2.5 布丁标记(Patch Flags)
 
