@@ -10,6 +10,17 @@
   - [1.5 插件生态](#15-%E6%8F%92%E4%BB%B6%E7%94%9F%E6%80%81)
   - [1.6 性能](#16-%E6%80%A7%E8%83%BD)
   - [1.7 支持的框架(兼容性)](#17-%E6%94%AF%E6%8C%81%E7%9A%84%E6%A1%86%E6%9E%B6%E5%85%BC%E5%AE%B9%E6%80%A7)
+- [2. vue3实现了重大性能提升体现的具体方面](#2-vue3%E5%AE%9E%E7%8E%B0%E4%BA%86%E9%87%8D%E5%A4%A7%E6%80%A7%E8%83%BD%E6%8F%90%E5%8D%87%E4%BD%93%E7%8E%B0%E7%9A%84%E5%85%B7%E4%BD%93%E6%96%B9%E9%9D%A2)
+- [3. 为什么Vue3去掉了构造函数](#3-%E4%B8%BA%E4%BB%80%E4%B9%88vue3%E5%8E%BB%E6%8E%89%E4%BA%86%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0)
+- [4. vue3数据响应式的理解](#4-vue3%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F%E7%9A%84%E7%90%86%E8%A7%A3)
+- [5. vue3中v-model的变化](#5-vue3%E4%B8%ADv-model%E7%9A%84%E5%8F%98%E5%8C%96)
+- [6. vue3中异步组件的用法](#6-vue3%E4%B8%AD%E5%BC%82%E6%AD%A5%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95)
+- [7. composition API相比Options API的优势](#7-composition-api%E7%9B%B8%E6%AF%94options-api%E7%9A%84%E4%BC%98%E5%8A%BF)
+- [8. vue3 setup的作用和原理以及script setup做了什么事](#8-vue3-setup%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8C%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8Ascript-setup%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88%E4%BA%8B)
+- [9. 介绍pinia以及其持久化最佳实践](#9-%E4%BB%8B%E7%BB%8Dpinia%E4%BB%A5%E5%8F%8A%E5%85%B6%E6%8C%81%E4%B9%85%E5%8C%96%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5)
+- [10. ref和reactive的区别源码级别的比较](#10-ref%E5%92%8Creactive%E7%9A%84%E5%8C%BA%E5%88%AB%E6%BA%90%E7%A0%81%E7%BA%A7%E5%88%AB%E7%9A%84%E6%AF%94%E8%BE%83)
+- [11. keep-alive的最佳实践](#11-keep-alive%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5)
+- [12. vuex最佳实践以及持久化方案](#12-vuex%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E4%BB%A5%E5%8F%8A%E6%8C%81%E4%B9%85%E5%8C%96%E6%96%B9%E6%A1%88)
 - [拷问：既然现在vite的优势那么多，也那么明显，那么vite会取代webpack吗？](#%E6%8B%B7%E9%97%AE%E6%97%A2%E7%84%B6%E7%8E%B0%E5%9C%A8vite%E7%9A%84%E4%BC%98%E5%8A%BF%E9%82%A3%E4%B9%88%E5%A4%9A%E4%B9%9F%E9%82%A3%E4%B9%88%E6%98%8E%E6%98%BE%E9%82%A3%E4%B9%88vite%E4%BC%9A%E5%8F%96%E4%BB%A3webpack%E5%90%97)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -57,6 +68,28 @@
 - webpack:兼容性友好，支持React、Vue、Angular等多种前端框架；
 
 - vite:对前端框架的支持也很友好，并提供了以框架为中心的优化；
+
+## 2. vue3实现了重大性能提升体现的具体方面
+
+## 3. 为什么Vue3去掉了构造函数
+
+## 4. vue3数据响应式的理解
+
+## 5. vue3中v-model的变化
+
+## 6. vue3中异步组件的用法
+
+## 7. composition API相比Options API的优势
+
+## 8. vue3 setup的作用和原理以及script setup做了什么事
+
+## 9. 介绍pinia以及其持久化最佳实践
+
+## 10. ref和reactive的区别源码级别的比较
+
+## 11. keep-alive的最佳实践
+
+## 12. vuex最佳实践以及持久化方案
 
 ## 拷问：既然现在vite的优势那么多，也那么明显，那么vite会取代webpack吗？
 
