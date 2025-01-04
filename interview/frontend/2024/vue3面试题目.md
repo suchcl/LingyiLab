@@ -205,7 +205,43 @@ const terms = reactive([
 </script>
 ```
 
-### 2.5 布丁标记(Patch Flags)
+### 2.5 补丁标记(Patch Flags)
+
+补丁标记是一种机制，用于识别虚拟DOM更新的类型
+
+- 优化更新过程：通过使用补丁标记，vue3可以在diff过程中快速识别哪些节点发生了变化，并以最小的成本进行更新
+
+- 细粒度更新：补丁标记的引入使得vue3的更新变得更加细粒度，这样在页面更新时可以避免不必要的完整渲染，进一步提升性能
+
+```vue
+<template>
+    <div class="home">
+        <h3>{{ title }}</h3>
+        <button @click="changeTitle">Change Title</button>
+    </div>
+</template>
+
+<script setup lang="ts">
+// 当title改变时，补丁标记可以标识出这是一处“文本更新”，而不是解析整个组件，这样可以更高效的进行DOM更新
+import { ref } from 'vue';
+const title = ref("Home ");
+const changeTitle = () => {
+    title.value = "Home Page";
+};
+</script>
+```
+
+**虚拟DOM节点更新类型**
+
+1. 创建节点
+
+2. 更新节点
+
+3. 删除节点
+
+4. 移动节点
+
+5. 文本节点更新
 
 ## 3. 为什么Vue3去掉了构造函数
 
