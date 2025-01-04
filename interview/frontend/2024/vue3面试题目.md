@@ -11,10 +11,37 @@
   - [1.6 性能](#16-%E6%80%A7%E8%83%BD)
   - [1.7 支持的框架(兼容性)](#17-%E6%94%AF%E6%8C%81%E7%9A%84%E6%A1%86%E6%9E%B6%E5%85%BC%E5%AE%B9%E6%80%A7)
 - [2. vue3实现了重大性能提升体现的具体方面](#2-vue3%E5%AE%9E%E7%8E%B0%E4%BA%86%E9%87%8D%E5%A4%A7%E6%80%A7%E8%83%BD%E6%8F%90%E5%8D%87%E4%BD%93%E7%8E%B0%E7%9A%84%E5%85%B7%E4%BD%93%E6%96%B9%E9%9D%A2)
+  - [2.1 静态提升(Static Tree Hoisting)](#21-%E9%9D%99%E6%80%81%E6%8F%90%E5%8D%87static-tree-hoisting)
+  - [2.2 预字符串化(Pre-Rendering)](#22-%E9%A2%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%96pre-rendering)
+  - [2.3 缓存事件处理函数(Cache Event Handler Functions)](#23-%E7%BC%93%E5%AD%98%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E5%87%BD%E6%95%B0cache-event-handler-functions)
+  - [2.4 块树(Block Tree)](#24-%E5%9D%97%E6%A0%91block-tree)
+  - [2.5 布丁标记(Patch Flags)](#25-%E5%B8%83%E4%B8%81%E6%A0%87%E8%AE%B0patch-flags)
 - [3. 为什么Vue3去掉了构造函数](#3-%E4%B8%BA%E4%BB%80%E4%B9%88vue3%E5%8E%BB%E6%8E%89%E4%BA%86%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0)
+  - [3.1 简化API设计](#31-%E7%AE%80%E5%8C%96api%E8%AE%BE%E8%AE%A1)
+  - [3.2 提供灵活性](#32-%E6%8F%90%E4%BE%9B%E7%81%B5%E6%B4%BB%E6%80%A7)
+  - [3.3 Tree Shaking](#33-tree-shaking)
+  - [3.4 小结](#34-%E5%B0%8F%E7%BB%93)
 - [4. vue3数据响应式的理解](#4-vue3%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F%E7%9A%84%E7%90%86%E8%A7%A3)
+  - [4.1 Proxy和Reflect](#41-proxy%E5%92%8Creflect)
+  - [4.2 Reactive和Ref](#42-reactive%E5%92%8Cref)
+  - [4.3 依赖收集与触发更新](#43-%E4%BE%9D%E8%B5%96%E6%94%B6%E9%9B%86%E4%B8%8E%E8%A7%A6%E5%8F%91%E6%9B%B4%E6%96%B0)
+  - [4.4 Computed与Watch](#44-computed%E4%B8%8Ewatch)
+  - [4.5 响应式系统的优势](#45-%E5%93%8D%E5%BA%94%E5%BC%8F%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BC%98%E5%8A%BF)
 - [5. vue3中v-model的变化](#5-vue3%E4%B8%ADv-model%E7%9A%84%E5%8F%98%E5%8C%96)
+  - [5.1 更灵活的自定义组件支持](#51-%E6%9B%B4%E7%81%B5%E6%B4%BB%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6%E6%94%AF%E6%8C%81)
+  - [5.2 多值绑定](#52-%E5%A4%9A%E5%80%BC%E7%BB%91%E5%AE%9A)
+  - [5.3 性能优化](#53-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96)
+  - [5.4 移除.sync修饰符](#54-%E7%A7%BB%E9%99%A4sync%E4%BF%AE%E9%A5%B0%E7%AC%A6)
+  - [5.5 自定义v-model指令](#55-%E8%87%AA%E5%AE%9A%E4%B9%89v-model%E6%8C%87%E4%BB%A4)
 - [6. vue3中异步组件的用法](#6-vue3%E4%B8%AD%E5%BC%82%E6%AD%A5%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95)
+  - [6.1 基本用法](#61-%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95)
+  - [6.2 加载状态和错误处理](#62-%E5%8A%A0%E8%BD%BD%E7%8A%B6%E6%80%81%E5%92%8C%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86)
+  - [6.3 结合Suspense使用](#63-%E7%BB%93%E5%90%88suspense%E4%BD%BF%E7%94%A8)
+  - [6.4 动态导入](#64-%E5%8A%A8%E6%80%81%E5%AF%BC%E5%85%A5)
+  - [6.5 结合路由使用](#65-%E7%BB%93%E5%90%88%E8%B7%AF%E7%94%B1%E4%BD%BF%E7%94%A8)
+  - [6.6 高级用法：自定义加载逻辑](#66-%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8A%A0%E8%BD%BD%E9%80%BB%E8%BE%91)
+  - [6.7 与Vue2的对比](#67-%E4%B8%8Evue2%E7%9A%84%E5%AF%B9%E6%AF%94)
+  - [6.8 封装加载异步组件的工具类](#68-%E5%B0%81%E8%A3%85%E5%8A%A0%E8%BD%BD%E5%BC%82%E6%AD%A5%E7%BB%84%E4%BB%B6%E7%9A%84%E5%B7%A5%E5%85%B7%E7%B1%BB)
 - [7. composition API相比Options API的优势](#7-composition-api%E7%9B%B8%E6%AF%94options-api%E7%9A%84%E4%BC%98%E5%8A%BF)
 - [8. vue3 setup的作用和原理以及script setup做了什么事](#8-vue3-setup%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8C%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8Ascript-setup%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88%E4%BA%8B)
 - [9. 介绍pinia以及其持久化最佳实践](#9-%E4%BB%8B%E7%BB%8Dpinia%E4%BB%A5%E5%8F%8A%E5%85%B6%E6%8C%81%E4%B9%85%E5%8C%96%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5)
@@ -71,15 +98,71 @@
 
 ## 2. vue3实现了重大性能提升体现的具体方面
 
+### 2.1 静态提升(Static Tree Hoisting)
+
+### 2.2 预字符串化(Pre-Rendering)
+
+### 2.3 缓存事件处理函数(Cache Event Handler Functions)
+
+### 2.4 块树(Block Tree)
+
+### 2.5 布丁标记(Patch Flags)
+
 ## 3. 为什么Vue3去掉了构造函数
+
+### 3.1 简化API设计
+
+### 3.2 提供灵活性
+
+### 3.3 Tree Shaking
+
+### 3.4 小结
 
 ## 4. vue3数据响应式的理解
 
+### 4.1 Proxy和Reflect
+
+### 4.2 Reactive和Ref
+
+### 4.3 依赖收集与触发更新
+
+### 4.4 Computed与Watch
+
+### 4.5 响应式系统的优势
+
 ## 5. vue3中v-model的变化
+
+### 5.1 更灵活的自定义组件支持
+
+### 5.2 多值绑定
+
+### 5.3 性能优化
+
+### 5.4 移除.sync修饰符
+
+### 5.5 自定义v-model指令
 
 ## 6. vue3中异步组件的用法
 
+### 6.1 基本用法
+
+### 6.2 加载状态和错误处理
+
+### 6.3 结合Suspense使用
+
+### 6.4 动态导入
+
+### 6.5 结合路由使用
+
+### 6.6 高级用法：自定义加载逻辑
+
+### 6.7 与Vue2的对比
+
+### 6.8 封装加载异步组件的工具类
+
+
 ## 7. composition API相比Options API的优势
+
 
 ## 8. vue3 setup的作用和原理以及script setup做了什么事
 
