@@ -316,6 +316,27 @@ vue3不再使用Object.defineProperty方式定义完成数据的响应式，而�
 
 ### 4.1 Proxy和Reflect
 
+Vue3使用Proxy来拦截对象操作(如读取、写入、删除等)，并通过Reflect来执行这些操作。Proxy可以监听对象的所有属性的变化，而不需要像Vue2那样通过Object.defineProperty逐个定义对象属性的getter和setter。
+
+```js
+const target = { count: 0 };
+
+const handler = {
+    get(target, key, receiver) {
+        console.log(`读取属性: ${key}`);
+        return Reflect.get(target, key, receiver);
+    },
+    set(target,key,value, receiver){
+        log('设置属性',key,value);
+        return Reflect.set(target,key,value,receiver);
+    }
+};
+
+const proxy = new Proxy(target, handler);
+proxy.count; // 输出: 读取属性： count
+proxy.count = 1; // 写入: 写入、设置属性： count
+```
+
 ### 4.2 Reactive和Ref
 
 ### 4.3 依赖收集与触发更新
