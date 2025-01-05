@@ -312,6 +312,8 @@ Vue3去掉构造函数，改用createApp函数，主要目的是为了：
 
 ## 4. vue3数据响应式的理解
 
+vue3不再使用Object.defineProperty方式定义完成数据的响应式，而是使用Proxy，除了Proxy本身的效率比Object.defineProperty高以外，还因为不用遍历所有属性就可以直接得到一个Proxy，所以Vue3中对数据的访问是动态的，访问某个属性的时候动态的获取值和设置，极大的提升了组件初始阶段的效率问题。同时，Proxy可以监控到成员变量的新增和删除，并且均可以触发视图重新渲染。这些在Vue2中实现不了的。
+
 ### 4.1 Proxy和Reflect
 
 ### 4.2 Reactive和Ref
