@@ -375,9 +375,52 @@ export default{
 
 ### 4.3 依赖收集与触发更新
 
+vue3的响应式系统通过依赖收集和触发更新来实现数据的动态响应
+
+- 依赖收集:当组件渲染时，Vue会追踪哪些响应式数据被使用，并建立依赖关系
+
+- 触发更新:当响应式数据发生变化时，vue会通知所有依赖数据的组件进行重新渲染
+
 ### 4.4 Computed与Watch
 
+vue3提供了computed和watch来创建复杂的响应式逻辑
+
+- computed：用于创建基于响应式数据的计算属性
+
+- watch：用于监听响应式数据的变化并执行回调函数
+
+```vue
+<script lang="ts">
+import { ref,reactive, computed, watch } from 'vue';
+export default {
+    setup() {
+        const state = reactive({ salary: 2000 });
+        const doubleSalary = computed(() => state.salary * 2);
+
+        watch(() => state.salary, (newValue,oldValue) => {
+            console.log('%c [ newValue ]-67', 'font-size:13px; background:pink; color:#bf2c9f;', newValue);
+            console.log('%c [ oldValue ]-68', 'font-size:13px; background:pink; color:#bf2c9f;', oldValue);
+        })
+
+        const upDoubleSalary = () => {
+            state.salary *= 2;
+        }
+        return {
+            doubleSalary,
+            upDoubleSalary
+        };
+    }
+}
+</script>
+```
+
 ### 4.5 响应式系统的优势
+
+- 性能更好：Proxy可以监听整个对象，无需像Object.defineProperty那样逐个定义属性
+
+- 支持更多操作：Proxy可以拦截更多操作，共支持13种操作
+
+- 更灵活：reactive和ref提供了更灵活的方式来创建响应式数据
 
 ## 5. vue3中v-model的变化
 
