@@ -572,7 +572,7 @@ person2.foo().call(person2); // person2,person2
 
 箭头函数中的this，是由外层作用域决定的，指向函数定义时的this，而不是执行时的this。
 
-> 箭头函数中没有this绑定，必须通过查找作用域链来决定this的指向的值，如果剪头函数被非箭头函数包裹，则箭头函数中的this指向的是最近一层非箭头函数的this，否则，this值位undefined
+> 箭头函数中没有this绑定，必须通过查找作用域链来决定this的指向的值，如果剪头函数被非箭头函数包裹，则箭头函数中的this指向的是最近一层非箭头函数的this，否则，this值为undefined
 
 ```javascript
 var obj = {
