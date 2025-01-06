@@ -1,5 +1,7 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
+
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
 - [1. 构建工具webpack和vite的对比](#1-%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7webpack%E5%92%8Cvite%E7%9A%84%E5%AF%B9%E6%AF%94)
@@ -456,7 +458,6 @@ export default {
 
 ### 6.8 封装加载异步组件的工具类
 
-
 ## 7. composition API相比Options API的优势
 
 ## 8. vue3 setup的作用和原理以及script setup做了什么事
@@ -486,6 +487,7 @@ export default {
 \<script setup\>是Vue3提供的一种语法糖，用于简化setup函数的使用。它允许开发者直接在\<script\>标签中编写setup的逻辑，而不需要显式的定义setup函数。
 
 **做了什么**
+
 1. 自动暴露变量和方法：在\<script setup\>中定义的变量和方法会自动暴露给模板，不需要通过return显式的返回；
 
 2. 简化代码：减少了模板和逻辑代码之间的代码量，使组件更加简洁
@@ -496,6 +498,43 @@ export default {
 
 ### 8.4 setup函数和script setup的区别
 
+| 特性           | setup函数            | <script setup>      |
+| ------------ | ------------------ | ------------------- |
+| 代码量          | 需要显示定义setup函数并返回对象 | 无需显示定义setup函数，代码更简洁 |
+| 暴露变量和方法      | 需要手动return         | 自动暴露                |
+| 顶层await      | 不支持                | 支持                  |
+| Typescript支持 | 需要额外配置             | 更友好，类型推断更准确         |
+
+```vue
+<script setup lang="ts">
+import { ref } from "vue";
+import axios from "axios";
+axios.create({
+    timeout: 1000
+});
+const message = ref('用户信息');
+const getUserDetail = () => {
+    axios.get("/api/user/info").then(res => {
+        const data = res.data.data.records;
+        console.log('%c [ data ]-18', 'font-size:13px; background:pink; color:#bf2c9f;', data);
+    })
+}
+</script>
+```
+
+```vue
+<script lang="ts">
+import { ref } from 'vue';
+export default {
+    setup() {
+        const pageTitle = ref("功能测试页面");
+        return {
+            pageTitle
+        };
+    }
+}
+</script>
+```
 
 ## 9. 介绍pinia以及其持久化最佳实践
 
@@ -506,7 +545,5 @@ export default {
 ## 12. vuex最佳实践以及持久化方案
 
 ## 拷问：既然现在vite的优势那么多，也那么明显，那么vite会取代webpack吗？
-
-
 
 参考链接：[https://juejin.cn/post/7454775213555384335](https://juejin.cn/post/7454775213555384335)
