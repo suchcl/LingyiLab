@@ -481,7 +481,18 @@ export default {
 
 4. 返回值：setup函数返回一个对象，该对象中的属性和方法会暴露给模板和组件的其他部分去直接使用
 
-### 8.3 script setup 的作用
+### 8.3 \<script setup> 的作用
+
+\<script setup\>是Vue3提供的一种语法糖，用于简化setup函数的使用。它允许开发者直接在\<script\>标签中编写setup的逻辑，而不需要显式的定义setup函数。
+
+**做了什么**
+1. 自动暴露变量和方法：在\<script setup\>中定义的变量和方法会自动暴露给模板，不需要通过return显式的返回；
+
+2. 简化代码：减少了模板和逻辑代码之间的代码量，使组件更加简洁
+
+3. 支持顶层await：在\<script setup\>中可以直接使用await，方便处理异步逻辑
+
+4. 更好的ts支持：\<script setup\>对tyepscript的支持更加友好，类型推断更加准确
 
 ### 8.4 setup函数和script setup的区别
 
