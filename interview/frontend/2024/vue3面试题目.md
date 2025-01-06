@@ -339,6 +339,40 @@ proxy.count = 1; // 写入: 写入、设置属性： count
 
 ### 4.2 Reactive和Ref
 
+Vue3提供了reactive和ref两个函数来创建响应式数据
+
+- reactive:用于将对象转换成响应式对象
+
+- ref:用于将基本类型数据转换成响应式对象，通过.value来访问和修改值
+
+```vue
+<script lang="ts">
+import { ref,reactive } from 'vue';
+export default{
+    setup(){
+        // 响应式对象
+        const uinfo = reactive({ age: 0 });
+        const growUp = () => {
+            uinfo.age++;
+        };
+
+        // 响应式基本值
+        const salary = ref(100);
+        // 涨工资
+        const raise = () => {
+            salary.value += 1000;
+        };
+        return {
+            uinfo,
+            growUp,
+            salary,
+            raise
+        }
+    }
+}
+</script>
+```
+
 ### 4.3 依赖收集与触发更新
 
 ### 4.4 Computed与Watch
