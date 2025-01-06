@@ -15,10 +15,10 @@
   - [2.2 预字符串化(Pre-Rendering)](#22-%E9%A2%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%96pre-rendering)
   - [2.3 缓存事件处理函数(Cache Event Handler Functions)](#23-%E7%BC%93%E5%AD%98%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E5%87%BD%E6%95%B0cache-event-handler-functions)
   - [2.4 块树(Block Tree)](#24-%E5%9D%97%E6%A0%91block-tree)
-  - [2.5 布丁标记(Patch Flags)](#25-%E5%B8%83%E4%B8%81%E6%A0%87%E8%AE%B0patch-flags)
+  - [2.5 补丁标记(Patch Flags)](#25-%E8%A1%A5%E4%B8%81%E6%A0%87%E8%AE%B0patch-flags)
 - [3. 为什么Vue3去掉了构造函数](#3-%E4%B8%BA%E4%BB%80%E4%B9%88vue3%E5%8E%BB%E6%8E%89%E4%BA%86%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0)
   - [3.1 简化API设计](#31-%E7%AE%80%E5%8C%96api%E8%AE%BE%E8%AE%A1)
-  - [3.2 提供灵活性](#32-%E6%8F%90%E4%BE%9B%E7%81%B5%E6%B4%BB%E6%80%A7)
+  - [3.2 提高灵活性](#32-%E6%8F%90%E9%AB%98%E7%81%B5%E6%B4%BB%E6%80%A7)
   - [3.3 Tree Shaking](#33-tree-shaking)
   - [3.4 小结](#34-%E5%B0%8F%E7%BB%93)
 - [4. vue3数据响应式的理解](#4-vue3%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F%E7%9A%84%E7%90%86%E8%A7%A3)
@@ -44,6 +44,10 @@
   - [6.8 封装加载异步组件的工具类](#68-%E5%B0%81%E8%A3%85%E5%8A%A0%E8%BD%BD%E5%BC%82%E6%AD%A5%E7%BB%84%E4%BB%B6%E7%9A%84%E5%B7%A5%E5%85%B7%E7%B1%BB)
 - [7. composition API相比Options API的优势](#7-composition-api%E7%9B%B8%E6%AF%94options-api%E7%9A%84%E4%BC%98%E5%8A%BF)
 - [8. vue3 setup的作用和原理以及script setup做了什么事](#8-vue3-setup%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8C%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8Ascript-setup%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88%E4%BA%8B)
+  - [8.1 作用](#81-%E4%BD%9C%E7%94%A8)
+  - [8.2 原理](#82-%E5%8E%9F%E7%90%86)
+  - [8.3 script setup 的作用](#83-script-setup-%E7%9A%84%E4%BD%9C%E7%94%A8)
+  - [8.4 setup函数和script setup的区别](#84-setup%E5%87%BD%E6%95%B0%E5%92%8Cscript-setup%E7%9A%84%E5%8C%BA%E5%88%AB)
 - [9. 介绍pinia以及其持久化最佳实践](#9-%E4%BB%8B%E7%BB%8Dpinia%E4%BB%A5%E5%8F%8A%E5%85%B6%E6%8C%81%E4%B9%85%E5%8C%96%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5)
 - [10. ref和reactive的区别源码级别的比较](#10-ref%E5%92%8Creactive%E7%9A%84%E5%8C%BA%E5%88%AB%E6%BA%90%E7%A0%81%E7%BA%A7%E5%88%AB%E7%9A%84%E6%AF%94%E8%BE%83)
 - [11. keep-alive的最佳实践](#11-keep-alive%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5)
@@ -455,8 +459,32 @@ export default {
 
 ## 7. composition API相比Options API的优势
 
-
 ## 8. vue3 setup的作用和原理以及script setup做了什么事
+
+### 8.1 作用
+
+1. 组织逻辑：setup函数是vue3中用来替代vue2中data、methods、computed等选项的核心函数，它将组件的逻辑集中到一个地方
+
+2. 响应式逻辑中：在setup函数中，可以使用ref、reactive等响应式api来创建和管理响应式数据
+
+3. 声明周期钩子函数：可以通过onMounted、onUpdated等生命周期钩子函数来监听组件的生命周期
+
+4. 暴露数据和方法：setup函数返回的对象中的属性和方法，可以直接在模板中使用
+
+### 8.2 原理
+
+1. 执行时机：setup函数在组件实例创建之前执行，因此无法访问this，因为此时组件实例还没有创建
+
+2. 响应式系统：setup函数内部使用vue3的响应式api如ref、reactive来创建响应式数据，这些api会追踪数据的变化并自动更新视图
+
+3. 生命周期钩子：setup函数中可以使用生命周期钩子函数如onMounted、onUpdated等，这些钩子函数会在相应的生命周期阶段被自动执行
+
+4. 返回值：setup函数返回一个对象，该对象中的属性和方法会暴露给模板和组件的其他部分去直接使用
+
+### 8.3 script setup 的作用
+
+### 8.4 setup函数和script setup的区别
+
 
 ## 9. 介绍pinia以及其持久化最佳实践
 
@@ -468,3 +496,6 @@ export default {
 
 ## 拷问：既然现在vite的优势那么多，也那么明显，那么vite会取代webpack吗？
 
+
+
+参考链接：[https://juejin.cn/post/7454775213555384335](https://juejin.cn/post/7454775213555384335)
