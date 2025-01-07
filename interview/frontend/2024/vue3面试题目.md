@@ -522,23 +522,19 @@ const getUserDetail = () => {
 </script>
 ```
 
-```vue
-<script lang="ts">
-import { ref } from 'vue';
-export default {
-    setup() {
-        const pageTitle = ref("功能测试页面");
-        return {
-            pageTitle
-        };
-    }
-}
-</script>
-```
+
 
 ## 9. 介绍pinia以及其持久化最佳实践
 
 ## 10. ref和reactive的区别源码级别的比较
+
+|      | ref                          | reactive          |
+| ---- | ---------------------------- | ----------------- |
+| 数据类型 | 基本数据类型和对象                    | 只能是对象             |
+| 访问方式 | 通过.value访问和修改值               | 直接访问或修改对象的属性      |
+| 实现方式 | 通过RefImpl类实现，内部维护了一个_value属性 | 通过Proxy实现，直接代理对象  |
+| 性能   | 对于基本类型，性能较高，因为不需要Proxy代理     | 对于对象，与ref类型，但是更直观 |
+| 使用场景 | 适合用于基本类型或者需要明确.value访问的场景    | 适合用于对象，尤其是嵌套对象    |
 
 ## 11. keep-alive的最佳实践
 
