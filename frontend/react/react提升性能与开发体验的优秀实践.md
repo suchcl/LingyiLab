@@ -15,9 +15,82 @@
 
 ### 1. React渲染机制的理解
 
+首先需要了解一下React的渲染机制。React使用虚拟DOM来提升UI的渲染效率，每当组件的props或者state更新的时候React就会重新渲染组件。并以此对比虚拟DOM的差异，实现真实DOM的更新。
+
+React自身的渲染机制并不是一直都是最优的，会在一些不必要重新渲染的时候进行了重新渲染，所以有的时候需要开发人员加以控制，以达到最优的渲染效果。
+
+为了达到最优的优化效果，需要了解React渲染过程中的几个概念：React.memo、PureComponent、useMemo、useCallback等。
+
+- React.memo：函数式组件，React.memo可以避免不必要的重新渲染。当组件的props没有变化时，React会跳过该组件的重新渲染过程。
+
+- PureComponent：类组件，内部通过shouldComponentUpdate来判断是否需要更新重新渲染
+
+- userMemo和useCallback:这2个hooks用于函数式组件中缓存计算结果和函数，避免在每次创建函数时重新计算和重新创建函数
+
 ### 2. 虚拟化技术
 
+在数据量较大的页面，渲染大量数据会影响页面的性能，虚拟化可以解决、优化这个问题。
+
+所谓的虚拟化，就是只渲染当前屏幕视口内的元素，而不是一次性渲染所有的数据。这种方法可以减少不必要的DOM渲染，显著提升页面的渲染性能。
+
+react-window、react-virtualized是React常用的虚拟化库。
+
 ### 3. 懒加载与按需加载，减少初始时间
+
+应用随着开发的迭代，可能会越来越庞大。庞大的项目带来了代码量的积累，代码组织不好就可能会带来性能的问题。这种情况下，按需加载和懒加载的技术可以缓渲染时间的耗时。
+
+1. 按需加载组件
+
+```tsx
+import React, { Suspense, memo } from "react";
+
+const LazyComponent = React.lazy(() => import("./components/userInfo"));
+
+const User = () => {
+    return (
+        <>
+            <Suspense>
+                <LazyComponent />
+            </Suspense>
+        </>
+    )
+}
+
+export default memo(User);
+```
+
+上述案例中，LazyComponent组件并不会一开始就加载，而是在需要时才被加载，从而减少了初次加载的包体积。
+
+2. 按需加载路由
+
+```tsx
+import React, { Suspense } from 'react';
+import Layout from './layouts/layout';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+const Home = React.lazy(() => import('./pages/home'));
+const List = React.lazy(() => import('./pages/list'));
+const Detail = React.lazy(() => import("./pages/detail"));
+const About = React.lazy(() => import("./pages/about"));
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path='/' element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/list" element={<List />} />
+          <Route path="/detail" element={<Detail />} />
+          <Route path="/about" element={<About />} />
+        </Route>
+      </Routes>
+    </Router>
+  )
+}
+
+export default App
+```
+
+通过这种方式，相关的页面路由只有在路由能匹配时才会加载，也减少了项目的初次加载时间。
 
 ### 4. 减少重新渲染的其他技巧
 
