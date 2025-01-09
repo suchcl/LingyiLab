@@ -213,6 +213,43 @@ react-router路由跳转，可参考：[https://reactrouter.com/start/framework/
 
 **命令式跳转**
 
+命令式跳转，需要从react-router-dom中导入useNavite，然后通过useNavigate去跳转。
+
+```tsx
+import { memo } from "react";
+import { useNavigate } from "react-router-dom";
+
+const Home = () => {
+    const navigate = useNavigate();
+
+    // search传参
+    const btnHandleSearch = () => {
+        navigate(`/list?id=16&name=NicholasZakas`);
+    };
+
+    // state传参
+    const btnHandleState = () => {
+        navigate("/detail", {
+            state: {
+                id: 12,
+                fromHome: true
+            }
+        });
+    }
+
+    return (
+        <>
+            <div className="btn-wrap">
+                <button className="btn" onClick={btnHandleSearch}>search传参</button>
+                <button className="btn" onClick={btnHandleState}>state传参</button>
+            </div>
+        </>
+    )
+}
+
+export default memo(Home);
+```
+
 **声明式跳转**
 
 声明式跳转，简单来说就是利用react-router提供都组件去做路由跳转，有两个组件：NavLink、Link
