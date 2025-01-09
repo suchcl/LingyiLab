@@ -300,6 +300,8 @@ app2.use(plugin2);
 
 vue2的构造函数集成了太多的功能，不利于tree shaking，Vue3把这些功能使用普通函数导出，可以充分利用tree shaking，来减小打包的体积了。
 
+现代前端构建工具webpack、vite等都支持tree shaking,只需要我们在项目中使用ESM的模块机制组织代码，构建工具的tree shaking功能就会自动开启，可以有效减小代码体积，提高构建速度。
+
 ### 3.4 小结
 
 Vue3去掉构造函数，改用createApp函数，主要目的是为了：
