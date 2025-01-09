@@ -94,6 +94,36 @@ export default App
 
 ### 4. 减少重新渲染的其他技巧
 
+1. 尽量避免匿名函数和内联函数
+
+jsx中创建内联函数或者匿名函数会导致每次渲染组件时都会重新创建函数，从耳触发子组件的重新渲染。所以应该尽量避免这种写法。
+
+```tsx
+// 错误示例
+<button onClick={() => changeUser}>提交</button>
+```
+
+```tsx
+// 正确示例
+<button onClick={changeUser}>
+    提交
+</button>
+```
+
+2. 使用key优化列表渲染
+
+react渲染时使用key来标识每个元素，正确的使用key可以减少DOM操作，提升渲染效率。
+
+```tsx
+<ul>
+    {
+        list.map(item => {
+            return <li key={item.id}>{item.name}</li>
+        })
+    }
+</ul>
+```
+
 ### 5. 构建优化：减小打包体积和提高构建速度
 
 ### 6. 服务端渲染(SSR)和静态站点生成(SSG)
