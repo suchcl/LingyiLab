@@ -35,14 +35,31 @@
     - 尖括号类型断言
 
     ```ts
-    
+    let sv:unknown = "这是一个字符串";
+    console.log((<string>sv).length);
     ```
 
     - as关键字断言
 
+    ```ts
+    let sv: unknown = "这是一个字符串";
+    console.log((sv as string).length);
+    ```
+
     - 类型守卫断言
 
-    - 非空断言
+
+
+    - 非空断言:后缀!
+
+    当能够确认一个可能是null或者undefined的变量不是null或者undefined时，就可以使用非空断言操作符!.
+
+    ```ts
+    let na: string | null = null;
+    let nna: string = na!;
+    ```
+
+    变量na是一个联合类型的变量，它可以是一个string类型，也可以是一个null值。有另外一个string类型的变量nna，需要把na赋值给nna，那么就只能在na是string类型的时候才可以，这个时候就可以给na后面加1个非空断言操作符!，这样就可以把一个string类型的值重新赋值给nna。
 
 3. token无感刷新
 
