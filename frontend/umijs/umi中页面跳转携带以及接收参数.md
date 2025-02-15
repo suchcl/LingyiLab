@@ -147,4 +147,12 @@ uesHistory和useLocation都可以接收到参数，具体效果如下:
 
 > 技术方案，没有最好的，只有更合适的。我本人不认为某种方案一定优于其他的方案，在特定的场景下，只有某种合适的方案。我非常不建议做过度设计，但是在技术积累和技术视野上，已定要有前瞻性。
 
-**页面接收通过Link组件跳转时携带的参数**
+**Umi4及以上版本接收路由参数**
+
+umi4及以上版本，在通过history.push()方法进行页面跳转时携带的search参数，可以在目标页面通过useSearchParams这个hooks来接收。
+
+```ts
+import { useSearchParams } from 'umi';
+const [searchParams] = useSearchParams();
+const id = searchParams.get("id");
+```
