@@ -185,6 +185,22 @@ Redux Toolkit是一个官方推荐的用于简化Redux开发的工具包，它�
 
 createSlice是Redux Toolkit中最常用的函数之一，它的主要作用是将action creators和reducers合并在一起创建。
 
+#### 实现步骤
+
+1. **接收配置对象**
+
+createSlice函数接收一个包含name、initialState和reducers的配置对象。期中，name是slice名称，用于生成action types，initialState是初始状态，reducers用于定义reducer函数。
+
+2. **生成action types**
+
+根据name和reducers中定义的函数名自动生成唯一的action types。如name为todos，reducers中有一个名为addTodo的函数，那么自动生成的action type就是todos/addTodo.
+
+3. **创建action creators**
+
+根据reducers中的函数自动创建action creators。这些action creators会返回包含对应action type和payload的action对象。
+
+4. **创建reducer**：
+
 ### 2. createAsyncThunk原理
 
 ### 3. configureStore原理
